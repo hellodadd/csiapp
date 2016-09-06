@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.android.csiapp.Create_VP2_NewItem_Activity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:background="?attr/colorPrimary">
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/toolbar">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="@dimen/create_item_margin_bottom">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/create_item_margin_right">
+                <TextView
+                    android:layout_width="@dimen/create_item_buttom"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Item name"
+                    android:textSize="@dimen/create_vp2_textsize"
+                    android:background="@drawable/item_shape"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/required_red"/>
+            </RelativeLayout>
+            <EditText
+                android:id="@+id/item_name_editView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="write item"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="@dimen/create_item_margin_bottom">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/create_item_margin_right">
+                <TextView
+                    android:layout_width="@dimen/create_item_buttom"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Brand Model"
+                    android:textSize="@dimen/create_vp2_textsize"
+                    android:background="@drawable/item_shape"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/required_red"/>
+            </RelativeLayout>
+            <EditText
+                android:id="@+id/brand_model_editView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="write brand"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="@dimen/create_item_margin_bottom">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/create_item_margin_right">
+                <TextView
+                    android:layout_width="@dimen/create_item_buttom"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Amount"
+                    android:textSize="@dimen/create_vp2_textsize"
+                    android:background="@drawable/item_shape"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/required_red"/>
+            </RelativeLayout>
+            <EditText
+                android:id="@+id/amount_editView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="write amount"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="@dimen/create_item_margin_bottom">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/create_item_margin_right">
+                <TextView
+                    android:layout_width="@dimen/create_item_buttom"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Value"
+                    android:textSize="@dimen/create_vp2_textsize"
+                    android:background="@drawable/item_shape"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/required_red"/>
+            </RelativeLayout>
+            <EditText
+                android:id="@+id/value_editView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="write value"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="@dimen/create_item_margin_bottom">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/create_item_margin_right">
+                <TextView
+                    android:layout_width="@dimen/create_item_buttom"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Feature description"
+                    android:textSize="@dimen/create_vp2_textsize"
+                    android:background="@drawable/item_shape"/>
+            </RelativeLayout>
+            <EditText
+                android:id="@+id/feature_description_editView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="write feature"
+                android:singleLine="false" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

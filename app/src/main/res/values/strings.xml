@@ -1,0 +1,58 @@
+<resources>
+    <string name="app_name">CSI Application</string>
+
+    <!-- Strings related to Login -->
+    <string name="prompt_user">User Id</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_user">This user id is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <!-- Strings related to Main -->
+    <string name="text_create">Create</string>
+    <string name="text_list">List</string>
+    <string name="text_setting">Setting</string>
+    <string name="text_cell_scene">Scene Collection</string>
+    <string name="text_cell_signal">Signal Collection</string>
+
+    <!-- Strings related to Create Scene -->
+    <string name="title_activity_createscene">Create Scene</string>
+    <string name="action_save">Save</string>
+    <string name="title_activity_peopleinformation">People Information</string>
+    <string name="title_activity_lostitem">Lost Item</string>
+    <string name="title_activity_crimetool">Crime Tool</string>
+    <string name="title_activity_position_information">Position Inforamtion</string>
+    <string name="title_activity_new_position">New Position</string>
+    <string name="title_activity_new_evidence">New Evidence</string>
+    <!-- Strings related to List -->
+    <string name="title_activity_list">List</string>
+    <string name="list_search">Search</string>
+    <string name="list_delete">Delete</string>
+    <string name="list_upload">Upload</string>
+    <!-- Strings related to Settings -->
+    <string name="title_activity_setting">Setting</string>
+    <string name="scene_manager">Scene manager</string>
+    <string name="backup">Backup</string>
+    <string name="recovery">Recovery</string>
+    <string name="reactive">Re-active</string>
+    <string name="about">About</string>
+    <!--String related to Scene -->
+    <string name="title_activity_scene">Scene Collection</string>
+    <string name="title_activity_scene_static">Static Collection(Scene)</string>
+    <string name="title_activity_scene_dynamic">Dynamic Collection(Scene)</string>
+    <!--String related to Signal-->
+    <string name="title_activity_signal">Signal Collection</string>
+    <string name="title_activity_signal_static">Static Collection(Signal)</string>
+    <string name="title_activity_signal_dynamic">Dynamic Collection(Signal)</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+</resources>
