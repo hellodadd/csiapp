@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:background="?attr/colorPrimary">
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/toolbar"
+        android:isScrollContainer="false">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:id="@+id/new_evidence" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Category"
+                        android:textSize="@dimen/create_vp5_textsize"
+                        android:background="@drawable/item_shape"/>
+                </RelativeLayout>
+                <Button
+                    android:id="@+id/handprint"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:text="Hand print"
+                    android:textSize="@dimen/create_vp5_textsize"
+                    android:background="@drawable/form_radiobutton_nor"
+                    android:clickable="true"/>
+                <Button
+                    android:id="@+id/footprint"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:text="Foot print"
+                    android:textSize="@dimen/create_vp5_textsize"
+                    android:background="@drawable/form_radiobutton_nor"
+                    android:clickable="true"/>
+                <Button
+                    android:id="@+id/toolMark"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:text="Tool mark"
+                    android:textSize="@dimen/create_vp5_textsize"
+                    android:background="@drawable/form_radiobutton_nor"
+                    android:clickable="true"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="15dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Evidence"
+                        android:textSize="@dimen/create_vp5_textsize"
+                        android:background="@drawable/item_shape"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/evidence_spinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="15dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Evidence Name"
+                        android:textSize="@dimen/create_vp5_textsize"
+                        android:background="@drawable/item_shape"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/evidence_name_editView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="write name"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="15dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Leave Part"
+                        android:textSize="@dimen/create_vp5_textsize"
+                        android:background="@drawable/item_shape"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_red"/>
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/leave_part_editView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="write part"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="15dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Basic Feature"
+                        android:textSize="@dimen/create_vp5_textsize"
+                        android:background="@drawable/item_shape"/>
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/basice_feature_editView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="write feature"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="15dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Method"
+                        android:textSize="@dimen/create_vp5_textsize"
+                        android:background="@drawable/item_shape"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/method_spinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="15dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Time"
+                        android:textSize="@dimen/create_vp5_textsize"
+                        android:background="@drawable/item_shape"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/tiem_spinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="15dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="People"
+                        android:textSize="@dimen/create_vp5_textsize"
+                        android:background="@drawable/item_shape"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/people_spinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>

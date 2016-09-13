@@ -5,6 +5,7 @@
     tools:context=".CreateSceneActivity">
     <item
         android:id="@+id/action_save"
-        android:title="@string/action_save"
-        app:showAsAction="always" />
+        android:icon="@drawable/btn_finish"
+        app:showAsAction="always"
+        android:title=""/>
 </menu>

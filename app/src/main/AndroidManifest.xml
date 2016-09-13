@@ -10,50 +10,59 @@
     <application
         android:allowBackup="true"
         android:configChanges="orientation|keyboardHidden"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login">
+            android:label="@string/app_name" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".Csi.CreateSceneActivity">
+            <intent-filter>
+
+                <!-- 新增用的名稱 -->
+                <action android:name="com.android.csiapp.ADD_SCENE" />
+                <!-- 修改用的名稱 -->
+                <action android:name="com.android.csiapp.EDIT_SCENE" />
+                <!-- 一定要加入，內容固定不變 -->
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
-        <activity android:name=".CreateSceneActivity" />
-        <activity android:name=".ListActivity" />
-        <activity android:name=".SettingActivity" />
-        <activity android:name=".Create_ViewPager1_Activity" />
-        <activity android:name=".Create_ViewPager2_Activity" />
-        <activity android:name=".Create_VP2_NewPeople_Activity" />
-        <activity android:name=".Create_VP2_NewItem_Activity" />
-        <activity android:name=".Create_VP2_NewTool_Activity" />
-        <activity android:name=".Create_ViewPager3_Activity" />
-        <activity android:name=".Create_VP3_Position_Information_Activity" />
-        <activity android:name=".Create_VP3_NewPosition_Activity" />
-        <activity android:name=".Create_ViewPager4_Activity" />
-        <activity android:name=".Create_ViewPager5_Activtiy" />
-        <activity android:name=".Create_VP5_NewEvidence_Activity" />
-        <activity android:name=".Create_ViewPager6_Activity" />
-        <activity android:name=".Create_ViewPager7_Activity" />
-        <activity android:name=".Create_ViewPager8_Activity" />
-        <activity android:name=".SceneActivity" />
-        <activity android:name=".SceneStaticActivity" />
-        <activity android:name=".SceneDynamicActivity" />
-        <activity android:name=".SignalActivity" />
-        <activity android:name=".SignalStaticActivity" />
-        <activity android:name=".SignalDynamicActivity" />
-        <!--
-     ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
-        -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="8115000" />
+        <activity android:name=".Csi.ListActivity" />
+        <activity android:name=".Csi.SettingActivity" />
+
+        <activity android:name=".Csi.Create_FP2_NewPeople_Activity" />
+        <activity android:name=".Csi.Create_FP2_NewItem_Activity" />
+        <activity android:name=".Csi.Create_FP2_NewTool_Activity" />
+        <activity android:name=".Csi.Create_FP3_Position_Information_Activity" />
+        <activity android:name=".Csi.Create_FP3_NewPosition_Activity" />
+        <activity android:name=".Csi.Create_FP5_NewEvidence_Activity" />
+        <activity android:name=".Csi.Create_FP8_AddWitness_Activity" />
+
+        <activity android:name=".Cell.SceneActivity" />
+        <activity android:name=".Cell.SceneStaticActivity" />
+        <activity android:name=".Cell.SceneDynamicActivity" />
+        <activity android:name=".Cell.SceneStaticListActivity" />
+        <activity android:name=".Cell.SceneDynamicListActivity" />
+        <activity android:name=".Cell.SceneCreateEditActivity" />
+        <activity android:name=".Cell.SceneStaticOneKeyActivity" />
+        <activity android:name=".Cell.SceneStaticDetailInformationActivity" />
+
+        <activity android:name=".Cell.SignalActivity" />
+        <activity android:name=".Cell.SignalStaticActivity" />
+        <activity android:name=".Cell.SignalDynamicActivity" />
+        <activity android:name=".Cell.SignalStaticListActivity" />
+        <activity android:name=".Cell.SignalDynamicListActivity" />
+        <activity android:name=".Cell.SignalStaticOneKeyActivity" />
+        <activity android:name=".Cell.SignalStaticDetailInformationActivity" />
     </application>
 </manifest>

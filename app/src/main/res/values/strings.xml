@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CSI Application</string>
+    <string name="app_name">CSI</string>
 
     <!-- Strings related to Login -->
     <string name="prompt_user">User Id</string>
@@ -23,6 +23,7 @@
 
     <!-- Strings related to Create Scene -->
     <string name="title_activity_createscene">Create Scene</string>
+    <string name="title_activity_editscene">Edit Scene</string>
     <string name="action_save">Save</string>
     <string name="title_activity_peopleinformation">People Information</string>
     <string name="title_activity_lostitem">Lost Item</string>
@@ -46,13 +47,25 @@
     <string name="title_activity_scene">Scene Collection</string>
     <string name="title_activity_scene_static">Static Collection(Scene)</string>
     <string name="title_activity_scene_dynamic">Dynamic Collection(Scene)</string>
+    <string name="title_activity_scene_static_list">Scene Static Collection</string>
+    <string name="title_activity_scene_dynamic_list">Scene Dynamic Collection</string>
+    <string name="title_activity_edit">Create/Edit New Scene</string>
+    <string name="title_activity_scene_static_onekey">Information Collection Result</string>
+    <string name="title_activity_scene_static_detail_information">Detail Information</string>
     <!--String related to Signal-->
     <string name="title_activity_signal">Signal Collection</string>
     <string name="title_activity_signal_static">Static Collection(Signal)</string>
     <string name="title_activity_signal_dynamic">Dynamic Collection(Signal)</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_signal_static_list">Signal Static Collection</string>
+    <string name="title_activity_signal_dynamic_list">Signal Dynamic Collection</string>
+    <string name="title_activity_signal_static_onekey">Information Collection Result</string>
+    <string name="title_activity_signal_static_detail_information">Detail Information</string>
 
     <!-- Strings related to login -->
+    <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="error_invalid_email">This email address is invalid</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:isScrollContainer="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Casetype"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_red"/>
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/casetype_spinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Area"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/area_spinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Location"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_red"/>
+                </RelativeLayout>
+                <EditText
+                    android:id="@+id/location_editView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="write location"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Occurred Start time"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="write location"
+                    android:singleLine="true" />
+                <!--Anita test -->
+                <!--<Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/occurStartTime_spinner"
+                    android:layout_weight="1" />-->
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Occurred End time"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/occurredEndTime_spinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Access time"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/accessTime_spinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Units assigned"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/unitsAssigned_spinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Access Policemen"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/accessPolicemen_spinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Access Start time"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/accessStartTime_spinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Access End time"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/accessEndTime_spinner"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Access Location"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/accessLocation_spinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Case start process"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/caseStartProces_editView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="write process"
+                    android:singleLine="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Scene Condition"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/sceneCondition_spinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Weather condition"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/weatherCondition_spinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Wind direction"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/windDirection_spinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Temperature"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_green"/>
+                </RelativeLayout>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/temperature_spinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.android.csiapp.SceneDynamicActivity">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -53,7 +52,7 @@
                 android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:text="CU GPS"
+                android:text="CU GSM"
                 android:textSize="20sp"
                 android:padding="5dp"
                 android:background="@drawable/btn_recovery_data_hover"/>

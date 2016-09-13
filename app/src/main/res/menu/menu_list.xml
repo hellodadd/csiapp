@@ -4,15 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ListActivity">
     <item
-        android:id="@+id/action_search"
-        android:title="@string/list_search"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_delete"
-        android:title="@string/list_delete"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_upload"
-        android:title="@string/list_upload"
-        app:showAsAction="never" />
+        android:title=""
+        android:icon="@drawable/btn_title_more"
+        android:id="@+id/menu_more"
+        app:showAsAction="always" >
+        <menu>
+            <item
+                android:id="@+id/action_search"
+                android:title="@string/list_search"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_delete"
+                android:title="@string/list_delete"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_upload"
+                android:title="@string/list_upload"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+
 </menu>
