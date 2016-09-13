@@ -34,7 +34,7 @@
                     android:layout_width="@dimen/create_item_buttom"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Item name"
+                    android:text="@string/item_name"
                     android:textSize="@dimen/create_vp2_textsize"
                     android:background="@drawable/item_shape"/>
                 <ImageView
@@ -46,7 +46,7 @@
                 android:id="@+id/item_name_editView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="write item"
+                android:hint="@string/write_item"
                 android:singleLine="true" />
         </LinearLayout>
 
@@ -63,7 +63,7 @@
                     android:layout_width="@dimen/create_item_buttom"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Brand Model"
+                    android:text="@string/brand_model"
                     android:textSize="@dimen/create_vp2_textsize"
                     android:background="@drawable/item_shape"/>
                 <ImageView
@@ -75,7 +75,7 @@
                 android:id="@+id/brand_model_editView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="write brand"
+                android:hint="@string/write_brand"
                 android:singleLine="true" />
         </LinearLayout>
 
@@ -92,7 +92,7 @@
                     android:layout_width="@dimen/create_item_buttom"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Amount"
+                    android:text="@string/amount"
                     android:textSize="@dimen/create_vp2_textsize"
                     android:background="@drawable/item_shape"/>
                 <ImageView
@@ -104,7 +104,7 @@
                 android:id="@+id/amount_editView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="write amount"
+                android:hint="@string/write_amount"
                 android:singleLine="true" />
         </LinearLayout>
 
@@ -121,7 +121,7 @@
                     android:layout_width="@dimen/create_item_buttom"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Value"
+                    android:text="@string/value"
                     android:textSize="@dimen/create_vp2_textsize"
                     android:background="@drawable/item_shape"/>
                 <ImageView
@@ -133,7 +133,7 @@
                 android:id="@+id/value_editView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="write value"
+                android:hint="@string/write_value"
                 android:singleLine="true" />
         </LinearLayout>
 
@@ -150,7 +150,7 @@
                     android:layout_width="@dimen/create_item_buttom"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Feature description"
+                    android:text="@string/feature_description"
                     android:textSize="@dimen/create_vp2_textsize"
                     android:background="@drawable/item_shape"/>
             </RelativeLayout>
@@ -158,7 +158,7 @@
                 android:id="@+id/feature_description_editView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="write feature"
+                android:hint="@string/write_feature"
                 android:singleLine="false" />
         </LinearLayout>
     </LinearLayout>

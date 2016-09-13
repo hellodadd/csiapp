@@ -33,7 +33,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Casetype"
+                        android:text="@string/casetype"
                         android:textSize="@dimen/create_vp1_textsize"
                         android:background="@drawable/item_shape"/>
 
@@ -64,7 +64,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Area"
+                        android:text="@string/area"
                         android:textSize="@dimen/create_vp1_textsize"
                         android:background="@drawable/item_shape"/>
                     <ImageView
@@ -94,7 +94,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Location"
+                        android:text="@string/location"
                         android:textSize="@dimen/create_vp1_textsize"
                         android:background="@drawable/item_shape"/>
 
@@ -107,7 +107,7 @@
                     android:id="@+id/location_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="write location"
+                    android:hint="@string/write_location"
                     android:singleLine="true" />
             </LinearLayout>
 
@@ -125,7 +125,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Occurred Start time"
+                        android:text="@string/occurred_start_time"
                         android:textSize="@dimen/create_vp1_textsize"
                         android:background="@drawable/item_shape"/>
 
@@ -139,7 +139,7 @@
                     android:id="@+id/time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="write location"
+                    android:hint="@string/write_time"
                     android:singleLine="true" />
                 <!--Anita test -->
                 <!--<Spinner
@@ -164,7 +164,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Occurred End time"
+                        android:text="@string/occurred_end_time"
                         android:textSize="@dimen/create_vp1_textsize"
                         android:background="@drawable/item_shape"/>
                     <ImageView
@@ -172,12 +172,18 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/required_green"/>
                 </RelativeLayout>
-
-                <Spinner
+                <EditText
+                    android:id="@+id/occurredEndTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/write_time"
+                    android:singleLine="true" />
+                <!--Anita test -->
+                <!--<Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/occurredEndTime_spinner"
-                    android:layout_weight="1" />
+                    android:layout_weight="1" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -194,7 +200,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Access time"
+                        android:text="@string/get_access_time"
                         android:textSize="@dimen/create_vp1_textsize"
                         android:background="@drawable/item_shape" />
                     <ImageView
@@ -202,12 +208,18 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/required_green"/>
                 </RelativeLayout>
-
-                <Spinner
+                <EditText
+                    android:id="@+id/accessTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/write_time"
+                    android:singleLine="true" />
+                <!--Anita test -->
+                <!--<Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/accessTime_spinner"
-                    android:layout_weight="1" />
+                    android:layout_weight="1" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -224,7 +236,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Units assigned"
+                        android:text="@string/units_assigned"
                         android:textSize="@dimen/create_vp1_textsize"
                         android:background="@drawable/item_shape"/>
                     <ImageView
@@ -254,7 +266,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Access Policemen"
+                        android:text="@string/access_policemen"
                         android:textSize="@dimen/create_vp1_textsize"
                         android:background="@drawable/item_shape"/>
                     <ImageView
@@ -284,7 +296,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Access Start time"
+                        android:text="@string/access_start_time"
                         android:textSize="@dimen/create_vp1_textsize"
                         android:background="@drawable/item_shape"/>
                     <ImageView
@@ -293,11 +305,18 @@
                         android:src="@drawable/required_green"/>
                 </RelativeLayout>
 
-                <Spinner
+                <EditText
+                    android:id="@+id/accessStartTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/write_time"
+                    android:singleLine="true" />
+                <!--Anita test -->
+                <!--<Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/accessStartTime_spinner"
-                    android:layout_weight="1" />
+                    android:layout_weight="1" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -314,69 +333,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Access End time"
-                        android:textSize="@dimen/create_vp1_textsize"
-                        android:background="@drawable/item_shape"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/required_green"/>
-
-                </RelativeLayout>
-
-                <Spinner
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/accessEndTime_spinner"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/create_item_margin_right">
-                    <TextView
-                        android:layout_width="@dimen/create_item_buttom"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="Access Location"
-                        android:textSize="@dimen/create_vp1_textsize"
-                        android:background="@drawable/item_shape" />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/required_green"/>
-                </RelativeLayout>
-
-                <Spinner
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/accessLocation_spinner"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/create_item_margin_right">
-                    <TextView
-                        android:layout_width="@dimen/create_item_buttom"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="Case start process"
+                        android:text="@string/access_end_time"
                         android:textSize="@dimen/create_vp1_textsize"
                         android:background="@drawable/item_shape"/>
                     <ImageView
@@ -387,10 +344,85 @@
                 </RelativeLayout>
 
                 <EditText
-                    android:id="@+id/caseStartProces_editView"
+                    android:id="@+id/accessEndTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="write process"
+                    android:hint="@string/write_time"
+                    android:singleLine="true" />
+                <!--Anita test -->
+                <!--<Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/accessEndTime_spinner"
+                    android:layout_weight="1" />-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/access_location"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_red"/>
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/accessLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/write_location"
+                    android:singleLine="true" />
+                <!--Anita test -->
+                <!--<Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/accessLocation_spinner"
+                    android:layout_weight="1" />-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/create_item_margin_right">
+                    <TextView
+                        android:layout_width="@dimen/create_item_buttom"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/case_occur_process"
+                        android:textSize="@dimen/create_vp1_textsize"
+                        android:background="@drawable/item_shape"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/required_red"/>
+
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/caseOccurProces_editView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/write_process"
                     android:singleLine="true" />
 
             </LinearLayout>
@@ -409,7 +441,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Scene Condition"
+                        android:text="@string/scene_condition"
                         android:textSize="@dimen/create_vp1_textsize"
                         android:background="@drawable/item_shape"/>
                     <ImageView
@@ -418,11 +450,18 @@
                         android:src="@drawable/required_green"/>
                 </RelativeLayout>
 
-                <Spinner
+                <EditText
+                    android:id="@+id/sceneCondition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/write_scene_condition"
+                    android:singleLine="true" />
+                <!--Anita test -->
+                <!--<Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/sceneCondition_spinner"
-                    android:layout_weight="1" />
+                    android:layout_weight="1" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -439,7 +478,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Weather condition"
+                        android:text="@string/weather_condition"
                         android:textSize="@dimen/create_vp1_textsize"
                         android:background="@drawable/item_shape"/>
                     <ImageView
@@ -448,11 +487,18 @@
                         android:src="@drawable/required_green"/>
                 </RelativeLayout>
 
-                <Spinner
+                <EditText
+                    android:id="@+id/weatherCondition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/write_weather_condition"
+                    android:singleLine="true" />
+                <!--Anita test -->
+                <!--<Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/weatherCondition_spinner"
-                    android:layout_weight="1" />
+                    android:layout_weight="1" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -469,7 +515,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Wind direction"
+                        android:text="@string/wind_direction"
                         android:textSize="@dimen/create_vp1_textsize"
                         android:background="@drawable/item_shape" />
                     <ImageView
@@ -478,11 +524,18 @@
                         android:src="@drawable/required_green"/>
                 </RelativeLayout>
 
-                <Spinner
+                <EditText
+                    android:id="@+id/windDirection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/write_wind_direction"
+                    android:singleLine="true" />
+                <!--Anita test -->
+                <!--<Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/windDirection_spinner"
-                    android:layout_weight="1" />
+                    android:layout_weight="1" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -499,7 +552,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Temperature"
+                        android:text="@string/temperature"
                         android:textSize="@dimen/create_vp1_textsize"
                         android:background="@drawable/item_shape" />
                     <ImageView
@@ -508,11 +561,18 @@
                         android:src="@drawable/required_green"/>
                 </RelativeLayout>
 
-                <Spinner
+                <EditText
+                    android:id="@+id/temperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/write_temperature"
+                    android:singleLine="true" />
+                <!--Anita test -->
+                <!--<Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/temperature_spinner"
-                    android:layout_weight="1" />
+                    android:layout_weight="1" />-->
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

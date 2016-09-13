@@ -47,7 +47,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Category"
+                        android:text="@string/category"
                         android:textSize="@dimen/create_vp5_textsize"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>
@@ -56,7 +56,7 @@
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="5dp"
-                    android:text="Hand print"
+                    android:text="@string/hand_print"
                     android:textSize="@dimen/create_vp5_textsize"
                     android:background="@drawable/form_radiobutton_nor"
                     android:clickable="true"/>
@@ -65,7 +65,7 @@
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="5dp"
-                    android:text="Foot print"
+                    android:text="@string/foot_print"
                     android:textSize="@dimen/create_vp5_textsize"
                     android:background="@drawable/form_radiobutton_nor"
                     android:clickable="true"/>
@@ -73,7 +73,7 @@
                     android:id="@+id/toolMark"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
-                    android:text="Tool mark"
+                    android:text="@string/tool_mark"
                     android:textSize="@dimen/create_vp5_textsize"
                     android:background="@drawable/form_radiobutton_nor"
                     android:clickable="true"/>
@@ -92,7 +92,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Evidence"
+                        android:text="@string/evidence"
                         android:textSize="@dimen/create_vp5_textsize"
                         android:background="@drawable/item_shape"/>
                     <ImageView
@@ -101,11 +101,18 @@
                         android:src="@drawable/required_green"/>
                 </RelativeLayout>
 
-                <Spinner
+                <EditText
+                    android:id="@+id/evidence_editView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/write_evidence"
+                    android:singleLine="true" />
+                <!-- Anita test -->
+                <!--<Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/evidence_spinner"
-                    android:layout_weight="1" />
+                    android:layout_weight="1" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -121,7 +128,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Evidence Name"
+                        android:text="@string/evidence_name"
                         android:textSize="@dimen/create_vp5_textsize"
                         android:background="@drawable/item_shape"/>
                     <ImageView
@@ -134,7 +141,7 @@
                     android:id="@+id/evidence_name_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="write name"
+                    android:hint="@string/name"
                     android:singleLine="true" />
             </LinearLayout>
 
@@ -151,7 +158,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Leave Part"
+                        android:text="@string/legacy_site"
                         android:textSize="@dimen/create_vp5_textsize"
                         android:background="@drawable/item_shape"/>
                     <ImageView
@@ -161,10 +168,10 @@
                 </RelativeLayout>
 
                 <EditText
-                    android:id="@+id/leave_part_editView"
+                    android:id="@+id/legacy_site_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="write part"
+                    android:hint="@string/write_part"
                     android:singleLine="true" />
             </LinearLayout>
 
@@ -181,7 +188,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Basic Feature"
+                        android:text="@string/basic_feature"
                         android:textSize="@dimen/create_vp5_textsize"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>
@@ -190,7 +197,7 @@
                     android:id="@+id/basice_feature_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="write feature"
+                    android:hint="@string/write_feature"
                     android:singleLine="true" />
             </LinearLayout>
 
@@ -207,7 +214,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Method"
+                        android:text="@string/extraction_method"
                         android:textSize="@dimen/create_vp5_textsize"
                         android:background="@drawable/item_shape"/>
                     <ImageView
@@ -216,11 +223,18 @@
                         android:src="@drawable/required_green"/>
                 </RelativeLayout>
 
-                <Spinner
+                <EditText
+                    android:id="@+id/method_editView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/write_method"
+                    android:singleLine="true" />
+                <!-- Anita test -->
+                <!--<Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/method_spinner"
-                    android:layout_weight="1" />
+                    android:layout_weight="1" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -236,7 +250,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Time"
+                        android:text="@string/extraction_time"
                         android:textSize="@dimen/create_vp5_textsize"
                         android:background="@drawable/item_shape"/>
                     <ImageView
@@ -245,11 +259,18 @@
                         android:src="@drawable/required_green"/>
                 </RelativeLayout>
 
-                <Spinner
+                <EditText
+                    android:id="@+id/time_editView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/write_time"
+                    android:singleLine="true" />
+                <!-- Anita test -->
+                <!--<Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/tiem_spinner"
-                    android:layout_weight="1" />
+                    android:id="@+id/time_spinner"
+                    android:layout_weight="1" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -265,7 +286,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="People"
+                        android:text="@string/extraction_people"
                         android:textSize="@dimen/create_vp5_textsize"
                         android:background="@drawable/item_shape"/>
                     <ImageView
@@ -274,13 +295,19 @@
                         android:src="@drawable/required_green"/>
                 </RelativeLayout>
 
-                <Spinner
+                <EditText
+                    android:id="@+id/people_editView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/write_people"
+                    android:singleLine="true" />
+                <!-- Anita test -->
+                <!--<Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/people_spinner"
-                    android:layout_weight="1" />
+                    android:layout_weight="1" />-->
             </LinearLayout>
         </LinearLayout>
-
     </ScrollView>
 </RelativeLayout>

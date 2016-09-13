@@ -2,70 +2,187 @@
     <string name="app_name">CSI</string>
 
     <!-- Strings related to Login -->
-    <string name="prompt_user">User Id</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_user">This user id is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="prompt_user">使用者帐号</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in_short">登录</string>
+    <string name="data_recorvy">恢复数据</string>
+    <string name="error_field_required">需要輸入使用者帳號</string>
+    <string name="error_invalid_user">使用者帐号无效</string>
+    <string name="error_invalid_password">密码无效</string>
+    <string name="error_incorrect_password">密码不正確</string>
+    <string name="permission_rationale">"需要提供联系人权限"</string>
 
     <!-- Strings related to Main -->
-    <string name="text_create">Create</string>
-    <string name="text_list">List</string>
-    <string name="text_setting">Setting</string>
-    <string name="text_cell_scene">Scene Collection</string>
-    <string name="text_cell_signal">Signal Collection</string>
+    <string name="text_create">新建现场</string>
+    <string name="text_list">现场列表</string>
+    <string name="text_setting">设置</string>
+    <string name="text_cell_scene">场景采集</string>
+    <string name="text_cell_signal">信号采集</string>
 
     <!-- Strings related to Create Scene -->
-    <string name="title_activity_createscene">Create Scene</string>
-    <string name="title_activity_editscene">Edit Scene</string>
-    <string name="action_save">Save</string>
-    <string name="title_activity_peopleinformation">People Information</string>
-    <string name="title_activity_lostitem">Lost Item</string>
-    <string name="title_activity_crimetool">Crime Tool</string>
-    <string name="title_activity_position_information">Position Inforamtion</string>
-    <string name="title_activity_new_position">New Position</string>
-    <string name="title_activity_new_evidence">New Evidence</string>
+    <string name="title_activity_createscene">新建现场</string>
+    <string name="title_activity_editscene">修改现场</string>
+
+    <string name="step_1">接勘</string>
+    <string name="casetype">案件类别</string>
+    <string name="area">发案区划</string>
+    <string name="location">发案地点</string>
+    <string name="occurred_start_time">发案开始时间</string>
+    <string name="occurred_end_time">发案结束时间</string>
+    <string name="get_access_time">接勘时间</string>
+    <string name="write_location">填写地点</string>
+    <string name="units_assigned">指派单位</string>
+    <string name="access_policemen">接警人</string>
+    <string name="access_start_time">勘验开始时间</string>
+    <string name="access_end_time">勘验结束时间</string>
+    <string name="access_location">勘验地点</string>
+    <string name="case_occur_process">案件发现过程</string>
+    <string name="write_process">填写过程</string>
+    <string name="scene_condition">现场条件</string>
+    <string name="write_scene_condition">填写现场条件</string>
+    <string name="weather_condition">天气状况</string>
+    <string name="write_weather_condition">填写天气状况</string>
+    <string name="wind_direction">风向</string>
+    <string name="write_wind_direction">填写风向</string>
+    <string name="temperature">温度</string>
+    <string name="write_temperature">填写温度</string>
+
+    <string name="step_2">现场访问</string>
+    <string name="add_people">添加关联人</string>
+    <string name="add_item">添加损失物品</string>
+    <string name="add_tools">添加作案工具</string>
+    <string name="title_activity_peopleinformation">关联人信息</string>
+    <string name="informant">报案人</string>
+    <string name="victim">被害人</string>
+    <string name="name">姓名</string>
+    <string name="write_name">填写姓名</string>
+    <string name="sex">性别</string>
+    <string name="man">男</string>
+    <string name="woman">女</string>
+    <string name="identity_number">身分证号</string>
+    <string name="write_number">填写号码</string>
+    <string name="contact_number">联系电话</string>
+    <string name="living_address">现居地址</string>
+    <string name="write_address">填写地址</string>
+    <string name="title_activity_lostitem">损失物品</string>
+    <string name="item_name">品名</string>
+    <string name="write_item">填写名稱</string>
+    <string name="brand_model">厂牌型号</string>
+    <string name="write_brand">填写厂牌</string>
+    <string name="amount">数量</string>
+    <string name="write_amount">填写数量</string>
+    <string name="value">价值（元）</string>
+    <string name="write_value">填写价值（元）</string>
+    <string name="feature_description">特征描述</string>
+    <string name="write_feature">填写特征</string>
+    <string name="title_activity_crimetool">作案工具</string>
+    <string name="tool_name">工具名称</string>
+    <string name="write_tool">填写名称</string>
+    <string name="tool_category">工具数目</string>
+    <string name="write_category">填写数目</string>
+    <string name="tool_source">工具来源</string>
+    <string name="write_source">填写来源</string>
+
+    <string name="step_3">现场图</string>
+    <string name="position">方位示意图</string>
+    <string name="title_activity_position_information">方位示意图</string>
+    <string name="title_activity_new_position">方位示意图</string>
+    <string name="screen_shot">截取</string>
+    <string name="step_4">现场照片</string>
+    <string name="position_image">方位照片</string>
+    <string name="like_image">概貌照片</string>
+    <string name="important_position">重点部位</string>
+
+    <string name="step_5">痕迹物证</string>
+    <string name="scene_evidence">现场痕迹</string>
+    <string name="title_activity_new_evidence">现场痕迹</string>
+    <string name="category">类型</string>
+    <string name="hand_print">手印</string>
+    <string name="foot_print">足迹</string>
+    <string name="tool_mark">工痕</string>
+    <string name="evidence">手印痕迹</string>
+    <string name="write_evidence">填写痕迹</string>
+    <string name="evidence_name">物证名称</string>
+    <string name="legacy_site">遗留部位</string>
+    <string name="write_part">填写部位</string>
+    <string name="basic_feature">基本特征</string>
+    <string name="extraction_method">提取方法</string>
+    <string name="write_method">填写方法</string>
+    <string name="extraction_time">提取时间</string>
+    <string name="write_time">填写时间</string>
+    <string name="extraction_people">提取人</string>
+    <string name="write_people">填写人名</string>
+
+    <string name="step_6">勘验情况</string>
+    <string name="automatic_generated">自动生成</string>
+
+    <string name="step_7">分析意见</string>
+    <string name="crime_people_number">作案人数</string>
+    <string name="crime_means">作案手段</string>
+    <string name="crime_character">案件性质</string>
+    <string name="crime_entrance">作案入口</string>
+    <string name="crime_timing">作案时机</string>
+    <string name="select_object">选择对象</string>
+    <string name="crime_export">作案出口</string>
+    <string name="people_feature">作案人特点</string>
+    <string name="crime_feature">作案特点</string>
+    <string name="intrusive_method">侵入方式</string>
+    <string name="select_location">选择处所</string>
+    <string name="crime_purpose">作案动机目的</string>
+
+    <string name="step_8">见证人</string>
+    <string name="add_witness_inforamtion">添加见证人</string>
+    <string name="title_activity_witness_peopleinformation">见证人信息</string>
+    <string name="birthday_date">出生日期</string>
+    <string name="write_birthday_date">填写日期</string>
+
     <!-- Strings related to List -->
-    <string name="title_activity_list">List</string>
-    <string name="list_search">Search</string>
-    <string name="list_delete">Delete</string>
-    <string name="list_upload">Upload</string>
+    <string name="title_activity_list">现场列表</string>
+    <string name="casetype_item">类型 :</string>
+    <string name="area_item">区域 :</string>
+    <string name="time_item">时间 :</string>
+    <string name="list_search">搜索</string>
+    <string name="list_delete">删除</string>
+    <string name="list_upload">上传</string>
     <!-- Strings related to Settings -->
-    <string name="title_activity_setting">Setting</string>
-    <string name="scene_manager">Scene manager</string>
-    <string name="backup">Backup</string>
-    <string name="recovery">Recovery</string>
-    <string name="reactive">Re-active</string>
-    <string name="about">About</string>
+    <string name="title_activity_setting">设置</string>
+    <string name="scene_manager">现场管理</string>
+    <string name="backup">备份数据</string>
+    <string name="recovery">恢复数据</string>
+    <string name="reactive">重新激活</string>
+    <string name="about">关于</string>
     <!--String related to Scene -->
-    <string name="title_activity_scene">Scene Collection</string>
-    <string name="title_activity_scene_static">Static Collection(Scene)</string>
-    <string name="title_activity_scene_dynamic">Dynamic Collection(Scene)</string>
-    <string name="title_activity_scene_static_list">Scene Static Collection</string>
-    <string name="title_activity_scene_dynamic_list">Scene Dynamic Collection</string>
-    <string name="title_activity_edit">Create/Edit New Scene</string>
-    <string name="title_activity_scene_static_onekey">Information Collection Result</string>
-    <string name="title_activity_scene_static_detail_information">Detail Information</string>
+    <string name="title_activity_scene">场景采集</string>
+    <string name="title_activity_scene_static">静态采集(场景)</string>
+    <string name="title_activity_scene_dynamic">动态采集(场景)</string>
+    <string name="title_activity_scene_static_list">场景静态采集</string>
+    <string name="title_activity_scene_dynamic_list">场景动态采集</string>
+    <string name="title_activity_edit">新建/编辑现场</string>
+    <string name="title_activity_scene_static_onekey">场景采集結果</string>
+    <string name="title_activity_scene_static_detail_information">查看详细</string>
     <!--String related to Signal-->
-    <string name="title_activity_signal">Signal Collection</string>
-    <string name="title_activity_signal_static">Static Collection(Signal)</string>
-    <string name="title_activity_signal_dynamic">Dynamic Collection(Signal)</string>
-    <string name="title_activity_signal_static_list">Signal Static Collection</string>
-    <string name="title_activity_signal_dynamic_list">Signal Dynamic Collection</string>
-    <string name="title_activity_signal_static_onekey">Information Collection Result</string>
-    <string name="title_activity_signal_static_detail_information">Detail Information</string>
+    <string name="title_activity_signal">信号采集</string>
+    <string name="title_activity_signal_static">静态采集(Signal)</string>
+    <string name="title_activity_signal_dynamic">动态采集(Signal)</string>
+    <string name="title_activity_signal_static_list">信号静态采集</string>
+    <string name="title_activity_signal_dynamic_list">信号动态采集</string>
+    <string name="title_activity_signal_static_onekey">信号采集結果</string>
+    <string name="title_activity_signal_static_detail_information">查看详细</string>
 
-    <!-- Strings related to login -->
-    <string name="title_activity_login">Sign in</string>
-    <string name="prompt_email">Email</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="static_collection">静态采集</string>
+    <string name="dynamic_collection">动态采集</string>
+    <string name="gps">GPS</string>
+    <string name="ct_cdma">电信CDMA</string>
+    <string name="cmcc_gsm">移动GSM</string>
+    <string name="cu_gsm">联通GSM</string>
+    <string name="cu_wcdma">联通WCDMA</string>
+    <string name="cmcc_td_scdma">移动TD-SCDMA</string>
+    <string name="one_key_to_collect">一键采集</string>
+    <string name="result">结果</string>
+    <string name="re_collection">全部重新采集</string>
+    <string name="enter_the_scene_name">请输入场所名称</string>
+    <string name="enter_the_scene_address">请输入场所地址</string>
+    <string name="scene_category">场所类别</string>
+    <string name="impoerant_section">重点地段</string>
+    <string name="scene_type">地段类型</string>
 </resources>

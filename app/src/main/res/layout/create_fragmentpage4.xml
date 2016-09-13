@@ -31,7 +31,7 @@
                         android:layout_height="@dimen/create_item2_h_buttom"
                         android:gravity="center"
                         android:drawableLeft="@drawable/img_subtitle_item"
-                        android:text="Position Image"
+                        android:text="@string/position_image"
                         android:textSize="@dimen/create_vp4_textsize"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>
@@ -58,7 +58,7 @@
                         android:layout_height="@dimen/create_item2_h_buttom"
                         android:gravity="center"
                         android:drawableLeft="@drawable/img_subtitle_item"
-                        android:text="Like Image"
+                        android:text="@string/like_image"
                         android:textSize="@dimen/create_vp4_textsize"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>
@@ -85,7 +85,7 @@
                         android:layout_height="@dimen/create_item2_h_buttom"
                         android:gravity="center"
                         android:drawableLeft="@drawable/img_subtitle_item"
-                        android:text="Important Position"
+                        android:text="@string/important_position"
                         android:textSize="@dimen/create_vp4_textsize"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>

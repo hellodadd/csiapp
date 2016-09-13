@@ -31,7 +31,7 @@
                         android:layout_height="@dimen/create_item2_h_buttom"
                         android:gravity="center"
                         android:drawableLeft="@drawable/img_subtitle_item"
-                        android:text="Position"
+                        android:text="@string/position"
                         android:textSize="@dimen/create_vp3_textsize"
                         android:background="@drawable/item_shape"/>
 

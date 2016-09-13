@@ -32,7 +32,7 @@
                 android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:text="CT CDMA"
+                android:text="@string/ct_cdma"
                 android:textSize="20sp"
                 android:padding="5dp"
                 android:background="@drawable/btn_recovery_data_hover"/>
@@ -42,7 +42,7 @@
                 android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:text="CMCC GSM"
+                android:text="@string/cmcc_gsm"
                 android:textSize="20sp"
                 android:padding="5dp"
                 android:background="@drawable/btn_recovery_data_hover"/>
@@ -52,7 +52,7 @@
                 android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:text="CU GSM"
+                android:text="@string/cu_gsm"
                 android:textSize="20sp"
                 android:padding="5dp"
                 android:background="@drawable/btn_recovery_data_hover"/>
@@ -62,7 +62,7 @@
                 android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:text="CU WCDMA"
+                android:text="@string/cu_wcdma"
                 android:textSize="20sp"
                 android:padding="5dp"
                 android:background="@drawable/btn_recovery_data_hover"/>
@@ -72,7 +72,7 @@
                 android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:text="CMCC TD-SCDMA"
+                android:text="@string/cmcc_td_scdma"
                 android:textSize="20sp"
                 android:padding="5dp"
                 android:background="@drawable/btn_recovery_data_hover"/>

@@ -31,7 +31,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Add Witness Inforamtion"
+                android:text="@string/add_witness_inforamtion"
                 android:textSize="@dimen/create_vp8_textsize"
                 android:drawableLeft="@drawable/img_add_p"
                 android:layout_centerHorizontal="true"

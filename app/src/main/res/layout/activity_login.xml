@@ -109,7 +109,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
-                    android:text="Data recorvy"
+                    android:text="@string/data_recorvy"
                     android:id="@+id/data_recorvy_button"
                     android:padding="5dp"
                     android:gravity="center"

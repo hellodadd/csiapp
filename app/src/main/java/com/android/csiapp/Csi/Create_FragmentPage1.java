@@ -30,7 +30,15 @@ public class Create_FragmentPage1 extends Fragment {
     private String[] area = {"Taipei", "Taoyuan", "Taichung", "Tainan", "Kaohsiung"};
     private ArrayAdapter<String> area_adapter;
 
-    private EditText time;//Anita test
+    //Anita test start
+    private EditText time;
+    private Spinner unitsAssigned_spinner;
+    private String[] unitsAssigned = {"110 ", "112", "999"};
+    private ArrayAdapter<String> unitsAssigned_adapter;
+    private Spinner accessPolicemen_spinner;
+    private String[] accessPolicemen = {"Yang ", "Lin", "Chen"};
+    private ArrayAdapter<String> accessPolicemen_adapter;
+    //Anita test end
 
     public Create_FragmentPage1() {
         // Required empty public constructor
@@ -85,6 +93,31 @@ public class Create_FragmentPage1 extends Fragment {
             }
             @Override
             public void afterTextChanged(Editable s) {
+            }
+        });
+        unitsAssigned_spinner = (Spinner) view.findViewById(R.id.unitsAssigned_spinner);
+        unitsAssigned_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, unitsAssigned);
+        unitsAssigned_spinner.setAdapter(unitsAssigned_adapter);
+        unitsAssigned_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                item.setCasetype(unitsAssigned[position]);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+        accessPolicemen_spinner = (Spinner) view.findViewById(R.id.accessPolicemen_spinner);
+        accessPolicemen_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, accessPolicemen);
+        accessPolicemen_spinner.setAdapter(accessPolicemen_adapter);
+        accessPolicemen_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                item.setArea(accessPolicemen[position]);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
         //Anita test end

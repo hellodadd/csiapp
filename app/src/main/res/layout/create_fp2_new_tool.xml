@@ -34,7 +34,7 @@
                     android:layout_width="@dimen/create_item_buttom"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Tool name"
+                    android:text="@string/tool_name"
                     android:textSize="@dimen/create_vp2_textsize"
                     android:background="@drawable/item_shape"/>
                 <ImageView
@@ -46,7 +46,7 @@
                 android:id="@+id/tool_name_editView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="write tool"
+                android:hint="@string/write_tool"
                 android:singleLine="true" />
         </LinearLayout>
 
@@ -63,7 +63,7 @@
                     android:layout_width="@dimen/create_item_buttom"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Tool Category"
+                    android:text="@string/tool_category"
                     android:textSize="@dimen/create_vp2_textsize"
                     android:background="@drawable/item_shape"/>
                 <ImageView
@@ -71,12 +71,18 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/required_red"/>
             </RelativeLayout>
-
-            <Spinner
+            <EditText
+                android:id="@+id/tool_category_editView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/write_category"
+                android:singleLine="true" />
+            <!-- Anita test -->
+            <!-- <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/tool_category_spinner"
-                android:layout_weight="1" />
+                android:layout_weight="1" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -92,7 +98,7 @@
                     android:layout_width="@dimen/create_item_buttom"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Tool source"
+                    android:text="@string/tool_source"
                     android:textSize="@dimen/create_vp2_textsize"
                     android:background="@drawable/item_shape"/>
                 <ImageView
@@ -101,11 +107,18 @@
                     android:src="@drawable/required_red"/>
             </RelativeLayout>
 
-            <Spinner
+            <EditText
+                android:id="@+id/tool_source_editView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/write_source"
+                android:singleLine="true" />
+            <!-- Anita test -->
+            <!--<Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/tool_source_spinner"
-                android:layout_weight="1" />
+                android:layout_weight="1" />-->
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

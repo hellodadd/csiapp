@@ -32,7 +32,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Crime People number"
+                        android:text="@string/crime_people_number"
                         android:textSize="@dimen/create_vp7_textsize"
                         android:background="@drawable/item_shape"/>
                     <ImageView
@@ -62,7 +62,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Crime Means"
+                        android:text="@string/crime_means"
                         android:textSize="@dimen/create_vp7_textsize"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>
@@ -86,7 +86,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Crime Character"
+                        android:text="@string/crime_character"
                         android:textSize="@dimen/create_vp7_textsize"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>
@@ -110,7 +110,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Crime Entrance"
+                        android:text="@string/crime_entrance"
                         android:textSize="@dimen/create_vp7_textsize"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>
@@ -134,7 +134,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Crime Timing"
+                        android:text="@string/crime_timing"
                         android:textSize="@dimen/create_vp7_textsize"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>
@@ -158,7 +158,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Select Object"
+                        android:text="@string/select_object"
                         android:textSize="@dimen/create_vp7_textsize"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>
@@ -182,7 +182,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Crime Export"
+                        android:text="@string/crime_export"
                         android:textSize="@dimen/create_vp7_textsize"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>
@@ -206,7 +206,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="People Feature"
+                        android:text="@string/people_feature"
                         android:textSize="@dimen/create_vp7_textsize"
                         android:background="@drawable/item_shape"/>
                     <ImageView
@@ -218,7 +218,7 @@
                     android:id="@+id/peopleFeature_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="write feature"
+                    android:hint="@string/write_feature"
                     android:singleLine="false" />
             </LinearLayout>
 
@@ -235,7 +235,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Crime Feature"
+                        android:text="@string/crime_feature"
                         android:textSize="@dimen/create_vp7_textsize"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>
@@ -259,7 +259,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Intrusive Method"
+                        android:text="@string/intrusive_method"
                         android:textSize="@dimen/create_vp7_textsize"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>
@@ -283,7 +283,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Select Location"
+                        android:text="@string/select_location"
                         android:textSize="@dimen/create_vp7_textsize"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>
@@ -307,7 +307,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Crime Purpose"
+                        android:text="@string/crime_purpose"
                         android:textSize="@dimen/create_vp7_textsize"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>

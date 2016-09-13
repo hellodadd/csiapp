@@ -34,7 +34,7 @@
                     android:layout_width="@dimen/create_item_buttom"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Name"
+                    android:text="@string/name"
                     android:textSize="@dimen/create_vp2_textsize"
                     android:background="@drawable/item_shape"/>
                 <ImageView
@@ -46,7 +46,7 @@
                 android:id="@+id/name_editView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="write name"
+                android:hint="@string/write_name"
                 android:singleLine="true" />
         </LinearLayout>
 
@@ -63,7 +63,7 @@
                     android:layout_width="@dimen/create_item_buttom"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Sex"
+                    android:text="@string/sex"
                     android:textSize="@dimen/create_vp2_textsize"
                     android:background="@drawable/item_shape"/>
             </RelativeLayout>
@@ -72,14 +72,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/create_item_margin_right"
-                android:text="Man"
+                android:text="@string/man"
                 android:background="@drawable/form_radiobutton_nor"
                 android:clickable="true"/>
             <Button
                 android:id="@+id/woman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Woman"
+                android:text="@string/woman"
                 android:background="@drawable/form_radiobutton_nor"
                 android:clickable="true"/>
         </LinearLayout>
@@ -97,15 +97,23 @@
                     android:layout_width="@dimen/create_item_buttom"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Birthday Date"
+                    android:text="@string/birthday_date"
                     android:textSize="@dimen/create_vp2_textsize"
                     android:background="@drawable/item_shape"/>
             </RelativeLayout>
-            <Spinner
+
+            <EditText
+                android:id="@+id/birthday_date_editView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/write_birthday_date"
+                android:singleLine="true" />
+            <!-- Anita test -->
+            <!--<Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/tool_category_spinner"
-                android:layout_weight="1" />
+                android:id="@+id/birthday_date_spinner"
+                android:layout_weight="1" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -121,7 +129,7 @@
                     android:layout_width="@dimen/create_item_buttom"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Contact number"
+                    android:text="@string/contact_number"
                     android:textSize="@dimen/create_vp2_textsize"
                     android:background="@drawable/item_shape"/>
             </RelativeLayout>
@@ -129,7 +137,7 @@
                 android:id="@+id/contact_number_editView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="write number"
+                android:hint="@string/write_number"
                 android:singleLine="true" />
         </LinearLayout>
 
@@ -146,7 +154,7 @@
                     android:layout_width="@dimen/create_item_buttom"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Living address"
+                    android:text="@string/living_address"
                     android:textSize="@dimen/create_vp2_textsize"
                     android:background="@drawable/item_shape"/>
             </RelativeLayout>
@@ -154,7 +162,7 @@
                 android:id="@+id/address_editView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="write address"
+                android:hint="@string/write_address"
                 android:singleLine="true" />
         </LinearLayout>
     </LinearLayout>

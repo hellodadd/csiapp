@@ -26,7 +26,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="CaseType : "
+                    android:text="@string/casetype_item"
                     android:textSize="@dimen/list_textsize" />
                 <TextView
                     android:id="@+id/casetype"
@@ -43,7 +43,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Area : "
+                    android:text="@string/area_item"
                     android:textSize="@dimen/list_textsize" />
                 <TextView
                     android:id="@+id/area"
@@ -60,7 +60,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Time : "
+                    android:text="@string/time_item"
                     android:textSize="@dimen/list_textsize" />
                 <TextView
                     android:id="@+id/time"

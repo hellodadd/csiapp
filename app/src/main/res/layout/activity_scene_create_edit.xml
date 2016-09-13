@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:text="Enter the scene name"
+                android:text="@string/enter_the_scene_name"
                 android:textSize="20sp"/>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:text="Enter the scene address"
+                android:text="@string/enter_the_scene_address"
                 android:textSize="20sp"/>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Scene Category"
+                        android:text="@string/scene_category"
                         android:textSize="20sp"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>
@@ -95,7 +95,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Impoerant Section"
+                        android:text="@string/impoerant_section"
                         android:textSize="20sp"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>
@@ -120,7 +120,7 @@
                         android:layout_width="@dimen/create_item_buttom"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Scene Type"
+                        android:text="@string/scene_type"
                         android:textSize="20sp"
                         android:background="@drawable/item_shape"/>
                 </RelativeLayout>

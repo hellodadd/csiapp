@@ -46,7 +46,7 @@ public class Create_FP8_AddWitness_Activity extends AppCompatActivity {
         context = this.getApplicationContext();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(context.getResources().getString(R.string.title_activity_peopleinformation));
+        toolbar.setTitle(context.getResources().getString(R.string.title_activity_witness_peopleinformation));
         toolbar.setTitleTextColor(context.getResources().getColor(R.color.titleBar));
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.btn_back_mini);

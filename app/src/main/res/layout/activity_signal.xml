@@ -32,7 +32,7 @@
                 android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:text="Static Collection"
+                android:text="@string/static_collection"
                 android:textSize="20sp"
                 android:padding="5dp"
                 android:background="@drawable/btn_recovery_data_hover"/>
@@ -42,7 +42,7 @@
                 android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:text="Dynamic Collection"
+                android:text="@string/dynamic_collection"
                 android:textSize="20sp"
                 android:padding="5dp"
                 android:background="@drawable/btn_recovery_data_hover"/>
