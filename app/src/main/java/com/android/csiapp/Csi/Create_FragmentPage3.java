@@ -1,8 +1,13 @@
 package com.android.csiapp.Csi;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,9 +38,21 @@ public class Create_FragmentPage3 extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getActivity(), Create_FP3_NewPosition_Activity.class);
-                startActivity(it);
+                startActivityForResult(it, 0);
             }
         });
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("BaiduMap","onActivityResult");
+        if (resultCode == Activity.RESULT_OK && requestCode == 0) {
+                String filepath = data.getStringExtra("BaiduMap_ScreenShot");
+                Log.d("BaiduMap","onActivityResult, filepath: " + filepath);
+                Bitmap Bitmap = BitmapFactory.decodeFile(filepath);
+                BitmapDrawable bDrawable = new BitmapDrawable(getActivity().getApplicationContext().getResources(), Bitmap);
+                position.setBackground(bDrawable);
+        }
     }
 }

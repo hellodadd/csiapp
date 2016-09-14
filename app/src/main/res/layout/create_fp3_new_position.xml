@@ -11,6 +11,17 @@
         android:background="?attr/colorPrimary">
     </android.support.v7.widget.Toolbar>
 
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/button_mylocation"
+        android:onClick="onClick_myLocation"
+        android:background="@drawable/custom_loc"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="25dp" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -19,7 +30,14 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/toolbar"
+        android:id="@+id/linearLayout">
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/baiDuMv"
+            android:layout_width="fill_parent"
+            android:layout_height="420dp"
+            android:clickable="true" />
 
         <LinearLayout
             android:layout_width="match_parent"
