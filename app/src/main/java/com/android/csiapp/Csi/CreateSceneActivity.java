@@ -67,7 +67,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
             }
             //Anita test
             if(item.getTime().isEmpty()) {
-                Toast.makeText(CreateSceneActivity.this, "Occurred Start Time need to fill in", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateSceneActivity.this, "需要填写发案开始时间", Toast.LENGTH_SHORT).show();
             }else{
                 finish();
             }
