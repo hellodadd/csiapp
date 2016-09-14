@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.android.csiapp"
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -26,4 +26,22 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    provided files(getLayoutLibPath())
+}
+
+def getLayoutLibPath() {
+    def rootDir = project.rootDir
+    def localProperties = new File(rootDir, "local.properties")
+    if (localProperties.exists()) {
+        Properties properties = new Properties()
+        localProperties.withInputStream {
+            instr -> properties.load(instr)
+        }
+        def sdkDir = properties.getProperty('sdk.dir')
+        def compileSdkVersion = android.compileSdkVersion
+        Console.println("app compileSdkVersion : " + compileSdkVersion)
+        def androidJarPath = sdkDir + "/platforms/" + compileSdkVersion + "/data/layoutlib.jar"
+        return androidJarPath
+    }
+    return rootDir
 }

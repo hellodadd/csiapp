@@ -15,6 +15,8 @@ import android.widget.Spinner;
 import com.android.csiapp.Item;
 import com.android.csiapp.R;
 
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -24,19 +26,19 @@ public class Create_FragmentPage1 extends Fragment {
     private int event;
 
     private Spinner casetype_spinner;
-    private String[] casetype = {"Steal electric bicycle","Steal Animal","Pickpocketing","Steal motorcycle","Steal bicycle","Robbery","Hurt","Snatch","Bilk"};
+    private ArrayList<String> casetype = new ArrayList<String>();
     private ArrayAdapter<String> casetype_adapter;
     private Spinner area_spinner;
-    private String[] area = {"Taipei", "Taoyuan", "Taichung", "Tainan", "Kaohsiung"};
+    private ArrayList<String> area = new ArrayList<String>();
     private ArrayAdapter<String> area_adapter;
 
     //Anita test start
     private EditText time;
     private Spinner unitsAssigned_spinner;
-    private String[] unitsAssigned = {"110 ", "112", "999"};
+    private String[] unitsAssigned = {"110指挥中心 ", "112指挥中心", "999指挥中心"};
     private ArrayAdapter<String> unitsAssigned_adapter;
     private Spinner accessPolicemen_spinner;
-    private String[] accessPolicemen = {"Yang ", "Lin", "Chen"};
+    private String[] accessPolicemen = {"杨警官 ", "林警官", "陈警官"};
     private ArrayAdapter<String> accessPolicemen_adapter;
     //Anita test end
 
@@ -50,26 +52,41 @@ public class Create_FragmentPage1 extends Fragment {
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
         item = activity.getItem();
         event = activity.getEvent();
+
+        casetype.add(getString(R.string.steal_electric_bicycle));
+        casetype.add(getString(R.string.steal_animal));
+        casetype.add(getString(R.string.pickpocketing));
+        casetype.add(getString(R.string.steal_motorcycle));
+        casetype.add(getString(R.string.steal_bicycle));
+        casetype.add(getString(R.string.robbery));
+        casetype.add(getString(R.string.hurt));
+        casetype.add(getString(R.string.snatch));
+        casetype.add(getString(R.string.bilk));
         casetype_spinner = (Spinner) view.findViewById(R.id.casetype_spinner);
         casetype_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, casetype);
         casetype_spinner.setAdapter(casetype_adapter);
         casetype_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                item.setCasetype(casetype[position]);
+                item.setCasetype(casetype.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
 
+        area.add(getString(R.string.shanghai));
+        area.add(getString(R.string.beijing));
+        area.add(getString(R.string.nanjing));
+        area.add(getString(R.string.shenzhen));
+        area.add(getString(R.string.tianjin));
         area_spinner = (Spinner) view.findViewById(R.id.area_spinner);
         area_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, area);
         area_spinner.setAdapter(area_adapter);
         area_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                item.setArea(area[position]);
+                item.setArea(area.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -101,7 +118,6 @@ public class Create_FragmentPage1 extends Fragment {
         unitsAssigned_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                item.setCasetype(unitsAssigned[position]);
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -114,7 +130,6 @@ public class Create_FragmentPage1 extends Fragment {
         accessPolicemen_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                item.setArea(accessPolicemen[position]);
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -126,14 +141,14 @@ public class Create_FragmentPage1 extends Fragment {
 
     //Anita test start
     private int getCategory(String category){
-        for(int i=0; i<casetype.length; i++){
-            if(category.equalsIgnoreCase(casetype[i])) return i;
+        for(int i=0; i<casetype.size(); i++){
+            if(category.equalsIgnoreCase(casetype.get(i))) return i;
         }
         return 0;
     }
     private int getArea(String category){
-        for(int i=0; i<area.length; i++){
-            if(category.equalsIgnoreCase(area[i])) return i;
+        for(int i=0; i<area.size(); i++){
+            if(category.equalsIgnoreCase(area.get(i))) return i;
         }
         return 0;
     }

@@ -158,8 +158,8 @@ public class Csi_provider {
 
     // 建立範例資料
     public void sample() {
-        Item item = new Item(0, "Hurt", "Taipei","1:30");
-        Item item2 = new Item(0, "Bilk", "Tainan","2:30");
+        Item item = new Item(0, "故意伤害", "北京","1:30");
+        Item item2 = new Item(0, "诈骗", "南京","2:30");
 
         insert(item);
         insert(item2);

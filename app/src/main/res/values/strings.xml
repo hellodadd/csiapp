@@ -185,4 +185,19 @@
     <string name="scene_category">场所类别</string>
     <string name="impoerant_section">重点地段</string>
     <string name="scene_type">地段类型</string>
+
+    <string name="steal_electric_bicycle">盗窃电动自行车</string>
+    <string name="steal_animal">盗窃牲畜</string>
+    <string name="pickpocketing">扒窃</string>
+    <string name="steal_motorcycle">盗窃摩托车</string>
+    <string name="steal_bicycle">盗窃自行车</string>
+    <string name="robbery">挡路抢劫</string>
+    <string name="hurt">故意伤害</string>
+    <string name="snatch">抢夺</string>
+    <string name="bilk">诈骗</string>
+    <string name="shanghai">上海</string>
+    <string name="beijing">北京</string>
+    <string name="nanjing">南京</string>
+    <string name="shenzhen">深圳</string>
+    <string name="tianjin">天津</string>
 </resources>
