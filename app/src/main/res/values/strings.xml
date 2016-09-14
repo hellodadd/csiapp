@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CSI</string>
+    <string name="app_name">卓易快勘</string>
 
     <!-- Strings related to Login -->
     <string name="prompt_user">使用者帐号</string>
