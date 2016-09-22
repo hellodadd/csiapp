@@ -30,6 +30,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                 android:background="@drawable/form_text_nor" >
@@ -46,6 +47,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_marginBottom="3dp"
                     android:hint="@string/prompt_user"
+                    android:textColor="#000000"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -71,6 +73,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_marginBottom="3dp"
                     android:hint="@string/prompt_password"
+                    android:textColor="#000000"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
@@ -89,7 +92,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="50dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                 android:gravity="center"
