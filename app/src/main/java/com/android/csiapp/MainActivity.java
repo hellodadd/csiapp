@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
 
         // 如果資料庫是空的，就建立一些範例資料
         // 這是為了方便測試用的，完成應用程式以後可以拿掉
-        if (csi_item.getCount() == 0) {
-            csi_item.sample();
-        }
+        //if (csi_item.getCount() == 0) {
+        //    csi_item.sample();
+        //}
 
         mCreate = (Button) findViewById(R.id.imageButton_create);
         mCreate.setOnClickListener(new OnClickListener() {

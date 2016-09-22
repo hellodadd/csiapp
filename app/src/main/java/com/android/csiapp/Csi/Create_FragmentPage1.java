@@ -125,6 +125,7 @@ public class Create_FragmentPage1 extends Fragment implements View.OnClickListen
             get_access_time.setText(item.getTime());
         }else{
             occurred_start_time.setText(Item.getCurrentTime(c));
+            item.setTime(occurred_start_time.getText().toString());
             occurred_end_time.setText(Item.getCurrentTime(c));
             get_access_time.setText(Item.getCurrentTime(c));
         }
@@ -191,16 +192,13 @@ public class Create_FragmentPage1 extends Fragment implements View.OnClickListen
         // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.occurred_start_time_button:
-                showDateTimeDialog();
-                occurred_start_time.setText(Item.getCurrentTime(c));
+                showDateTimeDialog(occurred_start_time);
                 break;
             case R.id.occurred_end_time_button:
-                showDateTimeDialog();
-                occurred_end_time.setText(Item.getCurrentTime(c));
+                showDateTimeDialog(occurred_end_time);
                 break;
             case R.id.get_access_time_button:
-                showDateTimeDialog();
-                get_access_time.setText(Item.getCurrentTime(c));
+                showDateTimeDialog(get_access_time);
                 break;
             default:
                 break;
@@ -208,7 +206,7 @@ public class Create_FragmentPage1 extends Fragment implements View.OnClickListen
     }
 
 
-    public void showDateTimeDialog() {
+    public void showDateTimeDialog(final TextView textView) {
         // Create the dialog
         final Dialog mDateTimeDialog = new Dialog(getContext());
         // Inflate the root layout
@@ -223,6 +221,8 @@ public class Create_FragmentPage1 extends Fragment implements View.OnClickListen
                 mDateTimePicker.clearFocus();
                 // TODO Auto-generated method stub
                 c = mDateTimePicker.get();
+                textView.setText(Item.getCurrentTime(c));
+                item.setTime(textView.getText().toString());
                 mDateTimeDialog.dismiss();
             }
         });

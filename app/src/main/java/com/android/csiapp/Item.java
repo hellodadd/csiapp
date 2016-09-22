@@ -84,7 +84,7 @@ public class Item implements Serializable {
         else {sb.append("" + (a[2]));}
         sb.append("日\n");
         if (a[3]<10) {sb.append(" 0" + (a[3]));}
-        else {sb.append(" " + (a[3]));}
+        else {sb.append("" + (a[3]));}
         sb.append("時");
         if (a[4]<10) {sb.append("0" + a[4]);}
         else {sb.append("" + a[4]);}

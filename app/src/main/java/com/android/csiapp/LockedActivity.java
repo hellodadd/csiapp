@@ -27,7 +27,7 @@ public class LockedActivity extends AppCompatActivity {
 
     private void attemptLogin() {
         //Toast.makeText(LockedActivity.this, "你的裝置"+SystemProperties.get("ro.product.device"), Toast.LENGTH_SHORT).show();
-        if("PHX".equalsIgnoreCase(SystemProperties.get("ro.product.device"))) {
+        if("Q5_LY".equalsIgnoreCase(SystemProperties.get("ro.product.device"))) {
             Intent it = new Intent(LockedActivity.this, MainActivity.class);
             startActivity(it);
             finish();
