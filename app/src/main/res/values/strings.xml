@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">卓易快勘</string>
+    <string name="app_name">快勘</string>
 
     <!-- Strings related to Login -->
     <string name="prompt_user">使用者帐号</string>
@@ -24,6 +24,7 @@
     <string name="title_activity_editscene">修改现场</string>
 
     <string name="step_1">接勘</string>
+    <string name="red_title">*红色为必填</string>
     <string name="casetype">案件类别</string>
     <string name="area">发案区划</string>
     <string name="location">发案地点</string>
@@ -52,6 +53,7 @@
     <string name="add_item">添加损失物品</string>
     <string name="add_tools">添加作案工具</string>
     <string name="title_activity_peopleinformation">关联人信息</string>
+    <string name="type">案件人關係</string>
     <string name="informant">报案人</string>
     <string name="victim">被害人</string>
     <string name="name">姓名</string>
@@ -150,7 +152,7 @@
     <string name="backup">备份数据</string>
     <string name="recovery">恢复数据</string>
     <string name="reactive">重新激活</string>
-    <string name="about">关于</string>
+    <string name="about">关于\n\n\n深圳联赢信息技术有限公司\n域名:Liany.com\n</string>
     <!--String related to Scene -->
     <string name="title_activity_scene">场景采集</string>
     <string name="title_activity_scene_static">静态采集(场景)</string>

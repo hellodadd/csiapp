@@ -6,83 +6,112 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="@dimen/toolbar_size"
         android:layout_width="match_parent"
         android:background="?attr/colorPrimary">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_activity_setting"
+            android:textSize="20sp"
+            android:textColor="@color/titleBar"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title" />
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/create_item_margin_bottom"
-            android:id="@+id/TextView"
-            android:text="@string/scene_manager"
-            android:textSize="30sp"
-            android:textColor="#000000"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/create_item_margin_bottom"
-            android:padding="10dp"
-            android:text="@string/backup"
-            android:id="@+id/Setting_button1"
-            android:drawableLeft="@drawable/icon_backup"
-            android:drawablePadding="2dp"
-            android:background="@drawable/select_shape"/>
-
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/create_item_margin_bottom"
-            android:padding="10dp"
-            android:text="@string/recovery"
-            android:id="@+id/Setting_button2"
-            android:drawableLeft="@drawable/icon_recovery"
-            android:drawablePadding="2dp"
-            android:background="@drawable/select_shape"/>
-
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/create_item_margin_bottom"
-            android:padding="10dp"
-            android:text="@string/reactive"
-            android:id="@+id/Setting_button3"
-            android:drawableLeft="@drawable/icon_reactive"
-            android:drawablePadding="2dp"
-            android:background="@drawable/select_shape"/>
-
-        <ImageView
+        android:layout_below="@+id/toolbar">
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/ImageView"
-            android:background="@drawable/img_straight"/>
-
+            android:layout_height="60dp"
+            android:layout_marginTop="6dp"
+            android:weightSum="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:text="@string/scene_manager"
+                android:textSize="18sp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:weightSum="1">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:id="@+id/Setting_button1"
+                android:background="@drawable/icon_backup" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/backup"
+                android:textSize="18sp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:weightSum="1">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:id="@+id/Setting_button2"
+                android:background="@drawable/icon_recovery" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/recovery"
+                android:textSize="18sp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:weightSum="1">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:id="@+id/Setting_button3"
+                android:background="@drawable/icon_reactive" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/reactive"
+                android:textSize="18sp"
+                android:layout_weight="1"/>
+        </LinearLayout>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/create_item_margin_bottom"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/TextView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:padding="40dp"
             android:text="@string/about"
-            android:textSize="30sp"
+            android:textSize="18sp"
             android:textColor="#000000"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:background="#F2F2F2"/>
     </LinearLayout>
 </RelativeLayout>

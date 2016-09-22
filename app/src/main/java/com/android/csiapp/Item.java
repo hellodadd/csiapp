@@ -1,6 +1,14 @@
 package com.android.csiapp;
 
+import android.app.Dialog;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import java.io.Serializable;
+import java.util.Calendar;
 
 /**
  * Created by AnitaLin on 2016/9/9.
@@ -56,5 +64,33 @@ public class Item implements Serializable {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public static String getCurrentTime(Calendar c) { //輸出格式製作
+        int[] a={c.get(Calendar.YEAR),
+                c.get(Calendar.MONTH),
+                c.get(Calendar.DAY_OF_MONTH),
+                c.get(Calendar.HOUR_OF_DAY),
+                c.get(Calendar.MINUTE),
+                c.get(Calendar.SECOND)
+        };
+        StringBuffer sb=new StringBuffer();
+        sb.append(a[0]);
+        sb.append("年");
+        if (a[1]<9) {sb.append("0" + (a[1] + 1));}   //加 1 才會得到實際月份
+        else {sb.append("" + (a[1] + 1));}
+        sb.append("月");
+        if (a[2]<10) {sb.append("0" + (a[2]));}
+        else {sb.append("" + (a[2]));}
+        sb.append("日\n");
+        if (a[3]<10) {sb.append(" 0" + (a[3]));}
+        else {sb.append(" " + (a[3]));}
+        sb.append("時");
+        if (a[4]<10) {sb.append("0" + a[4]);}
+        else {sb.append("" + a[4]);}
+        sb.append("分");
+        //if (a[5]<10) {sb.append(":0" + a[5]);}
+        //selse {sb.append(":" + a[5]);}
+        return sb.toString();
     }
 }

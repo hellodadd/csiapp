@@ -100,12 +100,6 @@
                 android:orientation="horizontal"
                 android:gravity="center">
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:background="@drawable/img_straight"/>
-
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
@@ -114,12 +108,6 @@
                     android:padding="5dp"
                     android:gravity="center"
                     android:background="@drawable/btn_recovery_data_hover"/>
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:background="@drawable/img_straight"/>
 
             </LinearLayout>
         </LinearLayout>

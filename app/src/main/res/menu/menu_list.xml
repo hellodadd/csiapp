@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ListActivity">
-    <item
+    xmlns:tools="http://schemas.android.com/tools">
+    <!--<item
         android:title=""
         android:icon="@drawable/btn_title_more"
         android:id="@+id/menu_more"
         app:showAsAction="always" >
-        <menu>
+        <menu>-->
             <item
                 android:id="@+id/action_search"
                 android:title="@string/list_search"
@@ -21,7 +20,7 @@
                 android:id="@+id/action_upload"
                 android:title="@string/list_upload"
                 app:showAsAction="never" />
-        </menu>
-    </item>
+        <!--</menu>
+    </item>-->
 
 </menu>

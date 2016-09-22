@@ -1,5 +1,6 @@
 package com.android.csiapp.Csi;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.android.csiapp.R;
  */
 public class Create_FragmentPage6 extends Fragment {
 
+    private Context context = null;
     private Item item;
 
     public Create_FragmentPage6() {
@@ -25,6 +27,7 @@ public class Create_FragmentPage6 extends Fragment {
         View view = inflater.inflate(R.layout.create_fragmentpage6, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
         item = activity.getItem();
+        context = getActivity().getApplicationContext();
         return view;
     }
 }

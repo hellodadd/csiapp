@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_height="?attr/actionBarSize"
@@ -17,40 +16,50 @@
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/toolbar"
         android:isScrollContainer="false">
-
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
+            android:layout_height="match_parent">
 
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:id="@+id/new_evidence" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/red_title"
+                android:textColor="#F9574B"
+                android:textSize="16sp"
+                android:background="#F7F7F7"
+                android:paddingTop="16sp"
+                android:paddingLeft="16sp"
+                android:paddingBottom="16sp"/>
+
+            <ImageView
+                android:layout_width="328dp"
+                android:layout_height="328dp"
+                android:layout_gravity="center"
+                android:id="@+id/new_evidence"
+                android:background="#FFFFFF"
+                android:visibility="gone"/>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="15dp">
+                android:layout_height="@dimen/create_item_h_buttom"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
 
-                <RelativeLayout
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp">
-                    <TextView
-                        android:layout_width="@dimen/create_item_buttom"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="@string/category"
-                        android:textSize="@dimen/create_vp5_textsize"
-                        android:background="@drawable/item_shape"/>
-                </RelativeLayout>
+                    android:background="@drawable/red_60dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/category"
+                    android:textSize="@dimen/create_vp5_textsize"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+
                 <Button
                     android:id="@+id/handprint"
                     android:layout_width="80dp"
@@ -80,26 +89,24 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="15dp">
-                <RelativeLayout
+                android:layout_height="@dimen/create_item_h_buttom"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp">
-                    <TextView
-                        android:layout_width="@dimen/create_item_buttom"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="@string/evidence"
-                        android:textSize="@dimen/create_vp5_textsize"
-                        android:background="@drawable/item_shape"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/required_green"/>
-                </RelativeLayout>
+                    android:background="@drawable/red_60dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/evidence"
+                    android:textSize="@dimen/create_vp5_textsize"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <EditText
                     android:id="@+id/evidence_editView"
@@ -116,26 +123,24 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="15dp">
-                <RelativeLayout
+                android:layout_height="@dimen/create_item_h_buttom"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp">
-                    <TextView
-                        android:layout_width="@dimen/create_item_buttom"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="@string/evidence_name"
-                        android:textSize="@dimen/create_vp5_textsize"
-                        android:background="@drawable/item_shape"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/required_green"/>
-                </RelativeLayout>
+                    android:background="@drawable/red_60dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/evidence_name"
+                    android:textSize="@dimen/create_vp5_textsize"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <EditText
                     android:id="@+id/evidence_name_editView"
@@ -146,26 +151,24 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="15dp">
-                <RelativeLayout
+                android:layout_height="@dimen/create_item_h_buttom"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp">
-                    <TextView
-                        android:layout_width="@dimen/create_item_buttom"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="@string/legacy_site"
-                        android:textSize="@dimen/create_vp5_textsize"
-                        android:background="@drawable/item_shape"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/required_red"/>
-                </RelativeLayout>
+                    android:background="@drawable/red_60dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/legacy_site"
+                    android:textSize="@dimen/create_vp5_textsize"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <EditText
                     android:id="@+id/legacy_site_editView"
@@ -176,22 +179,24 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="15dp">
-                <RelativeLayout
+                android:layout_height="@dimen/create_item_h_buttom"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp">
-                    <TextView
-                        android:layout_width="@dimen/create_item_buttom"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="@string/basic_feature"
-                        android:textSize="@dimen/create_vp5_textsize"
-                        android:background="@drawable/item_shape"/>
-                </RelativeLayout>
+                    android:background="@drawable/red_60dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/basic_feature"
+                    android:textSize="@dimen/create_vp5_textsize"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <EditText
                     android:id="@+id/basice_feature_editView"
@@ -202,26 +207,24 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="15dp">
-                <RelativeLayout
+                android:layout_height="@dimen/create_item_h_buttom"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp">
-                    <TextView
-                        android:layout_width="@dimen/create_item_buttom"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="@string/extraction_method"
-                        android:textSize="@dimen/create_vp5_textsize"
-                        android:background="@drawable/item_shape"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/required_green"/>
-                </RelativeLayout>
+                    android:background="@drawable/red_60dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/extraction_method"
+                    android:textSize="@dimen/create_vp5_textsize"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <EditText
                     android:id="@+id/method_editView"
@@ -238,26 +241,24 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="15dp">
-                <RelativeLayout
+                android:layout_height="@dimen/create_item_h_buttom"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp">
-                    <TextView
-                        android:layout_width="@dimen/create_item_buttom"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="@string/extraction_time"
-                        android:textSize="@dimen/create_vp5_textsize"
-                        android:background="@drawable/item_shape"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/required_green"/>
-                </RelativeLayout>
+                    android:background="@drawable/red_60dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/extraction_time"
+                    android:textSize="@dimen/create_vp5_textsize"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <EditText
                     android:id="@+id/time_editView"
@@ -274,26 +275,24 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="15dp">
-                <RelativeLayout
+                android:layout_height="@dimen/create_item_h_buttom"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:orientation="horizontal">
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp">
-                    <TextView
-                        android:layout_width="@dimen/create_item_buttom"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="@string/extraction_people"
-                        android:textSize="@dimen/create_vp5_textsize"
-                        android:background="@drawable/item_shape"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/required_green"/>
-                </RelativeLayout>
+                    android:background="@drawable/red_60dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/extraction_people"
+                    android:textSize="@dimen/create_vp5_textsize"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <EditText
                     android:id="@+id/people_editView"

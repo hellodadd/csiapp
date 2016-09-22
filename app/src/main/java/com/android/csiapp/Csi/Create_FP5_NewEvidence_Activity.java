@@ -1,6 +1,7 @@
 package com.android.csiapp.Csi;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.csiapp.R;
@@ -32,10 +34,11 @@ import java.util.Locale;
 public class Create_FP5_NewEvidence_Activity extends AppCompatActivity {
     private Context context = null;
     private Uri LocalFileUri = null;
+    private ImageView new_evidence;
     private Button handprint;
     private Button footprint;
     private Button toolMark;
-    private Button new_evidence;
+
 
     public static final int PHOTO_TYPE_NEW_EVIDENCE = 1;
 
@@ -44,15 +47,23 @@ public class Create_FP5_NewEvidence_Activity extends AppCompatActivity {
         public boolean onMenuItemClick(MenuItem menuItem) {
             String msg = "";
             switch (menuItem.getItemId()) {
+                case R.id.action_camera:
+                    msg += "Camera";
+                    LocalFileUri = Uri.fromFile(getOutputMediaFile(PHOTO_TYPE_NEW_EVIDENCE));
+                    takePhoto(LocalFileUri, PHOTO_TYPE_NEW_EVIDENCE);
+                    break;
                 case R.id.action_click:
                     msg += "Save";
+                    Intent result = getIntent().putExtra("photo_uri", LocalFileUri.getPath());
+                    setResult(Activity.RESULT_OK, result);
+                    finish();
                     break;
             }
 
             if (!msg.equals("")) {
                 Toast.makeText(Create_FP5_NewEvidence_Activity.this, msg, Toast.LENGTH_SHORT).show();
             }
-            finish();
+            //finish();
             return true;
         }
     };
@@ -77,6 +88,8 @@ public class Create_FP5_NewEvidence_Activity extends AppCompatActivity {
             }
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
+
+        new_evidence = (ImageView) findViewById(R.id.new_evidence);
 
         handprint = (Button) findViewById(R.id.handprint);
         handprint.setOnClickListener(new View.OnClickListener() {
@@ -111,13 +124,7 @@ public class Create_FP5_NewEvidence_Activity extends AppCompatActivity {
             }
         });
 
-        new_evidence = (Button) findViewById(R.id.new_evidence);
-        new_evidence.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                LocalFileUri = Uri.fromFile(getOutputMediaFile(PHOTO_TYPE_NEW_EVIDENCE));
-                takePhoto(LocalFileUri, PHOTO_TYPE_NEW_EVIDENCE);
-            }
-        });
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -171,7 +178,7 @@ public class Create_FP5_NewEvidence_Activity extends AppCompatActivity {
 
             // Rotate Bitmap by 90 degree
             Matrix matrix = new Matrix();
-            matrix.setRotate(90, (float)b.getWidth()/2, (float)b.getHeight()/2);
+            matrix.setRotate(0, (float)b.getWidth()/2, (float)b.getHeight()/2);
             Bitmap resultImage = Bitmap.createBitmap(b, 0, 0, b.getWidth(), b.getHeight(), matrix, true);
 
             return resultImage;
@@ -190,6 +197,7 @@ public class Create_FP5_NewEvidence_Activity extends AppCompatActivity {
             Bitmap Bitmap = loadBitmapFromFile(new File(path));
             BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
             new_evidence.setBackground(bDrawable);
+            new_evidence.setVisibility(View.VISIBLE);
         }
     }
 }

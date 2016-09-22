@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="@dimen/toolbar_size"
+        android:layout_width="match_parent"
+        android:background="?attr/colorPrimary">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="20sp"
+            android:textColor="@color/titleBar"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title" />
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -16,28 +32,30 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="@drawable/background"/>
+            android:layout_height="200dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/banner"/>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_marginTop="20dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="25dp"
+                android:layout_marginRight="60dp"
                 android:layout_gravity="left"
                 android:orientation="vertical">
                 <Button
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
                     android:id="@+id/imageButton_create"
-                    android:background="@drawable/ic_new_scene"
+                    android:background="@drawable/create_scene"
                     android:clickable="true" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -45,20 +63,20 @@
                     android:layout_gravity="center"
                     android:id="@+id/text_create"
                     android:text="@string/text_create"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="25dp"
-                android:layout_gravity="center"
+                android:layout_gravity="right"
                 android:orientation="vertical">
                 <Button
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
                     android:id="@+id/imageButton_list"
-                    android:background="@drawable/ic_scene_manage"
+                    android:background="@drawable/scene_list"
                     android:clickable="true" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -66,55 +84,36 @@
                     android:layout_gravity="center"
                     android:id="@+id/text_list"
                     android:text="@string/text_list"
-                    android:textSize="20sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:orientation="vertical">
-                <Button
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center"
-                    android:id="@+id/imageButton_setting"
-                    android:background="@drawable/icon_setting_nor"
-                    android:clickable="true" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:id="@+id/text_setting"
-                    android:text="@string/text_setting"
-                    android:textSize="20sp"/>
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
-        <LinearLayout
+        <!--<LinearLayout
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp">
+            android:gravity="center"
+            android:layout_marginTop="60dp">
             <LinearLayout
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:layout_marginRight="25dp"
+                android:layout_marginRight="60dp"
                 android:orientation="vertical">
                 <Button
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
                     android:id="@+id/imageButton_cell_scene"
-                    android:background="@drawable/btn_info_nor"
+                    android:background="@drawable/scene_collection"
                     android:clickable="true" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:id="@+id/text_cell_scene"
                     android:text="@string/text_cell_scene"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="100dp"
@@ -125,17 +124,18 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
                     android:id="@+id/imageButton_cell_signal"
-                    android:background="@drawable/btn_info_nor"
+                    android:background="@drawable/signal_collection"
                     android:clickable="true" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:id="@+id/text_cell_signal"
                     android:text="@string/text_cell_signal"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
-        </LinearLayout>
+        </LinearLayout>-->
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

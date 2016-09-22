@@ -86,7 +86,8 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         context = this.getApplicationContext();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(context.getResources().getString(R.string.title_activity_createscene));
+        TextView title = (TextView) findViewById(R.id.toolbar_title);
+        toolbar.setTitle("");
         toolbar.setTitleTextColor(context.getResources().getColor(R.color.titleBar));
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.btn_back_mini);
@@ -107,7 +108,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
             item = new Item();
             event = 1;
         } else if(action.equals("com.android.csiapp.EDIT_SCENE")){
-            toolbar.setTitle(context.getResources().getString(R.string.title_activity_editscene));
+            title.setText(context.getResources().getString(R.string.title_activity_editscene));
             item = (Item) intent.getSerializableExtra("Item");
             event = 2;
         }else{

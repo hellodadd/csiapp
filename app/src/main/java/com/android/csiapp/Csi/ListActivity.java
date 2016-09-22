@@ -66,7 +66,7 @@ public class ListActivity extends AppCompatActivity {
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(context.getResources().getString(R.string.title_activity_list));
+        toolbar.setTitle("");
         toolbar.setTitleTextColor(context.getResources().getColor(R.color.titleBar));
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.btn_back_mini);

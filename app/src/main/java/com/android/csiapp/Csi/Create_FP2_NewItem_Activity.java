@@ -1,6 +1,8 @@
 package com.android.csiapp.Csi;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +24,8 @@ public class Create_FP2_NewItem_Activity extends AppCompatActivity {
             switch (menuItem.getItemId()) {
                 case R.id.action_click:
                     msg += "Save";
+                    Intent result = getIntent();
+                    setResult(Activity.RESULT_OK, result);
                     break;
             }
 

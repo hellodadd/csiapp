@@ -20,7 +20,7 @@ public class SettingActivity extends AppCompatActivity {
         context = this.getApplicationContext();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(context.getResources().getString(R.string.title_activity_setting));
+        toolbar.setTitle("");
         toolbar.setTitleTextColor(context.getResources().getColor(R.color.titleBar));
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.btn_back_mini);

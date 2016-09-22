@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -12,6 +13,8 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -41,7 +44,16 @@ import java.util.logging.LogRecord;
 
 public class Create_FP3_NewPosition_Activity extends AppCompatActivity {
     private Context context = null;
-    private ImageButton screenShot;
+
+    private File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "BaiduMap");
+    private String filepath;
+    private MapView mMapView;
+    private BaiduMap mBaiduMap;
+    private MyLocationData mLocData;
+    private LocationClient mLocationClient;
+    private MyLocationConfiguration mConfig;
+    private BitmapDescriptor mCurrentMarker;
+    private boolean firstLocation;
 
     public Handler mHandler = new Handler() {
         @Override
@@ -58,15 +70,65 @@ public class Create_FP3_NewPosition_Activity extends AppCompatActivity {
         }
     };
 
-    private File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "BaiduMap");
-    private String filepath;
-    private MapView mMapView;
-    private BaiduMap mBaiduMap;
-    private MyLocationData mLocData;
-    private LocationClient mLocationClient;
-    private MyLocationConfiguration mConfig;
-    private BitmapDescriptor mCurrentMarker;
-    private boolean firstLocation;
+    private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem menuItem) {
+            String msg = "";
+            switch (menuItem.getItemId()) {
+                case R.id.action_camera:
+                    msg += "Camera";
+                    mBaiduMap.snapshot(new BaiduMap.SnapshotReadyCallback() {
+                        @Override
+                        public void onSnapshotReady(Bitmap bitmap) {
+                            Log.d("baidumapdemo","onSnapshotReady");
+                            if(!mediaStorageDir.exists()){
+                                if(!mediaStorageDir.mkdirs()) {
+                                    Log.d("baidumapdemo","Failed to create directory");
+                                    return;
+                                }
+                            }
+                            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+                            BitmapFactory.Options option = new BitmapFactory.Options();
+                            // Bitmap sampling factor, size = (Original Size)/(inSampleSize)
+                            option.inSampleSize = 4;
+
+                            try {
+                                String path = mediaStorageDir.getPath() + File.separator + "IMG_"+ timeStamp + ".jpg";
+                                filepath = path;
+                                Log.d("BaiduMap","filepath1: " + filepath);
+                                File mediaFile = new File(path);
+                                FileOutputStream out = new FileOutputStream(mediaFile);
+                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out); //100-best quality
+                                out.close();
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            Log.d("BaiduMap","filepath2: " + filepath);
+                            Message msg = new Message();
+                            msg.what = 1;
+                            msg.obj = filepath;
+                            mHandler.sendMessage(msg);
+                            //Intent result = new Intent(Create_FP3_NewPosition_Activity.this,Create_FragmentPage3.class);
+                            //result.putExtra("BaiduMap_ScreenShot", filepath);
+                            //setResult(Activity.RESULT_OK, result);
+                        }
+                    });
+                    //Log.d("BaiduMap","filepath2: " + filepath);
+                    //Intent result = getIntent().putExtra("BaiduMap_ScreenShot", filepath);
+                    //setResult(Activity.RESULT_OK, result);
+                    Toast.makeText(Create_FP3_NewPosition_Activity.this, "Screen Shot", Toast.LENGTH_SHORT).show();
+                    //finish();
+                    break;
+            }
+
+            if (!msg.equals("")) {
+                Toast.makeText(Create_FP3_NewPosition_Activity.this, msg, Toast.LENGTH_SHORT).show();
+            }
+            //finish();
+            return true;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,55 +211,13 @@ public class Create_FP3_NewPosition_Activity extends AppCompatActivity {
                 //What to do on back clicked
             }
         });
+        toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
-        screenShot = (ImageButton) findViewById(R.id.screenShot);
-        screenShot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mBaiduMap.snapshot(new BaiduMap.SnapshotReadyCallback() {
-                    @Override
-                    public void onSnapshotReady(Bitmap bitmap) {
-                        Log.d("baidumapdemo","onSnapshotReady");
-                        if(!mediaStorageDir.exists()){
-                            if(!mediaStorageDir.mkdirs()) {
-                                Log.d("baidumapdemo","Failed to create directory");
-                                return;
-                            }
-                        }
-                        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-                        BitmapFactory.Options option = new BitmapFactory.Options();
-                        // Bitmap sampling factor, size = (Original Size)/(inSampleSize)
-                        option.inSampleSize = 4;
+    }
 
-                        try {
-                            String path = mediaStorageDir.getPath() + File.separator + "IMG_"+ timeStamp + ".jpg";
-                            filepath = path;
-                            Log.d("BaiduMap","filepath1: " + filepath);
-                            File mediaFile = new File(path);
-                            FileOutputStream out = new FileOutputStream(mediaFile);
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out); //100-best quality
-                            out.close();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        Log.d("BaiduMap","filepath2: " + filepath);
-                        Message msg = new Message();
-                        msg.what = 1;
-                        msg.obj = filepath;
-                        mHandler.sendMessage(msg);
-                        //Intent result = new Intent(Create_FP3_NewPosition_Activity.this,Create_FragmentPage3.class);
-                        //result.putExtra("BaiduMap_ScreenShot", filepath);
-                        //setResult(Activity.RESULT_OK, result);
-                    }
-                });
-                //Log.d("BaiduMap","filepath2: " + filepath);
-                //Intent result = getIntent().putExtra("BaiduMap_ScreenShot", filepath);
-                //setResult(Activity.RESULT_OK, result);
-                Toast.makeText(Create_FP3_NewPosition_Activity.this, "Screen Shot", Toast.LENGTH_SHORT).show();
-                //finish();
-            }
-        });
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_create_fp3_new_position, menu);
+        return true;
     }
 
     @Override
