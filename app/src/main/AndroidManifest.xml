@@ -40,7 +40,7 @@
         <activity
             android:name=".MainActivity">
         </activity>
-        <activity android:name=".Csi.CreateSceneActivity"
+        <activity android:name=".Crime.createscene.CreateSceneActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
             <intent-filter>
                 <!-- 新增用的名稱 -->
@@ -51,20 +51,20 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Csi.ListActivity" />
-        <activity android:name=".Csi.SettingActivity" />
-        <activity android:name=".Csi.Create_FP2_NewPeople_Activity"
+        <activity android:name=".Crime.listscene.ListActivity" />
+        <activity android:name=".Crime.setting.SettingActivity" />
+        <activity android:name=".Crime.createscene.CreateScene_FP2_NewPeopleActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity android:name=".Csi.Create_FP2_NewItem_Activity"
+        <activity android:name=".Crime.createscene.CreateScene_FP2_NewItemActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity android:name=".Csi.Create_FP2_NewTool_Activity"
+        <activity android:name=".Crime.createscene.CreateScene_FP2_NewToolActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity android:name=".Csi.Create_FP3_Position_Information_Activity"
+        <activity android:name=".Crime.createscene.CreateScene_FP3_PositionInformationActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity android:name=".Csi.Create_FP3_NewPosition_Activity"/>
-        <activity android:name=".Csi.Create_FP5_NewEvidence_Activity"
+        <activity android:name=".Crime.createscene.CreateScene_FP3_NewPositionActivity"/>
+        <activity android:name=".Crime.createscene.CreateScene_FP5_NewEvidenceActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity android:name=".Csi.Create_FP8_AddWitness_Activity"
+        <activity android:name=".Crime.createscene.CreateScene_FP8_AddWitnessActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity android:name=".Cell.SceneActivity" />
         <activity android:name=".Cell.SceneStaticActivity" />

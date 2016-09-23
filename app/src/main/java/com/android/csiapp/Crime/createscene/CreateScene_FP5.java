@@ -1,4 +1,4 @@
-package com.android.csiapp.Csi;
+package com.android.csiapp.Crime.createscene;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.android.csiapp.Item;
+import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
 import java.io.File;
@@ -25,19 +24,19 @@ import java.io.FileInputStream;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Create_FragmentPage5 extends Fragment {
+public class CreateScene_FP5 extends Fragment {
     private Context context = null;
-    private Item item;
+    private CrimeItem item;
     private ImageButton add_scene_evidence;
     private ImageButton Scene_evidence;
 
-    public Create_FragmentPage5() {
+    public CreateScene_FP5() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.create_fragmentpage5, container, false);
+        View view = inflater.inflate(R.layout.create_scene_fp5, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
         item = activity.getItem();
         context = getActivity().getApplicationContext();
@@ -46,7 +45,7 @@ public class Create_FragmentPage5 extends Fragment {
         add_scene_evidence.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(getActivity(), Create_FP5_NewEvidence_Activity.class);
+                Intent it = new Intent(getActivity(), CreateScene_FP5_NewEvidenceActivity.class);
                 startActivityForResult(it, 0);
             }
         });

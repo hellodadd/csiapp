@@ -1,4 +1,4 @@
-package com.android.csiapp;
+package com.android.csiapp.Databases;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by AnitaLin on 2016/9/9.
  */
-public class Csi_provider {
+public class CrimeProvider {
     // 表格名稱
     public static final String TABLE_NAME = "scene";
 
@@ -35,7 +35,7 @@ public class Csi_provider {
     private SQLiteDatabase db;
 
     // 建構子，一般的應用都不需要修改
-    public Csi_provider(Context context) {
+    public CrimeProvider(Context context) {
         db = DatabasesHelper.getDatabase(context);
     }
 
@@ -45,7 +45,7 @@ public class Csi_provider {
     }
 
     // 新增參數指定的物件
-    public Item insert(Item item) {
+    public CrimeItem insert(CrimeItem item) {
         // 建立準備新增資料的ContentValues物件
         ContentValues cv = new ContentValues();
 
@@ -68,7 +68,7 @@ public class Csi_provider {
     }
 
     // 修改參數指定的物件
-    public boolean update(Item item) {
+    public boolean update(CrimeItem item) {
         // 建立準備修改資料的ContentValues物件
         ContentValues cv = new ContentValues();
 
@@ -95,8 +95,8 @@ public class Csi_provider {
     }
 
     // 讀取所有記事資料
-    public List<Item> getAll() {
-        List<Item> result = new ArrayList<>();
+    public List<CrimeItem> getAll() {
+        List<CrimeItem> result = new ArrayList<>();
         Cursor cursor = db.query(
                 TABLE_NAME, null, null, null, null, null, null, null);
 
@@ -109,9 +109,9 @@ public class Csi_provider {
     }
 
     // 取得指定編號的資料物件
-    public Item get(long id) {
+    public CrimeItem get(long id) {
         // 準備回傳結果用的物件
-        Item item = null;
+        CrimeItem item = null;
         // 使用編號為查詢條件
         String where = KEY_ID + "=" + id;
         // 執行查詢
@@ -131,9 +131,9 @@ public class Csi_provider {
     }
 
     // 把Cursor目前的資料包裝為物件
-    public Item getRecord(Cursor cursor) {
+    public CrimeItem getRecord(Cursor cursor) {
         // 準備回傳結果用的物件
-        Item result = new Item();
+        CrimeItem result = new CrimeItem();
 
         result.setId(cursor.getLong(0));
         result.setCasetype(cursor.getString(1));
@@ -158,8 +158,8 @@ public class Csi_provider {
 
     // 建立範例資料
     public void sample() {
-        Item item = new Item(0, "故意伤害", "北京","1:30");
-        Item item2 = new Item(0, "诈骗", "南京","2:30");
+        CrimeItem item = new CrimeItem(0, "故意伤害", "北京","1:30");
+        CrimeItem item2 = new CrimeItem(0, "诈骗", "南京","2:30");
 
         insert(item);
         insert(item2);

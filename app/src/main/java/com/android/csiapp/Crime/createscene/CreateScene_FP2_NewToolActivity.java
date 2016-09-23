@@ -1,4 +1,4 @@
-package com.android.csiapp.Csi;
+package com.android.csiapp.Crime.createscene;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.android.csiapp.R;
 
-public class Create_FP2_NewItem_Activity extends AppCompatActivity {
+public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
 
     private Context context = null;
 
@@ -29,8 +29,8 @@ public class Create_FP2_NewItem_Activity extends AppCompatActivity {
                     break;
             }
 
-            if (!msg.equals("")) {
-                Toast.makeText(Create_FP2_NewItem_Activity.this, msg, Toast.LENGTH_SHORT).show();
+            if(!msg.equals("")) {
+                Toast.makeText(CreateScene_FP2_NewToolActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             finish();
             return true;
@@ -40,12 +40,12 @@ public class Create_FP2_NewItem_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_fp2_new_item);
+        setContentView(R.layout.create_scene_fp2_new_tool);
 
         context = this.getApplicationContext();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(context.getResources().getString(R.string.title_activity_lostitem));
+        toolbar.setTitle(context.getResources().getString(R.string.title_activity_crimetool));
         toolbar.setTitleTextColor(context.getResources().getColor(R.color.titleBar));
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.btn_back_mini);

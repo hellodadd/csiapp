@@ -1,4 +1,4 @@
-package com.android.csiapp.Csi;
+package com.android.csiapp.Crime.createscene;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
@@ -13,7 +13,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,9 +21,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.csiapp.DataFragmentAdapter;
-import com.android.csiapp.DataPageAdapter;
-import com.android.csiapp.Item;
+import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
@@ -35,7 +32,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
     private Context context = null;
 
     // 記事物件
-    private Item item;
+    private CrimeItem item;
     private int event;
 
     private Button pageButton1, pageButton2, pageButton3, pageButton4, pageButton5, pageButton6, pageButton7, pageButton8;
@@ -45,7 +42,6 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
     private ViewPager viewPager;
     private View page1, page2, page3, page4, page5, page6, page7, page8;
     private List pageList;
-    private DataPageAdapter myPagerAdapter;
 
     private Drawable select_background;
     private Drawable background;
@@ -58,7 +54,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                 case R.id.action_save:
                     msg += "Save";
                     Intent result = getIntent();
-                    result.putExtra("com.android.csiapp.Item", item);
+                    result.putExtra("com.android.csiapp.CrimeItem", item);
                     setResult(Activity.RESULT_OK, result);
                     break;
             }
@@ -81,7 +77,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_createscene);
+        setContentView(R.layout.create_scene);
 
         context = this.getApplicationContext();
 
@@ -105,14 +101,14 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         // 讀取Action名稱
         String action = intent.getAction();
         if (action.equals("com.android.csiapp.ADD_SCENE")) {
-            item = new Item();
+            item = new CrimeItem();
             event = 1;
         } else if(action.equals("com.android.csiapp.EDIT_SCENE")){
             title.setText(context.getResources().getString(R.string.title_activity_editscene));
-            item = (Item) intent.getSerializableExtra("Item");
+            item = (CrimeItem) intent.getSerializableExtra("CrimeItem");
             event = 2;
         }else{
-            item = new Item();
+            item = new CrimeItem();
         }
 
         pageButton1 = (Button) this.findViewById(R.id.pagebutton1);
@@ -148,14 +144,14 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         pageText1.setVisibility(View.VISIBLE);
 
         viewPager = (ViewPager) this.findViewById(R.id.viewPager);
-        Create_FragmentPage1 MyFragmentPage1 = new Create_FragmentPage1();
-        Create_FragmentPage2 MyFragmentPage2 = new Create_FragmentPage2();
-        Create_FragmentPage3 MyFragmentPage3 = new Create_FragmentPage3();
-        Create_FragmentPage4 MyFragmentPage4 = new Create_FragmentPage4();
-        Create_FragmentPage5 MyFragmentPage5 = new Create_FragmentPage5();
-        Create_FragmentPage6 MyFragmentPage6 = new Create_FragmentPage6();
-        Create_FragmentPage7 MyFragmentPage7 = new Create_FragmentPage7();
-        Create_FragmentPage8 MyFragmentPage8 = new Create_FragmentPage8();
+        CreateScene_FP1 MyFragmentPage1 = new CreateScene_FP1();
+        CreateScene_FP2 MyFragmentPage2 = new CreateScene_FP2();
+        CreateScene_FP3 MyFragmentPage3 = new CreateScene_FP3();
+        CreateScene_FP4 MyFragmentPage4 = new CreateScene_FP4();
+        CreateScene_FP5 MyFragmentPage5 = new CreateScene_FP5();
+        CreateScene_FP6 MyFragmentPage6 = new CreateScene_FP6();
+        CreateScene_FP7 MyFragmentPage7 = new CreateScene_FP7();
+        CreateScene_FP8 MyFragmentPage8 = new CreateScene_FP8();
         List<Fragment> fragmentList = new ArrayList<Fragment>();
         fragmentList.add(MyFragmentPage1);
         fragmentList.add(MyFragmentPage2);
@@ -165,7 +161,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         fragmentList.add(MyFragmentPage6);
         fragmentList.add(MyFragmentPage7);
         fragmentList.add(MyFragmentPage8);
-        DataFragmentAdapter fragmentAdapter = new DataFragmentAdapter(getSupportFragmentManager(), fragmentList);
+        FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), fragmentList);
         viewPager.setAdapter(fragmentAdapter);
         viewPager.setCurrentItem(0);
         viewPager.setOnPageChangeListener((ViewPager.OnPageChangeListener) this);
@@ -305,7 +301,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
 
     }
 
-    public Item getItem (){
+    public CrimeItem getItem (){
         return item;
     }
 

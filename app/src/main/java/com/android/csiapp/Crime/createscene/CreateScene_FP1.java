@@ -1,4 +1,4 @@
-package com.android.csiapp.Csi;
+package com.android.csiapp.Crime.createscene;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -15,8 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.android.csiapp.DateTimePicker;
-import com.android.csiapp.Item;
+import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
@@ -25,10 +24,10 @@ import java.util.Calendar;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Create_FragmentPage1 extends Fragment implements View.OnClickListener {
+public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
     private Context context = null;
-    private Item item;
+    private CrimeItem item;
     private int event;
 
     private Spinner casetype_spinner;
@@ -57,13 +56,13 @@ public class Create_FragmentPage1 extends Fragment implements View.OnClickListen
     private ArrayAdapter<String> sceneCondition_adapter;
     //Anita test end
 
-    public Create_FragmentPage1() {
+    public CreateScene_FP1() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.create_fragmentpage1, container, false);
+        View view = inflater.inflate(R.layout.create_scene_fp1, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
         item = activity.getItem();
         event = activity.getEvent();
@@ -124,10 +123,10 @@ public class Create_FragmentPage1 extends Fragment implements View.OnClickListen
             occurred_end_time.setText(item.getTime());
             get_access_time.setText(item.getTime());
         }else{
-            occurred_start_time.setText(Item.getCurrentTime(c));
+            occurred_start_time.setText(CrimeItem.getCurrentTime(c));
             item.setTime(occurred_start_time.getText().toString());
-            occurred_end_time.setText(Item.getCurrentTime(c));
-            get_access_time.setText(Item.getCurrentTime(c));
+            occurred_end_time.setText(CrimeItem.getCurrentTime(c));
+            get_access_time.setText(CrimeItem.getCurrentTime(c));
         }
         occurred_start_button.setOnClickListener(this);
         occurred_end_button.setOnClickListener(this);
@@ -221,7 +220,7 @@ public class Create_FragmentPage1 extends Fragment implements View.OnClickListen
                 mDateTimePicker.clearFocus();
                 // TODO Auto-generated method stub
                 c = mDateTimePicker.get();
-                textView.setText(Item.getCurrentTime(c));
+                textView.setText(CrimeItem.getCurrentTime(c));
                 item.setTime(textView.getText().toString());
                 mDateTimeDialog.dismiss();
             }

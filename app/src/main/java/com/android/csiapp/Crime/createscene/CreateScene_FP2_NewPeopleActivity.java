@@ -1,4 +1,4 @@
-package com.android.csiapp.Csi;
+package com.android.csiapp.Crime.createscene;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -16,9 +16,11 @@ import android.widget.Toast;
 
 import com.android.csiapp.R;
 
-public class Create_FP8_AddWitness_Activity extends AppCompatActivity {
+public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
 
     private Context context = null;
+    private Button informant;
+    private Button victim;
     private Button man;
     private Button woman;
 
@@ -35,7 +37,7 @@ public class Create_FP8_AddWitness_Activity extends AppCompatActivity {
             }
 
             if(!msg.equals("")) {
-                Toast.makeText(Create_FP8_AddWitness_Activity.this, msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateScene_FP2_NewPeopleActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             finish();
             return true;
@@ -45,12 +47,12 @@ public class Create_FP8_AddWitness_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_fp8_add_witness);
+        setContentView(R.layout.create_scene_fp2_new_people);
 
         context = this.getApplicationContext();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(context.getResources().getString(R.string.title_activity_witness_peopleinformation));
+        toolbar.setTitle(context.getResources().getString(R.string.title_activity_peopleinformation));
         toolbar.setTitleTextColor(context.getResources().getColor(R.color.titleBar));
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.btn_back_mini);
@@ -62,6 +64,26 @@ public class Create_FP8_AddWitness_Activity extends AppCompatActivity {
             }
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
+
+        informant = (Button) findViewById(R.id.informant);
+        informant.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View view) {
+                informant.setBackground(context.getDrawable(R.drawable.form_radiobutton_checked));
+                victim.setBackground(context.getDrawable(R.drawable.form_radiobutton_nor));
+            }
+        });
+
+        victim = (Button) findViewById(R.id.victim);
+        victim.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View view) {
+                informant.setBackground(context.getDrawable(R.drawable.form_radiobutton_nor));
+                victim.setBackground(context.getDrawable(R.drawable.form_radiobutton_checked));
+            }
+        });
 
         man = (Button) findViewById(R.id.man);
         man.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +107,7 @@ public class Create_FP8_AddWitness_Activity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_create_fp8_subactivity, menu);
+        getMenuInflater().inflate(R.menu.menu_create_fp2_subactivity, menu);
         return true;
     }
 }

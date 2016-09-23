@@ -8,13 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-
 public class LockedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_locked);
+        setContentView(R.layout.locked);
 
         Button mUserSignInButton = (Button) findViewById(R.id.user_sign_in_button);
         mUserSignInButton.setOnClickListener(new View.OnClickListener() {

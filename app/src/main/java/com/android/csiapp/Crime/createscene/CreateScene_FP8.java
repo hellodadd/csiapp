@@ -1,4 +1,4 @@
-package com.android.csiapp.Csi;
+package com.android.csiapp.Crime.createscene;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,30 +14,27 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.android.csiapp.Item;
+import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Create_FragmentPage8 extends Fragment {
+public class CreateScene_FP8 extends Fragment {
 
     private Context context = null;
-    private Item item;
+    private CrimeItem item;
     ImageButton Add_witness;
     private ListView listV;
     private ArrayAdapter adapter;
 
-    public Create_FragmentPage8() {
+    public CreateScene_FP8() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.create_fragmentpage8, container, false);
+        View view = inflater.inflate(R.layout.create_scene_fp8, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
         item = activity.getItem();
         context = getActivity().getApplicationContext();
@@ -45,20 +42,20 @@ public class Create_FragmentPage8 extends Fragment {
         Add_witness.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(getActivity(), Create_FP8_AddWitness_Activity.class);
+                Intent it = new Intent(getActivity(), CreateScene_FP8_AddWitnessActivity.class);
                 startActivityForResult(it,0);
             }
         });
 
-        //List<Item> items_list = new ArrayList<Item>();
+        //List<CrimeItem> items_list = new ArrayList<CrimeItem>();
         listV=(ListView) view.findViewById(R.id.listView);
-        adapter = new ArrayAdapter(context, R.layout.listview_display);
+        adapter = new ArrayAdapter(context, R.layout.listview);
         listV.setAdapter(adapter);
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Intent it = new Intent(getActivity(), Create_FP8_AddWitness_Activity.class);
+                Intent it = new Intent(getActivity(), CreateScene_FP8_AddWitnessActivity.class);
                 startActivityForResult(it,0);
             }
         };

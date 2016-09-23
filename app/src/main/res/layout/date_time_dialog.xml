@@ -16,7 +16,7 @@
 			android:text="cancel" android:layout_weight="1"
 			android:layout_height="wrap_content" />
 	</LinearLayout>
-	<com.android.csiapp.DateTimePicker
+	<com.android.csiapp.Crime.createscene.DateTimePicker
 		android:id="@+id/DateTimePicker" android:layout_width="fill_parent"
 		android:layout_height="wrap_content" />
 </RelativeLayout>

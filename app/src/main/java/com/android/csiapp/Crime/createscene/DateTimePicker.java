@@ -1,4 +1,4 @@
-package com.android.csiapp;
+package com.android.csiapp.Crime.createscene;
 
 import java.util.Calendar;
 import android.content.Context;
@@ -13,6 +13,8 @@ import android.widget.TimePicker;
 import android.widget.ViewSwitcher;
 import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.TimePicker.OnTimeChangedListener;
+
+import com.android.csiapp.R;
 
 public class DateTimePicker extends RelativeLayout implements View.OnClickListener, OnDateChangedListener, OnTimeChangedListener {
 

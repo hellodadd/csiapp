@@ -1,4 +1,4 @@
-package com.android.csiapp.Csi;
+package com.android.csiapp.Crime.setting;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,11 +16,10 @@ public class SettingActivity extends AppCompatActivity {
     private ImageButton mBackupBtn;
     private ImageButton mRestoreBtn;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.setting);
 
         context = this.getApplicationContext();
 
@@ -58,11 +57,11 @@ public class SettingActivity extends AppCompatActivity {
     };
     private void dataBackup() {
         // TODO Auto-generated method stub
-        new BackupTask(this).execute("backupDatabase");
+        new BackupRestore(this).execute("backupDatabase");
     }
 
     private void dataRecover() {
         // TODO Auto-generated method stub
-        new BackupTask(this).execute("restroeDatabase");
+        new BackupRestore(this).execute("restroeDatabase");
     }
 }

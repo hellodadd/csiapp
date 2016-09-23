@@ -1,4 +1,4 @@
-package com.android.csiapp.Csi;
+package com.android.csiapp.Crime.createscene;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -31,7 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Create_FP5_NewEvidence_Activity extends AppCompatActivity {
+public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity {
     private Context context = null;
     private Uri LocalFileUri = null;
     private ImageView new_evidence;
@@ -61,7 +61,7 @@ public class Create_FP5_NewEvidence_Activity extends AppCompatActivity {
             }
 
             if (!msg.equals("")) {
-                Toast.makeText(Create_FP5_NewEvidence_Activity.this, msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateScene_FP5_NewEvidenceActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             //finish();
             return true;
@@ -71,7 +71,7 @@ public class Create_FP5_NewEvidence_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_fp5_new_evidence);
+        setContentView(R.layout.create_scene_fp5_new_evidence);
 
         context = this.getApplicationContext();
 

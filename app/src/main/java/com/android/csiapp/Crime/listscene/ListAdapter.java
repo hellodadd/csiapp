@@ -1,4 +1,4 @@
-package com.android.csiapp.Csi;
+package com.android.csiapp.Crime.listscene;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.android.csiapp.Item;
+import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
 import java.util.List;
@@ -15,12 +15,12 @@ import java.util.List;
 /**
  * Created by AnitaLin on 2016/9/12.
  */
-public class ItemAdapter extends BaseAdapter {
+public class ListAdapter extends BaseAdapter {
 
     private LayoutInflater myInflater;
-    private List<Item> items;
+    private List<CrimeItem> items;
 
-    public ItemAdapter(Context context, List<Item> items){
+    public ListAdapter(Context context, List<CrimeItem> items){
         myInflater = LayoutInflater.from(context);
         this.items = items;
     }
@@ -44,7 +44,7 @@ public class ItemAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if(convertView==null){
-            convertView = myInflater.inflate(R.layout.listview_display, null);
+            convertView = myInflater.inflate(R.layout.listview, null);
             holder = new ViewHolder(
                 (TextView) convertView.findViewById(R.id.casetype),
                 (TextView) convertView.findViewById(R.id.area),
@@ -54,10 +54,10 @@ public class ItemAdapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        Item item = (Item)getItem(position);
-        holder.txtCasetype.setText(((Item) getItem(position)).getCasetype());
-        holder.txtArea.setText(((Item) getItem(position)).getArea());
-        holder.txtTime.setText(((Item) getItem(position)).getTime());
+        CrimeItem item = (CrimeItem)getItem(position);
+        holder.txtCasetype.setText(((CrimeItem) getItem(position)).getCasetype());
+        holder.txtArea.setText(((CrimeItem) getItem(position)).getArea());
+        holder.txtTime.setText(((CrimeItem) getItem(position)).getTime());
         return convertView;
     }
 

@@ -1,4 +1,4 @@
-package com.android.csiapp.Csi;
+package com.android.csiapp.Crime.createscene;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,16 +10,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.android.csiapp.Item;
+import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Create_FragmentPage7 extends Fragment {
+public class CreateScene_FP7 extends Fragment {
 
     private Context context = null;
-    private Item item;
+    private CrimeItem item;
 
     private Spinner peopleNumber_spinner;
     private String[] peopleNumber = {"单人 ", "两人", "多人","不确定"};
@@ -52,13 +52,13 @@ public class Create_FragmentPage7 extends Fragment {
     private String[] crimePurpose = {"报复", "图财", "嫉妒"};
     private ArrayAdapter<String> crimePurpose_adapter;
 
-    public Create_FragmentPage7() {
+    public CreateScene_FP7() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.create_fragmentpage7, container, false);
+        View view = inflater.inflate(R.layout.create_scene_fp7, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
         item = activity.getItem();
         context = getActivity().getApplicationContext();

@@ -1,4 +1,4 @@
-package com.android.csiapp.Csi;
+package com.android.csiapp.Crime.createscene;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,29 +12,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.android.csiapp.Item;
+import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Create_FragmentPage3 extends Fragment {
+public class CreateScene_FP3 extends Fragment {
 
     private Context context = null;
-    private Item item;
+    private CrimeItem item;
     private ImageButton add_position;
     private ImageButton position;
 
-    public Create_FragmentPage3() {
+    public CreateScene_FP3() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.create_fragmentpage3, container, false);
+        View view = inflater.inflate(R.layout.create_scene_fp3, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
         item = activity.getItem();
         context = getActivity().getApplicationContext();
@@ -42,7 +41,7 @@ public class Create_FragmentPage3 extends Fragment {
         add_position.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(getActivity(), Create_FP3_Position_Information_Activity.class);
+                Intent it = new Intent(getActivity(), CreateScene_FP3_PositionInformationActivity.class);
                 startActivityForResult(it, 0);
             }
         });

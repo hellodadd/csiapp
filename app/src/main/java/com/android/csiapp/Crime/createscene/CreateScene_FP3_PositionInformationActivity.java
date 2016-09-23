@@ -1,4 +1,4 @@
-package com.android.csiapp.Csi;
+package com.android.csiapp.Crime.createscene;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.android.csiapp.R;
 
-public class Create_FP3_Position_Information_Activity extends AppCompatActivity {
+public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivity {
 
     private Context context = null;
     private Button new_position;
@@ -31,7 +31,7 @@ public class Create_FP3_Position_Information_Activity extends AppCompatActivity 
             switch (menuItem.getItemId()) {
                 case R.id.action_camera:
                     msg += "Camera";
-                    Intent it = new Intent(Create_FP3_Position_Information_Activity.this, Create_FP3_NewPosition_Activity.class);
+                    Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity.class);
                     startActivityForResult(it, 0);
                     break;
                 case R.id.action_click:
@@ -43,7 +43,7 @@ public class Create_FP3_Position_Information_Activity extends AppCompatActivity 
             }
 
             if(!msg.equals("")) {
-                Toast.makeText(Create_FP3_Position_Information_Activity.this, msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateScene_FP3_PositionInformationActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             return true;
         }
@@ -52,7 +52,7 @@ public class Create_FP3_Position_Information_Activity extends AppCompatActivity 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_fp3_position_information);
+        setContentView(R.layout.create_scene_fp3_position_information);
 
         context = this.getApplicationContext();
 
@@ -74,7 +74,7 @@ public class Create_FP3_Position_Information_Activity extends AppCompatActivity 
         new_position.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(Create_FP3_Position_Information_Activity.this, Create_FP3_NewPosition_Activity.class);
+                Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity.class);
                 startActivityForResult(it, 0);
             }
         });

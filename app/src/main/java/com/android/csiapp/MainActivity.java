@@ -13,17 +13,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.android.csiapp.Cell.SceneActivity;
 import com.android.csiapp.Cell.SignalActivity;
-import com.android.csiapp.Csi.ListActivity;
-import com.android.csiapp.Csi.SettingActivity;
+import com.android.csiapp.Crime.listscene.ListActivity;
+import com.android.csiapp.Crime.setting.SettingActivity;
+import com.android.csiapp.Databases.CrimeProvider;
+import com.android.csiapp.Databases.CrimeItem;
 
 public class MainActivity extends AppCompatActivity {
     private Context context = null;
 
-    private Csi_provider csi_item;
+    private CrimeProvider csi_item;
 
     private Button mCreate;
     private Button mList;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main);
 
         context = this.getApplicationContext();
 
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
         // 建立資料庫物件
-        csi_item = new Csi_provider(context);
+        csi_item = new CrimeProvider(context);
 
         // 如果資料庫是空的，就建立一些範例資料
         // 這是為了方便測試用的，完成應用程式以後可以拿掉
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            Item item = (Item) data.getExtras().getSerializable("com.android.csiapp.Item");
+            CrimeItem item = (CrimeItem) data.getExtras().getSerializable("com.android.csiapp.CrimeItem");
             if (requestCode == 0) {
                 // 新增記事資料到資料庫
                 item = csi_item.insert(item);

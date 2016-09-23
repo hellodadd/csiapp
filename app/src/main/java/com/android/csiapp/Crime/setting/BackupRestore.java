@@ -1,4 +1,4 @@
-package com.android.csiapp.Csi;
+package com.android.csiapp.Crime.setting;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -15,7 +15,7 @@ import java.nio.channels.FileChannel;
 /**
  * Created by joanlin on 16/9/21.
  */
-public class BackupTask extends AsyncTask<String, Void, String> {
+public class BackupRestore extends AsyncTask<String, Void, String> {
 
     private static final String COMMAND_BACKUP = "backupDatabase";
     public static final String COMMAND_RESTORE = "restroeDatabase";
@@ -23,7 +23,7 @@ public class BackupTask extends AsyncTask<String, Void, String> {
     private String result = "";
     private File backup;
 
-    public BackupTask(Context context) {
+    public BackupRestore(Context context) {
         this.mContext = context;
     }
 

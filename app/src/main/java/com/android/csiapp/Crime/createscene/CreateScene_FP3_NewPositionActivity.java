@@ -1,4 +1,4 @@
-package com.android.csiapp.Csi;
+package com.android.csiapp.Crime.createscene;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.csiapp.R;
@@ -40,9 +39,8 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.logging.LogRecord;
 
-public class Create_FP3_NewPosition_Activity extends AppCompatActivity {
+public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
     private Context context = null;
 
     private File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "BaiduMap");
@@ -117,13 +115,13 @@ public class Create_FP3_NewPosition_Activity extends AppCompatActivity {
                     //Log.d("BaiduMap","filepath2: " + filepath);
                     //Intent result = getIntent().putExtra("BaiduMap_ScreenShot", filepath);
                     //setResult(Activity.RESULT_OK, result);
-                    Toast.makeText(Create_FP3_NewPosition_Activity.this, "Screen Shot", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateScene_FP3_NewPositionActivity.this, "Screen Shot", Toast.LENGTH_SHORT).show();
                     //finish();
                     break;
             }
 
             if (!msg.equals("")) {
-                Toast.makeText(Create_FP3_NewPosition_Activity.this, msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateScene_FP3_NewPositionActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             //finish();
             return true;
@@ -134,7 +132,7 @@ public class Create_FP3_NewPosition_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SDKInitializer.initialize(getApplicationContext());
-        setContentView(R.layout.create_fp3_new_position);
+        setContentView(R.layout.create_scene_fp3_new_position);
         context = this.getApplicationContext();
 
         // Baidu Map Initialization
