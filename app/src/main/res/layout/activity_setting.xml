@@ -40,69 +40,98 @@
                 android:textSize="18sp"
                 android:layout_weight="1"/>
         </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:weightSum="1">
+            android:background="#FFFFFF">
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/Setting_backup"
-                android:background="@drawable/icon_backup" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/backup"
-                android:textSize="18sp"
-                android:layout_weight="1"/>
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
+                android:background="#FFFFFF"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:id="@+id/image_backup"
+                    android:background="@drawable/icon_backup" />
+                <TextView
+                    android:id="@+id/text_backup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/backup"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:weightSum="1">
+            android:background="#FFFFFF">
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/Setting_restore"
-                android:background="@drawable/icon_recovery" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/recovery"
-                android:textSize="18sp"
-                android:layout_weight="1"/>
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
+                android:background="#FFFFFF"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:weightSum="1">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/icon_recovery" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/recovery"
+                    android:textSize="18sp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:weightSum="1">
+            android:background="#FFFFFF">
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:id="@+id/Setting_button3"
-                android:background="@drawable/icon_reactive" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/reactive"
-                android:textSize="18sp"
-                android:layout_weight="1"/>
-        </LinearLayout>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/Setting_reactive"
+                android:background="#FFFFFF"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:weightSum="1">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/icon_reactive" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/reactive"
+                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"/>
+            </LinearLayout>
+        </RelativeLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
