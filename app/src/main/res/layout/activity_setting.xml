@@ -51,7 +51,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:id="@+id/Setting_button1"
+                android:id="@+id/Setting_backup"
                 android:background="@drawable/icon_backup" />
             <TextView
                 android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:id="@+id/Setting_button2"
+                android:id="@+id/Setting_restore"
                 android:background="@drawable/icon_recovery" />
             <TextView
                 android:layout_width="wrap_content"
