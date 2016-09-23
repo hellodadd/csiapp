@@ -14,8 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import com.android.csiapp.Cell.SceneActivity;
-import com.android.csiapp.Cell.SignalActivity;
 import com.android.csiapp.Crime.listscene.ListActivity;
 import com.android.csiapp.Crime.setting.SettingActivity;
 import com.android.csiapp.Databases.CrimeProvider;
@@ -28,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Button mCreate;
     private Button mList;
-    //private Button mScene;
-    //private Button mSignal;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -85,24 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
-
-        /*mScene= (Button) findViewById(R.id.imageButton_cell_scene);
-        mScene.setOnClickListener(new OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-            public void onClick(View view) {
-                Intent it = new Intent(MainActivity.this, SceneActivity.class);
-                startActivity(it);
-            }
-        });
-
-        mSignal= (Button) findViewById(R.id.imageButton_cell_signal);
-        mSignal.setOnClickListener(new OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-            public void onClick(View view) {
-                Intent it = new Intent(MainActivity.this, SignalActivity.class);
-                startActivity(it);
-            }
-        });*/
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -87,55 +87,5 @@
                     android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
-        <!--<LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="60dp">
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginRight="60dp"
-                android:orientation="vertical">
-                <Button
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
-                    android:id="@+id/imageButton_cell_scene"
-                    android:background="@drawable/scene_collection"
-                    android:clickable="true" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:id="@+id/text_cell_scene"
-                    android:text="@string/text_cell_scene"
-                    android:textSize="16sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:orientation="vertical">
-                <Button
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
-                    android:id="@+id/imageButton_cell_signal"
-                    android:background="@drawable/signal_collection"
-                    android:clickable="true" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:id="@+id/text_cell_signal"
-                    android:text="@string/text_cell_signal"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </LinearLayout>-->
     </LinearLayout>
 </RelativeLayout>
