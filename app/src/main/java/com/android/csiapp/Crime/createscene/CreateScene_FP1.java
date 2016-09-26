@@ -19,7 +19,9 @@ import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,13 +48,13 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private Button occurred_end_button;
     private Button get_access_button;
     private Spinner unitsAssigned_spinner;
-    private String[] unitsAssigned = {"110指挥中心 ", "112指挥中心", "999指挥中心"};
+    private ArrayList<String> unitsAssigned = new ArrayList<String>();;
     private ArrayAdapter<String> unitsAssigned_adapter;
     private Spinner accessPolicemen_spinner;
-    private String[] accessPolicemen = {"杨警官 ", "林警官", "陈警官"};
+    private ArrayList<String> accessPolicemen = new ArrayList<String>();;
     private ArrayAdapter<String> accessPolicemen_adapter;
     private Spinner sceneCondition_spinner;
-    private String[] sceneCondition = {"原始现场 ", "变动现场"};
+    private ArrayList<String> sceneCondition = new ArrayList<String>();;
     private ArrayAdapter<String> sceneCondition_adapter;
     //Anita test end
 
@@ -68,17 +70,10 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         event = activity.getEvent();
         context = getActivity().getApplicationContext();
 
-        casetype.add(getString(R.string.steal_electric_bicycle));
-        casetype.add(getString(R.string.steal_animal));
-        casetype.add(getString(R.string.pickpocketing));
-        casetype.add(getString(R.string.steal_motorcycle));
-        casetype.add(getString(R.string.steal_bicycle));
-        casetype.add(getString(R.string.robbery));
-        casetype.add(getString(R.string.hurt));
-        casetype.add(getString(R.string.snatch));
-        casetype.add(getString(R.string.bilk));
+        casetype = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.casetype)));
         casetype_spinner = (Spinner) view.findViewById(R.id.casetype_spinner);
-        casetype_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, casetype);
+        casetype_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, casetype);
+        casetype_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         casetype_spinner.setAdapter(casetype_adapter);
         casetype_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -90,13 +85,10 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             }
         });
 
-        area.add(getString(R.string.shanghai));
-        area.add(getString(R.string.beijing));
-        area.add(getString(R.string.nanjing));
-        area.add(getString(R.string.shenzhen));
-        area.add(getString(R.string.tianjin));
+        area = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.area)));
         area_spinner = (Spinner) view.findViewById(R.id.area_spinner);
-        area_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, area);
+        area_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, area);
+        area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         area_spinner.setAdapter(area_adapter);
         area_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -132,8 +124,10 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         occurred_end_button.setOnClickListener(this);
         get_access_button.setOnClickListener(this);
 
+        unitsAssigned = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.unitsAssigned)));
         unitsAssigned_spinner = (Spinner) view.findViewById(R.id.unitsAssigned_spinner);
-        unitsAssigned_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, unitsAssigned);
+        unitsAssigned_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, unitsAssigned);
+        unitsAssigned_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         unitsAssigned_spinner.setAdapter(unitsAssigned_adapter);
         unitsAssigned_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -144,8 +138,10 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             }
         });
 
+        accessPolicemen = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.accessPolicemen)));
         accessPolicemen_spinner = (Spinner) view.findViewById(R.id.accessPolicemen_spinner);
-        accessPolicemen_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, accessPolicemen);
+        accessPolicemen_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, accessPolicemen);
+        accessPolicemen_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accessPolicemen_spinner.setAdapter(accessPolicemen_adapter);
         accessPolicemen_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -156,8 +152,10 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             }
         });
 
+        sceneCondition = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.sceneCondition)));
         sceneCondition_spinner = (Spinner) view.findViewById(R.id.sceneCondition_spinner);
-        sceneCondition_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, sceneCondition);
+        sceneCondition_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, sceneCondition);
+        sceneCondition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sceneCondition_spinner.setAdapter(sceneCondition_adapter);
         sceneCondition_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -203,7 +201,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 break;
         }
     }
-
 
     public void showDateTimeDialog(final TextView textView) {
         // Create the dialog

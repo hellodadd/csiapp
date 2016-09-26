@@ -9,13 +9,27 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.csiapp.R;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
 
     private Context context = null;
+
+    private Spinner tool_category_spinner;
+    private ArrayList<String> tool_category = new ArrayList<String>();
+    private ArrayAdapter<String> tool_category_adapter;
+
+    private Spinner tool_source_spinner;
+    private ArrayList<String> tool_source = new ArrayList<String>();
+    private ArrayAdapter<String> tool_source_adapter;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -57,6 +71,36 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
             }
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
+
+        tool_category = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.tool_category)));
+        tool_category_spinner = (Spinner) findViewById(R.id.tool_category_spinner);
+        tool_category_adapter = new ArrayAdapter<String>(context, R.layout.spinnerview, tool_category);
+        tool_category_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        tool_category_spinner.setAdapter(tool_category_adapter);
+        tool_category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                //item.setCasetype(tool_category.get(position));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+        tool_source = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.tool_source)));
+        tool_source_spinner = (Spinner) findViewById(R.id.tool_source_spinner);
+        tool_source_adapter = new ArrayAdapter<String>(context, R.layout.spinnerview, tool_source);
+        tool_source_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        tool_source_spinner.setAdapter(tool_source_adapter);
+        tool_source_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                //item.setCasetype(tool_category.get(position));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

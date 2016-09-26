@@ -21,7 +21,8 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#F7F7F7">
 
             <TextView
                 android:layout_width="match_parent"
@@ -29,16 +30,18 @@
                 android:text="@string/red_title"
                 android:textColor="#F9574B"
                 android:textSize="16sp"
-                android:background="#F7F7F7"
                 android:paddingTop="16sp"
                 android:paddingLeft="16sp"
-                android:paddingBottom="16sp"/>
+                android:paddingBottom="16sp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:background="#FFFFFF"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -54,19 +57,22 @@
                     android:textSize="@dimen/create_vp2_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
+                <com.android.csiapp.ClearableEditText
                     android:id="@+id/item_name_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/write_item"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -82,19 +88,22 @@
                     android:textSize="@dimen/create_vp2_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
+                <com.android.csiapp.ClearableEditText
                     android:id="@+id/brand_model_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/write_brand"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -110,19 +119,22 @@
                     android:textSize="@dimen/create_vp2_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
+                <com.android.csiapp.ClearableEditText
                     android:id="@+id/amount_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/write_amount"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -138,19 +150,22 @@
                     android:textSize="@dimen/create_vp2_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
+                <com.android.csiapp.ClearableEditText
                     android:id="@+id/value_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/write_value"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -166,12 +181,14 @@
                     android:textSize="@dimen/create_vp2_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
+                <com.android.csiapp.ClearableEditText
                     android:id="@+id/feature_description_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/write_feature"
-                    android:singleLine="false" />
+                    android:singleLine="false"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
         </LinearLayout>
 

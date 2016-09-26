@@ -12,7 +12,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="#F7F7F7">
 
             <TextView
                 android:layout_width="match_parent"
@@ -20,21 +21,23 @@
                 android:text="@string/red_title"
                 android:textColor="#F9574B"
                 android:textSize="16sp"
-                android:background="#F7F7F7"
-                android:paddingTop="16sp"
-                android:paddingLeft="16sp"
-                android:paddingBottom="16sp"/>
+                android:paddingTop="16dp"
+                android:paddingLeft="16dp"
+                android:paddingBottom="16dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:background="#FFFFFF"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/red_60dp"
+                    android:background="@drawable/green_60dp"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
@@ -48,15 +51,20 @@
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:id="@+id/peopleNumber_spinner"
-                    android:layout_weight="1" />
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -75,15 +83,20 @@
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:id="@+id/crimeMeans_spinner"
-                    android:layout_weight="1" />
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -102,15 +115,20 @@
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:id="@+id/crimeCharacter_spinner"
-                    android:layout_weight="1" />
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -129,15 +147,20 @@
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:id="@+id/crimeEntrance_spinner"
-                    android:layout_weight="1" />
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -156,15 +179,20 @@
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:id="@+id/crimeTiming_spinner"
-                    android:layout_weight="1" />
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -183,15 +211,20 @@
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:id="@+id/selectObject_spinner"
-                    android:layout_weight="1" />
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -210,15 +243,20 @@
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:id="@+id/crimeExport_spinner"
-                    android:layout_weight="1" />
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -234,19 +272,22 @@
                     android:textSize="@dimen/create_vp7_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
+                <com.android.csiapp.ClearableEditText
                     android:id="@+id/peopleFeature_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/write_feature"
-                    android:singleLine="false" />
+                    android:singleLine="false"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -265,15 +306,20 @@
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:id="@+id/crimeFeature_spinner"
-                    android:layout_weight="1" />
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -292,15 +338,20 @@
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:id="@+id/intrusiveMethod_spinner"
-                    android:layout_weight="1" />
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -319,15 +370,20 @@
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:id="@+id/selectLocation_spinner"
-                    android:layout_weight="1" />
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -346,8 +402,12 @@
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:id="@+id/crimePurpose_spinner"
-                    android:layout_weight="1" />
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -13,6 +13,9 @@ import android.widget.Spinner;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -22,34 +25,34 @@ public class CreateScene_FP7 extends Fragment {
     private CrimeItem item;
 
     private Spinner peopleNumber_spinner;
-    private String[] peopleNumber = {"单人 ", "两人", "多人","不确定"};
+    private ArrayList<String> peopleNumber = new ArrayList<String>();
     private ArrayAdapter<String> peopleNumber_adapter;
     private Spinner crimeMeans_spinner;
-    private String[] crimeMeans = {"盗窃", "扒窃 ", "挡路抢劫", "故意伤害", "抢夺", "诈骗"};
+    private ArrayList<String> crimeMeans = new ArrayList<String>();
     private ArrayAdapter<String> crimeMeans_adapter;
     private Spinner crimeCharacter_spinner;
-    private String[] crimeCharacter = {"盗窃", "扒窃 ", "挡路抢劫", "故意伤害", "抢夺", "诈骗"};
+    private ArrayList<String> crimeCharacter = new ArrayList<String>();
     private ArrayAdapter<String> crimeCharacter_adapter;
     private Spinner crimeEntrance_spinner;
-    private String[] crimeEntrance = {"门", "窗"};
+    private ArrayList<String> crimeEntrance = new ArrayList<String>();
     private ArrayAdapter<String> crimeEntrance_adapter;
     private Spinner selectObject_spinner;
-    private String[] selectObject = {"老人", "小孩", "女人", "男人"};
+    private ArrayList<String> selectObject = new ArrayList<String>();
     private ArrayAdapter<String> selectObject_adapter;
     private Spinner crimeExport_spinner;
-    private String[] crimeExport = {"门", "窗"};
+    private ArrayList<String> crimeExport = new ArrayList<String>();
     private ArrayAdapter<String> crimeExport_adapter;
     private Spinner crimeFeature_spinner;
-    private String[] crimeFeature = {"单独作案", "内部勾结", "外来勾结"};
+    private ArrayList<String> crimeFeature = new ArrayList<String>();
     private ArrayAdapter<String> crimeFeature_adapter;
     private Spinner intrusiveMethod_spinner;
-    private String[] intrusiveMethod = {"从门侵入", "从窗侵入"};
+    private ArrayList<String> intrusiveMethod = new ArrayList<String>();
     private ArrayAdapter<String> intrusiveMethod_adapter;
     private Spinner selectLocation_spinner;
-    private String[] selectLocation = {"工厂", "农场", "果园"};
+    private ArrayList<String> selectLocation = new ArrayList<String>();
     private ArrayAdapter<String> selectLocation_adapter;
     private Spinner crimePurpose_spinner;
-    private String[] crimePurpose = {"报复", "图财", "嫉妒"};
+    private ArrayList<String> crimePurpose = new ArrayList<String>();
     private ArrayAdapter<String> crimePurpose_adapter;
 
     public CreateScene_FP7() {
@@ -63,8 +66,10 @@ public class CreateScene_FP7 extends Fragment {
         item = activity.getItem();
         context = getActivity().getApplicationContext();
 
+        peopleNumber  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.people_number)));
         peopleNumber_spinner = (Spinner) view.findViewById(R.id.peopleNumber_spinner);
-        peopleNumber_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, peopleNumber);
+        peopleNumber_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, peopleNumber);
+        peopleNumber_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         peopleNumber_spinner.setAdapter(peopleNumber_adapter);
         peopleNumber_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -75,8 +80,10 @@ public class CreateScene_FP7 extends Fragment {
             }
         });
 
+        crimeMeans  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.crime_means)));
         crimeMeans_spinner = (Spinner) view.findViewById(R.id.crimeMeans_spinner);
-        crimeMeans_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, crimeMeans);
+        crimeMeans_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, crimeMeans);
+        crimeMeans_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         crimeMeans_spinner.setAdapter(crimeMeans_adapter);
         crimeMeans_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -87,8 +94,10 @@ public class CreateScene_FP7 extends Fragment {
             }
         });
 
+        crimeCharacter  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.crime_character)));
         crimeCharacter_spinner = (Spinner) view.findViewById(R.id.crimeCharacter_spinner);
-        crimeCharacter_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, crimeCharacter);
+        crimeCharacter_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, crimeCharacter);
+        crimeCharacter_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         crimeCharacter_spinner.setAdapter(crimeCharacter_adapter);
         crimeCharacter_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -99,8 +108,10 @@ public class CreateScene_FP7 extends Fragment {
             }
         });
 
+        crimeEntrance  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.crime_entrance)));
         crimeEntrance_spinner = (Spinner) view.findViewById(R.id.crimeEntrance_spinner);
-        crimeEntrance_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, crimeEntrance);
+        crimeEntrance_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, crimeEntrance);
+        crimeEntrance_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         crimeEntrance_spinner.setAdapter(crimeEntrance_adapter);
         crimeEntrance_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -111,8 +122,10 @@ public class CreateScene_FP7 extends Fragment {
             }
         });
 
+        selectObject  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.select_object)));
         selectObject_spinner = (Spinner) view.findViewById(R.id.selectObject_spinner);
-        selectObject_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, selectObject);
+        selectObject_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, selectObject);
+        selectObject_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         selectObject_spinner.setAdapter(selectObject_adapter);
         selectObject_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -123,8 +136,10 @@ public class CreateScene_FP7 extends Fragment {
             }
         });
 
+        crimeExport  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.crime_export)));
         crimeExport_spinner = (Spinner) view.findViewById(R.id.crimeExport_spinner);
-        crimeExport_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, crimeExport);
+        crimeExport_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, crimeExport);
+        crimeExport_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         crimeExport_spinner.setAdapter(crimeExport_adapter);
         crimeExport_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -135,8 +150,10 @@ public class CreateScene_FP7 extends Fragment {
             }
         });
 
+        crimeFeature  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.crime_feature)));
         crimeFeature_spinner = (Spinner) view.findViewById(R.id.crimeFeature_spinner);
-        crimeFeature_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, crimeFeature);
+        crimeFeature_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, crimeFeature);
+        crimeFeature_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         crimeFeature_spinner.setAdapter(crimeFeature_adapter);
         crimeFeature_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -147,8 +164,10 @@ public class CreateScene_FP7 extends Fragment {
             }
         });
 
+        intrusiveMethod  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.intrusive_method)));
         intrusiveMethod_spinner = (Spinner) view.findViewById(R.id.intrusiveMethod_spinner);
-        intrusiveMethod_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, intrusiveMethod);
+        intrusiveMethod_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, intrusiveMethod);
+        intrusiveMethod_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         intrusiveMethod_spinner.setAdapter(intrusiveMethod_adapter);
         intrusiveMethod_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -159,8 +178,10 @@ public class CreateScene_FP7 extends Fragment {
             }
         });
 
+        selectLocation  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.select_location)));
         selectLocation_spinner = (Spinner) view.findViewById(R.id.selectLocation_spinner);
-        selectLocation_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, selectLocation);
+        selectLocation_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, selectLocation);
+        selectLocation_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         selectLocation_spinner.setAdapter(selectLocation_adapter);
         selectLocation_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -171,8 +192,10 @@ public class CreateScene_FP7 extends Fragment {
             }
         });
 
+        crimePurpose  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.crime_purpose)));
         crimePurpose_spinner = (Spinner) view.findViewById(R.id.crimePurpose_spinner);
-        crimePurpose_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, crimePurpose);
+        crimePurpose_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, crimePurpose);
+        crimePurpose_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         crimePurpose_spinner.setAdapter(crimePurpose_adapter);
         crimePurpose_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override

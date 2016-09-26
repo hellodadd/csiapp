@@ -11,18 +11,27 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.csiapp.R;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
 
     private Context context = null;
-    private Button informant;
-    private Button victim;
-    private Button man;
-    private Button woman;
+    private Spinner releationPeople_spinner;
+    private ArrayList<String> releationPeople = new ArrayList<String>();
+    private ArrayAdapter<String> releationPeople_adapter;
+
+    private Spinner sex_spinner;
+    private ArrayList<String> sex = new ArrayList<String>();
+    private ArrayAdapter<String> sex_adapter;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -65,43 +74,33 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
-        informant = (Button) findViewById(R.id.informant);
-        informant.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        releationPeople = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.releation_people)));
+        releationPeople_spinner = (Spinner) findViewById(R.id.releationPeople_spinner);
+        releationPeople_adapter = new ArrayAdapter<String>(context, R.layout.spinnerview, releationPeople);
+        releationPeople_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        releationPeople_spinner.setAdapter(releationPeople_adapter);
+        releationPeople_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
-            public void onClick(View view) {
-                informant.setBackground(context.getDrawable(R.drawable.form_radiobutton_checked));
-                victim.setBackground(context.getDrawable(R.drawable.form_radiobutton_nor));
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                //item.setCasetype(tool_category.get(position));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
 
-        victim = (Button) findViewById(R.id.victim);
-        victim.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        sex = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.sex)));
+        sex_spinner = (Spinner) findViewById(R.id.sex_spinner);
+        sex_adapter = new ArrayAdapter<String>(context, R.layout.spinnerview, sex);
+        sex_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sex_spinner.setAdapter(sex_adapter);
+        sex_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
-            public void onClick(View view) {
-                informant.setBackground(context.getDrawable(R.drawable.form_radiobutton_nor));
-                victim.setBackground(context.getDrawable(R.drawable.form_radiobutton_checked));
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                //item.setCasetype(tool_category.get(position));
             }
-        });
-
-        man = (Button) findViewById(R.id.man);
-        man.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
-            public void onClick(View view) {
-                man.setBackground(context.getDrawable(R.drawable.form_radiobutton_checked));
-                woman.setBackground(context.getDrawable(R.drawable.form_radiobutton_nor));
-            }
-        });
-
-        woman = (Button) findViewById(R.id.woman);
-        woman.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onClick(View view) {
-                man.setBackground(context.getDrawable(R.drawable.form_radiobutton_nor));
-                woman.setBackground(context.getDrawable(R.drawable.form_radiobutton_checked));
+            public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
     }

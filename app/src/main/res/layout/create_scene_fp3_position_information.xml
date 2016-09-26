@@ -21,24 +21,23 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:layout_below="@+id/toolbar">
+            android:layout_below="@+id/toolbar"
+            android:background="#F7F7F7">
 
             <Button
                 android:layout_width="299dp"
                 android:layout_height="328dp"
                 android:layout_gravity="center"
                 android:id="@+id/new_position"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -54,19 +53,22 @@
                     android:textSize="@dimen/create_vp3_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
+                <com.android.csiapp.ClearableEditText
                     android:id="@+id/time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/write_number"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -82,19 +84,22 @@
                     android:textSize="@dimen/create_vp3_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
+                <com.android.csiapp.ClearableEditText
                     android:id="@+id/location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/write_number"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -110,19 +115,22 @@
                     android:textSize="@dimen/create_vp3_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
+                <com.android.csiapp.ClearableEditText
                     android:id="@+id/unit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/write_address"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -138,12 +146,14 @@
                     android:textSize="@dimen/create_vp3_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
+                <com.android.csiapp.ClearableEditText
                     android:id="@+id/people"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/write_address"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -2,6 +2,7 @@ package com.android.csiapp.Crime.createscene;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,29 +17,52 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity {
+public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity implements View.OnClickListener {
     private Context context = null;
     private Uri LocalFileUri = null;
     private ImageView new_evidence;
-    private Button handprint;
-    private Button footprint;
-    private Button toolMark;
+    private Spinner evidence_category_spinner;
+    private ArrayList<String> evidence_category = new ArrayList<String>();
+    private ArrayAdapter<String> evidence_category_adapter;
+    private Spinner evidence_spinner;
+    private ArrayList<String> evidence = new ArrayList<String>();
+    private ArrayAdapter<String> evidence_adapter;
+    private Spinner method_spinner;
+    private ArrayList<String> method = new ArrayList<String>();
+    private ArrayAdapter<String> method_adapter;
+    private Spinner getPeople_spinner;
+    private ArrayList<String> getPeople = new ArrayList<String>();
+    private ArrayAdapter<String> getPeople_adapter;
 
+    private Calendar c;
+    private TextView time;
+    private Button time_button;
 
     public static final int PHOTO_TYPE_NEW_EVIDENCE = 1;
 
@@ -91,45 +115,134 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity {
 
         new_evidence = (ImageView) findViewById(R.id.new_evidence);
 
-        handprint = (Button) findViewById(R.id.handprint);
-        handprint.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        evidence_category = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence_category)));
+        evidence_category_spinner = (Spinner) findViewById(R.id.evidence_category_spinner);
+        evidence_category_adapter = new ArrayAdapter<String>(context, R.layout.spinnerview, evidence_category);
+        evidence_category_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        evidence_category_spinner.setAdapter(evidence_category_adapter);
+        evidence_category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
-            public void onClick(View view) {
-                handprint.setBackground(context.getDrawable(R.drawable.form_radiobutton_checked));
-                footprint.setBackground(context.getDrawable(R.drawable.form_radiobutton_nor));
-                toolMark.setBackground(context.getDrawable(R.drawable.form_radiobutton_nor));
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                //item.setCasetype(tool_category.get(position));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
 
-        footprint = (Button) findViewById(R.id.footprint);
-        footprint.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        evidence = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence)));
+        evidence_spinner = (Spinner) findViewById(R.id.evidence_spinner);
+        evidence_adapter = new ArrayAdapter<String>(context, R.layout.spinnerview, evidence);
+        evidence_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        evidence_spinner.setAdapter(evidence_adapter);
+        evidence_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
-            public void onClick(View view) {
-                handprint.setBackground(context.getDrawable(R.drawable.form_radiobutton_nor));
-                footprint.setBackground(context.getDrawable(R.drawable.form_radiobutton_checked));
-                toolMark.setBackground(context.getDrawable(R.drawable.form_radiobutton_nor));
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                //item.setCasetype(tool_category.get(position));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
 
-        toolMark = (Button) findViewById(R.id.toolMark);
-        toolMark.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        method = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.method)));
+        method_spinner = (Spinner) findViewById(R.id.method_spinner);
+        method_adapter = new ArrayAdapter<String>(context, R.layout.spinnerview, method);
+        method_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        method_spinner.setAdapter(method_adapter);
+        method_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
-            public void onClick(View view) {
-                handprint.setBackground(context.getDrawable(R.drawable.form_radiobutton_nor));
-                footprint.setBackground(context.getDrawable(R.drawable.form_radiobutton_nor));
-                toolMark.setBackground(context.getDrawable(R.drawable.form_radiobutton_checked));
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                //item.setCasetype(tool_category.get(position));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
 
+        c = Calendar.getInstance();
+        time = (TextView) findViewById(R.id.time);
+        time_button = (Button) findViewById(R.id.time_button);
+        time.setText(CrimeItem.getCurrentTime(c));
+        time_button.setOnClickListener(this);
 
+        getPeople = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.get_people)));
+        getPeople_spinner = (Spinner) findViewById(R.id.getPeople_spinner);
+        getPeople_adapter = new ArrayAdapter<String>(context, R.layout.spinnerview, getPeople);
+        getPeople_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        getPeople_spinner.setAdapter(getPeople_adapter);
+        getPeople_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                //item.setCasetype(tool_category.get(position));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_create_fp5_subactivity, menu);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        // TODO Auto-generated method stub
+        switch (v.getId()) {
+            case R.id.time_button:
+                //showDateTimeDialog(time);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void showDateTimeDialog(final TextView textView) {
+        // Create the dialog
+        final Dialog mDateTimeDialog = new Dialog(context);
+        // Inflate the root layout
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+        final RelativeLayout mDateTimeDialogView = (RelativeLayout) inflater.inflate(R.layout.date_time_dialog, null);
+        // Grab widget instance
+        final DateTimePicker mDateTimePicker = (DateTimePicker) mDateTimeDialogView.findViewById(R.id.DateTimePicker);
+
+        // Update demo TextViews when the "OK" button is clicked
+        ((Button) mDateTimeDialogView.findViewById(R.id.SetDateTime)).setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                mDateTimePicker.clearFocus();
+                // TODO Auto-generated method stub
+                c = mDateTimePicker.get();
+                textView.setText(CrimeItem.getCurrentTime(c));
+                mDateTimeDialog.dismiss();
+            }
+        });
+
+        // Cancel the dialog when the "Cancel" button is clicked
+        ((Button) mDateTimeDialogView.findViewById(R.id.CancelDialog)).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                mDateTimeDialog.cancel();
+            }
+        });
+
+        // Reset Date and Time pickers when the "Reset" button is clicked
+        ((Button) mDateTimeDialogView.findViewById(R.id.ResetDateTime)).setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                mDateTimePicker.reset();
+            }
+        });
+
+        // No title on the dialog window
+        mDateTimeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        // Set the dialog content view
+        mDateTimeDialog.setContentView(mDateTimeDialogView);
+        // Display the dialog
+        mDateTimeDialog.show();
     }
 
     public void takePhoto(Uri LocalFileUri, int PHOTO_TYPE) {

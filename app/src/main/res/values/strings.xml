@@ -47,6 +47,8 @@
     <string name="write_wind_direction">填写风向</string>
     <string name="temperature">温度</string>
     <string name="write_temperature">填写温度</string>
+    <string name="humidity">湿度</string>
+    <string name="write_humidity">填写湿度</string>
 
     <string name="step_2">现场访问</string>
     <string name="add_people">添加关联人</string>
@@ -54,13 +56,9 @@
     <string name="add_tools">添加作案工具</string>
     <string name="title_activity_peopleinformation">关联人信息</string>
     <string name="type">案件人關係</string>
-    <string name="informant">报案人</string>
-    <string name="victim">被害人</string>
     <string name="name">姓名</string>
     <string name="write_name">填写姓名</string>
     <string name="sex">性别</string>
-    <string name="man">男</string>
-    <string name="woman">女</string>
     <string name="identity_number">身分证号</string>
     <string name="write_number">填写号码</string>
     <string name="contact_number">联系电话</string>
@@ -81,9 +79,7 @@
     <string name="tool_name">工具名称</string>
     <string name="write_tool">填写名称</string>
     <string name="tool_category">工具数目</string>
-    <string name="write_category">填写数目</string>
-    <string name="tool_source">工具来源</string>
-    <string name="write_source">填写来源</string>
+    <string name="tool_source">工具来源</string>>
 
     <string name="step_3">现场图</string>
     <string name="position">方位示意图</string>
@@ -99,21 +95,15 @@
     <string name="scene_evidence">现场痕迹</string>
     <string name="title_activity_new_evidence">现场痕迹</string>
     <string name="category">类型</string>
-    <string name="hand_print">手印</string>
-    <string name="foot_print">足迹</string>
-    <string name="tool_mark">工痕</string>
     <string name="evidence">手印痕迹</string>
-    <string name="write_evidence">填写痕迹</string>
     <string name="evidence_name">物证名称</string>
     <string name="legacy_site">遗留部位</string>
     <string name="write_part">填写部位</string>
     <string name="basic_feature">基本特征</string>
     <string name="extraction_method">提取方法</string>
-    <string name="write_method">填写方法</string>
     <string name="extraction_time">提取时间</string>
     <string name="write_time">填写时间</string>
     <string name="extraction_people">提取人</string>
-    <string name="write_people">填写人名</string>
 
     <string name="step_6">勘验情况</string>
     <string name="automatic_generated">自动生成</string>
@@ -187,19 +177,4 @@
     <string name="scene_category">场所类别</string>
     <string name="impoerant_section">重点地段</string>
     <string name="scene_type">地段类型</string>
-
-    <string name="steal_electric_bicycle">盗窃电动自行车</string>
-    <string name="steal_animal">盗窃牲畜</string>
-    <string name="pickpocketing">扒窃</string>
-    <string name="steal_motorcycle">盗窃摩托车</string>
-    <string name="steal_bicycle">盗窃自行车</string>
-    <string name="robbery">挡路抢劫</string>
-    <string name="hurt">故意伤害</string>
-    <string name="snatch">抢夺</string>
-    <string name="bilk">诈骗</string>
-    <string name="shanghai">上海</string>
-    <string name="beijing">北京</string>
-    <string name="nanjing">南京</string>
-    <string name="shenzhen">深圳</string>
-    <string name="tianjin">天津</string>
 </resources>

@@ -19,7 +19,8 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#F7F7F7">
 
             <TextView
                 android:layout_width="match_parent"
@@ -27,10 +28,11 @@
                 android:text="@string/red_title"
                 android:textColor="#F9574B"
                 android:textSize="16sp"
-                android:background="#F7F7F7"
-                android:paddingTop="16sp"
-                android:paddingLeft="16sp"
-                android:paddingBottom="16sp"/>
+                android:paddingTop="16dp"
+                android:paddingLeft="16dp"
+                android:paddingBottom="16dp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:background="#FFFFFF"/>
 
             <ImageView
                 android:layout_width="328dp"
@@ -38,13 +40,15 @@
                 android:layout_gravity="center"
                 android:id="@+id/new_evidence"
                 android:background="#FFFFFF"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:layout_marginBottom="16sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -60,44 +64,28 @@
                     android:textSize="@dimen/create_vp5_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Button
-                    android:id="@+id/handprint"
-                    android:layout_width="80dp"
+                <Spinner
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="5dp"
-                    android:text="@string/hand_print"
-                    android:textSize="@dimen/create_vp5_textsize"
-                    android:background="@drawable/form_radiobutton_nor"
-                    android:clickable="true"/>
-                <Button
-                    android:id="@+id/footprint"
-                    android:layout_width="80dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="5dp"
-                    android:text="@string/foot_print"
-                    android:textSize="@dimen/create_vp5_textsize"
-                    android:background="@drawable/form_radiobutton_nor"
-                    android:clickable="true"/>
-                <Button
-                    android:id="@+id/toolMark"
-                    android:layout_width="80dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/tool_mark"
-                    android:textSize="@dimen/create_vp5_textsize"
-                    android:background="@drawable/form_radiobutton_nor"
-                    android:clickable="true"/>
+                    android:layout_gravity="center"
+                    android:id="@+id/evidence_category_spinner"
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/red_60dp"
+                    android:background="@drawable/green_60dp"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
@@ -108,30 +96,28 @@
                     android:textSize="@dimen/create_vp5_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
-                    android:id="@+id/evidence_editView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/write_evidence"
-                    android:singleLine="true" />
-                <!-- Anita test -->
-                <!--<Spinner
+                <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:id="@+id/evidence_spinner"
-                    android:layout_weight="1" />-->
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/red_60dp"
+                    android:background="@drawable/green_60dp"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
@@ -142,19 +128,22 @@
                     android:textSize="@dimen/create_vp5_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
+                <com.android.csiapp.ClearableEditText
                     android:id="@+id/evidence_name_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/name"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -170,24 +159,27 @@
                     android:textSize="@dimen/create_vp5_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
+                <com.android.csiapp.ClearableEditText
                     android:id="@+id/legacy_site_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/write_part"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/red_60dp"
+                    android:background="@drawable/green_60dp"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
@@ -198,24 +190,27 @@
                     android:textSize="@dimen/create_vp5_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
+                <com.android.csiapp.ClearableEditText
                     android:id="@+id/basice_feature_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/write_feature"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/red_60dp"
+                    android:background="@drawable/green_60dp"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
@@ -226,30 +221,28 @@
                     android:textSize="@dimen/create_vp5_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
-                    android:id="@+id/method_editView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/write_method"
-                    android:singleLine="true" />
-                <!-- Anita test -->
-                <!--<Spinner
+                <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:id="@+id/method_spinner"
-                    android:layout_weight="1" />-->
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/red_60dp"
+                    android:background="@drawable/green_60dp"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
@@ -260,30 +253,35 @@
                     android:textSize="@dimen/create_vp5_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
-                    android:id="@+id/time_editView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/write_time"
-                    android:singleLine="true" />
-                <!-- Anita test -->
-                <!--<Spinner
+                <TextView
+                    android:id="@+id/time"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/time_spinner"
-                    android:layout_weight="1" />-->
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/create_vp5_textsize"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:id="@+id/time_button"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/dropdown"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/red_60dp"
+                    android:background="@drawable/green_60dp"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
@@ -294,18 +292,15 @@
                     android:textSize="@dimen/create_vp5_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
-                    android:id="@+id/people_editView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/write_people"
-                    android:singleLine="true" />
-                <!-- Anita test -->
-                <!--<Spinner
+                <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/people_spinner"
-                    android:layout_weight="1" />-->
+                    android:layout_gravity="center"
+                    android:id="@+id/getPeople_spinner"
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

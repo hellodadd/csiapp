@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.android.csiapp.R;
 
@@ -15,6 +16,7 @@ public class SettingActivity extends AppCompatActivity {
 
     private ImageButton mBackupBtn;
     private ImageButton mRestoreBtn;
+    private ImageButton mReactiveBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class SettingActivity extends AppCompatActivity {
         mBackupBtn.setOnClickListener(btnBackupOnClick);
         mRestoreBtn = (ImageButton)findViewById(R.id.Setting_restore);
         mRestoreBtn.setOnClickListener(btnRestoreOnClick);
+        mReactiveBtn = (ImageButton)findViewById(R.id.Setting_reactive);
+        mReactiveBtn.setOnClickListener(btnReactiveOnClick);
     }
 
     private View.OnClickListener btnBackupOnClick = new View.OnClickListener () {
@@ -55,6 +59,14 @@ public class SettingActivity extends AppCompatActivity {
             dataRecover();
         }
     };
+
+    private View.OnClickListener btnReactiveOnClick = new View.OnClickListener () {
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(SettingActivity.this, "Recative", Toast.LENGTH_SHORT).show();
+        }
+    };
+
     private void dataBackup() {
         // TODO Auto-generated method stub
         new BackupRestore(this).execute("backupDatabase");

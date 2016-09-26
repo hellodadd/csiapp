@@ -22,7 +22,8 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar">
+            android:layout_below="@+id/toolbar"
+            android:background="#F7F7F7">
 
             <TextView
                 android:layout_width="match_parent"
@@ -30,16 +31,18 @@
                 android:text="@string/red_title"
                 android:textColor="#F9574B"
                 android:textSize="16sp"
-                android:background="#F7F7F7"
                 android:paddingTop="16sp"
                 android:paddingLeft="16sp"
-                android:paddingBottom="16sp"/>
+                android:paddingBottom="16sp"
+                android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:background="#FFFFFF"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -55,19 +58,22 @@
                     android:textSize="@dimen/create_vp2_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
+                <com.android.csiapp.ClearableEditText
                     android:id="@+id/tool_name_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/write_tool"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -83,25 +89,23 @@
                     android:textSize="@dimen/create_vp2_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
-                    android:id="@+id/tool_category_editView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/write_category"
-                    android:singleLine="true" />
-                <!-- Anita test -->
-                <!-- <Spinner
+                <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:id="@+id/tool_category_spinner"
-                    android:layout_weight="1" />-->
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#FFFFFF">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -117,20 +121,16 @@
                     android:textSize="@dimen/create_vp2_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <EditText
-                    android:id="@+id/tool_source_editView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/write_source"
-                    android:singleLine="true" />
-                <!-- Anita test -->
-                <!--<Spinner
+                <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:id="@+id/tool_source_spinner"
-                    android:layout_weight="1" />-->
+                    android:background="#FFFFFF"
+                    android:popupBackground="#FFFFFF"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
         </LinearLayout>
-
     </ScrollView>
 </RelativeLayout>
