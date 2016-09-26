@@ -231,12 +231,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         List<String> users = new ArrayList<>();
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            users.add(cursor.getString(ProfileQuery.ADDRESS));
-            cursor.moveToNext();
+        if(cursor !=null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                users.add(cursor.getString(ProfileQuery.ADDRESS));
+                cursor.moveToNext();
+            }
         }
-
         addUserToAutoComplete(users);
     }
 
