@@ -143,38 +143,4 @@
     <string name="recovery">恢复数据</string>
     <string name="reactive">重新激活</string>
     <string name="about">关于\n\n\n深圳联赢信息技术有限公司\n域名:Liany.com\n</string>
-    <!--String related to Scene -->
-    <string name="title_activity_scene">场景采集</string>
-    <string name="title_activity_scene_static">静态采集(场景)</string>
-    <string name="title_activity_scene_dynamic">动态采集(场景)</string>
-    <string name="title_activity_scene_static_list">场景静态采集</string>
-    <string name="title_activity_scene_dynamic_list">场景动态采集</string>
-    <string name="title_activity_edit">新建/编辑现场</string>
-    <string name="title_activity_scene_static_onekey">场景采集結果</string>
-    <string name="title_activity_scene_static_detail_information">查看详细</string>
-    <!--String related to Signal-->
-    <string name="title_activity_signal">信号采集</string>
-    <string name="title_activity_signal_static">静态采集(Signal)</string>
-    <string name="title_activity_signal_dynamic">动态采集(Signal)</string>
-    <string name="title_activity_signal_static_list">信号静态采集</string>
-    <string name="title_activity_signal_dynamic_list">信号动态采集</string>
-    <string name="title_activity_signal_static_onekey">信号采集結果</string>
-    <string name="title_activity_signal_static_detail_information">查看详细</string>
-
-    <string name="static_collection">静态采集</string>
-    <string name="dynamic_collection">动态采集</string>
-    <string name="gps">GPS</string>
-    <string name="ct_cdma">电信CDMA</string>
-    <string name="cmcc_gsm">移动GSM</string>
-    <string name="cu_gsm">联通GSM</string>
-    <string name="cu_wcdma">联通WCDMA</string>
-    <string name="cmcc_td_scdma">移动TD-SCDMA</string>
-    <string name="one_key_to_collect">一键采集</string>
-    <string name="result">结果</string>
-    <string name="re_collection">全部重新采集</string>
-    <string name="enter_the_scene_name">请输入场所名称</string>
-    <string name="enter_the_scene_address">请输入场所地址</string>
-    <string name="scene_category">场所类别</string>
-    <string name="impoerant_section">重点地段</string>
-    <string name="scene_type">地段类型</string>
 </resources>
