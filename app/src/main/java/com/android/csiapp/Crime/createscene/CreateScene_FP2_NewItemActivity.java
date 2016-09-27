@@ -11,11 +11,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.csiapp.ClearableEditText;
+import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
 public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
 
     private Context context = null;
+    private CrimeItem item;
+    private int event;
+
+    private ClearableEditText mName;
+    private ClearableEditText mBrand;
+    private ClearableEditText mAmount;
+    private ClearableEditText mValue;
+    private ClearableEditText mFeature;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -24,7 +34,9 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
             switch (menuItem.getItemId()) {
                 case R.id.action_click:
                     msg += "Save";
+                    saveMessage();
                     Intent result = getIntent();
+                    result.putExtra("com.android.csiapp.CrimeItem", item);
                     setResult(Activity.RESULT_OK, result);
                     break;
             }
@@ -43,6 +55,8 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
         setContentView(R.layout.create_scene_fp2_new_item);
 
         context = this.getApplicationContext();
+        item = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.CrimeItem");
+        event = (int) getIntent().getIntExtra("Event", 1);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(context.getResources().getString(R.string.title_activity_lostitem));
@@ -57,10 +71,36 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
             }
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
+
+        mName = (ClearableEditText) findViewById(R.id.item_name_editView);
+        mBrand = (ClearableEditText) findViewById(R.id.brand_model_editView);
+        mAmount = (ClearableEditText) findViewById(R.id.amount_editView);
+        mValue = (ClearableEditText) findViewById(R.id.value_editView);
+        mFeature = (ClearableEditText) findViewById(R.id.feature_description_editView);
+
+        if(event == 2) {
+            getMessage();
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_create_fp2_subactivity, menu);
         return true;
+    }
+
+    public void getMessage(){
+        mName.setText(item.getItemName());
+        mBrand.setText(item.getItemBrand());
+        mAmount.setText(item.getItemAmount());
+        mValue.setText(item.getItemValue());
+        mFeature.setText(item.getItemFeature());
+    }
+
+    public void saveMessage(){
+        item.setItemName(mName.getText());
+        item.setItemBrand(mBrand.getText());
+        item.setItemAmount(mAmount.getText());
+        item.setItemVlaue(mValue.getText());
+        item.setItemFeatue(mFeature.getText());
     }
 }

@@ -89,9 +89,14 @@ public class ClearableEditText extends RelativeLayout
         });
     }
 
-    public Editable getText()
+    public String getText()
     {
         Editable text = edit_text.getText();
-        return text;
+        return text.toString();
+    }
+
+    public void setText(String text)
+    {
+        edit_text.setText(text);
     }
 }

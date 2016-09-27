@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.csiapp.ClearableEditText;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 import java.util.ArrayList;
@@ -31,13 +32,21 @@ import java.util.Calendar;
 public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Context context = null;
-    private Spinner sex_spinner;
-    private ArrayList<String> sex = new ArrayList<String>();
-    private ArrayAdapter<String> sex_adapter;
+    private CrimeItem item;
+    private int event;
+
+    private ClearableEditText mName;
+
+    private Spinner mSex_spinner;
+    private ArrayList<String> mSex = new ArrayList<String>();
+    private ArrayAdapter<String> mSex_adapter;
 
     private Calendar c;
     private TextView birthday;
     private Button birthday_button;
+
+    private ClearableEditText mNumber;
+    private ClearableEditText mAddress;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -46,7 +55,9 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
             switch (menuItem.getItemId()) {
                 case R.id.action_click:
                     msg += "Save";
+                    saveMessage();
                     Intent result = getIntent();
+                    result.putExtra("com.android.csiapp.CrimeItem", item);
                     setResult(Activity.RESULT_OK, result);
                     break;
             }
@@ -65,6 +76,8 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         setContentView(R.layout.create_scene_fp8_add_witness);
 
         context = this.getApplicationContext();
+        item = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.CrimeItem");
+        event = (int) getIntent().getIntExtra("Event", 1);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(context.getResources().getString(R.string.title_activity_witness_peopleinformation));
@@ -80,15 +93,17 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
-        sex = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.sex)));
-        sex_spinner = (Spinner) findViewById(R.id.sex_spinner);
-        sex_adapter = new ArrayAdapter<String>(CreateScene_FP8_AddWitnessActivity.this, R.layout.spinnerview, sex);
-        sex_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sex_spinner.setAdapter(sex_adapter);
-        sex_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        mName = (ClearableEditText) findViewById(R.id.name_editView);
+
+        mSex = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.sex)));
+        mSex_spinner = (Spinner) findViewById(R.id.sex_spinner);
+        mSex_adapter = new ArrayAdapter<String>(CreateScene_FP8_AddWitnessActivity.this, R.layout.spinnerview, mSex);
+        mSex_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSex_spinner.setAdapter(mSex_adapter);
+        mSex_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                //item.setCasetype(tool_category.get(position));
+                item.setWitnessSex(mSex.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -100,11 +115,40 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         birthday_button = (Button) findViewById(R.id.birthday_date_button);
         birthday.setText(CrimeItem.getCurrentTime(c));
         birthday_button.setOnClickListener(this);
+
+        mNumber = (ClearableEditText) findViewById(R.id.contact_number_editView);
+        mAddress = (ClearableEditText) findViewById(R.id.address_editView);
+
+        if(event == 2) {
+            getMessage();
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_create_fp8_subactivity, menu);
         return true;
+    }
+
+    private int getSex(String sex){
+        for(int i=0; i<mSex.size(); i++){
+            if(sex.equalsIgnoreCase(mSex.get(i))) return i;
+        }
+        return 0;
+    }
+
+    public void getMessage(){
+        mName.setText(item.getWitnessName());
+        mSex_spinner.setSelection(getSex(item.getWitnessSex()));
+        birthday.setText(item.getWitnessBirthday());
+        mNumber.setText(item.getWitnessNumber());
+        mAddress.setText(item.getWitnessAddress());
+    }
+
+    public void saveMessage(){
+        item.setWitnessName(mName.getText());
+        item.setWitnessBirthday(birthday.getText().toString());
+        item.setWitnessNumber(mNumber.getText());
+        item.setWitnessAddress(mAddress.getText());
     }
 
     @Override

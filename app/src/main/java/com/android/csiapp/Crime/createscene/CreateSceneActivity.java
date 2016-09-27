@@ -50,6 +50,14 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             String msg = "";
+
+            //Anita test
+            if(item.getTime().isEmpty()) {
+                Toast.makeText(CreateSceneActivity.this, "需要填写发案开始时间", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            //Anita test
+
             switch (menuItem.getItemId()) {
                 case R.id.action_save:
                     msg += "Save";
@@ -60,15 +68,10 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
             }
 
             if (!msg.equals("")) {
-                //Toast.makeText(CreateSceneActivity.this, msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateSceneActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
-            //Anita test
-            if(item.getTime().isEmpty()) {
-                Toast.makeText(CreateSceneActivity.this, "需要填写发案开始时间", Toast.LENGTH_SHORT).show();
-            }else{
-                finish();
-            }
-            //Anita test
+
+            finish();
             return true;
         }
     };

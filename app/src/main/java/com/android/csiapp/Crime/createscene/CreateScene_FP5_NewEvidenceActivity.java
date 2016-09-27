@@ -117,7 +117,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
 
         evidence_category = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence_category)));
         evidence_category_spinner = (Spinner) findViewById(R.id.evidence_category_spinner);
-        evidence_category_adapter = new ArrayAdapter<String>(context, R.layout.spinnerview, evidence_category);
+        evidence_category_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, evidence_category);
         evidence_category_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         evidence_category_spinner.setAdapter(evidence_category_adapter);
         evidence_category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -132,7 +132,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
 
         evidence = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence)));
         evidence_spinner = (Spinner) findViewById(R.id.evidence_spinner);
-        evidence_adapter = new ArrayAdapter<String>(context, R.layout.spinnerview, evidence);
+        evidence_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, evidence);
         evidence_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         evidence_spinner.setAdapter(evidence_adapter);
         evidence_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -147,7 +147,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
 
         method = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.method)));
         method_spinner = (Spinner) findViewById(R.id.method_spinner);
-        method_adapter = new ArrayAdapter<String>(context, R.layout.spinnerview, method);
+        method_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, method);
         method_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         method_spinner.setAdapter(method_adapter);
         method_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -168,7 +168,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
 
         getPeople = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.get_people)));
         getPeople_spinner = (Spinner) findViewById(R.id.getPeople_spinner);
-        getPeople_adapter = new ArrayAdapter<String>(context, R.layout.spinnerview, getPeople);
+        getPeople_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, getPeople);
         getPeople_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getPeople_spinner.setAdapter(getPeople_adapter);
         getPeople_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
