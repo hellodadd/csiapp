@@ -44,14 +44,14 @@ public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
     private Context context = null;
 
     private File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "BaiduMap");
-    private String filepath;
+    private String mFilepath;
     private MapView mMapView;
     private BaiduMap mBaiduMap;
     private MyLocationData mLocData;
     private LocationClient mLocationClient;
     private MyLocationConfiguration mConfig;
     private BitmapDescriptor mCurrentMarker;
-    private boolean firstLocation;
+    private boolean mFirstLocation;
 
     public Handler mHandler = new Handler() {
         @Override
@@ -92,8 +92,8 @@ public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
 
                             try {
                                 String path = mediaStorageDir.getPath() + File.separator + "IMG_"+ timeStamp + ".jpg";
-                                filepath = path;
-                                Log.d("BaiduMap","filepath1: " + filepath);
+                                mFilepath = path;
+                                Log.d("BaiduMap","filepath1: " + mFilepath);
                                 File mediaFile = new File(path);
                                 FileOutputStream out = new FileOutputStream(mediaFile);
                                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out); //100-best quality
@@ -102,10 +102,10 @@ public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            Log.d("BaiduMap","filepath2: " + filepath);
+                            Log.d("BaiduMap","filepath2: " + mFilepath);
                             Message msg = new Message();
                             msg.what = 1;
-                            msg.obj = filepath;
+                            msg.obj = mFilepath;
                             mHandler.sendMessage(msg);
                             //Intent result = new Intent(Create_FP3_NewPosition_Activity.this,Create_FragmentPage3.class);
                             //result.putExtra("BaiduMap_ScreenShot", filepath);
@@ -143,7 +143,7 @@ public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
 
         // 定位初始化
         mLocationClient = new LocationClient(this);
-        firstLocation =true;
+        mFirstLocation =true;
 
         // 设置定位的相关配置
         LocationClientOption option = new LocationClientOption();
@@ -181,8 +181,8 @@ public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
                 mBaiduMap.setMyLocationData(mLocData);
 
                 // 第一次定位时，将地图位置移动到当前位置
-                if (firstLocation) {
-                    firstLocation = false;
+                if (mFirstLocation) {
+                    mFirstLocation = false;
                     LatLng xy = new LatLng(location.getLatitude(), location.getLongitude());;
 
 /*

@@ -32,13 +32,13 @@ import java.util.Locale;
 public class CreateScene_FP4 extends Fragment {
     private Context context = null;
     private Uri LocalFileUri = null;
-    private CrimeItem item;
-    private ImageButton add_position;
-    private ImageButton add_like;
-    private ImageButton add_important;
-    private ImageButton position;
-    private ImageButton like;
-    private ImageButton important;
+    private CrimeItem mItem;
+    private ImageButton mAdd_Position;
+    private ImageButton mAdd_Like;
+    private ImageButton mAdd_Important;
+    private ImageButton mPosition;
+    private ImageButton mLike;
+    private ImageButton mImportant;
 
     public static final int PHOTO_TYPE_POSITION = 1;
     public static final int PHOTO_TYPE_LIKE = 2;
@@ -52,36 +52,36 @@ public class CreateScene_FP4 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.create_scene_fp4, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
-        item = activity.getItem();
+        mItem = activity.getItem();
         context = getActivity().getApplicationContext();
 
-        add_position = (ImageButton) view.findViewById(R.id.add_position_photo_imageButton);
-        add_position.setOnClickListener(new View.OnClickListener() {
+        mAdd_Position = (ImageButton) view.findViewById(R.id.add_position_photo_imageButton);
+        mAdd_Position.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LocalFileUri = Uri.fromFile(getOutputMediaFile(PHOTO_TYPE_POSITION));
                 takePhoto(LocalFileUri, PHOTO_TYPE_POSITION);
             }
         });
-        position = (ImageButton) view.findViewById(R.id.Position_photo_imageButton);
-        add_like = (ImageButton) view.findViewById(R.id.add_like_photo_imageButton);
-        add_like.setOnClickListener(new View.OnClickListener() {
+        mPosition = (ImageButton) view.findViewById(R.id.Position_photo_imageButton);
+        mAdd_Like = (ImageButton) view.findViewById(R.id.add_like_photo_imageButton);
+        mAdd_Like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LocalFileUri = Uri.fromFile(getOutputMediaFile(PHOTO_TYPE_LIKE));
                 takePhoto(LocalFileUri, PHOTO_TYPE_LIKE);
             }
         });
-        like = (ImageButton) view.findViewById(R.id.Like_photo_imageButton);
-        add_important = (ImageButton) view.findViewById(R.id.add_important_photo_imageButton);
-        add_important.setOnClickListener(new View.OnClickListener() {
+        mLike = (ImageButton) view.findViewById(R.id.Like_photo_imageButton);
+        mAdd_Important = (ImageButton) view.findViewById(R.id.add_important_photo_imageButton);
+        mAdd_Important.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LocalFileUri = Uri.fromFile(getOutputMediaFile(PHOTO_TYPE_IMPORTANT));
                 takePhoto(LocalFileUri, PHOTO_TYPE_IMPORTANT);
             }
         });
-        important = (ImageButton) view.findViewById(R.id.Important_photo_imageButton);
+        mImportant = (ImageButton) view.findViewById(R.id.Important_photo_imageButton);
         return view;
     }
 
@@ -149,24 +149,24 @@ public class CreateScene_FP4 extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         String path = LocalFileUri.getPath();
-        if (path != null && position != null && like != null && important != null) {
+        if (path != null && mPosition != null && mLike!= null && mImportant != null) {
             Bitmap Bitmap = loadBitmapFromFile(new File(path));
 
             if (requestCode == PHOTO_TYPE_POSITION) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_POSITION");
                 BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
-                position.setBackground(bDrawable);
-                position.setVisibility(View.VISIBLE);
+                mPosition.setBackground(bDrawable);
+                mPosition.setVisibility(View.VISIBLE);
             } else if (requestCode == PHOTO_TYPE_LIKE) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_LIKE");
                 BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
-                like.setBackground(bDrawable);
-                like.setVisibility(View.VISIBLE);
+                mLike.setBackground(bDrawable);
+                mLike.setVisibility(View.VISIBLE);
             } else if (requestCode == PHOTO_TYPE_IMPORTANT) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_IMPORTANT");
                 BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
-                important.setBackground(bDrawable);
-                important.setVisibility(View.VISIBLE);
+                mImportant.setBackground(bDrawable);
+                mImportant.setVisibility(View.VISIBLE);
             }
         }
     }

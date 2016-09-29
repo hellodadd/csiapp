@@ -21,8 +21,8 @@ import com.android.csiapp.R;
 public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivity {
 
     private Context context = null;
-    private Button new_position;
-    private String filepath;
+    private Button mNew_Position;
+    private String mFilepath;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -36,7 +36,7 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
                     break;
                 case R.id.action_click:
                     msg += "Save";
-                    Intent result = getIntent().putExtra("BaiduMap_ScreenShot", filepath);
+                    Intent result = getIntent().putExtra("BaiduMap_ScreenShot", mFilepath);
                     setResult(Activity.RESULT_OK, result);
                     finish();
                     break;
@@ -70,8 +70,8 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
-        new_position = (Button) findViewById(R.id.new_position);
-        new_position.setOnClickListener(new View.OnClickListener() {
+        mNew_Position = (Button) findViewById(R.id.new_position);
+        mNew_Position.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity.class);
@@ -89,12 +89,12 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("BaiduMap","onActivityResult");
         if (resultCode == Activity.RESULT_OK && requestCode == 0) {
-            filepath = data.getStringExtra("BaiduMap_ScreenShot");
-            Log.d("BaiduMap","onActivityResult, filepath: " + filepath);
-            Bitmap Bitmap = BitmapFactory.decodeFile(filepath);
+            mFilepath = data.getStringExtra("BaiduMap_ScreenShot");
+            Log.d("BaiduMap","onActivityResult, filepath: " + mFilepath);
+            Bitmap Bitmap = BitmapFactory.decodeFile(mFilepath);
             BitmapDrawable bDrawable = new BitmapDrawable(getResources(), Bitmap);
-            new_position.setBackground(bDrawable);
-            new_position.setVisibility(View.VISIBLE);
+            mNew_Position.setBackground(bDrawable);
+            mNew_Position.setVisibility(View.VISIBLE);
         }
     }
 }

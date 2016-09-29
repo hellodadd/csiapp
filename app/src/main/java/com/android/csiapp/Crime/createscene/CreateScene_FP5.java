@@ -26,9 +26,9 @@ import java.io.FileInputStream;
  */
 public class CreateScene_FP5 extends Fragment {
     private Context context = null;
-    private CrimeItem item;
-    private ImageButton add_scene_evidence;
-    private ImageButton Scene_evidence;
+    private CrimeItem mItem;
+    private ImageButton mAdd_Scene_Evidence;
+    private ImageButton mScene_Evidence;
 
     public CreateScene_FP5() {
         // Required empty public constructor
@@ -38,18 +38,18 @@ public class CreateScene_FP5 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.create_scene_fp5, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
-        item = activity.getItem();
+        mItem = activity.getItem();
         context = getActivity().getApplicationContext();
 
-        add_scene_evidence = (ImageButton) view.findViewById(R.id.add_scene_evidence);
-        add_scene_evidence.setOnClickListener(new View.OnClickListener() {
+        mAdd_Scene_Evidence = (ImageButton) view.findViewById(R.id.add_scene_evidence);
+        mAdd_Scene_Evidence.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getActivity(), CreateScene_FP5_NewEvidenceActivity.class);
                 startActivityForResult(it, 0);
             }
         });
-        Scene_evidence = (ImageButton) view.findViewById(R.id.Scene_evidence);
+        mScene_Evidence = (ImageButton) view.findViewById(R.id.Scene_evidence);
         return view;
     }
 
@@ -83,8 +83,8 @@ public class CreateScene_FP5 extends Fragment {
             Log.d("Photo","onActivityResult, filepath: " + filepath);
             Bitmap Bitmap = loadBitmapFromFile(new File(filepath));
             BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
-            Scene_evidence.setBackground(bDrawable);
-            Scene_evidence.setVisibility(View.VISIBLE);
+            mScene_Evidence.setBackground(bDrawable);
+            mScene_Evidence.setVisibility(View.VISIBLE);
         }
     }
 }

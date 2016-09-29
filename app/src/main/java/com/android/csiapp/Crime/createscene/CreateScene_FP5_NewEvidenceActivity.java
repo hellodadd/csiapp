@@ -46,23 +46,23 @@ import java.util.Locale;
 public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity implements View.OnClickListener {
     private Context context = null;
     private Uri LocalFileUri = null;
-    private ImageView new_evidence;
-    private Spinner evidence_category_spinner;
-    private ArrayList<String> evidence_category = new ArrayList<String>();
-    private ArrayAdapter<String> evidence_category_adapter;
-    private Spinner evidence_spinner;
-    private ArrayList<String> evidence = new ArrayList<String>();
-    private ArrayAdapter<String> evidence_adapter;
-    private Spinner method_spinner;
-    private ArrayList<String> method = new ArrayList<String>();
-    private ArrayAdapter<String> method_adapter;
-    private Spinner getPeople_spinner;
-    private ArrayList<String> getPeople = new ArrayList<String>();
-    private ArrayAdapter<String> getPeople_adapter;
+    private ImageView mNew_evidence;
+    private Spinner mEvidence_category_spinner;
+    private ArrayList<String> mEvidence_category = new ArrayList<String>();
+    private ArrayAdapter<String> mEvidence_category_adapter;
+    private Spinner mEvidence_spinner;
+    private ArrayList<String> mEvidence = new ArrayList<String>();
+    private ArrayAdapter<String> mEvidence_adapter;
+    private Spinner mMethod_spinner;
+    private ArrayList<String> mMethod = new ArrayList<String>();
+    private ArrayAdapter<String> mMethod_adapter;
+    private Spinner mGetPeople_spinner;
+    private ArrayList<String> mGetPeople = new ArrayList<String>();
+    private ArrayAdapter<String> mGetPeople_adapter;
 
     private Calendar c;
-    private TextView time;
-    private Button time_button;
+    private TextView mTime;
+    private Button mTime_button;
 
     public static final int PHOTO_TYPE_NEW_EVIDENCE = 1;
 
@@ -113,14 +113,14 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
-        new_evidence = (ImageView) findViewById(R.id.new_evidence);
+        mNew_evidence = (ImageView) findViewById(R.id.new_evidence);
 
-        evidence_category = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence_category)));
-        evidence_category_spinner = (Spinner) findViewById(R.id.evidence_category_spinner);
-        evidence_category_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, evidence_category);
-        evidence_category_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        evidence_category_spinner.setAdapter(evidence_category_adapter);
-        evidence_category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        mEvidence_category = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence_category)));
+        mEvidence_category_spinner = (Spinner) findViewById(R.id.evidence_category_spinner);
+        mEvidence_category_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mEvidence_category);
+        mEvidence_category_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mEvidence_category_spinner.setAdapter(mEvidence_category_adapter);
+        mEvidence_category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 //item.setCasetype(tool_category.get(position));
@@ -130,12 +130,12 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             }
         });
 
-        evidence = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence)));
-        evidence_spinner = (Spinner) findViewById(R.id.evidence_spinner);
-        evidence_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, evidence);
-        evidence_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        evidence_spinner.setAdapter(evidence_adapter);
-        evidence_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        mEvidence = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence)));
+        mEvidence_spinner = (Spinner) findViewById(R.id.evidence_spinner);
+        mEvidence_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mEvidence);
+        mEvidence_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mEvidence_spinner.setAdapter(mEvidence_adapter);
+        mEvidence_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 //item.setCasetype(tool_category.get(position));
@@ -145,12 +145,12 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             }
         });
 
-        method = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.method)));
-        method_spinner = (Spinner) findViewById(R.id.method_spinner);
-        method_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, method);
-        method_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        method_spinner.setAdapter(method_adapter);
-        method_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        mMethod = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.method)));
+        mMethod_spinner = (Spinner) findViewById(R.id.method_spinner);
+        mMethod_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mMethod);
+        mMethod_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mMethod_spinner.setAdapter(mMethod_adapter);
+        mMethod_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 //item.setCasetype(tool_category.get(position));
@@ -161,17 +161,17 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         });
 
         c = Calendar.getInstance();
-        time = (TextView) findViewById(R.id.time);
-        time_button = (Button) findViewById(R.id.time_button);
-        time.setText(CrimeItem.getCurrentTime(c));
-        time_button.setOnClickListener(this);
+        mTime = (TextView) findViewById(R.id.time);
+        mTime_button = (Button) findViewById(R.id.time_button);
+        mTime.setText(CrimeItem.getCurrentTime(c));
+        mTime_button.setOnClickListener(this);
 
-        getPeople = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.get_people)));
-        getPeople_spinner = (Spinner) findViewById(R.id.getPeople_spinner);
-        getPeople_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, getPeople);
-        getPeople_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        getPeople_spinner.setAdapter(getPeople_adapter);
-        getPeople_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        mGetPeople = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.get_people)));
+        mGetPeople_spinner = (Spinner) findViewById(R.id.getPeople_spinner);
+        mGetPeople_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mGetPeople);
+        mGetPeople_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mGetPeople_spinner.setAdapter(mGetPeople_adapter);
+        mGetPeople_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 //item.setCasetype(tool_category.get(position));
@@ -309,8 +309,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             Log.d("Camera", "Set image to PHOTO_TYPE_NEW_EVIDENCE");
             Bitmap Bitmap = loadBitmapFromFile(new File(path));
             BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
-            new_evidence.setBackground(bDrawable);
-            new_evidence.setVisibility(View.VISIBLE);
+            mNew_evidence.setBackground(bDrawable);
+            mNew_evidence.setVisibility(View.VISIBLE);
         }
     }
 }

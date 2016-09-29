@@ -23,9 +23,9 @@ import java.util.List;
 public class ListActivity extends AppCompatActivity {
 
     private Context context = null;
-    private CrimeProvider csi_item;
-    private ListView listV;
-    private ListAdapter adapter;
+    private CrimeProvider mCsi_Item;
+    private ListView mListV;
+    private ListAdapter mAdapter;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -57,7 +57,7 @@ public class ListActivity extends AppCompatActivity {
 
         context = this.getApplicationContext();
 
-        csi_item = new CrimeProvider(context);
+        mCsi_Item = new CrimeProvider(context);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -74,23 +74,23 @@ public class ListActivity extends AppCompatActivity {
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
         List<CrimeItem> items_list = new ArrayList<CrimeItem>();
-        items_list = csi_item.getAll();
-        listV=(ListView)findViewById(R.id.listView);
-        adapter = new ListAdapter(ListActivity.this,items_list);
-        listV.setAdapter(adapter);
+        items_list = mCsi_Item.getAll();
+        mListV=(ListView)findViewById(R.id.listView);
+        mAdapter = new ListAdapter(ListActivity.this,items_list);
+        mListV.setAdapter(mAdapter);
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // 讀取選擇的記事物件
-                CrimeItem item = (CrimeItem) adapter.getItem(position);
+                CrimeItem item = (CrimeItem) mAdapter.getItem(position);
                 Intent intent = new Intent("com.android.csiapp.EDIT_SCENE");
                 // 設定記事編號與記事物件
                 intent.putExtra("CrimeItem", item);
                 startActivityForResult(intent, 0);
             }
         };
-        listV.setOnItemClickListener(itemListener);
+        mListV.setOnItemClickListener(itemListener);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,7 +104,7 @@ public class ListActivity extends AppCompatActivity {
             CrimeItem item = (CrimeItem) data.getExtras().getSerializable("com.android.csiapp.CrimeItem");
             if (requestCode == 0) {
                 // 新增記事資料到資料庫
-                boolean result = csi_item.update(item);
+                boolean result = mCsi_Item.update(item);
                 finish();
             }
         }

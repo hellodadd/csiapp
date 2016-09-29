@@ -18,8 +18,8 @@ import com.android.csiapp.R;
 public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
 
     private Context context = null;
-    private CrimeItem item;
-    private int event;
+    private CrimeItem mItem;
+    private int mEvent;
 
     private ClearableEditText mName;
     private ClearableEditText mBrand;
@@ -36,7 +36,7 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
                     msg += "Save";
                     saveMessage();
                     Intent result = getIntent();
-                    result.putExtra("com.android.csiapp.CrimeItem", item);
+                    result.putExtra("com.android.csiapp.CrimeItem", mItem);
                     setResult(Activity.RESULT_OK, result);
                     break;
             }
@@ -55,8 +55,8 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
         setContentView(R.layout.create_scene_fp2_new_item);
 
         context = this.getApplicationContext();
-        item = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.CrimeItem");
-        event = (int) getIntent().getIntExtra("Event", 1);
+        mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.CrimeItem");
+        mEvent = (int) getIntent().getIntExtra("Event", 1);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(context.getResources().getString(R.string.title_activity_lostitem));
@@ -78,7 +78,7 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
         mValue = (ClearableEditText) findViewById(R.id.value_editView);
         mFeature = (ClearableEditText) findViewById(R.id.feature_description_editView);
 
-        if(event == 2) {
+        if(mEvent == 2) {
             getMessage();
         }
     }
@@ -89,18 +89,18 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
     }
 
     public void getMessage(){
-        mName.setText(item.getItemName());
-        mBrand.setText(item.getItemBrand());
-        mAmount.setText(item.getItemAmount());
-        mValue.setText(item.getItemValue());
-        mFeature.setText(item.getItemFeature());
+        mName.setText(mItem.getItemName());
+        mBrand.setText(mItem.getItemBrand());
+        mAmount.setText(mItem.getItemAmount());
+        mValue.setText(mItem.getItemValue());
+        mFeature.setText(mItem.getItemFeature());
     }
 
     public void saveMessage(){
-        item.setItemName(mName.getText());
-        item.setItemBrand(mBrand.getText());
-        item.setItemAmount(mAmount.getText());
-        item.setItemVlaue(mValue.getText());
-        item.setItemFeatue(mFeature.getText());
+        mItem.setItemName(mName.getText());
+        mItem.setItemBrand(mBrand.getText());
+        mItem.setItemAmount(mAmount.getText());
+        mItem.setItemVlaue(mValue.getText());
+        mItem.setItemFeatue(mFeature.getText());
     }
 }

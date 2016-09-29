@@ -26,8 +26,8 @@ import java.util.List;
 public class CreateScene_FP8 extends Fragment {
 
     private Context context = null;
-    private CrimeItem item;
-    private int event;
+    private CrimeItem mItem;
+    private int mEvent;
     ImageButton Add_witness;
     List<CrimeItem> witnessList;
     private ListView witness_list;
@@ -41,15 +41,15 @@ public class CreateScene_FP8 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.create_scene_fp8, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
-        item = activity.getItem();
-        event = activity.getEvent();
+        mItem = activity.getItem();
+        mEvent = activity.getEvent();
         context = getActivity().getApplicationContext();
         Add_witness = (ImageButton) view.findViewById(R.id.add_witness_button);
         Add_witness.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getActivity(), CreateScene_FP8_AddWitnessActivity.class);
-                it.putExtra("com.android.csiapp.CrimeItem", item);
+                it.putExtra("com.android.csiapp.CrimeItem", mItem);
                 it.putExtra("Event",1);
                 startActivityForResult(it,0);
             }
@@ -64,7 +64,7 @@ public class CreateScene_FP8 extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Intent it = new Intent(getActivity(), CreateScene_FP8_AddWitnessActivity.class);
-                it.putExtra("com.android.csiapp.CrimeItem", item);
+                it.putExtra("com.android.csiapp.CrimeItem", mItem);
                 it.putExtra("Event",2);
                 startActivityForResult(it,0);
             }
@@ -77,10 +77,10 @@ public class CreateScene_FP8 extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            item = (CrimeItem) data.getSerializableExtra("com.android.csiapp.CrimeItem");
+            mItem = (CrimeItem) data.getSerializableExtra("com.android.csiapp.CrimeItem");
             if (requestCode == 0) {
                 // 新增記事資料到資料庫
-                witnessList.add(item);
+                witnessList.add(mItem);
                 witness_list.setVisibility(View.VISIBLE);
                 Toast.makeText(getActivity(), "List", Toast.LENGTH_SHORT).show();
             }

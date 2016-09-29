@@ -32,8 +32,8 @@ import java.util.Calendar;
 public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Context context = null;
-    private CrimeItem item;
-    private int event;
+    private CrimeItem mItem;
+    private int mEvent;
 
     private ClearableEditText mName;
 
@@ -42,8 +42,8 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
     private ArrayAdapter<String> mSex_adapter;
 
     private Calendar c;
-    private TextView birthday;
-    private Button birthday_button;
+    private TextView mBirthday;
+    private Button mBirthday_button;
 
     private ClearableEditText mNumber;
     private ClearableEditText mAddress;
@@ -57,7 +57,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
                     msg += "Save";
                     saveMessage();
                     Intent result = getIntent();
-                    result.putExtra("com.android.csiapp.CrimeItem", item);
+                    result.putExtra("com.android.csiapp.CrimeItem", mItem);
                     setResult(Activity.RESULT_OK, result);
                     break;
             }
@@ -76,8 +76,8 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         setContentView(R.layout.create_scene_fp8_add_witness);
 
         context = this.getApplicationContext();
-        item = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.CrimeItem");
-        event = (int) getIntent().getIntExtra("Event", 1);
+        mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.CrimeItem");
+        mEvent = (int) getIntent().getIntExtra("Event", 1);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(context.getResources().getString(R.string.title_activity_witness_peopleinformation));
@@ -103,7 +103,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         mSex_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                item.setWitnessSex(mSex.get(position));
+                mItem.setWitnessSex(mSex.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -111,15 +111,15 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         });
 
         c = Calendar.getInstance();
-        birthday = (TextView) findViewById(R.id.birthday_date);
-        birthday_button = (Button) findViewById(R.id.birthday_date_button);
-        birthday.setText(CrimeItem.getCurrentTime(c));
-        birthday_button.setOnClickListener(this);
+        mBirthday = (TextView) findViewById(R.id.birthday_date);
+        mBirthday_button = (Button) findViewById(R.id.birthday_date_button);
+        mBirthday.setText(CrimeItem.getCurrentTime(c));
+        mBirthday_button.setOnClickListener(this);
 
         mNumber = (ClearableEditText) findViewById(R.id.contact_number_editView);
         mAddress = (ClearableEditText) findViewById(R.id.address_editView);
 
-        if(event == 2) {
+        if(mEvent == 2) {
             getMessage();
         }
     }
@@ -137,18 +137,18 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
     }
 
     public void getMessage(){
-        mName.setText(item.getWitnessName());
-        mSex_spinner.setSelection(getSex(item.getWitnessSex()));
-        birthday.setText(item.getWitnessBirthday());
-        mNumber.setText(item.getWitnessNumber());
-        mAddress.setText(item.getWitnessAddress());
+        mName.setText(mItem.getWitnessName());
+        mSex_spinner.setSelection(getSex(mItem.getWitnessSex()));
+        mBirthday.setText(mItem.getWitnessBirthday());
+        mNumber.setText(mItem.getWitnessNumber());
+        mAddress.setText(mItem.getWitnessAddress());
     }
 
     public void saveMessage(){
-        item.setWitnessName(mName.getText());
-        item.setWitnessBirthday(birthday.getText().toString());
-        item.setWitnessNumber(mNumber.getText());
-        item.setWitnessAddress(mAddress.getText());
+        mItem.setWitnessName(mName.getText());
+        mItem.setWitnessBirthday(mBirthday.getText().toString());
+        mItem.setWitnessNumber(mNumber.getText());
+        mItem.setWitnessAddress(mAddress.getText());
     }
 
     @Override

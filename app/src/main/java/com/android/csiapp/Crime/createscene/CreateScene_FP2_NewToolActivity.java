@@ -24,18 +24,18 @@ import java.util.Arrays;
 public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
 
     private Context context = null;
-    private CrimeItem item;
-    private int event;
+    private CrimeItem mItem;
+    private int mEvent;
 
     private ClearableEditText mName;
 
-    private Spinner tool_category_spinner;
-    private ArrayList<String> tool_category = new ArrayList<String>();
-    private ArrayAdapter<String> tool_category_adapter;
+    private Spinner mTool_category_spinner;
+    private ArrayList<String> mTool_category = new ArrayList<String>();
+    private ArrayAdapter<String> mTool_category_adapter;
 
-    private Spinner tool_source_spinner;
-    private ArrayList<String> tool_source = new ArrayList<String>();
-    private ArrayAdapter<String> tool_source_adapter;
+    private Spinner mTool_source_spinner;
+    private ArrayList<String> mTool_source = new ArrayList<String>();
+    private ArrayAdapter<String> mTool_source_adapter;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -46,7 +46,7 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
                     msg += "Save";
                     saveMessage();
                     Intent result = getIntent();
-                    result.putExtra("com.android.csiapp.CrimeItem", item);
+                    result.putExtra("com.android.csiapp.CrimeItem", mItem);
                     setResult(Activity.RESULT_OK, result);
                     break;
             }
@@ -65,8 +65,8 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
         setContentView(R.layout.create_scene_fp2_new_tool);
 
         context = this.getApplicationContext();
-        item = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.CrimeItem");
-        event = (int) getIntent().getIntExtra("Event", 1);
+        mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.CrimeItem");
+        mEvent = (int) getIntent().getIntExtra("Event", 1);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(context.getResources().getString(R.string.title_activity_crimetool));
@@ -84,37 +84,37 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
 
         mName = (ClearableEditText) findViewById(R.id.tool_name_editView);
 
-        tool_category = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.tool_category)));
-        tool_category_spinner = (Spinner) findViewById(R.id.tool_category_spinner);
-        tool_category_adapter = new ArrayAdapter<String>(CreateScene_FP2_NewToolActivity.this, R.layout.spinnerview, tool_category);
-        tool_category_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        tool_category_spinner.setAdapter(tool_category_adapter);
-        tool_category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        mTool_category = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.tool_category)));
+        mTool_category_spinner= (Spinner) findViewById(R.id.tool_category_spinner);
+        mTool_category_adapter = new ArrayAdapter<String>(CreateScene_FP2_NewToolActivity.this, R.layout.spinnerview, mTool_category);
+        mTool_category_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mTool_category_spinner.setAdapter(mTool_category_adapter);
+        mTool_category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                item.setToolCategory(tool_category.get(position));
+                mItem.setToolCategory(mTool_category.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
 
-        tool_source = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.tool_source)));
-        tool_source_spinner = (Spinner) findViewById(R.id.tool_source_spinner);
-        tool_source_adapter = new ArrayAdapter<String>(CreateScene_FP2_NewToolActivity.this, R.layout.spinnerview, tool_source);
-        tool_source_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        tool_source_spinner.setAdapter(tool_source_adapter);
-        tool_source_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        mTool_source = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.tool_source)));
+        mTool_source_spinner = (Spinner) findViewById(R.id.tool_source_spinner);
+        mTool_source_adapter = new ArrayAdapter<String>(CreateScene_FP2_NewToolActivity.this, R.layout.spinnerview, mTool_source);
+        mTool_source_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mTool_source_spinner.setAdapter(mTool_source_adapter);
+        mTool_source_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                item.setToolSource(tool_source.get(position));
+                mItem.setToolSource(mTool_source.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
 
-        if(event == 2) {
+        if(mEvent == 2) {
             getMessage();
         }
     }
@@ -125,25 +125,25 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
     }
 
     private int getCategory(String category){
-        for(int i=0; i<tool_category.size(); i++){
-            if(category.equalsIgnoreCase(tool_category.get(i))) return i;
+        for(int i=0; i<mTool_category.size(); i++){
+            if(category.equalsIgnoreCase(mTool_category.get(i))) return i;
         }
         return 0;
     }
     private int getSource(String source){
-        for(int i=0; i<tool_source.size(); i++){
-            if(source.equalsIgnoreCase(tool_source.get(i))) return i;
+        for(int i=0; i<mTool_source.size(); i++){
+            if(source.equalsIgnoreCase(mTool_source.get(i))) return i;
         }
         return 0;
     }
 
     public void getMessage(){
-        mName.setText(item.getToolName());
-        tool_category_spinner.setSelection(getCategory(item.getToolCategory()));
-        tool_source_spinner.setSelection(getSource(item.getToolSource()));
+        mName.setText(mItem.getToolName());
+        mTool_category_spinner.setSelection(getCategory(mItem.getToolCategory()));
+        mTool_source_spinner.setSelection(getSource(mItem.getToolSource()));
     }
 
     public void saveMessage(){
-        item.setToolName(mName.getText());
+        mItem.setToolName(mName.getText());
     }
 }

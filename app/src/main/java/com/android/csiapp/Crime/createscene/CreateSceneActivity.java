@@ -32,19 +32,17 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
     private Context context = null;
 
     // 記事物件
-    private CrimeItem item;
-    private int event;
+    private CrimeItem mItem;
+    private int mEvent;
 
-    private Button pageButton1, pageButton2, pageButton3, pageButton4, pageButton5, pageButton6, pageButton7, pageButton8;
+    private Button mPageButton1, mPageButton2, mPageButton3, mPageButton4, mPageButton5, mPageButton6, mPageButton7, mPageButton8;
 
-    private TextView pageText1, pageText2, pageText3, pageText4, pageText5, pageText6, pageText7, pageText8;
+    private TextView mPageText1, mPageText2, mPageText3, mPageText4, mPageText5, mPageText6, mPageText7, mPageText8;
 
-    private ViewPager viewPager;
-    private View page1, page2, page3, page4, page5, page6, page7, page8;
-    private List pageList;
+    private ViewPager mViewPager;
 
-    private Drawable select_background;
-    private Drawable background;
+    private Drawable mSelect_background;
+    private Drawable mBackground;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -52,7 +50,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
             String msg = "";
 
             //Anita test
-            if(item.getTime().isEmpty()) {
+            if(mItem.getTime().isEmpty()) {
                 Toast.makeText(CreateSceneActivity.this, "需要填写发案开始时间", Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -62,7 +60,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                 case R.id.action_save:
                     msg += "Save";
                     Intent result = getIntent();
-                    result.putExtra("com.android.csiapp.CrimeItem", item);
+                    result.putExtra("com.android.csiapp.CrimeItem", mItem);
                     setResult(Activity.RESULT_OK, result);
                     break;
             }
@@ -104,49 +102,49 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         // 讀取Action名稱
         String action = intent.getAction();
         if (action.equals("com.android.csiapp.ADD_SCENE")) {
-            item = new CrimeItem();
-            event = 1;
+            mItem = new CrimeItem();
+            mEvent = 1;
         } else if(action.equals("com.android.csiapp.EDIT_SCENE")){
             title.setText(context.getResources().getString(R.string.title_activity_editscene));
-            item = (CrimeItem) intent.getSerializableExtra("CrimeItem");
-            event = 2;
+            mItem = (CrimeItem) intent.getSerializableExtra("CrimeItem");
+            mEvent = 2;
         }else{
-            item = new CrimeItem();
+            mItem = new CrimeItem();
         }
 
-        pageButton1 = (Button) this.findViewById(R.id.pagebutton1);
-        pageButton2 = (Button) this.findViewById(R.id.pagebutton2);
-        pageButton3 = (Button) this.findViewById(R.id.pagebutton3);
-        pageButton4 = (Button) this.findViewById(R.id.pagebutton4);
-        pageButton5 = (Button) this.findViewById(R.id.pagebutton5);
-        pageButton6 = (Button) this.findViewById(R.id.pagebutton6);
-        pageButton7 = (Button) this.findViewById(R.id.pagebutton7);
-        pageButton8 = (Button) this.findViewById(R.id.pagebutton8);
+        mPageButton1 = (Button) this.findViewById(R.id.pagebutton1);
+        mPageButton2 = (Button) this.findViewById(R.id.pagebutton2);
+        mPageButton3 = (Button) this.findViewById(R.id.pagebutton3);
+        mPageButton4 = (Button) this.findViewById(R.id.pagebutton4);
+        mPageButton5 = (Button) this.findViewById(R.id.pagebutton5);
+        mPageButton6 = (Button) this.findViewById(R.id.pagebutton6);
+        mPageButton7 = (Button) this.findViewById(R.id.pagebutton7);
+        mPageButton8 = (Button) this.findViewById(R.id.pagebutton8);
 
-        pageText1 = (TextView) this.findViewById(R.id.pageTextView1);
-        pageText2 = (TextView) this.findViewById(R.id.pageTextView2);
-        pageText3 = (TextView) this.findViewById(R.id.pageTextView3);
-        pageText4 = (TextView) this.findViewById(R.id.pageTextView4);
-        pageText5 = (TextView) this.findViewById(R.id.pageTextView5);
-        pageText6 = (TextView) this.findViewById(R.id.pageTextView6);
-        pageText7 = (TextView) this.findViewById(R.id.pageTextView7);
-        pageText8 = (TextView) this.findViewById(R.id.pageTextView8);
+        mPageText1 = (TextView) this.findViewById(R.id.pageTextView1);
+        mPageText2 = (TextView) this.findViewById(R.id.pageTextView2);
+        mPageText3 = (TextView) this.findViewById(R.id.pageTextView3);
+        mPageText4 = (TextView) this.findViewById(R.id.pageTextView4);
+        mPageText5 = (TextView) this.findViewById(R.id.pageTextView5);
+        mPageText6 = (TextView) this.findViewById(R.id.pageTextView6);
+        mPageText7 = (TextView) this.findViewById(R.id.pageTextView7);
+        mPageText8 = (TextView) this.findViewById(R.id.pageTextView8);
 
-        pageButton1.setOnClickListener(this);
-        pageButton2.setOnClickListener(this);
-        pageButton3.setOnClickListener(this);
-        pageButton4.setOnClickListener(this);
-        pageButton5.setOnClickListener(this);
-        pageButton6.setOnClickListener(this);
-        pageButton7.setOnClickListener(this);
-        pageButton8.setOnClickListener(this);
+        mPageButton1.setOnClickListener(this);
+        mPageButton2.setOnClickListener(this);
+        mPageButton3.setOnClickListener(this);
+        mPageButton4.setOnClickListener(this);
+        mPageButton5.setOnClickListener(this);
+        mPageButton6.setOnClickListener(this);
+        mPageButton7.setOnClickListener(this);
+        mPageButton8.setOnClickListener(this);
 
-        select_background = context.getResources().getDrawable(R.drawable.img_step_selected);
-        background = context.getResources().getDrawable(R.drawable.img_step_nor);
-        pageButton1.setBackground(select_background);
-        pageText1.setVisibility(View.VISIBLE);
+        mSelect_background = context.getResources().getDrawable(R.drawable.img_step_selected);
+        mBackground = context.getResources().getDrawable(R.drawable.img_step_nor);
+        mPageButton1.setBackground(mSelect_background);
+        mPageText1.setVisibility(View.VISIBLE);
 
-        viewPager = (ViewPager) this.findViewById(R.id.viewPager);
+        mViewPager = (ViewPager) this.findViewById(R.id.viewPager);
         CreateScene_FP1 MyFragmentPage1 = new CreateScene_FP1();
         CreateScene_FP2 MyFragmentPage2 = new CreateScene_FP2();
         CreateScene_FP3 MyFragmentPage3 = new CreateScene_FP3();
@@ -165,9 +163,9 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         fragmentList.add(MyFragmentPage7);
         fragmentList.add(MyFragmentPage8);
         FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), fragmentList);
-        viewPager.setAdapter(fragmentAdapter);
-        viewPager.setCurrentItem(0);
-        viewPager.setOnPageChangeListener((ViewPager.OnPageChangeListener) this);
+        mViewPager.setAdapter(fragmentAdapter);
+        mViewPager.setCurrentItem(0);
+        mViewPager.setOnPageChangeListener((ViewPager.OnPageChangeListener) this);
     }
 
     /**
@@ -183,28 +181,28 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.pagebutton1:
-                viewPager.setCurrentItem(0);
+                mViewPager.setCurrentItem(0);
                 break;
             case R.id.pagebutton2:
-                viewPager.setCurrentItem(1);
+                mViewPager.setCurrentItem(1);
                 break;
             case R.id.pagebutton3:
-                viewPager.setCurrentItem(2);
+                mViewPager.setCurrentItem(2);
                 break;
             case R.id.pagebutton4:
-                viewPager.setCurrentItem(3);
+                mViewPager.setCurrentItem(3);
                 break;
             case R.id.pagebutton5:
-                viewPager.setCurrentItem(4);
+                mViewPager.setCurrentItem(4);
                 break;
             case R.id.pagebutton6:
-                viewPager.setCurrentItem(5);
+                mViewPager.setCurrentItem(5);
                 break;
             case R.id.pagebutton7:
-                viewPager.setCurrentItem(6);
+                mViewPager.setCurrentItem(6);
                 break;
             case R.id.pagebutton8:
-                viewPager.setCurrentItem(7);
+                mViewPager.setCurrentItem(7);
                 break;
             default:
                 break;
@@ -219,82 +217,82 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onPageSelected(int position) {
-        pageButton1.setBackground(background);
-        pageText1.setVisibility(View.GONE);
-        pageButton2.setBackground(background);
-        pageText2.setVisibility(View.GONE);
-        pageButton3.setBackground(background);
-        pageText3.setVisibility(View.GONE);
-        pageButton4.setBackground(background);
-        pageText4.setVisibility(View.GONE);
-        pageButton5.setBackground(background);
-        pageText5.setVisibility(View.GONE);
-        pageButton6.setBackground(background);
-        pageText6.setVisibility(View.GONE);
-        pageButton7.setBackground(background);
-        pageText7.setVisibility(View.GONE);
-        pageButton8.setBackground(background);
-        pageText8.setVisibility(View.GONE);
+        mPageButton1.setBackground(mBackground);
+        mPageText1.setVisibility(View.GONE);
+        mPageButton2.setBackground(mBackground);
+        mPageText2.setVisibility(View.GONE);
+        mPageButton3.setBackground(mBackground);
+        mPageText3.setVisibility(View.GONE);
+        mPageButton4.setBackground(mBackground);
+        mPageText4.setVisibility(View.GONE);
+        mPageButton5.setBackground(mBackground);
+        mPageText5.setVisibility(View.GONE);
+        mPageButton6.setBackground(mBackground);
+        mPageText6.setVisibility(View.GONE);
+        mPageButton7.setBackground(mBackground);
+        mPageText7.setVisibility(View.GONE);
+        mPageButton8.setBackground(mBackground);
+        mPageText8.setVisibility(View.GONE);
         switch (position){
             case 0:
-                pageButton1.setBackground(select_background);
-                pageText1.setVisibility(View.VISIBLE);
-                pageButton2.setBackground(background);
-                pageText2.setVisibility(View.GONE);
+                mPageButton1.setBackground(mSelect_background);
+                mPageText1.setVisibility(View.VISIBLE);
+                mPageButton2.setBackground(mBackground);
+                mPageText2.setVisibility(View.GONE);
                 break;
             case 1:
-                pageButton1.setBackground(background);
-                pageText1.setVisibility(View.GONE);
-                pageButton2.setBackground(select_background);
-                pageText2.setVisibility(View.VISIBLE);
-                pageButton3.setBackground(background);
-                pageText3.setVisibility(View.GONE);
+                mPageButton1.setBackground(mBackground);
+                mPageText1.setVisibility(View.GONE);
+                mPageButton2.setBackground(mSelect_background);
+                mPageText2.setVisibility(View.VISIBLE);
+                mPageButton3.setBackground(mBackground);
+                mPageText3.setVisibility(View.GONE);
                 break;
             case 2:
-                pageButton2.setBackground(background);
-                pageText2.setVisibility(View.GONE);
-                pageButton3.setBackground(select_background);
-                pageText3.setVisibility(View.VISIBLE);
-                pageButton4.setBackground(background);
-                pageText4.setVisibility(View.GONE);
+                mPageButton2.setBackground(mBackground);
+                mPageText2.setVisibility(View.GONE);
+                mPageButton3.setBackground(mSelect_background);
+                mPageText3.setVisibility(View.VISIBLE);
+                mPageButton4.setBackground(mBackground);
+                mPageText4.setVisibility(View.GONE);
                 break;
             case 3:
-                pageButton3.setBackground(background);
-                pageText3.setVisibility(View.GONE);
-                pageButton4.setBackground(select_background);
-                pageText4.setVisibility(View.VISIBLE);
-                pageButton5.setBackground(background);
-                pageText5.setVisibility(View.GONE);
+                mPageButton3.setBackground(mBackground);
+                mPageText3.setVisibility(View.GONE);
+                mPageButton4.setBackground(mSelect_background);
+                mPageText4.setVisibility(View.VISIBLE);
+                mPageButton5.setBackground(mBackground);
+                mPageText5.setVisibility(View.GONE);
                 break;
             case 4:
-                pageButton4.setBackground(background);
-                pageText4.setVisibility(View.GONE);
-                pageButton5.setBackground(select_background);
-                pageText5.setVisibility(View.VISIBLE);
-                pageButton6.setBackground(background);
-                pageText6.setVisibility(View.GONE);
+                mPageButton4.setBackground(mBackground);
+                mPageText4.setVisibility(View.GONE);
+                mPageButton5.setBackground(mSelect_background);
+                mPageText5.setVisibility(View.VISIBLE);
+                mPageButton6.setBackground(mBackground);
+                mPageText6.setVisibility(View.GONE);
                 break;
             case 5:
-                pageButton5.setBackground(background);
-                pageText5.setVisibility(View.GONE);
-                pageButton6.setBackground(select_background);
-                pageText6.setVisibility(View.VISIBLE);
-                pageButton7.setBackground(background);
-                pageText7.setVisibility(View.GONE);
+                mPageButton5.setBackground(mBackground);
+                mPageText5.setVisibility(View.GONE);
+                mPageButton6.setBackground(mSelect_background);
+                mPageText6.setVisibility(View.VISIBLE);
+                mPageButton7.setBackground(mBackground);
+                mPageText7.setVisibility(View.GONE);
                 break;
             case 6:
-                pageButton6.setBackground(background);
-                pageText6.setVisibility(View.GONE);
-                pageButton7.setBackground(select_background);
-                pageText7.setVisibility(View.VISIBLE);
-                pageButton8.setBackground(background);
-                pageText8.setVisibility(View.GONE);
+                mPageButton6.setBackground(mBackground);
+                mPageText6.setVisibility(View.GONE);
+                mPageButton7.setBackground(mSelect_background);
+                mPageText7.setVisibility(View.VISIBLE);
+                mPageButton8.setBackground(mBackground);
+                mPageText8.setVisibility(View.GONE);
                 break;
             case 7:
-                pageButton7.setBackground(background);
-                pageText7.setVisibility(View.GONE);
-                pageButton8.setBackground(select_background);
-                pageText8.setVisibility(View.VISIBLE);
+                mPageButton7.setBackground(mBackground);
+                mPageText7.setVisibility(View.GONE);
+                mPageButton8.setBackground(mSelect_background);
+                mPageText8.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -305,11 +303,11 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
     }
 
     public CrimeItem getItem (){
-        return item;
+        return mItem;
     }
 
     public int getEvent(){
-        return event;
+        return mEvent;
     }
 
     @Override

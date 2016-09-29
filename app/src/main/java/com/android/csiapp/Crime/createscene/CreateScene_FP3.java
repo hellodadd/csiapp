@@ -23,9 +23,9 @@ import com.android.csiapp.R;
 public class CreateScene_FP3 extends Fragment {
 
     private Context context = null;
-    private CrimeItem item;
-    private ImageButton add_position;
-    private ImageButton position;
+    private CrimeItem mItem;
+    private ImageButton mAdd_Position;
+    private ImageButton mPosition;
 
     public CreateScene_FP3() {
         // Required empty public constructor
@@ -35,17 +35,17 @@ public class CreateScene_FP3 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.create_scene_fp3, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
-        item = activity.getItem();
+        mItem = activity.getItem();
         context = getActivity().getApplicationContext();
-        add_position = (ImageButton) view.findViewById(R.id.add_position);
-        add_position.setOnClickListener(new View.OnClickListener() {
+        mAdd_Position = (ImageButton) view.findViewById(R.id.add_position);
+        mAdd_Position.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getActivity(), CreateScene_FP3_PositionInformationActivity.class);
                 startActivityForResult(it, 0);
             }
         });
-        position = (ImageButton) view.findViewById(R.id.position);
+        mPosition = (ImageButton) view.findViewById(R.id.position);
         return view;
     }
 
@@ -57,8 +57,8 @@ public class CreateScene_FP3 extends Fragment {
             Log.d("BaiduMap","onActivityResult, filepath: " + filepath);
             Bitmap Bitmap = BitmapFactory.decodeFile(filepath);
             BitmapDrawable bDrawable = new BitmapDrawable(getActivity().getApplicationContext().getResources(), Bitmap);
-            position.setBackground(bDrawable);
-            position.setVisibility(View.VISIBLE);
+            mPosition.setBackground(bDrawable);
+            mPosition.setVisibility(View.VISIBLE);
         }
     }
 }

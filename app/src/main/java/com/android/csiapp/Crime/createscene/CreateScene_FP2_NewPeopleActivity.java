@@ -27,8 +27,8 @@ import java.util.Arrays;
 public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
 
     private Context context = null;
-    private CrimeItem item;
-    private int event;
+    private CrimeItem mItem;
+    private int mEvent;
 
     private Spinner mReleationPeople_spinner;
     private ArrayList<String> mReleationPeople = new ArrayList<String>();
@@ -53,7 +53,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
                     msg += "Save";
                     saveMessage();
                     Intent result = getIntent();
-                    result.putExtra("com.android.csiapp.CrimeItem", item);
+                    result.putExtra("com.android.csiapp.CrimeItem", mItem);
                     setResult(Activity.RESULT_OK, result);
                     break;
             }
@@ -72,8 +72,8 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         setContentView(R.layout.create_scene_fp2_new_people);
 
         context = this.getApplicationContext();
-        item = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.CrimeItem");
-        event = (int) getIntent().getIntExtra("Event", 1);
+        mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.CrimeItem");
+        mEvent = (int) getIntent().getIntExtra("Event", 1);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(context.getResources().getString(R.string.title_activity_peopleinformation));
@@ -97,7 +97,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         mReleationPeople_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                item.setPeopleReleation(mReleationPeople.get(position));
+                mItem.setPeopleReleation(mReleationPeople.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -114,7 +114,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         mSex_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                item.setPeopleSex(mSex.get(position));
+                mItem.setPeopleSex(mSex.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -125,7 +125,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         mNumber = (ClearableEditText) findViewById(R.id.contact_number_editView);
         mAddress = (ClearableEditText) findViewById(R.id.address_editView);
 
-        if(event == 2) {
+        if(mEvent == 2) {
             getMessage();
         }
     }
@@ -149,18 +149,18 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
     }
 
     public void getMessage(){
-        mReleationPeople_spinner.setSelection(getPeople(item.getPeopleReleation()));
-        mName.setText(item.getPeopleName());
-        mSex_spinner.setSelection(getSex(item.getPeopleSex()));
-        mId.setText(item.getPeopleId());
-        mNumber.setText(item.getPeopleNumber());
-        mAddress.setText(item.getPeopleAddress());
+        mReleationPeople_spinner.setSelection(getPeople(mItem.getPeopleReleation()));
+        mName.setText(mItem.getPeopleName());
+        mSex_spinner.setSelection(getSex(mItem.getPeopleSex()));
+        mId.setText(mItem.getPeopleId());
+        mNumber.setText(mItem.getPeopleNumber());
+        mAddress.setText(mItem.getPeopleAddress());
     }
 
     public void saveMessage(){
-        item.setPeopleName(mName.getText());
-        item.setPeopleId(mId.getText());
-        item.setPeopleNumber(mNumber.getText());
-        item.setPeopleAddress(mAddress.getText());
+        mItem.setPeopleName(mName.getText());
+        mItem.setPeopleId(mId.getText());
+        mItem.setPeopleNumber(mNumber.getText());
+        mItem.setPeopleAddress(mAddress.getText());
     }
 }

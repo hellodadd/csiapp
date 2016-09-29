@@ -16,7 +16,7 @@ import com.android.csiapp.R;
 public class CreateScene_FP6 extends Fragment {
 
     private Context context = null;
-    private CrimeItem item;
+    private CrimeItem mItem;
 
     public CreateScene_FP6() {
         // Required empty public constructor
@@ -26,7 +26,7 @@ public class CreateScene_FP6 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.create_scene_fp6, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
-        item = activity.getItem();
+        mItem = activity.getItem();
         context = getActivity().getApplicationContext();
         return view;
     }
