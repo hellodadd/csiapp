@@ -29,8 +29,8 @@ import java.util.Collections;
 public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
     private Context context = null;
-    private CrimeItem item;
-    private int event;
+    private CrimeItem mItem;
+    private int mEvent;
 
     private Spinner casetype_spinner;
     private ArrayList<String> casetype = new ArrayList<String>();
@@ -66,8 +66,8 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.create_scene_fp1, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
-        item = activity.getItem();
-        event = activity.getEvent();
+        mItem = activity.getItem();
+        mEvent = activity.getEvent();
         context = getActivity().getApplicationContext();
 
         casetype = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.casetype)));
@@ -78,7 +78,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         casetype_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                item.setCasetype(casetype.get(position));
+                mItem.setCasetype(casetype.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -93,7 +93,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         area_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                item.setArea(area.get(position));
+                mItem.setArea(area.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -108,15 +108,15 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         occurred_start_button = (Button) view.findViewById(R.id.occurred_start_time_button);
         occurred_end_button = (Button) view.findViewById(R.id.occurred_end_time_button);
         get_access_button = (Button) view.findViewById(R.id.get_access_time_button);
-        if(event == 2) {
-            casetype_spinner.setSelection(getCategory(item.getCasetype()));
-            area_spinner.setSelection(getArea(item.getArea()));
-            occurred_start_time.setText(item.getTime());
-            occurred_end_time.setText(item.getTime());
-            get_access_time.setText(item.getTime());
+        if(mEvent == 2) {
+            casetype_spinner.setSelection(getCategory(mItem.getCasetype()));
+            area_spinner.setSelection(getArea(mItem.getArea()));
+            occurred_start_time.setText(mItem.getTime());
+            occurred_end_time.setText(mItem.getTime());
+            get_access_time.setText(mItem.getTime());
         }else{
             occurred_start_time.setText(CrimeItem.getCurrentTime(c));
-            item.setTime(occurred_start_time.getText().toString());
+            mItem.setTime(occurred_start_time.getText().toString());
             occurred_end_time.setText(CrimeItem.getCurrentTime(c));
             get_access_time.setText(CrimeItem.getCurrentTime(c));
         }
@@ -218,7 +218,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 // TODO Auto-generated method stub
                 c = mDateTimePicker.get();
                 textView.setText(CrimeItem.getCurrentTime(c));
-                item.setTime(textView.getText().toString());
+                mItem.setTime(textView.getText().toString());
                 mDateTimeDialog.dismiss();
             }
         });
