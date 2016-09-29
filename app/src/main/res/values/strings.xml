@@ -128,6 +128,8 @@
     <string name="birthday_date">出生日期</string>
     <string name="write_birthday_date">填写日期</string>
 
+    <string name="step_9">静态采集</string>
+
     <!-- Strings related to List -->
     <string name="title_activity_list">现场列表</string>
     <string name="casetype_item">类型 :</string>
