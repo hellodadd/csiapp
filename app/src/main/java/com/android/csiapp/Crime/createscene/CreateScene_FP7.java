@@ -1,25 +1,31 @@
 package com.android.csiapp.Crime.createscene;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreateScene_FP7 extends Fragment {
+public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
 
     private Context context = null;
     private CrimeItem mItem;
@@ -36,6 +42,11 @@ public class CreateScene_FP7 extends Fragment {
     private Spinner mCrimeEntrance_spinner;
     private ArrayList<String> mCrimeEntrance = new ArrayList<String>();
     private ArrayAdapter<String> mCrimeEntrance_adapter;
+
+    private Calendar c;
+    private TextView mCrimeTiming;
+    private Button mCrimeTiming_button;
+
     private Spinner mSelectObject_spinner;
     private ArrayList<String> mSelectObject = new ArrayList<String>();
     private ArrayAdapter<String> mSelectObject_adapter;
@@ -122,6 +133,12 @@ public class CreateScene_FP7 extends Fragment {
             }
         });
 
+        c = Calendar.getInstance();
+        mCrimeTiming = (TextView) view.findViewById(R.id.crimeTiming);
+        mCrimeTiming_button = (Button) view.findViewById(R.id.crimeTiming_button);
+        mCrimeTiming.setText(CrimeItem.getCurrentTime(c));
+        mCrimeTiming_button.setOnClickListener(this);
+
         mSelectObject  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.select_object)));
         mSelectObject_spinner = (Spinner) view.findViewById(R.id.selectObject_spinner);
         mSelectObject_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mSelectObject);
@@ -207,5 +224,63 @@ public class CreateScene_FP7 extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        // TODO Auto-generated method stub
+        switch (v.getId()) {
+            case R.id.crimeTiming_button:
+                showDateTimeDialog(mCrimeTiming);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void showDateTimeDialog(final TextView textView) {
+        // Create the dialog
+        final Dialog mDateTimeDialog = new Dialog(getContext());
+        // Inflate the root layout
+        final RelativeLayout mDateTimeDialogView = (RelativeLayout) getActivity().getLayoutInflater().inflate(R.layout.date_time_dialog, null);
+        // Grab widget instance
+        final DateTimePicker mDateTimePicker = (DateTimePicker) mDateTimeDialogView.findViewById(R.id.DateTimePicker);
+
+        // Update demo TextViews when the "OK" button is clicked
+        ((Button) mDateTimeDialogView.findViewById(R.id.SetDateTime)).setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                mDateTimePicker.clearFocus();
+                // TODO Auto-generated method stub
+                c = mDateTimePicker.get();
+                textView.setText(CrimeItem.getCurrentTime(c));
+                mItem.setTime(textView.getText().toString());
+                mDateTimeDialog.dismiss();
+            }
+        });
+
+        // Cancel the dialog when the "Cancel" button is clicked
+        ((Button) mDateTimeDialogView.findViewById(R.id.CancelDialog)).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                mDateTimeDialog.cancel();
+            }
+        });
+
+        // Reset Date and Time pickers when the "Reset" button is clicked
+        ((Button) mDateTimeDialogView.findViewById(R.id.ResetDateTime)).setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                mDateTimePicker.reset();
+            }
+        });
+
+        // No title on the dialog window
+        mDateTimeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        // Set the dialog content view
+        mDateTimeDialog.setContentView(mDateTimeDialogView);
+        // Display the dialog
+        mDateTimeDialog.show();
     }
 }
