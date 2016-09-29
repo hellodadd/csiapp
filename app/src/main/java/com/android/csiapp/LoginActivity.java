@@ -88,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        createDeviceMsgXml();
     }
 
     private void getUserNameAndPassword() {
@@ -221,7 +222,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(it);
                 finish();
             } else if(!"Q5_LY".equalsIgnoreCase(SystemProperties.get("ro.product.device"))){
-                Toast.makeText(LoginActivity.this, "Ë£ùÁΩÆÁÑ°Ê≥ïÁôªÂÖ•", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "∏À∏mµL™kµn§J", Toast.LENGTH_SHORT).show();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
@@ -233,6 +234,25 @@ public class LoginActivity extends AppCompatActivity {
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+    public void createDeviceMsgXml() {
+
+        XmlHandler xmlhandler = new XmlHandler();
+        String deviceid = (SystemProperties.get("ro.serialno"));
+        String initstatus = "0";
+        String swversion = "";
+        String mapversion= VersionInfo.getApiVersion();
+        try {
+            PackageManager manager = getApplicationContext().getPackageManager();
+            PackageInfo info = manager.getPackageInfo(getApplicationContext().getPackageName(), 0);
+            swversion = info.versionName;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        xmlhandler.createDeviceMsg(deviceid, initstatus, swversion, mapversion);
+
     }
 }
 
