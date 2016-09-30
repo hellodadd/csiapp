@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.SystemProperties;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -20,6 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.csiapp.Databases.IdentifyProvider;
+import com.android.csiapp.XmlHandler.XmlHandler;
+
+import com.baidu.mapapi.VersionInfo;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -222,7 +227,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(it);
                 finish();
             } else if(!"Q5_LY".equalsIgnoreCase(SystemProperties.get("ro.product.device"))){
-                Toast.makeText(LoginActivity.this, "¸Ë¸mµLªkµn¤J", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "è£…ç½®æ— æ³•ç™»å…¥", Toast.LENGTH_SHORT).show();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
