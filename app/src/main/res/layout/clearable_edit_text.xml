@@ -6,16 +6,17 @@
     <EditText
         android:id="@+id/clearable_edit"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_centerVertical="true"
         android:background="@drawable/select_shape"
         android:gravity="left"
         android:imeOptions="actionDone"
-        android:inputType="numberDecimal"
+        android:inputType="text"
         android:maxLength="13"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:paddingLeft="16dp"
+        android:singleLine="false"
         android:textSize="12sp"/>
 
     <Button
