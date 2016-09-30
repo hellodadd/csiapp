@@ -8,12 +8,13 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.R;
 
 public class SettingActivity extends AppCompatActivity {
 
     private Context context = null;
-
+    private CrimeProvider mCsi_Item;
     private ImageButton mBackupBtn;
     private ImageButton mRestoreBtn;
     private ImageButton mReactiveBtn;
@@ -24,6 +25,8 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.setting);
 
         context = this.getApplicationContext();
+
+        mCsi_Item = new CrimeProvider(context);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -63,7 +66,7 @@ public class SettingActivity extends AppCompatActivity {
     private View.OnClickListener btnReactiveOnClick = new View.OnClickListener () {
         @Override
         public void onClick(View view) {
-            Toast.makeText(SettingActivity.this, "Recative", Toast.LENGTH_SHORT).show();
+            mCsi_Item.deleteAll();
         }
     };
 

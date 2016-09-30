@@ -108,6 +108,14 @@ public class CrimeProvider {
         return result;
     }
 
+    // 刪除所有記事資料
+    public void deleteAll(){
+        // 刪除原有的表格
+        db.execSQL("DROP TABLE IF EXISTS " + CrimeProvider.TABLE_NAME);
+        // 建立新版的表格
+        db.execSQL(CrimeProvider.CREATE_TABLE);
+    }
+
     // 取得指定編號的資料物件
     public CrimeItem get(long id) {
         // 準備回傳結果用的物件
