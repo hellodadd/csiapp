@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -38,10 +39,7 @@ public class SocketService extends Service {
     }
 
     private void doListen(int socketport) {
-        mServerSocket = null;
         try {
-            Log.d(TAG, "doListen() Server Port ="+ socketport);
-            mServerSocket = new ServerSocket(socketport);
 
             while (mainThreadFlag) {
                 Socket socket = mServerSocket.accept();
@@ -61,7 +59,15 @@ public class SocketService extends Service {
             Log.d(TAG, "Socket Port=" + port);
             mServerPort = port;
         }
-
+        try {
+            if (mServerSocket == null) {
+                mServerSocket = new ServerSocket();
+                mServerSocket.setReuseAddress(true);
+                mServerSocket.bind(new InetSocketAddress(mServerPort));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         mainThreadFlag = true;
         new Thread() {
             public void run() {

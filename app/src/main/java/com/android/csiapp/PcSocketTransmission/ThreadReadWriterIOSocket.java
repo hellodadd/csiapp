@@ -109,6 +109,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
             }
             out.close();
             in.close();
+            client.close();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -165,7 +166,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
         int count=0, readcount=0;
         byte[] b = null;
 
-
+        /*
         try {
             while (count == 0) {
                 count = in.available();
@@ -195,7 +196,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
         }
 
         Log.d(TAG,"File Data="+ filedata);
-        /*
+        */    
               StringBuilder receiveStream = new StringBuilder();
               count=0;
               try {
@@ -213,7 +214,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
                  e.printStackTrace();
              }
              Log.d(TAG,"receiveStream="+receiveStream.toString());
-             */
+
     }
 
     public void sendDeviceinfo(BufferedOutputStream out, int[] cmdinfo, File file) {
