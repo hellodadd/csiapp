@@ -8,10 +8,26 @@ import java.util.Calendar;
  */
 public class CrimeItem implements Serializable {
     // 編號、日期時間、顏色、標題、內容、檔案名稱、經緯度、修改、已選擇
+    //Page 1
     private long id;
-    private String casetype;
-    private String area;
-    private String time;
+    private String mCasetype;
+    private String mArea;
+    private String mLocation;
+    private String mOccurred_start_time;
+    private String mOccurred_end_time;
+    private String mGet_access_time;
+    private String mUnitsAssigned;
+    private String mAccessPolicemen;
+    private String mAccess_start_time;
+    private String mAccess_end_time;
+    private String mAccessLocation;
+    private String mCaseOccurProcess;
+    private String mSceneCondition;
+    private String mWeatherCondition;
+    private String mWindDirection;
+    private String mTemperature;
+    private String mHumidity;
+    private String mAccessReason;
 
     //Page 2 (New people)
     private String mPeople_releation;
@@ -42,9 +58,24 @@ public class CrimeItem implements Serializable {
 
     public CrimeItem() {
         this.id = 0;
-        this.casetype = "";
-        this.area = "";
-        this.time = "";
+        this.mCasetype = "";
+        this.mArea = "";
+        this.mLocation = "";
+        this.mOccurred_start_time = "";
+        this.mOccurred_end_time = "";
+        this.mGet_access_time = "";
+        this.mUnitsAssigned = "";
+        this.mAccessPolicemen = "";
+        this.mAccess_start_time = "";
+        this.mAccess_end_time = "";
+        this.mAccessLocation = "";
+        this.mCaseOccurProcess = "";
+        this.mSceneCondition = "";
+        this.mWeatherCondition = "";
+        this.mWindDirection = "";
+        this.mTemperature = "";
+        this.mHumidity = "";
+        this.mAccessReason = "";
 
         this.mPeople_releation = "";
         this.mPeople_name = "";
@@ -72,9 +103,9 @@ public class CrimeItem implements Serializable {
 
     public CrimeItem(long id, String casetype, String area, String time) {
         this.id = id;
-        this.casetype = casetype;
-        this.area = area;
-        this.time = time;
+        this.mCasetype = casetype;
+        this.mArea = area;
+        this.mOccurred_start_time = time;
     }
 
     public long getId() {
@@ -86,27 +117,147 @@ public class CrimeItem implements Serializable {
     }
 
     public String getCasetype() {
-        return casetype;
+        return mCasetype;
     }
 
     public void setCasetype(String casetype) {
-        this.casetype = casetype;
+        this.mCasetype = casetype;
     }
 
     public String getArea() {
-        return area;
+        return mArea;
     }
 
     public void setArea(String area) {
-        this.area = area;
+        this.mArea = area;
     }
 
-    public String getTime() {
-        return time;
+    public String getLocation() {
+        return mLocation;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setLocationa(String location) {
+        this.mLocation = location;
+    }
+
+    public String getOccurredStartTime() {
+        return mOccurred_start_time;
+    }
+
+    public void setOccurredStartTime(String time) {
+        this.mOccurred_start_time = time;
+    }
+
+    public String getOccurredEndTime() {
+        return mOccurred_end_time;
+    }
+
+    public void setOccurredEndTime(String time) {
+        this.mOccurred_end_time = time;
+    }
+
+    public String getGetAccessTime() {
+        return mGet_access_time;
+    }
+
+    public void setGetAccessTime(String time) {
+        this.mGet_access_time = time;
+    }
+
+    public String getUnitsAssigned () {
+        return mUnitsAssigned;
+    }
+
+    public void setUnitsAssigned (String unitsAssigned ) {
+        this.mUnitsAssigned = unitsAssigned ;
+    }
+
+    public String getAccessPolicemen () {
+        return mAccessPolicemen;
+    }
+
+    public void setAccessPolicemen (String accessPolicemen ) {
+        this.mAccessPolicemen = accessPolicemen ;
+    }
+
+    public String getAccessStartTime () {
+        return mAccess_start_time;
+    }
+
+    public void setAccessStartTime (String time ) {
+        this.mAccess_start_time = time ;
+    }
+
+    public String getAccessEndTime () {
+        return mAccess_end_time;
+    }
+
+    public void setAccessEndTime (String time ) {
+        this.mAccess_end_time = time ;
+    }
+
+    public String getAccessLocation () {
+        return mAccessLocation;
+    }
+
+    public void setAccessLocation (String accessLocation ) {
+        this.mAccessLocation = accessLocation ;
+    }
+
+    public String getCaseOccurProcess () {
+        return mCaseOccurProcess;
+    }
+
+    public void setCaseOccurProcess(String caseOccurProcess ) {
+        this.mCaseOccurProcess = caseOccurProcess ;
+    }
+
+    public String getSceneCondition () {
+        return mSceneCondition;
+    }
+
+    public void setSceneCondition (String sceneCondition ) {
+        this.mSceneCondition = sceneCondition ;
+    }
+
+    public String getWeatherCondition () {
+        return mWeatherCondition;
+    }
+
+    public void setWeatherCondition (String weatherCondition ) {
+        this.mWeatherCondition = weatherCondition ;
+    }
+
+    public String getWindDirection () {
+        return mWindDirection;
+    }
+
+    public void setWindDirection (String windDirection ) {
+        this.mWindDirection = windDirection ;
+    }
+
+    public String getTemperature() {
+        return mTemperature;
+    }
+
+    public void setTemperature (String temperature ) {
+        this.mTemperature = temperature ;
+    }
+
+    public String getHumidity () {
+        return mHumidity;
+    }
+
+    public void setHumidity (String humidity ) {
+        this.mHumidity = humidity ;
+    }
+
+    public String getAccessReason () {
+        return mAccessReason;
+    }
+
+    public void setAccessReason (String accessReason ) {
+        this.mAccessReason = accessReason ;
     }
 
     //Page 2 (New People)

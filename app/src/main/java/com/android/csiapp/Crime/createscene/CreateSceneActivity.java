@@ -39,6 +39,16 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
 
     private TextView mPageText1, mPageText2, mPageText3, mPageText4, mPageText5, mPageText6, mPageText7, mPageText8, mPageText9;
 
+    private CreateScene_FP1 mMyFragmentPage1;
+    private CreateScene_FP2 mMyFragmentPage2;
+    private CreateScene_FP3 mMyFragmentPage3;
+    private CreateScene_FP4 mMyFragmentPage4;
+    private CreateScene_FP5 mMyFragmentPage5;
+    private CreateScene_FP6 mMyFragmentPage6;
+    private CreateScene_FP7 mMyFragmentPage7;
+    private CreateScene_FP8 mMyFragmentPage8;
+    private CreateScene_FP9 mMyFragmentPage9;
+
     private ViewPager mViewPager;
 
     private Drawable mSelect_background;
@@ -52,6 +62,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
             switch (menuItem.getItemId()) {
                 case R.id.action_save:
                     msg += "Save";
+                    saveData();
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.CrimeItem", mItem);
                     setResult(Activity.RESULT_OK, result);
@@ -141,25 +152,25 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         mPageText1.setVisibility(View.VISIBLE);
 
         mViewPager = (ViewPager) this.findViewById(R.id.viewPager);
-        CreateScene_FP1 MyFragmentPage1 = new CreateScene_FP1();
-        CreateScene_FP2 MyFragmentPage2 = new CreateScene_FP2();
-        CreateScene_FP3 MyFragmentPage3 = new CreateScene_FP3();
-        CreateScene_FP4 MyFragmentPage4 = new CreateScene_FP4();
-        CreateScene_FP5 MyFragmentPage5 = new CreateScene_FP5();
-        CreateScene_FP6 MyFragmentPage6 = new CreateScene_FP6();
-        CreateScene_FP7 MyFragmentPage7 = new CreateScene_FP7();
-        CreateScene_FP8 MyFragmentPage8 = new CreateScene_FP8();
-        CreateScene_FP9 MyFragmentPage9 = new CreateScene_FP9();
+        mMyFragmentPage1 = new CreateScene_FP1();
+        mMyFragmentPage2 = new CreateScene_FP2();
+        mMyFragmentPage3 = new CreateScene_FP3();
+        mMyFragmentPage4 = new CreateScene_FP4();
+        mMyFragmentPage5 = new CreateScene_FP5();
+        mMyFragmentPage6 = new CreateScene_FP6();
+        mMyFragmentPage7 = new CreateScene_FP7();
+        mMyFragmentPage8 = new CreateScene_FP8();
+        mMyFragmentPage9 = new CreateScene_FP9();
         List<Fragment> fragmentList = new ArrayList<Fragment>();
-        fragmentList.add(MyFragmentPage1);
-        fragmentList.add(MyFragmentPage2);
-        fragmentList.add(MyFragmentPage3);
-        fragmentList.add(MyFragmentPage4);
-        fragmentList.add(MyFragmentPage5);
-        fragmentList.add(MyFragmentPage6);
-        fragmentList.add(MyFragmentPage7);
-        fragmentList.add(MyFragmentPage8);
-        fragmentList.add(MyFragmentPage9);
+        fragmentList.add(mMyFragmentPage1);
+        fragmentList.add(mMyFragmentPage2);
+        fragmentList.add(mMyFragmentPage3);
+        fragmentList.add(mMyFragmentPage4);
+        fragmentList.add(mMyFragmentPage5);
+        fragmentList.add(mMyFragmentPage6);
+        fragmentList.add(mMyFragmentPage7);
+        fragmentList.add(mMyFragmentPage8);
+        fragmentList.add(mMyFragmentPage9);
         FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), fragmentList);
         mViewPager.setAdapter(fragmentAdapter);
         mViewPager.setCurrentItem(0);
@@ -324,5 +335,16 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void saveData(){
+        int page = mViewPager.getCurrentItem();
+        switch (page){
+            case 0:
+                mMyFragmentPage1.saveData();
+                break;
+            default:
+                break;
+        }
     }
 }

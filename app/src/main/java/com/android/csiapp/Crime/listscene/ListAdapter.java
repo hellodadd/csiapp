@@ -57,7 +57,7 @@ public class ListAdapter extends BaseAdapter {
         CrimeItem item = (CrimeItem)getItem(position);
         holder.txtCasetype.setText(((CrimeItem) getItem(position)).getCasetype());
         holder.txtArea.setText(((CrimeItem) getItem(position)).getArea());
-        holder.txtTime.setText(((CrimeItem) getItem(position)).getTime());
+        holder.txtTime.setText(((CrimeItem) getItem(position)).getOccurredStartTime());
         return convertView;
     }
 

@@ -21,21 +21,24 @@
         <item>天津</item>
     </string-array>
 
-    <string-array name="unitsAssigned">
-        <item>110指挥中心</item>
-        <item>112指挥中心</item>
-        <item>999指挥中心</item>
-    </string-array>
-
-    <string-array name="accessPolicemen">
-        <item>杨警官</item>
-        <item>林警官</item>
-        <item>陈警官</item>
-    </string-array>
-
     <string-array name="sceneCondition">
         <item>原始现场</item>
         <item>变动现场</item>
+    </string-array>
+
+    <string-array name="weatherCondition">
+        <item>晴</item>
+        <item>雨</item>
+        <item>阳</item>
+        <item>雪</item>
+        <item>雾</item>
+    </string-array>
+
+    <string-array name="windDirection">
+        <item>东风</item>
+        <item>西风</item>
+        <item>北风</item>
+        <item>南风</item>
     </string-array>
 
     <!--page2-->

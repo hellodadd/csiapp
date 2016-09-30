@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.csiapp.ClearableEditText;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
@@ -32,31 +33,51 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private CrimeItem mItem;
     private int mEvent;
 
-    private Spinner casetype_spinner;
-    private ArrayList<String> casetype = new ArrayList<String>();
-    private ArrayAdapter<String> casetype_adapter;
-    private Spinner area_spinner;
-    private ArrayList<String> area = new ArrayList<String>();
-    private ArrayAdapter<String> area_adapter;
+    private Spinner mCasetype_spinner;
+    private ArrayList<String> mCasetype = new ArrayList<String>();
+    private ArrayAdapter<String> mCasetype_adapter;
+    private Spinner mArea_spinner;
+    private ArrayList<String> mArea = new ArrayList<String>();
+    private ArrayAdapter<String> mArea_adapter;
 
-    //Anita test start
+    private ClearableEditText mLocation;
+
     private Calendar c;
-    private TextView occurred_start_time;
-    private TextView occurred_end_time;
-    private TextView get_access_time;
-    private Button occurred_start_button;
-    private Button occurred_end_button;
-    private Button get_access_button;
-    private Spinner unitsAssigned_spinner;
-    private ArrayList<String> unitsAssigned = new ArrayList<String>();;
-    private ArrayAdapter<String> unitsAssigned_adapter;
-    private Spinner accessPolicemen_spinner;
-    private ArrayList<String> accessPolicemen = new ArrayList<String>();;
-    private ArrayAdapter<String> accessPolicemen_adapter;
-    private Spinner sceneCondition_spinner;
-    private ArrayList<String> sceneCondition = new ArrayList<String>();;
-    private ArrayAdapter<String> sceneCondition_adapter;
-    //Anita test end
+    private TextView mOccurred_start_time;
+    private TextView mOccurred_end_time;
+    private TextView mGet_access_time;
+    private Button mOccurred_start_button;
+    private Button mOccurred_end_button;
+    private Button mGet_access_button;
+
+    private ClearableEditText mUnitsAssigned;
+    private ClearableEditText mAccessPolicemen;
+
+    private TextView mAccess_start_time;
+    private TextView mAccess_end_time;
+    private Button mAccess_start_button;
+    private Button mAccess_end_button;
+
+    private ClearableEditText mAccessLocation;
+    private ClearableEditText mCaseOccurProcess;
+    private Button mCaseOccurProcessBtn;
+
+    private Spinner mSceneCondition_spinner;
+    private ArrayList<String> mSceneCondition = new ArrayList<String>();;
+    private ArrayAdapter<String> mSceneCondition_adapter;
+
+    private Spinner mWeatherCondition_spinner;
+    private ArrayList<String> mWeatherCondition = new ArrayList<String>();;
+    private ArrayAdapter<String> mWeatherCondition_adapter;
+
+    private Spinner mWindDirection_spinner;
+    private ArrayList<String> mWindDirection = new ArrayList<String>();;
+    private ArrayAdapter<String> mWindDirection_adapter;
+
+    private ClearableEditText mTemperature;
+    private ClearableEditText mHumidity;
+    private ClearableEditText mAccessReason;
+    private Button mAccessReasonBtn;
 
     public CreateScene_FP1() {
         // Required empty public constructor
@@ -70,139 +91,256 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mEvent = activity.getEvent();
         context = getActivity().getApplicationContext();
 
-        casetype = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.casetype)));
-        casetype_spinner = (Spinner) view.findViewById(R.id.casetype_spinner);
-        casetype_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, casetype);
-        casetype_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        casetype_spinner.setAdapter(casetype_adapter);
-        casetype_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setCasetype(casetype.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
+        initView(view);
+        initData();
 
-        area = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.area)));
-        area_spinner = (Spinner) view.findViewById(R.id.area_spinner);
-        area_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, area);
-        area_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        area_spinner.setAdapter(area_adapter);
-        area_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setArea(area.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
-
-        //Anita test start
-        c = Calendar.getInstance();
-        occurred_start_time = (TextView) view.findViewById(R.id.occurred_start_time);
-        occurred_end_time = (TextView) view.findViewById(R.id.occurred_end_time);
-        get_access_time = (TextView) view.findViewById(R.id.get_access_time);
-        occurred_start_button = (Button) view.findViewById(R.id.occurred_start_time_button);
-        occurred_end_button = (Button) view.findViewById(R.id.occurred_end_time_button);
-        get_access_button = (Button) view.findViewById(R.id.get_access_time_button);
-        if(mEvent == 2) {
-            casetype_spinner.setSelection(getCategory(mItem.getCasetype()));
-            area_spinner.setSelection(getArea(mItem.getArea()));
-            occurred_start_time.setText(mItem.getTime());
-            occurred_end_time.setText(mItem.getTime());
-            get_access_time.setText(mItem.getTime());
-        }else{
-            occurred_start_time.setText(CrimeItem.getCurrentTime(c));
-            mItem.setTime(occurred_start_time.getText().toString());
-            occurred_end_time.setText(CrimeItem.getCurrentTime(c));
-            get_access_time.setText(CrimeItem.getCurrentTime(c));
-        }
-        occurred_start_button.setOnClickListener(this);
-        occurred_end_button.setOnClickListener(this);
-        get_access_button.setOnClickListener(this);
-
-        unitsAssigned = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.unitsAssigned)));
-        unitsAssigned_spinner = (Spinner) view.findViewById(R.id.unitsAssigned_spinner);
-        unitsAssigned_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, unitsAssigned);
-        unitsAssigned_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        unitsAssigned_spinner.setAdapter(unitsAssigned_adapter);
-        unitsAssigned_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
-
-        accessPolicemen = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.accessPolicemen)));
-        accessPolicemen_spinner = (Spinner) view.findViewById(R.id.accessPolicemen_spinner);
-        accessPolicemen_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, accessPolicemen);
-        accessPolicemen_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        accessPolicemen_spinner.setAdapter(accessPolicemen_adapter);
-        accessPolicemen_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
-
-        sceneCondition = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.sceneCondition)));
-        sceneCondition_spinner = (Spinner) view.findViewById(R.id.sceneCondition_spinner);
-        sceneCondition_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, sceneCondition);
-        sceneCondition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sceneCondition_spinner.setAdapter(sceneCondition_adapter);
-        sceneCondition_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
-        //Anita test end
         return view;
     }
 
-    //Anita test start
+    private void initView(View view){
+        mCasetype = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.casetype)));
+        mCasetype_spinner = (Spinner) view.findViewById(R.id.casetype_spinner);
+        mCasetype_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mCasetype);
+        mCasetype_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mCasetype_spinner.setAdapter(mCasetype_adapter);
+        mCasetype_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setCasetype(mCasetype.get(position));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+        mArea = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.area)));
+        mArea_spinner = (Spinner) view.findViewById(R.id.area_spinner);
+        mArea_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mArea);
+        mArea_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mArea_spinner.setAdapter(mArea_adapter);
+        mArea_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setArea(mArea.get(position));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+        mLocation = (ClearableEditText) view.findViewById(R.id.location);
+
+        c = Calendar.getInstance();
+        mOccurred_start_time = (TextView) view.findViewById(R.id.occurred_start_time);
+        mOccurred_end_time = (TextView) view.findViewById(R.id.occurred_end_time);
+        mGet_access_time = (TextView) view.findViewById(R.id.get_access_time);
+        mOccurred_start_button = (Button) view.findViewById(R.id.occurred_start_time_button);
+        mOccurred_end_button = (Button) view.findViewById(R.id.occurred_end_time_button);
+        mGet_access_button = (Button) view.findViewById(R.id.get_access_time_button);
+        mOccurred_start_button.setOnClickListener(this);
+        mOccurred_end_button.setOnClickListener(this);
+        mGet_access_button.setOnClickListener(this);
+
+        mUnitsAssigned = (ClearableEditText) view.findViewById(R.id.unitsAssigned);
+        mAccessPolicemen= (ClearableEditText) view.findViewById(R.id.accessPolicemen);
+
+        mAccess_start_time = (TextView) view.findViewById(R.id.access_start_time);
+        mAccess_end_time = (TextView) view.findViewById(R.id.access_end_time);
+        mAccess_start_button = (Button) view.findViewById(R.id.access_start_time_button);
+        mAccess_end_button= (Button) view.findViewById(R.id.access_end_time_button);
+        mAccess_start_button.setOnClickListener(this);
+        mAccess_end_button.setOnClickListener(this);
+
+        mAccessLocation = (ClearableEditText) view.findViewById(R.id.accessLocation);
+        mCaseOccurProcess = (ClearableEditText) view.findViewById(R.id.caseOccurProcess);
+        mCaseOccurProcessBtn = (Button) view.findViewById(R.id.caseOccurProcess_button);
+        mCaseOccurProcessBtn.setOnClickListener(this);
+
+        mSceneCondition = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.sceneCondition)));
+        mSceneCondition_spinner = (Spinner) view.findViewById(R.id.sceneCondition_spinner);
+        mSceneCondition_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mSceneCondition);
+        mSceneCondition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSceneCondition_spinner.setAdapter(mSceneCondition_adapter);
+        mSceneCondition_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setSceneCondition(mSceneCondition.get(position));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+        mWeatherCondition = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.weatherCondition)));
+        mWeatherCondition_spinner = (Spinner) view.findViewById(R.id.weatherCondition_spinner);
+        mWeatherCondition_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mWeatherCondition);
+        mWeatherCondition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mWeatherCondition_spinner.setAdapter(mWeatherCondition_adapter);
+        mWeatherCondition_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setWeatherCondition(mWeatherCondition.get(position));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+        mWindDirection = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.windDirection)));
+        mWindDirection_spinner = (Spinner) view.findViewById(R.id.windDirection_spinner);
+        mWindDirection_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mWindDirection);
+        mWindDirection_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mWindDirection_spinner.setAdapter(mWindDirection_adapter);
+        mWindDirection_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setWindDirection(mWindDirection.get(position));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+        mTemperature = (ClearableEditText) view.findViewById(R.id.temperature);
+        mHumidity = (ClearableEditText) view.findViewById(R.id.humidity);
+        mAccessReason = (ClearableEditText) view.findViewById(R.id.accessReason);
+        mAccessReasonBtn = (Button) view.findViewById(R.id.accessReason_button);
+        mAccessReasonBtn.setOnClickListener(this);
+    }
+
+    private void initData(){
+        mCasetype_spinner.setSelection(getCategory(mItem.getCasetype()));
+        mArea_spinner.setSelection(getArea(mItem.getArea()));
+        mLocation.setText(mItem.getLocation());
+        mUnitsAssigned.setText(mItem.getUnitsAssigned());
+        mAccessPolicemen.setText(mItem.getAccessPolicemen());
+        mAccessLocation.setText(mItem.getAccessLocation());
+        mCaseOccurProcess.setText(mItem.getCaseOccurProcess());
+        mSceneCondition_spinner.setSelection(getSceneCondition(mItem.getSceneCondition()));
+        mWeatherCondition_spinner.setSelection(getWeatherCondition(mItem.getWeatherCondition()));
+        mWindDirection_spinner.setSelection(getWindDirection(mItem.getWindDirection()));
+        mTemperature.setText(mItem.getTemperature());
+        mHumidity.setText(mItem.getHumidity());
+        mAccessReason.setText(mItem.getAccessReason());
+
+        String time = CrimeItem.getCurrentTime(c);
+        if(mItem.getOccurredStartTime().isEmpty()){
+            mOccurred_start_time.setText(time);
+            mItem.setOccurredStartTime(time);
+        }else{
+            mOccurred_start_time.setText(mItem.getOccurredStartTime());
+        }
+        if(mItem.getOccurredEndTime().isEmpty()) {
+            mOccurred_end_time.setText(time);
+            mItem.setOccurredEndTime(time);
+        }else{
+            mOccurred_end_time.setText(mItem.getOccurredEndTime());
+        }
+        if(mItem.getGetAccessTime().isEmpty()){
+            mGet_access_time.setText(time);
+            mItem.setGetAccessTime(time);
+        }else{
+            mGet_access_time.setText(mItem.getGetAccessTime());
+        }
+        if(mItem.getAccessStartTime().isEmpty()) {
+            mAccess_start_time.setText(time);
+            mItem.setAccessStartTime(time);
+        }else{
+            mAccess_start_time.setText(mItem.getAccessStartTime());
+        }
+        if(mItem.getAccessEndTime().isEmpty()) {
+            mAccess_end_time.setText(time);
+            mItem.setAccessEndTime(time);
+        }else{
+            mAccess_end_time.setText(mItem.getAccessEndTime());
+        }
+    }
+
     private int getCategory(String category){
-        for(int i=0; i<casetype.size(); i++){
-            if(category.equalsIgnoreCase(casetype.get(i))) return i;
+        for(int i=0; i<mCasetype.size(); i++){
+            if(category.equalsIgnoreCase(mCasetype.get(i))) return i;
         }
         return 0;
     }
     private int getArea(String category){
-        for(int i=0; i<area.size(); i++){
-            if(category.equalsIgnoreCase(area.get(i))) return i;
+        for(int i=0; i<mArea.size(); i++){
+            if(category.equalsIgnoreCase(mArea.get(i))) return i;
         }
         return 0;
     }
-    //Anita test end
+    private int getSceneCondition(String category){
+        for(int i=0; i<mSceneCondition.size(); i++){
+            if(category.equalsIgnoreCase(mSceneCondition.get(i))) return i;
+        }
+        return 0;
+    }
+    private int getWeatherCondition(String category){
+        for(int i=0; i<mWeatherCondition.size(); i++){
+            if(category.equalsIgnoreCase(mWeatherCondition.get(i))) return i;
+        }
+        return 0;
+    }
+    private int getWindDirection(String category){
+        for(int i=0; i<mWindDirection.size(); i++){
+            if(category.equalsIgnoreCase(mWindDirection.get(i))) return i;
+        }
+        return 0;
+    }
+
+    public void saveData(){
+        mItem.setLocationa(mLocation.getText());
+        mItem.setUnitsAssigned(mUnitsAssigned.getText());
+        mItem.setAccessPolicemen(mAccessPolicemen.getText());
+        mItem.setAccessLocation(mAccessLocation.getText());
+        mItem.setCaseOccurProcess(mCaseOccurProcess.getText());
+        mItem.setTemperature(mTemperature.getText());
+        mItem.setHumidity(mHumidity.getText());
+        mItem.setAccessReason(mAccessReason.getText());
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        initData();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        saveData();
+    }
 
     @Override
     public void onClick(View v) {
         // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.occurred_start_time_button:
-                showDateTimeDialog(occurred_start_time);
+                showDateTimeDialog(mOccurred_start_time,1);
                 break;
             case R.id.occurred_end_time_button:
-                showDateTimeDialog(occurred_end_time);
+                showDateTimeDialog(mOccurred_end_time,2);
                 break;
             case R.id.get_access_time_button:
-                showDateTimeDialog(get_access_time);
+                showDateTimeDialog(mGet_access_time,3);
+                break;
+            case R.id.access_start_time_button:
+                showDateTimeDialog(mAccess_start_time,4);
+                break;
+            case R.id.access_end_time_button:
+                showDateTimeDialog(mAccess_end_time,5);
+                break;
+            case R.id.caseOccurProcess_button:
+                mCaseOccurProcess.setText("据<被害人/报案人>报称:<发案开始时间> 在<发案地点>，该处发现一起<案件类别>，后拨打电话报警");
+                break;
+            case R.id.accessReason_button:
+                mAccessReason.setText("<发案区划><接警人>接到<指派单位>的指派: 在该所管界内<发案地点>发生一起<案件类别>，请速派人员勘查现场");
                 break;
             default:
                 break;
         }
     }
 
-    public void showDateTimeDialog(final TextView textView) {
+    public void showDateTimeDialog(final TextView textView,final int TimeType) {
         // Create the dialog
         final Dialog mDateTimeDialog = new Dialog(getContext());
         // Inflate the root layout
@@ -218,7 +356,9 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 // TODO Auto-generated method stub
                 c = mDateTimePicker.get();
                 textView.setText(CrimeItem.getCurrentTime(c));
-                mItem.setTime(textView.getText().toString());
+                if(TimeType==1) mItem.setOccurredStartTime(textView.getText().toString());
+                else if(TimeType==2) mItem.setOccurredEndTime(textView.getText().toString());
+                else if(TimeType==3) mItem.setGetAccessTime(textView.getText().toString());
                 mDateTimeDialog.dismiss();
             }
         });

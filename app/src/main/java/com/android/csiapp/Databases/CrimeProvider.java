@@ -21,7 +21,22 @@ public class CrimeProvider {
     // 其它表格欄位名稱
     public static final String CASETYPE_COLUMN = "casetype";
     public static final String AREA_COLUMN = "area";
-    public static final String TIME_COLUMN = "time";
+    public static final String LOCATION_COLUMN = "location";
+    public static final String OCCURRED_START_TIME_COLUMN = "occurred_start_time";
+    public static final String OCCURRED_END_TIME_COLUMN = "occurred_end_time";
+    public static final String GET_ACCESS_TIME_COLUMN = "get_access_time";
+    public static final String UNIT_COLUMN = "unit";
+    public static final String POLICEMAN_COLUMN = "policeman";
+    public static final String ACCESS_START_TIME_COLUMN = "access_start_time";
+    public static final String ACCESS_END_TIME_COLUMN = "access_end_time";
+    public static final String ACCESS_LOCATION_COLUMN = "access_location";
+    public static final String CASE_OCCUR_PROCESS_COLUMN = "case_occur_process";
+    public static final String SCENE_CONDITION_COLUMN = "scene_condition";
+    public static final String WEATHER_COLUMN = "weather";
+    public static final String WIND_COLUMN = "wind";
+    public static final String TEMPERATURE_COLUMN = "temperature";
+    public static final String HUMIDITY_COLUMN = "humidity";
+    public static final String ACCESS_REASON_COLUMN = "access_reason";
 
     // 使用上面宣告的變數建立表格的SQL指令
     public static final String CREATE_TABLE =
@@ -29,7 +44,22 @@ public class CrimeProvider {
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     CASETYPE_COLUMN + " INTEGER NOT NULL, " +
                     AREA_COLUMN + " INTEGER NOT NULL, " +
-                    TIME_COLUMN + " INTEGER NOT NULL)";
+                    LOCATION_COLUMN + " INTEGER NOT NULL, " +
+                    OCCURRED_START_TIME_COLUMN + " INTEGER NOT NULL, " +
+                    OCCURRED_END_TIME_COLUMN + " INTEGER NOT NULL, " +
+                    GET_ACCESS_TIME_COLUMN + " INTEGER NOT NULL, " +
+                    UNIT_COLUMN + " INTEGER NOT NULL, " +
+                    POLICEMAN_COLUMN + " INTEGER NOT NULL, " +
+                    ACCESS_START_TIME_COLUMN + " INTEGER NOT NULL, " +
+                    ACCESS_END_TIME_COLUMN + " INTEGER NOT NULL, " +
+                    ACCESS_LOCATION_COLUMN + " INTEGER NOT NULL, " +
+                    CASE_OCCUR_PROCESS_COLUMN + " INTEGER NOT NULL, " +
+                    SCENE_CONDITION_COLUMN + " INTEGER NOT NULL, " +
+                    WEATHER_COLUMN + " INTEGER NOT NULL, " +
+                    WIND_COLUMN + " INTEGER NOT NULL, " +
+                    TEMPERATURE_COLUMN + " INTEGER NOT NULL, " +
+                    HUMIDITY_COLUMN + " INTEGER NOT NULL, " +
+                    ACCESS_REASON_COLUMN + " INTEGER NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;
@@ -53,8 +83,22 @@ public class CrimeProvider {
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
         cv.put(CASETYPE_COLUMN, item.getCasetype());
         cv.put(AREA_COLUMN, item.getArea());
-        cv.put(TIME_COLUMN, item.getTime());
-
+        cv.put(LOCATION_COLUMN, item.getLocation());
+        cv.put(OCCURRED_START_TIME_COLUMN, item.getOccurredStartTime());
+        cv.put(OCCURRED_END_TIME_COLUMN, item.getOccurredEndTime());
+        cv.put(GET_ACCESS_TIME_COLUMN, item.getGetAccessTime());
+        cv.put(UNIT_COLUMN, item.getUnitsAssigned());
+        cv.put(POLICEMAN_COLUMN, item.getAccessPolicemen());
+        cv.put(ACCESS_START_TIME_COLUMN, item.getAccessStartTime());
+        cv.put(ACCESS_END_TIME_COLUMN, item.getAccessEndTime());
+        cv.put(ACCESS_LOCATION_COLUMN, item.getAccessLocation());
+        cv.put(CASE_OCCUR_PROCESS_COLUMN, item.getCaseOccurProcess());
+        cv.put(SCENE_CONDITION_COLUMN, item.getSceneCondition());
+        cv.put(WEATHER_COLUMN, item.getWeatherCondition());
+        cv.put(WIND_COLUMN, item.getWindDirection());
+        cv.put(TEMPERATURE_COLUMN, item.getTemperature());
+        cv.put(HUMIDITY_COLUMN, item.getHumidity());
+        cv.put(ACCESS_REASON_COLUMN, item.getAccessReason());
         // 新增一筆資料並取得編號
         // 第一個參數是表格名稱
         // 第二個參數是沒有指定欄位值的預設值
@@ -76,7 +120,22 @@ public class CrimeProvider {
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
         cv.put(CASETYPE_COLUMN, item.getCasetype());
         cv.put(AREA_COLUMN, item.getArea());
-        cv.put(TIME_COLUMN, item.getTime());
+        cv.put(LOCATION_COLUMN, item.getLocation());
+        cv.put(OCCURRED_START_TIME_COLUMN, item.getOccurredStartTime());
+        cv.put(OCCURRED_END_TIME_COLUMN, item.getOccurredEndTime());
+        cv.put(GET_ACCESS_TIME_COLUMN, item.getGetAccessTime());
+        cv.put(UNIT_COLUMN, item.getUnitsAssigned());
+        cv.put(POLICEMAN_COLUMN, item.getAccessPolicemen());
+        cv.put(ACCESS_START_TIME_COLUMN, item.getAccessStartTime());
+        cv.put(ACCESS_END_TIME_COLUMN, item.getAccessEndTime());
+        cv.put(ACCESS_LOCATION_COLUMN, item.getAccessLocation());
+        cv.put(CASE_OCCUR_PROCESS_COLUMN, item.getCaseOccurProcess());
+        cv.put(SCENE_CONDITION_COLUMN, item.getSceneCondition());
+        cv.put(WEATHER_COLUMN, item.getWeatherCondition());
+        cv.put(WIND_COLUMN, item.getWindDirection());
+        cv.put(TEMPERATURE_COLUMN, item.getTemperature());
+        cv.put(HUMIDITY_COLUMN, item.getHumidity());
+        cv.put(ACCESS_REASON_COLUMN, item.getAccessReason());
 
         // 設定修改資料的條件為編號
         // 格式為「欄位名稱＝資料」
@@ -146,7 +205,22 @@ public class CrimeProvider {
         result.setId(cursor.getLong(0));
         result.setCasetype(cursor.getString(1));
         result.setArea(cursor.getString(2));
-        result.setTime(cursor.getString(3));
+        result.setLocationa(cursor.getString(3));
+        result.setOccurredStartTime(cursor.getString(4));
+        result.setOccurredEndTime(cursor.getString(5));
+        result.setGetAccessTime(cursor.getString(6));
+        result.setUnitsAssigned(cursor.getString(7));
+        result.setAccessPolicemen(cursor.getString(8));
+        result.setAccessStartTime(cursor.getString(9));
+        result.setAccessEndTime(cursor.getString(10));
+        result.setAccessLocation(cursor.getString(11));
+        result.setCaseOccurProcess(cursor.getString(12));
+        result.setSceneCondition(cursor.getString(13));
+        result.setWeatherCondition(cursor.getString(14));
+        result.setWindDirection(cursor.getString(15));
+        result.setTemperature(cursor.getString(16));
+        result.setHumidity(cursor.getString(17));
+        result.setAccessReason(cursor.getString(18));
 
         // 回傳結果
         return result;

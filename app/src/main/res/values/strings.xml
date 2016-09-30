@@ -49,6 +49,7 @@
     <string name="write_temperature">填写温度</string>
     <string name="humidity">湿度</string>
     <string name="write_humidity">填写湿度</string>
+    <string name="access_reason">勘验事由</string>
 
     <string name="step_2">现场访问</string>
     <string name="add_people">添加关联人</string>

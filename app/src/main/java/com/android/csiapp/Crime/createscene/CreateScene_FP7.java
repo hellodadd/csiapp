@@ -254,7 +254,6 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
                 // TODO Auto-generated method stub
                 c = mDateTimePicker.get();
                 textView.setText(CrimeItem.getCurrentTime(c));
-                mItem.setTime(textView.getText().toString());
                 mDateTimeDialog.dismiss();
             }
         });
