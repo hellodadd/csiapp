@@ -280,7 +280,7 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <com.android.csiapp.ClearableEditText
-                    android:id="@+id/peopleFeature_editView"
+                    android:id="@+id/peopleFeature"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

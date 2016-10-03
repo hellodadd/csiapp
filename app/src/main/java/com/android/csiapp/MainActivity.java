@@ -22,7 +22,7 @@ import com.android.csiapp.Databases.CrimeItem;
 public class MainActivity extends AppCompatActivity {
     private Context context = null;
 
-    private CrimeProvider mCsi_Item;
+    private CrimeProvider mCrimeProvider;
 
     private Button mCreate;
     private Button mList;
@@ -55,12 +55,12 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
         // 建立資料庫物件
-        mCsi_Item = new CrimeProvider(context);
+        mCrimeProvider = new CrimeProvider(context);
 
         // 如果資料庫是空的，就建立一些範例資料
         // 這是為了方便測試用的，完成應用程式以後可以拿掉
-        //if (mCsi_Item.getCount() == 0) {
-        //    mCsi_Item.sample();
+        //if (mCrimeProvider.getCount() == 0) {
+        //    mCrimeProvider.sample();
         //}
 
         mCreate = (Button) findViewById(R.id.imageButton_create);
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             CrimeItem item = (CrimeItem) data.getExtras().getSerializable("com.android.csiapp.CrimeItem");
             if (requestCode == 0) {
                 // 新增記事資料到資料庫
-                item = mCsi_Item.insert(item);
+                item = mCrimeProvider.insert(item);
             }
         }
     }

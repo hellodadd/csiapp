@@ -343,6 +343,9 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
             case 0:
                 mMyFragmentPage1.saveData();
                 break;
+            case 6:
+                mMyFragmentPage7.saveData();
+                break;
             default:
                 break;
         }

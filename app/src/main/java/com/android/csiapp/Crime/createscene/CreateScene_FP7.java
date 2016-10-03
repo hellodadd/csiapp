@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.csiapp.ClearableEditText;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
@@ -29,6 +30,7 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
 
     private Context context = null;
     private CrimeItem mItem;
+    private int mEvent;
 
     private Spinner mPeopleNumber_spinner;
     private ArrayList<String> mPeopleNumber = new ArrayList<String>();
@@ -53,6 +55,9 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
     private Spinner mCrimeExport_spinner;
     private ArrayList<String> mCrimeExport = new ArrayList<String>();
     private ArrayAdapter<String> mCrimeExport_adapter;
+
+    private ClearableEditText mPeopleFeature;
+
     private Spinner mCrimeFeature_spinner;
     private ArrayList<String> mCrimeFeature = new ArrayList<String>();
     private ArrayAdapter<String> mCrimeFeature_adapter;
@@ -75,8 +80,16 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.create_scene_fp7, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
         mItem = activity.getItem();
+        mEvent = activity.getEvent();
         context = getActivity().getApplicationContext();
 
+        initView(view);
+        initData();
+
+        return view;
+    }
+
+    private void initView(View view){
         mPeopleNumber  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.people_number)));
         mPeopleNumber_spinner = (Spinner) view.findViewById(R.id.peopleNumber_spinner);
         mPeopleNumber_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mPeopleNumber);
@@ -85,6 +98,7 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
         mPeopleNumber_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setCrimePeopleNumber(mPeopleNumber.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -99,6 +113,7 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
         mCrimeMeans_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setCrimeMeans(mCrimeMeans.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -113,6 +128,7 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
         mCrimeCharacter_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setCrimeCharacter(mCrimeCharacter.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -127,6 +143,7 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
         mCrimeEntrance_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setCrimeEntrance(mCrimeEntrance.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -147,6 +164,7 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
         mSelectObject_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setSelectObject(mSelectObject.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -161,11 +179,14 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
         mCrimeExport_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setCrimeExport(mCrimeExport.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
+
+        mPeopleFeature = (ClearableEditText) view.findViewById(R.id.peopleFeature);
 
         mCrimeFeature  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.crime_feature)));
         mCrimeFeature_spinner = (Spinner) view.findViewById(R.id.crimeFeature_spinner);
@@ -175,6 +196,7 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
         mCrimeFeature_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setCrimeFeature(mCrimeFeature.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -189,6 +211,7 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
         mIntrusiveMethod_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setIntrusiveMethod(mIntrusiveMethod.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -203,6 +226,7 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
         mSelectLocation_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setSelectLocation(mSelectLocation.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -217,13 +241,119 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
         mCrimePurpose_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setCrimePurpose(mCrimePurpose.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
+    }
 
-        return view;
+    private void initData(){
+        mPeopleNumber_spinner.setSelection(getPeopleNumber(mItem.getCrimePeopleNumber()));
+        mCrimeMeans_spinner.setSelection(getCrimeMeans(mItem.getCrimeMeans()));
+        mCrimeCharacter_spinner.setSelection(getCrimeCharacter(mItem.getCrimeCharacter()));
+        mCrimeEntrance_spinner.setSelection(getCrimeEntrance(mItem.getCrimeEntrance()));
+        mSelectObject_spinner.setSelection(getSelectObject(mItem.getSelectObject()));
+        mCrimeExport_spinner.setSelection(getCrimeExport(mItem.getCrimeExport()));
+        mCrimeFeature_spinner.setSelection(getCrimeFeature(mItem.getCrimeFeature()));
+        mIntrusiveMethod_spinner.setSelection(getIntrusiveMethod(mItem.getIntrusiveMethod()));
+        mSelectLocation_spinner.setSelection(getSelectLocation(mItem.getSelectLocation()));
+        mCrimePurpose_spinner.setSelection(getCrimePurpose(mItem.getCrimePurpose()));
+
+        String time = CrimeItem.getCurrentTime(c);
+        if(mItem.getCrimeTiming().isEmpty()){
+            mCrimeTiming.setText(time);
+            mItem.setCrimeTiming(time);
+        }else{
+            mCrimeTiming.setText(mItem.getCrimeTiming());
+        }
+    }
+
+    private int getPeopleNumber(String peopleNumber){
+        for(int i=0; i<mPeopleNumber.size(); i++){
+            if(peopleNumber.equalsIgnoreCase(mPeopleNumber.get(i))) return i;
+        }
+        return 0;
+    }
+
+    private int getCrimeMeans(String crimeMeans){
+        for(int i=0; i<mCrimeMeans.size(); i++){
+            if(crimeMeans.equalsIgnoreCase(mCrimeMeans.get(i))) return i;
+        }
+        return 0;
+    }
+
+    private int getCrimeCharacter(String crimeCharacter){
+        for(int i=0; i<mCrimeCharacter.size(); i++){
+            if(crimeCharacter.equalsIgnoreCase(mCrimeCharacter.get(i))) return i;
+        }
+        return 0;
+    }
+
+    private int getCrimeEntrance(String crimeEntrance){
+        for(int i=0; i<mCrimeEntrance.size(); i++){
+            if(crimeEntrance.equalsIgnoreCase(mCrimeEntrance.get(i))) return i;
+        }
+        return 0;
+    }
+
+    private int getSelectObject(String selectObject){
+        for(int i=0; i<mSelectObject.size(); i++){
+            if(selectObject.equalsIgnoreCase(mSelectObject.get(i))) return i;
+        }
+        return 0;
+    }
+
+    private int getCrimeExport(String crimeExport){
+        for(int i=0; i<mCrimeExport.size(); i++){
+            if(crimeExport.equalsIgnoreCase(mCrimeExport.get(i))) return i;
+        }
+        return 0;
+    }
+
+    private int getCrimeFeature(String crimeFeature){
+        for(int i=0; i<mCrimeFeature.size(); i++){
+            if(crimeFeature.equalsIgnoreCase(mCrimeFeature.get(i))) return i;
+        }
+        return 0;
+    }
+
+    private int getIntrusiveMethod(String intrusiveMethod){
+        for(int i=0; i<mIntrusiveMethod.size(); i++){
+            if(intrusiveMethod.equalsIgnoreCase(mIntrusiveMethod.get(i))) return i;
+        }
+        return 0;
+    }
+
+    private int getSelectLocation(String selectLocation){
+        for(int i=0; i<mSelectLocation.size(); i++){
+            if(selectLocation.equalsIgnoreCase(mSelectLocation.get(i))) return i;
+        }
+        return 0;
+    }
+
+    private int getCrimePurpose(String crimePurpose){
+        for(int i=0; i<mCrimePurpose.size(); i++){
+            if(crimePurpose.equalsIgnoreCase(mCrimePurpose.get(i))) return i;
+        }
+        return 0;
+    }
+
+    public void saveData(){
+        mItem.setCrimePeopleFeature(mPeopleFeature.getText());
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        initData();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        saveData();
     }
 
     @Override

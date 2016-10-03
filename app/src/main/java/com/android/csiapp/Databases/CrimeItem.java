@@ -49,6 +49,20 @@ public class CrimeItem implements Serializable {
     private String mTool_category;
     private String mTool_source;
 
+    //Page 7
+    private String mCrimePeopleNumber;
+    private String mCrimeMeans;
+    private String mCrimeCharacter;
+    private String mCrimeEntrance;
+    private String mCrimeTiming;
+    private String mSelectObject;
+    private String mCrimeExport;
+    private String mCrimePeopleFeature;
+    private String mCrimeFeature;
+    private String mIntrusiveMethod;
+    private String mSelectLocation;
+    private String mCrimePurpose;
+
     //Page 8 (New Witness)
     private String mWitness_name;
     private String mWitness_sex;
@@ -94,6 +108,19 @@ public class CrimeItem implements Serializable {
         this.mTool_category = "";
         this.mTool_source = "";
 
+        this.mCrimePeopleNumber = "";
+        this.mCrimeMeans = "";
+        this.mCrimeCharacter = "";
+        this.mCrimeEntrance = "";
+        this.mCrimeTiming = "";
+        this.mSelectObject = "";
+        this.mCrimeExport = "";
+        this.mCrimePeopleFeature = "";
+        this.mCrimeFeature = "";
+        this.mIntrusiveMethod = "";
+        this.mSelectLocation = "";
+        this.mCrimePurpose = "";
+
         this.mWitness_name = "";
         this.mWitness_sex = "";
         this.mWitness_birthday = "";
@@ -116,6 +143,7 @@ public class CrimeItem implements Serializable {
         this.id = id;
     }
 
+    //Page 1
     public String getCasetype() {
         return mCasetype;
     }
@@ -318,6 +346,55 @@ public class CrimeItem implements Serializable {
     public String getToolSource() {return mTool_source; }
 
     public void setToolSource(String tool_source) {this.mTool_source = tool_source; }
+
+    //Page 7
+    public String getCrimePeopleNumber() {return mCrimePeopleNumber; }
+
+    public void setCrimePeopleNumber(String crimePeopleNumber) {this.mCrimePeopleNumber = crimePeopleNumber; }
+
+    public String getCrimeMeans() {return mCrimeMeans; }
+
+    public void setCrimeMeans(String crimeMeans) {this.mCrimeMeans = crimeMeans; }
+
+    public String getCrimeCharacter() {return mCrimeCharacter; }
+
+    public void setCrimeCharacter(String crimeCharacter) {this.mCrimeCharacter = crimeCharacter; }
+
+    public String getCrimeEntrance() {return mCrimeEntrance; }
+
+    public void setCrimeEntrance(String crimeEntrance) {this.mCrimeEntrance = crimeEntrance; }
+
+    public String getCrimeTiming() {return mCrimeTiming; }
+
+    public void setCrimeTiming(String crimeTiming) {this.mCrimeTiming = crimeTiming; }
+
+    public String getSelectObject() {return mSelectObject; }
+
+    public void setSelectObject(String selectObject) {this.mSelectObject = selectObject; }
+
+    public String getCrimeExport() {return mCrimeExport; }
+
+    public void setCrimeExport(String crimeExport) {this.mCrimeExport = crimeExport; }
+
+    public String getCrimePeopleFeature() {return mCrimePeopleFeature; }
+
+    public void setCrimePeopleFeature(String peopleFeature) {this.mCrimePeopleFeature = peopleFeature; }
+
+    public String getCrimeFeature() {return mCrimeFeature; }
+
+    public void setCrimeFeature(String crimeFeature) {this.mCrimeFeature = crimeFeature; }
+
+    public String getIntrusiveMethod() {return mIntrusiveMethod; }
+
+    public void setIntrusiveMethod(String intrusiveMethod) {this.mIntrusiveMethod = intrusiveMethod; }
+
+    public String getSelectLocation() {return mSelectLocation; }
+
+    public void setSelectLocation(String selectLocation) {this.mSelectLocation = selectLocation; }
+
+    public String getCrimePurpose() {return mCrimePurpose; }
+
+    public void setCrimePurpose(String crimePurpose) {this.mCrimePurpose = crimePurpose; }
 
     //Page 8 (New Witness)
     public String getWitnessName() {return mWitness_name; }

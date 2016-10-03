@@ -34,6 +34,8 @@ public class DatabasesHelper extends SQLiteOpenHelper {
         // 建立應用程式需要的表格
         db.execSQL(IdentifyProvider.IDENTIFY_TABLE);
         db.execSQL(CrimeProvider.CREATE_TABLE);
+        db.execSQL(SceneProvider.CREATE_TABLE);
+        db.execSQL(AnalysisProvider.CREATE_TABLE);
     }
 
     @Override
@@ -41,6 +43,8 @@ public class DatabasesHelper extends SQLiteOpenHelper {
         // 刪除原有的表格
         db.execSQL("DROP TABLE IF EXISTS " + IdentifyProvider.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CrimeProvider.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + SceneProvider.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + AnalysisProvider.TABLE_NAME);
         // 呼叫onCreate建立新版的表格
         onCreate(db);
     }
