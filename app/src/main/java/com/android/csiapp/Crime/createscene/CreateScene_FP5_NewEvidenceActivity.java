@@ -192,7 +192,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.time_button:
-                //showDateTimeDialog(time);
+                showDateTimeDialog(mTime);
                 break;
             default:
                 break;
@@ -201,7 +201,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
 
     public void showDateTimeDialog(final TextView textView) {
         // Create the dialog
-        final Dialog mDateTimeDialog = new Dialog(context);
+        final Dialog mDateTimeDialog = new Dialog(this);
         // Inflate the root layout
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
         final RelativeLayout mDateTimeDialogView = (RelativeLayout) inflater.inflate(R.layout.date_time_dialog, null);

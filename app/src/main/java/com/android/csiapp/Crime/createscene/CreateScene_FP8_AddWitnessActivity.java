@@ -156,7 +156,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.birthday_date_button:
-                //showDateTimeDialog(birthday);
+                showDateTimeDialog(mBirthday);
                 break;
             default:
                 break;
@@ -165,7 +165,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
 
     public void showDateTimeDialog(final TextView textView) {
         // Create the dialog
-        final Dialog mDateTimeDialog = new Dialog(context);
+        final Dialog mDateTimeDialog = new Dialog(this.getBaseContext());
         // Inflate the root layout
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
         final RelativeLayout mDateTimeDialogView = (RelativeLayout) inflater.inflate(R.layout.date_time_dialog, null);
