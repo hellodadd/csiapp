@@ -354,4 +354,24 @@ public class CrimeItem implements Serializable {
         //selse {sb.append(":" + a[5]);}
         return sb.toString();
     }
+
+    public static String getCurrentDate(Calendar c) { //輸出格式製作
+        int[] a={c.get(Calendar.YEAR),
+                c.get(Calendar.MONTH),
+                c.get(Calendar.DAY_OF_MONTH),
+                c.get(Calendar.HOUR_OF_DAY),
+                c.get(Calendar.MINUTE),
+                c.get(Calendar.SECOND)
+        };
+        StringBuffer sb=new StringBuffer();
+        sb.append(a[0]);
+        sb.append("年");
+        if (a[1]<9) {sb.append("0" + (a[1] + 1));}   //加 1 才會得到實際月份
+        else {sb.append("" + (a[1] + 1));}
+        sb.append("月");
+        if (a[2]<10) {sb.append("0" + (a[2]));}
+        else {sb.append("" + (a[2]));}
+        sb.append("日");
+        return sb.toString();
+    }
 }

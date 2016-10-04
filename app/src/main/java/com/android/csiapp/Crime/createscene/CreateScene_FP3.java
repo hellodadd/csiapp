@@ -24,6 +24,7 @@ public class CreateScene_FP3 extends Fragment {
 
     private Context context = null;
     private CrimeItem mItem;
+    private int mEvent;
     private ImageButton mAdd_Position;
     private ImageButton mPosition;
 
@@ -36,12 +37,14 @@ public class CreateScene_FP3 extends Fragment {
         View view = inflater.inflate(R.layout.create_scene_fp3, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
         mItem = activity.getItem();
+        mEvent = activity.getEvent();
         context = getActivity().getApplicationContext();
         mAdd_Position = (ImageButton) view.findViewById(R.id.add_position);
         mAdd_Position.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getActivity(), CreateScene_FP3_PositionInformationActivity.class);
+                it.putExtra("com.android.csiapp.Databases.CrimeItem",mItem);
                 startActivityForResult(it, 0);
             }
         });

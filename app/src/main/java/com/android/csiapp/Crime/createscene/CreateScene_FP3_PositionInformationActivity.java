@@ -13,15 +13,22 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
+
+import java.util.Calendar;
 
 public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivity {
 
     private Context context = null;
-    private Button mNew_Position;
+    private CrimeItem mItem;
+    private int mEvent;
+    private ImageView mNew_Position;
+    private TextView mInformationText;
     private String mFilepath;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
@@ -55,6 +62,7 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         setContentView(R.layout.create_scene_fp3_position_information);
 
         context = this.getApplicationContext();
+        mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.CrimeItem");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(context.getResources().getString(R.string.title_activity_position_information));
@@ -70,19 +78,38 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
-        mNew_Position = (Button) findViewById(R.id.new_position);
-        mNew_Position.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity.class);
-                startActivityForResult(it, 0);
-            }
-        });
+        mNew_Position = (ImageView) findViewById(R.id.new_position);
+        mInformationText = (TextView) findViewById(R.id.information);
+        mInformationText.setText(getInformation());
+
+        Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity.class);
+        startActivityForResult(it, 0);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_create_fp3_position_information, menu);
         return true;
+    }
+
+    private String getInformation(){
+        StringBuffer text=new StringBuffer();
+        text.append("发案时间 : ");
+        String time = mItem.getOccurredStartTime();
+        text.append(time);
+        text.append("\n");
+        text.append("发案地点 : ");
+        text.append(mItem.getLocation());
+        text.append("\n");
+        text.append("制图单位 : ");
+        text.append(mItem.getArea());
+        text.append("\n");
+        text.append("制图人     : ");
+        text.append(mItem.getAccessPolicemen());
+        text.append("\n");
+        text.append("制图时间 : ");
+        text.append(CrimeItem.getCurrentDate(Calendar.getInstance()));
+        text.append("\n");
+        return text.toString();
     }
 
     @Override
@@ -92,8 +119,7 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
             mFilepath = data.getStringExtra("BaiduMap_ScreenShot");
             Log.d("BaiduMap","onActivityResult, filepath: " + mFilepath);
             Bitmap Bitmap = BitmapFactory.decodeFile(mFilepath);
-            BitmapDrawable bDrawable = new BitmapDrawable(getResources(), Bitmap);
-            mNew_Position.setBackground(bDrawable);
+            mNew_Position.setImageBitmap(Bitmap);
             mNew_Position.setVisibility(View.VISIBLE);
         }
     }
