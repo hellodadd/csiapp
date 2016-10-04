@@ -73,7 +73,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             switch (menuItem.getItemId()) {
                 case R.id.action_camera:
                     msg += "Camera";
-                    LocalFileUri = Uri.fromFile(getOutputMediaFile(PHOTO_TYPE_NEW_EVIDENCE));
+                    LocalFileUri = Uri.fromFile(getOutputMediaFile(context, PHOTO_TYPE_NEW_EVIDENCE));
                     takePhoto(LocalFileUri, PHOTO_TYPE_NEW_EVIDENCE);
                     break;
                 case R.id.action_click:
@@ -251,11 +251,11 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         startActivityForResult(it, PHOTO_TYPE);
     }
 
-    public static File getOutputMediaFile(int type){
+    public static File getOutputMediaFile(Context context, int type){
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
 
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Report");
+        File mediaStorageDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Report");
         // This location works best if you want the created images to be shared
         // between applications and persist after your app has been uninstalled.
 

@@ -43,7 +43,7 @@ import java.util.Locale;
 public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
     private Context context = null;
 
-    private File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "BaiduMap");
+    private File mediaStorageDir;
     private String mFilepath;
     private MapView mMapView;
     private BaiduMap mBaiduMap;
@@ -78,6 +78,7 @@ public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
                     mBaiduMap.snapshot(new BaiduMap.SnapshotReadyCallback() {
                         @Override
                         public void onSnapshotReady(Bitmap bitmap) {
+                            mediaStorageDir = new File( context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "BaiduMap");
                             Log.d("baidumapdemo","onSnapshotReady");
                             if(!mediaStorageDir.exists()){
                                 if(!mediaStorageDir.mkdirs()) {

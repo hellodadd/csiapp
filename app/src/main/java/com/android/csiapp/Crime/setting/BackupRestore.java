@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.channels.FileChannel;
+import java.util.LinkedList;
 
 /**
  * Created by joanlin on 16/9/21.
@@ -21,61 +22,82 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
     private static final String COMMAND_BACKUP = "backupDatabase";
     public static final String COMMAND_RESTORE = "restroeDatabase";
     private Context mContext;
-    private String sendResult = "";
-    String backupPath = "";
-    private File backup;
+    private String mSendResult = "";
+    String mBackupPath = Environment.getExternalStorageDirectory()+"/Csibackup/";
+    String mCachePath = Environment.getExternalStorageDirectory()+"/Csibackup/cache";
 
     public BackupRestore(Context context) {
         this.mContext = context;
     }
 
     @Override
-    //protected Integer doInBackground(String... params) {
     protected String doInBackground(String... params) {
         // TODO Auto-generated method stub
-        //Set backup path
-        backupPath = Environment.getExternalStorageDirectory()+"/Csibackup/";
-        
+
         // 默认路径是 /data/data/(包名)/databases/*.db
         File dbFile = mContext.getDatabasePath("csi_databases.db");
-        File exportDir = new File(Environment.getExternalStorageDirectory(),"Csibackup");
+        File exportDir = new File(mBackupPath);
+        File cacheDir = new File(mCachePath);
         String cmd = params[0];
 
         if (!exportDir.exists()) {
             exportDir.mkdirs();
         }
 
-        boolean dbresult = false;
-        boolean picresult = false;
-        //Backup/Restore Db file
-        dbresult = DbBackupRestore(cmd, exportDir, dbFile);
-
-        //Backup/Restore Pic File
-        String picPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/Report";
-        String exportPath = Environment.getExternalStorageDirectory()+"/Csibackup/Report";
-        picresult = picBackupRestore(cmd, picPath, exportPath);
-
-        if (cmd.equals(COMMAND_BACKUP) ) {
-            if (dbresult == true && picresult ==true) {
-                sendResult  = "备份成功";
-            } else {
-                sendResult  = "备份失败";
-            }
-
-        } else if (cmd.equals(COMMAND_RESTORE)) {
-            if (dbresult == true && picresult ==true) {
-                sendResult = "恢复成功";
-            } else {
-                sendResult  ="恢复失败";
-            }
+        if(!cacheDir.exists()) {
+            cacheDir.mkdir();
         }
 
-        return sendResult;
+        boolean dbresult = false;
+        boolean picresult = false;
+        boolean baidumapresult = false;
+
+        //Get Picture path (Report/BaiduMap)
+        String picpath = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)+"/Report";
+        String baidumappath = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)+"/BaiduMap";
+        String exportpicpath = mCachePath+ "/pictures/Report";
+        String exportbaidumappath = mCachePath+ "/pictures/BaiduMap";
+
+        if (cmd.equals(COMMAND_BACKUP) ) {
+            dbresult = DbBackupRestore(cmd, cacheDir, dbFile);
+            picresult = picBackupRestore(cmd, picpath, exportpicpath);
+            baidumapresult = picBackupRestore(cmd, baidumappath, exportbaidumappath);
+            if (dbresult == true && picresult ==true) {
+                mSendResult  = "备份成功";
+            } else {
+                mSendResult  = "备份失败";
+            }
+            try {
+                LinkedList<File> files = DirTraversal.listLinkedFiles(mCachePath);
+                File file = DirTraversal.getFilePath(mBackupPath, "backup.zip");
+                ZipUtils.zipFiles(files, file);
+                deleteFiles(cacheDir);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (cmd.equals(COMMAND_RESTORE)) {
+            File file = DirTraversal.getFilePath(mBackupPath, "backup.zip");
+            try {
+                ZipUtils.upZipFile(file, mCachePath);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            dbresult = DbBackupRestore(cmd, cacheDir, dbFile);
+            picresult = picBackupRestore(cmd, picpath, exportpicpath);
+            baidumapresult = picBackupRestore(cmd, baidumappath, exportbaidumappath);
+            if (dbresult == true && picresult ==true) {
+                mSendResult = "恢复成功";
+                deleteFiles(cacheDir);
+            } else {
+                mSendResult  ="恢复失败";
+            }
+        }
+        return mSendResult;
     }
 
     private boolean DbBackupRestore (String cmd, File exportdir, File dbfile) {
 
-        backup = new File(exportdir, dbfile.getName());
+        File backup = new File(exportdir, dbfile.getName());
         boolean result = false;
         String command = cmd;
 
@@ -169,8 +191,8 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
 
     /**
      * 复制单个文件
-     * @param oldPath String 原文件路径 如：c:/fqf.txt
-     * @param newPath String 复制后路径 如：f:/fqf.txt
+     * @param oldPath String 原文件路径
+     * @param newPath String 复制后路径
      * @return boolean
      */
     public void copyFile(String oldPath, String newPath) {
@@ -201,8 +223,8 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
 
     /**
      * 复制整个文件夹内容
-     * @param oldPath String 原文件路径 如：c:/fqf
-     * @param newPath String 复制后路径 如：f:/fqf/ff
+     * @param oldPath String 原文件路径
+     * @param newPath String 复制后路径
      * @return boolean
      */
     public void copyFolder(String oldPath, String newPath) {
@@ -250,10 +272,28 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
         if (result.equals("备份成功")) {
-            Toast.makeText(mContext, "备份路径:" + backupPath, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "备份路径:" + mBackupPath, Toast.LENGTH_SHORT).show();
             //Toast.makeText(mContext, "备份路径:" + backup, Toast.LENGTH_SHORT).show();
         }
-
     }
 
+    public void deleteFiles(File file) {
+        if (file.isFile()) {
+            file.delete();
+            return;
+        }
+
+        if(file.isDirectory()){
+            File[] childFiles = file.listFiles();
+            if (childFiles == null || childFiles.length == 0) {
+                file.delete();
+                return;
+    }
+
+            for (int i = 0; i < childFiles.length; i++) {
+                deleteFiles(childFiles[i]);
+            }
+            file.delete();
+        }
+    }
 }

@@ -59,7 +59,7 @@ public class CreateScene_FP4 extends Fragment {
         mAdd_Position.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LocalFileUri = Uri.fromFile(getOutputMediaFile(PHOTO_TYPE_POSITION));
+                LocalFileUri = Uri.fromFile(getOutputMediaFile(context,PHOTO_TYPE_POSITION));
                 takePhoto(LocalFileUri, PHOTO_TYPE_POSITION);
             }
         });
@@ -68,7 +68,7 @@ public class CreateScene_FP4 extends Fragment {
         mAdd_Like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LocalFileUri = Uri.fromFile(getOutputMediaFile(PHOTO_TYPE_LIKE));
+                LocalFileUri = Uri.fromFile(getOutputMediaFile(context,PHOTO_TYPE_LIKE));
                 takePhoto(LocalFileUri, PHOTO_TYPE_LIKE);
             }
         });
@@ -77,7 +77,7 @@ public class CreateScene_FP4 extends Fragment {
         mAdd_Important.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LocalFileUri = Uri.fromFile(getOutputMediaFile(PHOTO_TYPE_IMPORTANT));
+                LocalFileUri = Uri.fromFile(getOutputMediaFile(context,PHOTO_TYPE_IMPORTANT));
                 takePhoto(LocalFileUri, PHOTO_TYPE_IMPORTANT);
             }
         });
@@ -91,11 +91,11 @@ public class CreateScene_FP4 extends Fragment {
         startActivityForResult(it, PHOTO_TYPE);
     }
 
-    public static File getOutputMediaFile(int type){
+    public static File getOutputMediaFile(Context context, int type){
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
 
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Report");
+        File mediaStorageDir = new File( context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Report");
         // This location works best if you want the created images to be shared
         // between applications and persist after your app has been uninstalled.
 
