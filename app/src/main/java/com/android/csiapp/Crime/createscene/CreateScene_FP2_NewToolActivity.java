@@ -27,6 +27,7 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
     private Context context = null;
     private CrimeToolItem mCrimeToolItem;
     private int mEvent;
+    private int mPosition;
 
     private ClearableEditText mName;
 
@@ -48,6 +49,8 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
                     saveMessage();
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.Databases.CrimeToolItem", mCrimeToolItem);
+                    result.putExtra("Event", mEvent);
+                    result.putExtra("Posiotion", mPosition);
                     setResult(Activity.RESULT_OK, result);
                     break;
             }
@@ -68,6 +71,7 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
         context = this.getApplicationContext();
         mCrimeToolItem = (CrimeToolItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.CrimeToolItem");
         mEvent = (int) getIntent().getIntExtra("Event", 1);
+        mPosition = (int) getIntent().getIntExtra("Position", 0);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(context.getResources().getString(R.string.title_activity_crimetool));

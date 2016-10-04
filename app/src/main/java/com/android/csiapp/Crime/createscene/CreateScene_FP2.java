@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.CrimeItemAdapter;
 import com.android.csiapp.Crime.utils.LostItemAdapter;
@@ -117,6 +116,7 @@ public class CreateScene_FP2 extends Fragment {
                 Intent it = new Intent(getActivity(), CreateScene_FP2_NewPeopleActivity.class);
                 it.putExtra("com.android.csiapp.Databases.RelatedPeopleItem", relatedPeopleItem);
                 it.putExtra("Event",2);
+                it.putExtra("Position", position);
                 startActivityForResult(it,0);
             }
         };
@@ -134,6 +134,7 @@ public class CreateScene_FP2 extends Fragment {
                 Intent it = new Intent(getActivity(), CreateScene_FP2_NewItemActivity.class);
                 it.putExtra("com.android.csiapp.Databases.LostItem", lostItem);
                 it.putExtra("Event",2);
+                it.putExtra("Position", position);
                 startActivityForResult(it,1);
             }
         };
@@ -151,6 +152,7 @@ public class CreateScene_FP2 extends Fragment {
                 Intent it = new Intent(getActivity(), CreateScene_FP2_NewToolActivity.class);
                 it.putExtra("com.android.csiapp.Databases.CrimeToolItem", crimeToolItem);
                 it.putExtra("Event",2);
+                it.putExtra("Position", position);
                 startActivityForResult(it,2);
             }
         };
@@ -173,6 +175,9 @@ public class CreateScene_FP2 extends Fragment {
     public void onResume(){
         super.onResume();
         initData();
+        mPeople_Adapter.notifyDataSetChanged();
+        mItem_Adapter.notifyDataSetChanged();
+        mTool_Adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -209,33 +214,39 @@ public class CreateScene_FP2 extends Fragment {
                 int event = (int) data.getIntExtra("Event", 1);
                 if(event == 1) {
                     Log.d("Anita","Before mPeopleList = "+mPeopleList.size());
-                    if(mPeopleList.size()==0) mPeople_List.setVisibility(View.VISIBLE);
                     mPeopleList.add(relatedPeopleItem);
                     Log.d("Anita","After mPeopleList = "+mPeopleList.size());
+                }else{
+                    int position = (int) data.getIntExtra("Position",0);
+                    mPeopleList.set(position, relatedPeopleItem);
                 }
-                Toast.makeText(getActivity(), "PeopleList", Toast.LENGTH_SHORT).show();
+                mPeople_Adapter.notifyDataSetChanged();
             }else if(requestCode == 1){
                 // 新增記事資料到資料庫
                 LostItem lostItem = (LostItem) data.getSerializableExtra("com.android.csiapp.Databases.LostItem");
                 int event = (int) data.getIntExtra("Event", 1);
                 if(event == 1) {
                     Log.d("Anita","Before mItemList = "+mItemList.size());
-                    if(mItemList.size()==0) mItem_List.setVisibility(View.VISIBLE);
                     mItemList.add(lostItem);
                     Log.d("Anita","After mItemList = "+mItemList.size());
+                }else{
+                    int position = (int) data.getIntExtra("Position",0);
+                    mItemList.set(position, lostItem);
                 }
-                Toast.makeText(getActivity(), "ItemList", Toast.LENGTH_SHORT).show();
+                mItem_Adapter.notifyDataSetChanged();
             }else{
                 // 新增記事資料到資料庫
                 CrimeToolItem crimeToolItem = (CrimeToolItem) data.getSerializableExtra("com.android.csiapp.Databases.CrimeToolItem");
                 int event = (int) data.getIntExtra("Event", 1);
                 if(event == 1) {
                     Log.d("Anita","Before mToolList = "+mToolList.size());
-                    if(mToolList.size()==0) mTool_List.setVisibility(View.VISIBLE);
                     mToolList.add(crimeToolItem);
                     Log.d("Anita","After mToolList = "+mToolList.size());
+                }else{
+                    int position = (int) data.getIntExtra("Position",0);
+                    mToolList.set(position, crimeToolItem);
                 }
-                Toast.makeText(getActivity(), "ToolList", Toast.LENGTH_SHORT).show();
+                mTool_Adapter.notifyDataSetChanged();
             }
         }
     }

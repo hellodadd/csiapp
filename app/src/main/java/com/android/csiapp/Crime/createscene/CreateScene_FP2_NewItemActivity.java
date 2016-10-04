@@ -20,6 +20,7 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
     private Context context = null;
     private LostItem mLostItem;
     private int mEvent;
+    private int mPosition;
 
     private ClearableEditText mName;
     private ClearableEditText mBrand;
@@ -37,6 +38,8 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
                     saveMessage();
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.Databases.LostItem", mLostItem);
+                    result.putExtra("Event", mEvent);
+                    result.putExtra("Posiotion", mPosition);
                     setResult(Activity.RESULT_OK, result);
                     break;
             }
@@ -57,6 +60,7 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
         context = this.getApplicationContext();
         mLostItem = (LostItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.LostItem");
         mEvent = (int) getIntent().getIntExtra("Event", 1);
+        mPosition = (int) getIntent().getIntExtra("Position", 0);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(context.getResources().getString(R.string.title_activity_lostitem));

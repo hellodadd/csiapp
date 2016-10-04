@@ -34,6 +34,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
     private Context context = null;
     private WitnessItem mWitnessItem;
     private int mEvent;
+    private int mPosition;
 
     private ClearableEditText mName;
 
@@ -58,7 +59,8 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
                     saveMessage();
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.Databases.WitnessItem", mWitnessItem);
-                    result.putExtra("Event",mEvent);
+                    result.putExtra("Event", mEvent);
+                    result.putExtra("Posiotion", mPosition);
                     setResult(Activity.RESULT_OK, result);
                     break;
             }
@@ -79,6 +81,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         context = this.getApplicationContext();
         mWitnessItem = (WitnessItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.WitnessItem");
         mEvent = (int) getIntent().getIntExtra("Event", 1);
+        mPosition = (int) getIntent().getIntExtra("Position", 0);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(context.getResources().getString(R.string.title_activity_witness_peopleinformation));

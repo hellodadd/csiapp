@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.WitnessListAdapter;
 import com.android.csiapp.Databases.CrimeItem;
@@ -99,6 +98,7 @@ public class CreateScene_FP8 extends Fragment {
     public void onResume(){
         super.onResume();
         initData();
+        mWitness_adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -135,13 +135,13 @@ public class CreateScene_FP8 extends Fragment {
                 // 新增記事資料到資料庫
                 if(event == 1) {
                     Log.d("Anita","Before mWitnessList = "+mWitnessList.size());
-                    if(mWitnessList.size()==0)mWitness_list.setVisibility(View.VISIBLE);
                     mWitnessList.add(witenssItem);
                     Log.d("Anita","After mWitnessList = "+mWitnessList.size());
                 }else{
-
+                    int position = (int) data.getIntExtra("Position",0);
+                    mWitnessList.set(position, witenssItem);
                 }
-                Toast.makeText(getActivity(), "List", Toast.LENGTH_SHORT).show();
+                mWitness_adapter.notifyDataSetChanged();
             }
         }
     }

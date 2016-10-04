@@ -26,6 +26,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
     private Context context = null;
     private RelatedPeopleItem mRelatedPeopleItem;
     private int mEvent;
+    private int mPosition;
 
     private Spinner mReleationPeople_spinner;
     private ArrayList<String> mReleationPeople = new ArrayList<String>();
@@ -51,6 +52,8 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
                     saveMessage();
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.Databases.RelatedPeopleItem", mRelatedPeopleItem);
+                    result.putExtra("Event", mEvent);
+                    result.putExtra("Posiotion", mPosition);
                     setResult(Activity.RESULT_OK, result);
                     break;
             }
@@ -71,6 +74,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         context = this.getApplicationContext();
         mRelatedPeopleItem = (RelatedPeopleItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.RelatedPeopleItem");
         mEvent = (int) getIntent().getIntExtra("Event", 1);
+        mPosition = (int) getIntent().getIntExtra("Position", 0);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(context.getResources().getString(R.string.title_activity_peopleinformation));
