@@ -14,8 +14,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.android.csiapp.ClearableEditText;
+import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Databases.CrimeToolItem;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import java.util.Arrays;
 public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
 
     private Context context = null;
-    private CrimeItem mItem;
+    private CrimeToolItem mCrimeToolItem;
     private int mEvent;
 
     private ClearableEditText mName;
@@ -46,7 +47,7 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
                     msg += "Save";
                     saveMessage();
                     Intent result = getIntent();
-                    result.putExtra("com.android.csiapp.CrimeItem", mItem);
+                    result.putExtra("com.android.csiapp.Databases.CrimeToolItem", mCrimeToolItem);
                     setResult(Activity.RESULT_OK, result);
                     break;
             }
@@ -65,7 +66,7 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
         setContentView(R.layout.create_scene_fp2_new_tool);
 
         context = this.getApplicationContext();
-        mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.CrimeItem");
+        mCrimeToolItem = (CrimeToolItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.CrimeToolItem");
         mEvent = (int) getIntent().getIntExtra("Event", 1);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -92,7 +93,7 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
         mTool_category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setToolCategory(mTool_category.get(position));
+                mCrimeToolItem.setToolCategory(mTool_category.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -107,7 +108,7 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
         mTool_source_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setToolSource(mTool_source.get(position));
+                mCrimeToolItem.setToolSource(mTool_source.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -138,12 +139,12 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
     }
 
     public void getMessage(){
-        mName.setText(mItem.getToolName());
-        mTool_category_spinner.setSelection(getCategory(mItem.getToolCategory()));
-        mTool_source_spinner.setSelection(getSource(mItem.getToolSource()));
+        mName.setText(mCrimeToolItem.getToolName());
+        mTool_category_spinner.setSelection(getCategory(mCrimeToolItem.getToolCategory()));
+        mTool_source_spinner.setSelection(getSource(mCrimeToolItem.getToolSource()));
     }
 
     public void saveMessage(){
-        mItem.setToolName(mName.getText());
+        mCrimeToolItem.setToolName(mName.getText());
     }
 }

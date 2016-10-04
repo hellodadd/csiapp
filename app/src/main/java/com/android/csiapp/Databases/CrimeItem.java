@@ -1,7 +1,9 @@
 package com.android.csiapp.Databases;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by AnitaLin on 2016/9/9.
@@ -30,24 +32,13 @@ public class CrimeItem implements Serializable {
     private String mAccessReason;
 
     //Page 2 (New people)
-    private String mPeople_releation;
-    private String mPeople_name;
-    private String mPeople_sex;
-    private String mPeople_id;
-    private String mPeople_number;
-    private String mPeople_address;
+    private List<RelatedPeopleItem> mReleatedPeopleItem;
 
     //Page 2 (New Item)
-    private String mItem_name;
-    private String mItem_brand;
-    private String mItem_amount;
-    private String mItem_value;
-    private String mItem_feature;
+    private List<LostItem> mLostItem;
 
     //Page 2 (New Tool)
-    private String mTool_name;
-    private String mTool_category;
-    private String mTool_source;
+    private List<CrimeToolItem> mCrimeToolItem;
 
     //Page 7
     private String mCrimePeopleNumber;
@@ -64,11 +55,7 @@ public class CrimeItem implements Serializable {
     private String mCrimePurpose;
 
     //Page 8 (New Witness)
-    private String mWitness_name;
-    private String mWitness_sex;
-    private String mWitness_birthday;
-    private String mWitness_number;
-    private String mWitness_address;
+    private List<WitnessItem> mWitnessItem;
 
     public CrimeItem() {
         this.id = 0;
@@ -91,22 +78,9 @@ public class CrimeItem implements Serializable {
         this.mHumidity = "";
         this.mAccessReason = "";
 
-        this.mPeople_releation = "";
-        this.mPeople_name = "";
-        this.mPeople_sex = "";
-        this.mPeople_id = "";
-        this.mPeople_number = "";
-        this.mPeople_address = "";
-
-        this.mItem_name = "";
-        this.mItem_brand = "";
-        this.mItem_amount = "";
-        this.mItem_value = "";
-        this.mItem_feature = "";
-
-        this.mTool_name = "";
-        this.mTool_category = "";
-        this.mTool_source = "";
+        this.mReleatedPeopleItem = new ArrayList<RelatedPeopleItem>();
+        this.mLostItem = new ArrayList<LostItem>();
+        this.mCrimeToolItem = new ArrayList<CrimeToolItem>();
 
         this.mCrimePeopleNumber = "";
         this.mCrimeMeans = "";
@@ -121,11 +95,7 @@ public class CrimeItem implements Serializable {
         this.mSelectLocation = "";
         this.mCrimePurpose = "";
 
-        this.mWitness_name = "";
-        this.mWitness_sex = "";
-        this.mWitness_birthday = "";
-        this.mWitness_number = "";
-        this.mWitness_address = "";
+        this.mWitnessItem = new ArrayList<WitnessItem>();
     }
 
     public CrimeItem(long id, String casetype, String area, String time) {
@@ -289,63 +259,19 @@ public class CrimeItem implements Serializable {
     }
 
     //Page 2 (New People)
-    public String getPeopleReleation() {return mPeople_releation; }
+    public List<RelatedPeopleItem> getReleatedPeople() {return mReleatedPeopleItem; }
 
-    public void setPeopleReleation(String people_releation) {this.mPeople_releation = people_releation; }
-
-    public String getPeopleName() {return mPeople_name; }
-
-    public void setPeopleName(String people_name) {this.mPeople_name = people_name; }
-
-    public String getPeopleSex() {return mPeople_sex; }
-
-    public void setPeopleSex(String people_sex) {this.mPeople_sex = people_sex; }
-
-    public String getPeopleId() {return mPeople_id; }
-
-    public void setPeopleId(String people_id) {this.mPeople_id = people_id; }
-
-    public String getPeopleNumber() {return mPeople_number; }
-
-    public void setPeopleNumber(String people_number) {this.mPeople_number = people_number; }
-
-    public String getPeopleAddress() {return mPeople_address; }
-
-    public void setPeopleAddress(String people_address) {this.mPeople_address = people_address; }
+    public void setReleatedPeople(List<RelatedPeopleItem> relatedPeopleItem) {this.mReleatedPeopleItem = relatedPeopleItem; }
 
     //Page 2 (New Item)
-    public String getItemName() {return mItem_name; }
+    public List<LostItem> getLostItem() {return mLostItem; }
 
-    public void setItemName(String item_name) {this.mItem_name = item_name; }
-
-    public String getItemBrand() {return mItem_brand; }
-
-    public void setItemBrand(String item_brand) {this.mItem_brand = item_brand; }
-
-    public String getItemAmount() {return mItem_amount; }
-
-    public void setItemAmount(String item_amount) {this.mItem_amount = item_amount; }
-
-    public String getItemValue() {return mItem_value; }
-
-    public void setItemVlaue(String item_value) {this.mItem_value = item_value; }
-
-    public String getItemFeature() {return mItem_feature; }
-
-    public void setItemFeatue(String item_feature) {this.mItem_feature = item_feature; }
+    public void setLostItem(List<LostItem> lostItem) {this.mLostItem = lostItem; }
 
     //Page 2  (New Tool)
-    public String getToolName() {return mTool_name; }
+    public List<CrimeToolItem>  getCrimeTool() {return mCrimeToolItem; }
 
-    public void setToolName(String tool_name) {this.mTool_name = tool_name; }
-
-    public String getToolCategory() {return mTool_category; }
-
-    public void setToolCategory(String tool_category) {this.mTool_category = tool_category; }
-
-    public String getToolSource() {return mTool_source; }
-
-    public void setToolSource(String tool_source) {this.mTool_source = tool_source; }
+    public void setCrimeTool(List<CrimeToolItem>  crimeTool) {this.mCrimeToolItem = crimeTool; }
 
     //Page 7
     public String getCrimePeopleNumber() {return mCrimePeopleNumber; }
@@ -397,26 +323,9 @@ public class CrimeItem implements Serializable {
     public void setCrimePurpose(String crimePurpose) {this.mCrimePurpose = crimePurpose; }
 
     //Page 8 (New Witness)
-    public String getWitnessName() {return mWitness_name; }
+    public List<WitnessItem> getWitness() {return mWitnessItem; }
 
-    public void setWitnessName(String witness_name) {this.mWitness_name = witness_name; }
-
-    public String getWitnessSex() {return mWitness_sex; }
-
-    public void setWitnessSex(String witness_sex) {this.mWitness_sex = witness_sex; }
-
-    public String getWitnessBirthday() {return mWitness_birthday; }
-
-    public void setWitnessBirthday(String witness_birthday) {this.mWitness_birthday = witness_birthday; }
-
-    public String getWitnessNumber() {return mWitness_number; }
-
-    public void setWitnessNumber(String witness_number) {this.mWitness_number = witness_number; }
-
-    public String getWitnessAddress() {return mWitness_address; }
-
-    public void setWitnessAddress(String witness_address) {this.mWitness_address = witness_address; }
-
+    public void setWitness(List<WitnessItem> witness) {this.mWitnessItem = witness; }
 
     public static String getCurrentTime(Calendar c) { //輸出格式製作
         int[] a={c.get(Calendar.YEAR),

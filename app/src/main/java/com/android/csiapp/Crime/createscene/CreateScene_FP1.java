@@ -15,7 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.android.csiapp.ClearableEditText;
+import com.android.csiapp.Crime.utils.ClearableEditText;
+import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 

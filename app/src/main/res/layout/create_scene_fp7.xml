@@ -279,7 +279,7 @@
                     android:textSize="@dimen/create_vp7_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <com.android.csiapp.ClearableEditText
+                <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/peopleFeature"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -57,7 +57,7 @@
                     android:textSize="@dimen/create_vp2_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <com.android.csiapp.ClearableEditText
+                <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/item_name_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                     android:textSize="@dimen/create_vp2_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <com.android.csiapp.ClearableEditText
+                <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/brand_model_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
                     android:textSize="@dimen/create_vp2_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <com.android.csiapp.ClearableEditText
+                <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/amount_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
                     android:textSize="@dimen/create_vp2_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <com.android.csiapp.ClearableEditText
+                <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/value_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -181,7 +181,7 @@
                     android:textSize="@dimen/create_vp2_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <com.android.csiapp.ClearableEditText
+                <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/feature_description_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -11,14 +11,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.android.csiapp.ClearableEditText;
-import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Crime.utils.ClearableEditText;
+import com.android.csiapp.Databases.LostItem;
 import com.android.csiapp.R;
 
 public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
 
     private Context context = null;
-    private CrimeItem mItem;
+    private LostItem mLostItem;
     private int mEvent;
 
     private ClearableEditText mName;
@@ -36,7 +36,7 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
                     msg += "Save";
                     saveMessage();
                     Intent result = getIntent();
-                    result.putExtra("com.android.csiapp.CrimeItem", mItem);
+                    result.putExtra("com.android.csiapp.Databases.LostItem", mLostItem);
                     setResult(Activity.RESULT_OK, result);
                     break;
             }
@@ -55,7 +55,7 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
         setContentView(R.layout.create_scene_fp2_new_item);
 
         context = this.getApplicationContext();
-        mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.CrimeItem");
+        mLostItem = (LostItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.LostItem");
         mEvent = (int) getIntent().getIntExtra("Event", 1);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -89,18 +89,18 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
     }
 
     public void getMessage(){
-        mName.setText(mItem.getItemName());
-        mBrand.setText(mItem.getItemBrand());
-        mAmount.setText(mItem.getItemAmount());
-        mValue.setText(mItem.getItemValue());
-        mFeature.setText(mItem.getItemFeature());
+        mName.setText(mLostItem.getItemName());
+        mBrand.setText(mLostItem.getItemBrand());
+        mAmount.setText(mLostItem.getItemAmount());
+        mValue.setText(mLostItem.getItemValue());
+        mFeature.setText(mLostItem.getItemFeature());
     }
 
     public void saveMessage(){
-        mItem.setItemName(mName.getText());
-        mItem.setItemBrand(mBrand.getText());
-        mItem.setItemAmount(mAmount.getText());
-        mItem.setItemVlaue(mValue.getText());
-        mItem.setItemFeatue(mFeature.getText());
+        mLostItem.setItemName(mName.getText());
+        mLostItem.setItemBrand(mBrand.getText());
+        mLostItem.setItemAmount(mAmount.getText());
+        mLostItem.setItemVlaue(mValue.getText());
+        mLostItem.setItemFeatue(mFeature.getText());
     }
 }

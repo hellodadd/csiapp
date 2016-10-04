@@ -3,11 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -49,7 +47,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/people_listView"
-                android:visibility="gone"
                 android:background="#FFFFFF"/>
 
             <LinearLayout
@@ -58,7 +55,8 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="6dp"
                 android:weightSum="1"
-                android:background="#FFFFFF">
+                android:background="#FFFFFF"
+                android:layout_below="@+id/people_listView">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -87,7 +85,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/item_listView"
-                android:visibility="gone"
                 android:background="#FFFFFF"/>
 
             <LinearLayout
@@ -96,7 +93,8 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="6dp"
                 android:weightSum="1"
-                android:background="#FFFFFF">
+                android:background="#FFFFFF"
+                android:layout_below="@+id/item_listView">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -125,8 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tool_listView"
-                android:visibility="gone"
-                android:background="#FFFFFF"/>
+                android:background="#FFFFFF" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -151,7 +151,6 @@ public class CrimeProvider {
         return item;
     }
 
-    //ToDo
     // 把Cursor目前的資料包裝為物件
     private CrimeItem getRecord(long id) {
         // 準備回傳結果用的物件

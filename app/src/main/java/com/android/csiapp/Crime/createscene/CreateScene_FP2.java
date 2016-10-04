@@ -5,19 +5,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.csiapp.Crime.utils.CrimeItemAdapter;
+import com.android.csiapp.Crime.utils.LostItemAdapter;
+import com.android.csiapp.Crime.utils.RelatedPeoeplAdapter;
 import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Databases.CrimeToolItem;
+import com.android.csiapp.Databases.LostItem;
+import com.android.csiapp.Databases.RelatedPeopleItem;
 import com.android.csiapp.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,19 +33,22 @@ public class CreateScene_FP2 extends Fragment {
 
     private Context context = null;
     private CrimeItem mItem;
+    private RelatedPeopleItem mRelatedPeopleItem;
+    private LostItem mLostItem;
+    private CrimeToolItem mCrimeToolItem;
     private int mEvent;
     private ImageButton mNewPeople;
     private ImageButton mNewItem;
     private ImageButton mNewTool;
-    List<CrimeItem> mPeopleList;
+    List<RelatedPeopleItem> mPeopleList;
     private ListView mPeople_List;
-    private Adapter mPeople_Adapter;
-    List<CrimeItem> mItemList;
+    private RelatedPeoeplAdapter mPeople_Adapter;
+    List<LostItem> mItemList;
     private ListView mItem_List;
-    private Adapter mItem_Adapter;
-    List<CrimeItem> mToolList;
+    private LostItemAdapter mItem_Adapter;
+    List<CrimeToolItem> mToolList;
     private ListView mTool_List;
-    private Adapter mTool_Adapter;
+    private CrimeItemAdapter mTool_Adapter;
 
     public CreateScene_FP2() {
         // Required empty public constructor
@@ -52,106 +61,180 @@ public class CreateScene_FP2 extends Fragment {
         mItem = activity.getItem();
         mEvent = activity.getEvent();
         context = getActivity().getApplicationContext();
+
+        initData();
+        initView(view);
+
+        return view;
+    }
+
+    private void initView(View view){
+        mRelatedPeopleItem = new RelatedPeopleItem();
         mNewPeople = (ImageButton) view.findViewById(R.id.add_people);
         mNewPeople.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Intent it = new Intent(getActivity(), CreateScene_FP2_NewPeopleActivity.class);
-            it.putExtra("com.android.csiapp.CrimeItem", mItem);
-            it.putExtra("Event",1);
-            startActivityForResult(it,0);
+                Intent it = new Intent(getActivity(), CreateScene_FP2_NewPeopleActivity.class);
+                it.putExtra("com.android.csiapp.Databases.RelatedPeopleItem", mRelatedPeopleItem);
+                it.putExtra("Event",1);
+                startActivityForResult(it,0);
             }
         });
+
+        mLostItem = new LostItem();
         mNewItem = (ImageButton) view.findViewById(R.id.add_item);
         mNewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Intent it = new Intent(getActivity(), CreateScene_FP2_NewItemActivity.class);
-            it.putExtra("com.android.csiapp.CrimeItem", mItem);
-            it.putExtra("Event",1);
-            startActivityForResult(it,1);
+                Intent it = new Intent(getActivity(), CreateScene_FP2_NewItemActivity.class);
+                it.putExtra("com.android.csiapp.Databases.LostItem", mLostItem);
+                it.putExtra("Event",1);
+                startActivityForResult(it,1);
             }
         });
+
+        mCrimeToolItem = new CrimeToolItem();
         mNewTool = (ImageButton) view.findViewById(R.id.add_tool);
         mNewTool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Intent it = new Intent(getActivity(), CreateScene_FP2_NewToolActivity.class);
-            it.putExtra("com.android.csiapp.CrimeItem", mItem);
-            it.putExtra("Event",1);
-            startActivityForResult(it,2);
+                Intent it = new Intent(getActivity(), CreateScene_FP2_NewToolActivity.class);
+                it.putExtra("com.android.csiapp.Databases.CrimeToolItem", mCrimeToolItem);
+                it.putExtra("Event",1);
+                startActivityForResult(it,2);
             }
         });
 
-        mPeopleList = new ArrayList<CrimeItem>();
+        mPeopleList = mItem.getReleatedPeople();
+        Log.d("Anita","mPeopleList = "+mPeopleList.size());
         mPeople_List=(ListView) view.findViewById(R.id.people_listView);
-        mPeople_Adapter = new Adapter(context, mPeopleList,1);
+        mPeople_Adapter = new RelatedPeoeplAdapter(context, mPeopleList);
         mPeople_List.setAdapter(mPeople_Adapter);
         AdapterView.OnItemClickListener itemListener1 = new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                RelatedPeopleItem relatedPeopleItem = (RelatedPeopleItem) mPeople_Adapter.getItem(position);
                 Intent it = new Intent(getActivity(), CreateScene_FP2_NewPeopleActivity.class);
-                it.putExtra("com.android.csiapp.CrimeItem", mItem);
+                it.putExtra("com.android.csiapp.Databases.RelatedPeopleItem", relatedPeopleItem);
                 it.putExtra("Event",2);
                 startActivityForResult(it,0);
             }
         };
         mPeople_List.setOnItemClickListener(itemListener1);
 
-        mItemList = new ArrayList<CrimeItem>();
+        mItemList = mItem.getLostItem();
+        Log.d("Anita","mItemList = "+mItemList.size());
         mItem_List=(ListView) view.findViewById(R.id.item_listView);
-        mItem_Adapter = new Adapter(context, mItemList,2);
+        mItem_Adapter = new LostItemAdapter(context, mItemList);
         mItem_List.setAdapter(mItem_Adapter);
         AdapterView.OnItemClickListener itemListener2 = new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LostItem lostItem = (LostItem) mItem_Adapter.getItem(position);
                 Intent it = new Intent(getActivity(), CreateScene_FP2_NewItemActivity.class);
-                it.putExtra("com.android.csiapp.CrimeItem", mItem);
+                it.putExtra("com.android.csiapp.Databases.LostItem", lostItem);
                 it.putExtra("Event",2);
                 startActivityForResult(it,1);
             }
         };
         mItem_List.setOnItemClickListener(itemListener2);
 
-        mToolList = new ArrayList<CrimeItem>();
+        mToolList = mItem.getCrimeTool();
+        Log.d("Anita","mToolList = "+mToolList.size());
         mTool_List=(ListView) view.findViewById(R.id.tool_listView);
-        mTool_Adapter = new Adapter(context, mToolList,3);
+        mTool_Adapter = new CrimeItemAdapter(context, mToolList);
         mTool_List.setAdapter(mTool_Adapter);
         AdapterView.OnItemClickListener itemListener3 = new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CrimeToolItem crimeToolItem = (CrimeToolItem) mTool_Adapter.getItem(position);
                 Intent it = new Intent(getActivity(), CreateScene_FP2_NewToolActivity.class);
-                it.putExtra("com.android.csiapp.CrimeItem", mItem);
+                it.putExtra("com.android.csiapp.Databases.CrimeToolItem", crimeToolItem);
                 it.putExtra("Event",2);
                 startActivityForResult(it,2);
             }
         };
         mTool_List.setOnItemClickListener(itemListener3);
+    }
 
-        return view;
+    public void initData(){
+        mPeopleList = mItem.getReleatedPeople();
+        mItemList = mItem.getLostItem();
+        mToolList = mItem.getCrimeTool();
+    }
+
+    public void saveData(){
+        mItem.setReleatedPeople(mPeopleList);
+        mItem.setLostItem(mItemList);
+        mItem.setCrimeTool(mToolList);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        initData();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        saveData();
+    }
+
+    private void setListViewHeight(ListView lv) {
+        ListAdapter la = lv.getAdapter();
+        if(null == la) {
+            return;
+        }
+        // calculate height of all items.
+        int h = 0;
+        final int cnt = la.getCount();
+        for(int i=0; i<cnt; i++) {
+            View item = la.getView(i, null, lv);
+            item.measure(0, 0);
+            h += item.getMeasuredHeight();
+        }
+        // reset ListView height
+        ViewGroup.LayoutParams lp = lv.getLayoutParams();
+        lp.height = h + (lv.getDividerHeight() * (cnt - 1));
+        lv.setLayoutParams(lp);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            mItem = (CrimeItem) data.getSerializableExtra("com.android.csiapp.CrimeItem");
             if (requestCode == 0) {
                 // 新增記事資料到資料庫
-                mPeopleList.add(mItem);
-                mPeople_List.setVisibility(View.VISIBLE);
+                RelatedPeopleItem relatedPeopleItem = (RelatedPeopleItem) data.getSerializableExtra("com.android.csiapp.Databases.RelatedPeopleItem");
+                int event = (int) data.getIntExtra("Event", 1);
+                if(event == 1) {
+                    Log.d("Anita","Before mPeopleList = "+mPeopleList.size());
+                    if(mPeopleList.size()==0) mPeople_List.setVisibility(View.VISIBLE);
+                    mPeopleList.add(relatedPeopleItem);
+                    Log.d("Anita","After mPeopleList = "+mPeopleList.size());
+                }
                 Toast.makeText(getActivity(), "PeopleList", Toast.LENGTH_SHORT).show();
             }else if(requestCode == 1){
                 // 新增記事資料到資料庫
-                mItemList.add(mItem);
-                mItem_List.setVisibility(View.VISIBLE);
+                LostItem lostItem = (LostItem) data.getSerializableExtra("com.android.csiapp.Databases.LostItem");
+                int event = (int) data.getIntExtra("Event", 1);
+                if(event == 1) {
+                    Log.d("Anita","Before mItemList = "+mItemList.size());
+                    if(mItemList.size()==0) mItem_List.setVisibility(View.VISIBLE);
+                    mItemList.add(lostItem);
+                    Log.d("Anita","After mItemList = "+mItemList.size());
+                }
                 Toast.makeText(getActivity(), "ItemList", Toast.LENGTH_SHORT).show();
             }else{
                 // 新增記事資料到資料庫
-                mToolList.add(mItem);
-                mTool_List.setVisibility(View.VISIBLE);
+                CrimeToolItem crimeToolItem = (CrimeToolItem) data.getSerializableExtra("com.android.csiapp.Databases.CrimeToolItem");
+                int event = (int) data.getIntExtra("Event", 1);
+                if(event == 1) {
+                    Log.d("Anita","Before mToolList = "+mToolList.size());
+                    if(mToolList.size()==0) mTool_List.setVisibility(View.VISIBLE);
+                    mToolList.add(crimeToolItem);
+                    Log.d("Anita","After mToolList = "+mToolList.size());
+                }
                 Toast.makeText(getActivity(), "ToolList", Toast.LENGTH_SHORT).show();
             }
         }

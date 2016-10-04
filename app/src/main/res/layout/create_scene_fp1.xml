@@ -114,7 +114,7 @@
                     android:textSize="@dimen/create_vp1_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <com.android.csiapp.ClearableEditText
+                <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -262,7 +262,7 @@
                     android:textSize="@dimen/create_vp1_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <com.android.csiapp.ClearableEditText
+                <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/unitsAssigned"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -292,7 +292,7 @@
                     android:textSize="@dimen/create_vp1_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <com.android.csiapp.ClearableEditText
+                <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/accessPolicemen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -402,7 +402,7 @@
                     android:textSize="@dimen/create_vp1_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <com.android.csiapp.ClearableEditText
+                <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/accessLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -437,7 +437,7 @@
                     android:layout_height="140dp"
                     android:orientation="vertical"
                     android:layout_marginRight="@dimen/create_item_margin_right">
-                    <com.android.csiapp.ClearableEditText
+                    <com.android.csiapp.Crime.utils.ClearableEditText
                         android:id="@+id/caseOccurProcess"
                         android:layout_width="match_parent"
                         android:layout_height="96dp"
@@ -572,7 +572,7 @@
                     android:textSize="@dimen/create_vp1_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <com.android.csiapp.ClearableEditText
+                <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/temperature"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -602,7 +602,7 @@
                     android:textSize="@dimen/create_vp1_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <com.android.csiapp.ClearableEditText
+                <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/humidity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -637,7 +637,7 @@
                     android:layout_height="140dp"
                     android:orientation="vertical"
                     android:layout_marginRight="@dimen/create_item_margin_right">
-                    <com.android.csiapp.ClearableEditText
+                    <com.android.csiapp.Crime.utils.ClearableEditText
                         android:id="@+id/accessReason"
                         android:layout_width="match_parent"
                         android:layout_height="96dp"

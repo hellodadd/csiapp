@@ -128,7 +128,7 @@
                     android:textSize="@dimen/create_vp5_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <com.android.csiapp.ClearableEditText
+                <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/evidence_name_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -159,7 +159,7 @@
                     android:textSize="@dimen/create_vp5_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <com.android.csiapp.ClearableEditText
+                <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/legacy_site_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -190,7 +190,7 @@
                     android:textSize="@dimen/create_vp5_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <com.android.csiapp.ClearableEditText
+                <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/basice_feature_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

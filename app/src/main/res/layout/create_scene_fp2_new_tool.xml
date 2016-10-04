@@ -58,7 +58,7 @@
                     android:textSize="@dimen/create_vp2_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <com.android.csiapp.ClearableEditText
+                <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/tool_name_editView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -1,11 +1,9 @@
 package com.android.csiapp.Crime.createscene;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,8 +20,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.csiapp.ClearableEditText;
+import com.android.csiapp.Crime.utils.ClearableEditText;
+import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Databases.WitnessItem;
 import com.android.csiapp.R;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +32,7 @@ import java.util.Calendar;
 public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Context context = null;
-    private CrimeItem mItem;
+    private WitnessItem mWitnessItem;
     private int mEvent;
 
     private ClearableEditText mName;
@@ -57,7 +57,8 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
                     msg += "Save";
                     saveMessage();
                     Intent result = getIntent();
-                    result.putExtra("com.android.csiapp.CrimeItem", mItem);
+                    result.putExtra("com.android.csiapp.Databases.WitnessItem", mWitnessItem);
+                    result.putExtra("Event",mEvent);
                     setResult(Activity.RESULT_OK, result);
                     break;
             }
@@ -76,7 +77,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         setContentView(R.layout.create_scene_fp8_add_witness);
 
         context = this.getApplicationContext();
-        mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.CrimeItem");
+        mWitnessItem = (WitnessItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.WitnessItem");
         mEvent = (int) getIntent().getIntExtra("Event", 1);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -103,7 +104,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         mSex_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setWitnessSex(mSex.get(position));
+                mWitnessItem.setWitnessSex(mSex.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -137,18 +138,18 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
     }
 
     public void getMessage(){
-        mName.setText(mItem.getWitnessName());
-        mSex_spinner.setSelection(getSex(mItem.getWitnessSex()));
-        mBirthday.setText(mItem.getWitnessBirthday());
-        mNumber.setText(mItem.getWitnessNumber());
-        mAddress.setText(mItem.getWitnessAddress());
+        mName.setText(mWitnessItem.getWitnessName());
+        mSex_spinner.setSelection(getSex(mWitnessItem.getWitnessSex()));
+        mBirthday.setText(mWitnessItem.getWitnessBirthday());
+        mNumber.setText(mWitnessItem.getWitnessNumber());
+        mAddress.setText(mWitnessItem.getWitnessAddress());
     }
 
     public void saveMessage(){
-        mItem.setWitnessName(mName.getText());
-        mItem.setWitnessBirthday(mBirthday.getText().toString());
-        mItem.setWitnessNumber(mNumber.getText());
-        mItem.setWitnessAddress(mAddress.getText());
+        mWitnessItem.setWitnessName(mName.getText());
+        mWitnessItem.setWitnessBirthday(mBirthday.getText().toString());
+        mWitnessItem.setWitnessNumber(mNumber.getText());
+        mWitnessItem.setWitnessAddress(mAddress.getText());
     }
 
     @Override

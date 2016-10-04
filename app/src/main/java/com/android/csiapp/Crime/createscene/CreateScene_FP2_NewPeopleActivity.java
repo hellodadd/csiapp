@@ -1,10 +1,8 @@
 package com.android.csiapp.Crime.createscene;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,12 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.android.csiapp.ClearableEditText;
-import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Crime.utils.ClearableEditText;
+import com.android.csiapp.Databases.RelatedPeopleItem;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
@@ -27,7 +24,7 @@ import java.util.Arrays;
 public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
 
     private Context context = null;
-    private CrimeItem mItem;
+    private RelatedPeopleItem mRelatedPeopleItem;
     private int mEvent;
 
     private Spinner mReleationPeople_spinner;
@@ -53,7 +50,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
                     msg += "Save";
                     saveMessage();
                     Intent result = getIntent();
-                    result.putExtra("com.android.csiapp.CrimeItem", mItem);
+                    result.putExtra("com.android.csiapp.Databases.RelatedPeopleItem", mRelatedPeopleItem);
                     setResult(Activity.RESULT_OK, result);
                     break;
             }
@@ -72,7 +69,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         setContentView(R.layout.create_scene_fp2_new_people);
 
         context = this.getApplicationContext();
-        mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.CrimeItem");
+        mRelatedPeopleItem = (RelatedPeopleItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.RelatedPeopleItem");
         mEvent = (int) getIntent().getIntExtra("Event", 1);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -97,7 +94,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         mReleationPeople_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setPeopleReleation(mReleationPeople.get(position));
+                mRelatedPeopleItem.setPeopleReleation(mReleationPeople.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -114,7 +111,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         mSex_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setPeopleSex(mSex.get(position));
+                mRelatedPeopleItem.setPeopleSex(mSex.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -149,18 +146,18 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
     }
 
     public void getMessage(){
-        mReleationPeople_spinner.setSelection(getPeople(mItem.getPeopleReleation()));
-        mName.setText(mItem.getPeopleName());
-        mSex_spinner.setSelection(getSex(mItem.getPeopleSex()));
-        mId.setText(mItem.getPeopleId());
-        mNumber.setText(mItem.getPeopleNumber());
-        mAddress.setText(mItem.getPeopleAddress());
+        mReleationPeople_spinner.setSelection(getPeople(mRelatedPeopleItem.getPeopleReleation()));
+        mName.setText(mRelatedPeopleItem.getPeopleName());
+        mSex_spinner.setSelection(getSex(mRelatedPeopleItem.getPeopleSex()));
+        mId.setText(mRelatedPeopleItem.getPeopleId());
+        mNumber.setText(mRelatedPeopleItem.getPeopleNumber());
+        mAddress.setText(mRelatedPeopleItem.getPeopleAddress());
     }
 
     public void saveMessage(){
-        mItem.setPeopleName(mName.getText());
-        mItem.setPeopleId(mId.getText());
-        mItem.setPeopleNumber(mNumber.getText());
-        mItem.setPeopleAddress(mAddress.getText());
+        mRelatedPeopleItem.setPeopleName(mName.getText());
+        mRelatedPeopleItem.setPeopleId(mId.getText());
+        mRelatedPeopleItem.setPeopleNumber(mNumber.getText());
+        mRelatedPeopleItem.setPeopleAddress(mAddress.getText());
     }
 }

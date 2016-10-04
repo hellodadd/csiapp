@@ -1,4 +1,4 @@
-package com.android.csiapp;
+package com.android.csiapp.Crime.utils;
 
 import android.content.Context;
 import android.text.Editable;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.android.csiapp.R;
 
 import java.util.Currency;
 import java.util.Locale;
