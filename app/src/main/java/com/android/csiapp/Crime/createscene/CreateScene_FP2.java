@@ -109,6 +109,7 @@ public class CreateScene_FP2 extends Fragment {
         mPeople_List=(ListView) view.findViewById(R.id.people_listView);
         mPeople_Adapter = new RelatedPeoeplAdapter(context, mPeopleList);
         mPeople_List.setAdapter(mPeople_Adapter);
+        setListViewHeightBasedOnChildren(mPeople_List);
         AdapterView.OnItemClickListener itemListener1 = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -127,6 +128,7 @@ public class CreateScene_FP2 extends Fragment {
         mItem_List=(ListView) view.findViewById(R.id.item_listView);
         mItem_Adapter = new LostItemAdapter(context, mItemList);
         mItem_List.setAdapter(mItem_Adapter);
+        setListViewHeightBasedOnChildren(mItem_List);
         AdapterView.OnItemClickListener itemListener2 = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -145,6 +147,7 @@ public class CreateScene_FP2 extends Fragment {
         mTool_List=(ListView) view.findViewById(R.id.tool_listView);
         mTool_Adapter = new CrimeItemAdapter(context, mToolList);
         mTool_List.setAdapter(mTool_Adapter);
+        setListViewHeightBasedOnChildren(mTool_List);
         AdapterView.OnItemClickListener itemListener3 = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -220,6 +223,7 @@ public class CreateScene_FP2 extends Fragment {
                     int position = (int) data.getIntExtra("Position",0);
                     mPeopleList.set(position, relatedPeopleItem);
                 }
+                setListViewHeightBasedOnChildren(mPeople_List);
                 mPeople_Adapter.notifyDataSetChanged();
             }else if(requestCode == 1){
                 // 新增記事資料到資料庫
@@ -233,6 +237,7 @@ public class CreateScene_FP2 extends Fragment {
                     int position = (int) data.getIntExtra("Position",0);
                     mItemList.set(position, lostItem);
                 }
+                setListViewHeightBasedOnChildren(mItem_List);
                 mItem_Adapter.notifyDataSetChanged();
             }else{
                 // 新增記事資料到資料庫
@@ -246,8 +251,35 @@ public class CreateScene_FP2 extends Fragment {
                     int position = (int) data.getIntExtra("Position",0);
                     mToolList.set(position, crimeToolItem);
                 }
+                setListViewHeightBasedOnChildren(mTool_List);
                 mTool_Adapter.notifyDataSetChanged();
             }
         }
+    }
+
+    public void setListViewHeightBasedOnChildren(ListView listView) {
+        // 获取ListView对应的Adapter
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+
+        int totalHeight = 0;
+        Log.d("AAA", "listAdapter.getCount()="+listAdapter.getCount());
+        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
+            // listAdapter.getCount()获取ListView对应的Adapter
+            View listItem = listAdapter.getView(i, null, listView);
+            // 计算子项View 的宽高
+            listItem.measure(0, 0);
+            // 统计所有子项的总高度
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        Log.d("AAA", "params.height="+params.height);
+        // listView.getDividerHeight()获取子项间分隔符占用的高度
+        // params.height最后得到整个ListView完整显示需要的高度
+            listView.setLayoutParams(params);
     }
 }

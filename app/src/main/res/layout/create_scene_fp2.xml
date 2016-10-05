@@ -5,11 +5,12 @@
     android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#F7F7F7">
 
             <LinearLayout
@@ -84,6 +85,7 @@
             <ListView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:id="@+id/item_listView"
                 android:background="#FFFFFF"/>
 
@@ -122,6 +124,7 @@
             <ListView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:id="@+id/tool_listView"
                 android:background="#FFFFFF" />
         </LinearLayout>
