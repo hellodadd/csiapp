@@ -12,7 +12,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.channels.FileChannel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
+import java.util.Locale;
 
 /**
  * Created by joanlin on 16/9/21.
@@ -62,30 +65,37 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
             dbresult = DbBackupRestore(cmd, cacheDir, dbFile);
             picresult = picBackupRestore(cmd, picpath, exportpicpath);
             baidumapresult = picBackupRestore(cmd, baidumappath, exportbaidumappath);
-            if (dbresult == true && picresult ==true) {
+            if (dbresult == true && picresult ==true && baidumapresult==true) {
                 mSendResult  = "备份成功";
             } else {
                 mSendResult  = "备份失败";
             }
             try {
                 LinkedList<File> files = DirTraversal.listLinkedFiles(mCachePath);
-                File file = DirTraversal.getFilePath(mBackupPath, "backup.zip");
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+                String backupFileName = "backup_"+timeStamp+".zip";
+                File file = DirTraversal.getFilePath(mBackupPath, backupFileName);
                 ZipUtils.zipFiles(files, file);
                 deleteFiles(cacheDir);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if (cmd.equals(COMMAND_RESTORE)) {
-            File file = DirTraversal.getFilePath(mBackupPath, "backup.zip");
+            String filename = params[1];
+            File file = DirTraversal.getFilePath(mBackupPath, filename);
             try {
                 ZipUtils.upZipFile(file, mCachePath);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            String origfilepath = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
+            File origfile = new File(origfilepath);
+            deleteFiles(origfile);
+
             dbresult = DbBackupRestore(cmd, cacheDir, dbFile);
             picresult = picBackupRestore(cmd, picpath, exportpicpath);
             baidumapresult = picBackupRestore(cmd, baidumappath, exportbaidumappath);
-            if (dbresult == true && picresult ==true) {
+            if (dbresult == true && picresult ==true && baidumapresult == true) {
                 mSendResult = "恢复成功";
                 deleteFiles(cacheDir);
             } else {
@@ -105,31 +115,25 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
             try {
                 backup.createNewFile();
                 DbCopy(dbfile, backup);
-                //result = "资料库备份成功";
                 result = true;
-                Log.d("backup", "ok");
+                Log.d("backup", "backup success");
                 return result;
             } catch (Exception e) {
-                // TODO: handle exception
                 e.printStackTrace();
-                //result = "资料库备份失败";
-                Log.d("backup", "fail");
+                Log.d("backup", "backup fail");
                 result = false;
                 return result;
             }
         } else if (command.equals(COMMAND_RESTORE)) {
             try {
                 DbCopy(backup, dbfile);
-                //result = "资料库恢复成功";
-                Log.d("restore", "success");
+                Log.d("restore", "restore success");
                 result = true;
                 return result;
             } catch (Exception e) {
-                // TODO: handle exception
                 e.printStackTrace();
-                Log.d("restore", "fail");
+                Log.d("restore", "restore fail");
                 e.printStackTrace();
-                //result = "资料库恢复失败";
                 result = false;
                 return result;
             }
@@ -139,45 +143,37 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
     }
 
     private boolean picBackupRestore (String cmd, String picpath, String backuppath) {
-        //String result = "";
         boolean result = false;
         if (cmd.equals(COMMAND_BACKUP)) {
             try {
                 copyFolder(picpath, backuppath);
-                //result = "图片备份成功";
                 result = true;
             } catch (Exception e) {
                 e.printStackTrace();
-                //result = "图片备份失败";
                 result = false;
             }
             return result;
         } else if (cmd.equals(COMMAND_RESTORE)) {
             try {
                 copyFolder(backuppath, picpath);
-                //result = "图片恢复成功";
                 result = true;
             } catch (Exception e) {
                 e.printStackTrace();
-                //result = "图片恢复失败";
                 result = false;
             }
             return result;
         } else {
-            //return null;
             return result;
         }
 
     }
 
     private void DbCopy(File dbFile, File backup) throws IOException {
-        // TODO Auto-generated method stub
         FileChannel inChannel = new FileInputStream(dbFile).getChannel();
         FileChannel outChannel = new FileOutputStream(backup).getChannel();
         try {
             inChannel.transferTo(0, inChannel.size(), outChannel);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
             if (inChannel != null) {
@@ -190,9 +186,9 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
     }
 
     /**
-     * 复制单个文件
-     * @param oldPath String 原文件路径
-     * @param newPath String 复制后路径
+     * Copy file
+     * @param oldPath String Original path
+     * @param newPath String Copy path
      * @return boolean
      */
     public void copyFile(String oldPath, String newPath) {
@@ -200,13 +196,13 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
             int bytesum = 0;
             int byteread = 0;
             File oldfile = new File(oldPath);
-            if (oldfile.exists()) { //文件存在时
-                InputStream inStream = new FileInputStream(oldPath); //读入原文件
+            if (oldfile.exists()) {
+                InputStream inStream = new FileInputStream(oldPath);
                 FileOutputStream fs = new FileOutputStream(newPath);
                 byte[] buffer = new byte[1444];
                 int length;
                 while ( (byteread = inStream.read(buffer)) != -1) {
-                    bytesum += byteread; //字节数 文件大小
+                    bytesum += byteread;
                     System.out.println(bytesum);
                     fs.write(buffer, 0, byteread);
                 }
@@ -214,7 +210,6 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
             }
         }
         catch (Exception e) {
-            System.out.println("复制单个文件操作出错");
             e.printStackTrace();
 
         }
@@ -222,15 +217,15 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
     }
 
     /**
-     * 复制整个文件夹内容
-     * @param oldPath String 原文件路径
-     * @param newPath String 复制后路径
+     * Copy folder
+     * @param oldPath String Original path
+     * @param newPath String Copy path
      * @return boolean
      */
     public void copyFolder(String oldPath, String newPath) {
 
         try {
-            (new File(newPath)).mkdirs(); //如果文件夹不存在 则建立新文件夹
+            (new File(newPath)).mkdirs();// If the folder is not exist, we need to create it.
             File a=new File(oldPath);
             String[] file=a.list();
             File temp=null;
@@ -255,25 +250,22 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
                     output.close();
                     input.close();
                 }
-                if(temp.isDirectory()){//如果是子文件夹
+                if(temp.isDirectory()){//If it is child folder
                     copyFolder(oldPath+"/"+file[i],newPath+"/"+file[i]);
                 }
             }
         }
         catch (Exception e) {
-            System.out.println("复制整个文件夹内容操作出错");
             e.printStackTrace();
 
         }
-
     }
-    //onPostExecute方法用于在执行完后台任务后更新UI,显示结果
+
     @Override
     protected void onPostExecute(String result) {
         Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
         if (result.equals("备份成功")) {
             Toast.makeText(mContext, "备份路径:" + mBackupPath, Toast.LENGTH_SHORT).show();
-            //Toast.makeText(mContext, "备份路径:" + backup, Toast.LENGTH_SHORT).show();
         }
     }
 
