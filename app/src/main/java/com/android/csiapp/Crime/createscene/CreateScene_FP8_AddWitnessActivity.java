@@ -169,7 +169,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
 
     public void showDateTimeDialog(final TextView textView) {
         // Create the dialog
-        final Dialog mDateTimeDialog = new Dialog(this.getBaseContext());
+        final Dialog mDateTimeDialog = new Dialog(this);
         // Inflate the root layout
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
         final RelativeLayout mDateTimeDialogView = (RelativeLayout) inflater.inflate(R.layout.date_time_dialog, null);
