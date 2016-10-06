@@ -71,6 +71,7 @@ public class CreateScene_FP8 extends Fragment {
         mWitness_list=(ListView) view.findViewById(R.id.listView);
         mWitness_adapter = new WitnessListAdapter(context, mWitnessList);
         mWitness_list.setAdapter(mWitness_adapter);
+        setListViewHeightBasedOnChildren(mWitness_list);
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -141,8 +142,35 @@ public class CreateScene_FP8 extends Fragment {
                     int position = (int) data.getIntExtra("Position",0);
                     mWitnessList.set(position, witenssItem);
                 }
+                setListViewHeightBasedOnChildren(mWitness_list);
                 mWitness_adapter.notifyDataSetChanged();
             }
         }
+    }
+
+    public void setListViewHeightBasedOnChildren(ListView listView) {
+        // 获取ListView对应的Adapter
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+
+        int totalHeight = 0;
+        Log.d("AAA", "listAdapter.getCount()="+listAdapter.getCount());
+        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
+            // listAdapter.getCount()获取ListView对应的Adapter
+            View listItem = listAdapter.getView(i, null, listView);
+            // 计算子项View 的宽高
+            listItem.measure(0, 0);
+            // 统计所有子项的总高度
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        Log.d("AAA", "params.height="+params.height);
+        // listView.getDividerHeight()获取子项间分隔符占用的高度
+        // params.height最后得到整个ListView完整显示需要的高度
+        listView.setLayoutParams(params);
     }
 }
