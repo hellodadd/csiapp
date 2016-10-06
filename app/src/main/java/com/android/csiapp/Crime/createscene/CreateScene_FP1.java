@@ -22,8 +22,6 @@ import com.android.csiapp.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +41,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
     private ClearableEditText mLocation;
 
-    private Calendar c;
     private TextView mOccurred_start_time;
     private TextView mOccurred_end_time;
     private TextView mGet_access_time;
@@ -131,7 +128,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
         mLocation = (ClearableEditText) view.findViewById(R.id.location);
 
-        c = Calendar.getInstance();
         mOccurred_start_time = (TextView) view.findViewById(R.id.occurred_start_time);
         mOccurred_end_time = (TextView) view.findViewById(R.id.occurred_end_time);
         mGet_access_time = (TextView) view.findViewById(R.id.get_access_time);
@@ -224,37 +220,11 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mHumidity.setText(mItem.getHumidity());
         mAccessReason.setText(mItem.getAccessReason());
 
-        String time = CrimeItem.getCurrentTime(c);
-        if(mItem.getOccurredStartTime().isEmpty()){
-            mOccurred_start_time.setText(time);
-            mItem.setOccurredStartTime(time);
-        }else{
-            mOccurred_start_time.setText(mItem.getOccurredStartTime());
-        }
-        if(mItem.getOccurredEndTime().isEmpty()) {
-            mOccurred_end_time.setText(time);
-            mItem.setOccurredEndTime(time);
-        }else{
-            mOccurred_end_time.setText(mItem.getOccurredEndTime());
-        }
-        if(mItem.getGetAccessTime().isEmpty()){
-            mGet_access_time.setText(time);
-            mItem.setGetAccessTime(time);
-        }else{
-            mGet_access_time.setText(mItem.getGetAccessTime());
-        }
-        if(mItem.getAccessStartTime().isEmpty()) {
-            mAccess_start_time.setText(time);
-            mItem.setAccessStartTime(time);
-        }else{
-            mAccess_start_time.setText(mItem.getAccessStartTime());
-        }
-        if(mItem.getAccessEndTime().isEmpty()) {
-            mAccess_end_time.setText(time);
-            mItem.setAccessEndTime(time);
-        }else{
-            mAccess_end_time.setText(mItem.getAccessEndTime());
-        }
+        mOccurred_start_time.setText(DateTimePicker.getCurrentTime(mItem.getOccurredStartTime()));
+        mOccurred_end_time.setText(DateTimePicker.getCurrentTime(mItem.getOccurredEndTime()));
+        mGet_access_time.setText(DateTimePicker.getCurrentTime(mItem.getGetAccessTime()));
+        mAccess_start_time.setText(DateTimePicker.getCurrentTime(mItem.getAccessStartTime()));
+        mAccess_end_time.setText(DateTimePicker.getCurrentTime(mItem.getAccessEndTime()));
     }
 
     private int getCategory(String category){
@@ -341,7 +311,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void showDateTimeDialog(final TextView textView,final int TimeType) {
+    public void showDateTimeDialog(final TextView textView,final int type) {
         // Create the dialog
         final Dialog mDateTimeDialog = new Dialog(getContext());
         // Inflate the root layout
@@ -355,11 +325,13 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             public void onClick(View v) {
                 mDateTimePicker.clearFocus();
                 // TODO Auto-generated method stub
-                c = mDateTimePicker.get();
-                textView.setText(CrimeItem.getCurrentTime(c));
-                if(TimeType==1) mItem.setOccurredStartTime(textView.getText().toString());
-                else if(TimeType==2) mItem.setOccurredEndTime(textView.getText().toString());
-                else if(TimeType==3) mItem.setGetAccessTime(textView.getText().toString());
+                long time = mDateTimePicker.get().getTimeInMillis();
+                if(type == 1) mItem.setOccurredStartTime(time);
+                else if(type == 2) mItem.setOccurredEndTime(time);
+                else if(type == 3) mItem.setGetAccessTime(time);
+                else if(type == 4) mItem.setAccessStartTime(time);
+                else if(type == 5) mItem.setAccessEndTime(time);
+                textView.setText(DateTimePicker.getCurrentTime(time));
                 mDateTimeDialog.dismiss();
             }
         });

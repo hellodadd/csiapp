@@ -1,6 +1,5 @@
 package com.android.csiapp.Crime.createscene;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -10,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -32,7 +30,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.DateTimePicker;
-import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
 import java.io.File;
@@ -61,7 +58,6 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private ArrayList<String> mGetPeople = new ArrayList<String>();
     private ArrayAdapter<String> mGetPeople_adapter;
 
-    private Calendar c;
     private TextView mTime;
     private Button mTime_button;
 
@@ -79,7 +75,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                     break;
                 case R.id.action_click:
                     msg += "Save";
-                    Intent result = getIntent().putExtra("photo_uri", LocalFileUri.getPath());
+                    Intent result = getIntent();
+                    if(LocalFileUri!=null) result.putExtra("photo_uri", LocalFileUri.getPath());
                     setResult(Activity.RESULT_OK, result);
                     finish();
                     break;
@@ -161,10 +158,9 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             }
         });
 
-        c = Calendar.getInstance();
         mTime = (TextView) findViewById(R.id.time);
         mTime_button = (Button) findViewById(R.id.time_button);
-        mTime.setText(CrimeItem.getCurrentTime(c));
+        mTime.setText(DateTimePicker.getCurrentTime(Calendar.getInstance().getTimeInMillis()));
         mTime_button.setOnClickListener(this);
 
         mGetPeople = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.get_people)));
@@ -215,8 +211,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             public void onClick(View v) {
                 mDateTimePicker.clearFocus();
                 // TODO Auto-generated method stub
-                c = mDateTimePicker.get();
-                textView.setText(CrimeItem.getCurrentTime(c));
+                textView.setText(DateTimePicker.getCurrentTime(mDateTimePicker.get().getTimeInMillis()));
                 mDateTimeDialog.dismiss();
             }
         });

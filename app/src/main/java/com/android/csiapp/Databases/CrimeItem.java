@@ -15,13 +15,13 @@ public class CrimeItem implements Serializable {
     private String mCasetype;
     private String mArea;
     private String mLocation;
-    private String mOccurred_start_time;
-    private String mOccurred_end_time;
-    private String mGet_access_time;
+    private long mOccurred_start_time;
+    private long mOccurred_end_time;
+    private long mGet_access_time;
     private String mUnitsAssigned;
     private String mAccessPolicemen;
-    private String mAccess_start_time;
-    private String mAccess_end_time;
+    private long mAccess_start_time;
+    private long mAccess_end_time;
     private String mAccessLocation;
     private String mCaseOccurProcess;
     private String mSceneCondition;
@@ -45,7 +45,7 @@ public class CrimeItem implements Serializable {
     private String mCrimeMeans;
     private String mCrimeCharacter;
     private String mCrimeEntrance;
-    private String mCrimeTiming;
+    private long mCrimeTiming;
     private String mSelectObject;
     private String mCrimeExport;
     private String mCrimePeopleFeature;
@@ -58,17 +58,19 @@ public class CrimeItem implements Serializable {
     private List<WitnessItem> mWitnessItem;
 
     public CrimeItem() {
+        Calendar c = Calendar.getInstance();
+        long time = c.getTimeInMillis();
         this.id = 0;
         this.mCasetype = "";
         this.mArea = "";
         this.mLocation = "";
-        this.mOccurred_start_time = "";
-        this.mOccurred_end_time = "";
-        this.mGet_access_time = "";
+        this.mOccurred_start_time = time;
+        this.mOccurred_end_time = time;
+        this.mGet_access_time = time;
         this.mUnitsAssigned = "";
         this.mAccessPolicemen = "";
-        this.mAccess_start_time = "";
-        this.mAccess_end_time = "";
+        this.mAccess_start_time = time;
+        this.mAccess_end_time = time;
         this.mAccessLocation = "";
         this.mCaseOccurProcess = "";
         this.mSceneCondition = "";
@@ -86,7 +88,7 @@ public class CrimeItem implements Serializable {
         this.mCrimeMeans = "";
         this.mCrimeCharacter = "";
         this.mCrimeEntrance = "";
-        this.mCrimeTiming = "";
+        this.mCrimeTiming = time;
         this.mSelectObject = "";
         this.mCrimeExport = "";
         this.mCrimePeopleFeature = "";
@@ -98,7 +100,7 @@ public class CrimeItem implements Serializable {
         this.mWitnessItem = new ArrayList<WitnessItem>();
     }
 
-    public CrimeItem(long id, String casetype, String area, String time) {
+    public CrimeItem(long id, String casetype, String area, long time) {
         this.id = id;
         this.mCasetype = casetype;
         this.mArea = area;
@@ -138,27 +140,27 @@ public class CrimeItem implements Serializable {
         this.mLocation = location;
     }
 
-    public String getOccurredStartTime() {
+    public long getOccurredStartTime() {
         return mOccurred_start_time;
     }
 
-    public void setOccurredStartTime(String time) {
+    public void setOccurredStartTime(long time) {
         this.mOccurred_start_time = time;
     }
 
-    public String getOccurredEndTime() {
+    public long getOccurredEndTime() {
         return mOccurred_end_time;
     }
 
-    public void setOccurredEndTime(String time) {
+    public void setOccurredEndTime(long time) {
         this.mOccurred_end_time = time;
     }
 
-    public String getGetAccessTime() {
+    public long getGetAccessTime() {
         return mGet_access_time;
     }
 
-    public void setGetAccessTime(String time) {
+    public void setGetAccessTime(long time) {
         this.mGet_access_time = time;
     }
 
@@ -178,19 +180,19 @@ public class CrimeItem implements Serializable {
         this.mAccessPolicemen = accessPolicemen ;
     }
 
-    public String getAccessStartTime () {
+    public long getAccessStartTime () {
         return mAccess_start_time;
     }
 
-    public void setAccessStartTime (String time ) {
+    public void setAccessStartTime (long time ) {
         this.mAccess_start_time = time ;
     }
 
-    public String getAccessEndTime () {
+    public long getAccessEndTime () {
         return mAccess_end_time;
     }
 
-    public void setAccessEndTime (String time ) {
+    public void setAccessEndTime (long time ) {
         this.mAccess_end_time = time ;
     }
 
@@ -290,9 +292,9 @@ public class CrimeItem implements Serializable {
 
     public void setCrimeEntrance(String crimeEntrance) {this.mCrimeEntrance = crimeEntrance; }
 
-    public String getCrimeTiming() {return mCrimeTiming; }
+    public long getCrimeTiming() {return mCrimeTiming; }
 
-    public void setCrimeTiming(String crimeTiming) {this.mCrimeTiming = crimeTiming; }
+    public void setCrimeTiming(long crimeTiming) {this.mCrimeTiming = crimeTiming; }
 
     public String getSelectObject() {return mSelectObject; }
 
@@ -326,52 +328,4 @@ public class CrimeItem implements Serializable {
     public List<WitnessItem> getWitness() {return mWitnessItem; }
 
     public void setWitness(List<WitnessItem> witness) {this.mWitnessItem = witness; }
-
-    public static String getCurrentTime(Calendar c) { //輸出格式製作
-        int[] a={c.get(Calendar.YEAR),
-                c.get(Calendar.MONTH),
-                c.get(Calendar.DAY_OF_MONTH),
-                c.get(Calendar.HOUR_OF_DAY),
-                c.get(Calendar.MINUTE),
-                c.get(Calendar.SECOND)
-        };
-        StringBuffer sb=new StringBuffer();
-        sb.append(a[0]);
-        sb.append("年");
-        if (a[1]<9) {sb.append("0" + (a[1] + 1));}   //加 1 才會得到實際月份
-        else {sb.append("" + (a[1] + 1));}
-        sb.append("月");
-        if (a[2]<10) {sb.append("0" + (a[2]));}
-        else {sb.append("" + (a[2]));}
-        sb.append("日\n");
-        if (a[3]<10) {sb.append(" 0" + (a[3]));}
-        else {sb.append("" + (a[3]));}
-        sb.append("時");
-        if (a[4]<10) {sb.append("0" + a[4]);}
-        else {sb.append("" + a[4]);}
-        sb.append("分");
-        //if (a[5]<10) {sb.append(":0" + a[5]);}
-        //selse {sb.append(":" + a[5]);}
-        return sb.toString();
-    }
-
-    public static String getCurrentDate(Calendar c) { //輸出格式製作
-        int[] a={c.get(Calendar.YEAR),
-                c.get(Calendar.MONTH),
-                c.get(Calendar.DAY_OF_MONTH),
-                c.get(Calendar.HOUR_OF_DAY),
-                c.get(Calendar.MINUTE),
-                c.get(Calendar.SECOND)
-        };
-        StringBuffer sb=new StringBuffer();
-        sb.append(a[0]);
-        sb.append("年");
-        if (a[1]<9) {sb.append("0" + (a[1] + 1));}   //加 1 才會得到實際月份
-        else {sb.append("" + (a[1] + 1));}
-        sb.append("月");
-        if (a[2]<10) {sb.append("0" + (a[2]));}
-        else {sb.append("" + (a[2]));}
-        sb.append("日");
-        return sb.toString();
-    }
 }

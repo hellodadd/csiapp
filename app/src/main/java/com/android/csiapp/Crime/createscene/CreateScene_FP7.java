@@ -22,7 +22,6 @@ import com.android.csiapp.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,7 +45,6 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
     private ArrayList<String> mCrimeEntrance = new ArrayList<String>();
     private ArrayAdapter<String> mCrimeEntrance_adapter;
 
-    private Calendar c;
     private TextView mCrimeTiming;
     private Button mCrimeTiming_button;
 
@@ -151,10 +149,8 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
             }
         });
 
-        c = Calendar.getInstance();
         mCrimeTiming = (TextView) view.findViewById(R.id.crimeTiming);
         mCrimeTiming_button = (Button) view.findViewById(R.id.crimeTiming_button);
-        mCrimeTiming.setText(CrimeItem.getCurrentTime(c));
         mCrimeTiming_button.setOnClickListener(this);
 
         mSelectObject  = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.select_object)));
@@ -262,13 +258,7 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
         mSelectLocation_spinner.setSelection(getSelectLocation(mItem.getSelectLocation()));
         mCrimePurpose_spinner.setSelection(getCrimePurpose(mItem.getCrimePurpose()));
 
-        String time = CrimeItem.getCurrentTime(c);
-        if(mItem.getCrimeTiming().isEmpty()){
-            mCrimeTiming.setText(time);
-            mItem.setCrimeTiming(time);
-        }else{
-            mCrimeTiming.setText(mItem.getCrimeTiming());
-        }
+        mCrimeTiming.setText(DateTimePicker.getCurrentTime(mItem.getCrimeTiming()));
     }
 
     private int getPeopleNumber(String peopleNumber){
@@ -342,7 +332,7 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
     }
 
     public void saveData(){
-        mItem.setCrimePeopleFeature(mPeopleFeature.getText());
+        mItem.setCrimePeopleFeature(mPeopleFeature.getText());;
     }
 
     @Override
@@ -383,8 +373,9 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
             public void onClick(View v) {
                 mDateTimePicker.clearFocus();
                 // TODO Auto-generated method stub
-                c = mDateTimePicker.get();
-                textView.setText(CrimeItem.getCurrentTime(c));
+                long time = mDateTimePicker.get().getTimeInMillis();
+                mItem.setCrimeTiming(time);
+                textView.setText(DateTimePicker.getCurrentTime(time));
                 mDateTimeDialog.dismiss();
             }
         });

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
@@ -94,8 +94,8 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
     private String getInformation(){
         StringBuffer text=new StringBuffer();
         text.append("发案时间 : ");
-        String time = mItem.getOccurredStartTime();
-        text.append(time);
+        long time = mItem.getOccurredStartTime();
+        text.append(DateTimePicker.getCurrentDate(time));
         text.append("\n");
         text.append("发案地点 : ");
         text.append(mItem.getLocation());
@@ -107,7 +107,7 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         text.append(mItem.getAccessPolicemen());
         text.append("\n");
         text.append("制图时间 : ");
-        text.append(CrimeItem.getCurrentDate(Calendar.getInstance()));
+        text.append(DateTimePicker.getCurrentDate(Calendar.getInstance().getTimeInMillis()));
         text.append("\n");
         return text.toString();
     }

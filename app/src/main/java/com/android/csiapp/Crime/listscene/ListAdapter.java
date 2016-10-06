@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
@@ -57,7 +58,7 @@ public class ListAdapter extends BaseAdapter {
         CrimeItem item = (CrimeItem)getItem(position);
         holder.txtCasetype.setText(((CrimeItem) getItem(position)).getCasetype());
         holder.txtArea.setText(((CrimeItem) getItem(position)).getArea());
-        holder.txtTime.setText(((CrimeItem) getItem(position)).getOccurredStartTime());
+        holder.txtTime.setText(DateTimePicker.getCurrentTime(((CrimeItem) getItem(position)).getOccurredStartTime()));
         return convertView;
     }
 

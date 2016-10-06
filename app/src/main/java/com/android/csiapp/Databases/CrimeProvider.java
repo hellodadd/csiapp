@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -170,13 +171,13 @@ public class CrimeProvider {
                 result.setCasetype(cursor1.getString(1));
                 result.setArea(cursor1.getString(2));
                 result.setLocationa(cursor1.getString(3));
-                result.setOccurredStartTime(cursor1.getString(4));
-                result.setOccurredEndTime(cursor1.getString(5));
-                result.setGetAccessTime(cursor1.getString(6));
+                result.setOccurredStartTime(cursor1.getLong(4));
+                result.setOccurredEndTime(cursor1.getLong(5));
+                result.setGetAccessTime(cursor1.getLong(6));
                 result.setUnitsAssigned(cursor1.getString(7));
                 result.setAccessPolicemen(cursor1.getString(8));
-                result.setAccessStartTime(cursor1.getString(9));
-                result.setAccessEndTime(cursor1.getString(10));
+                result.setAccessStartTime(cursor1.getLong(9));
+                result.setAccessEndTime(cursor1.getLong(10));
                 result.setAccessLocation(cursor1.getString(11));
                 result.setCaseOccurProcess(cursor1.getString(12));
                 result.setSceneCondition(cursor1.getString(13));
@@ -197,7 +198,7 @@ public class CrimeProvider {
                 result.setCrimeMeans(cursor2.getString(2));
                 result.setCrimeCharacter(cursor2.getString(3));
                 result.setCrimeEntrance(cursor2.getString(4));
-                result.setCrimeTiming(cursor2.getString(5));
+                result.setCrimeTiming(cursor2.getLong(5));
                 result.setSelectObject(cursor2.getString(6));
                 result.setCrimeExport(cursor2.getString(7));
                 result.setCrimePeopleFeature(cursor2.getString(8));
@@ -227,8 +228,9 @@ public class CrimeProvider {
 
     // 建立範例資料
     public void sample() {
-        CrimeItem item = new CrimeItem(0, "故意伤害", "北京","1:30");
-        CrimeItem item2 = new CrimeItem(0, "诈骗", "南京","2:30");
+        long time = Calendar.getInstance().getTimeInMillis();
+        CrimeItem item = new CrimeItem(0, "故意伤害", "北京",time);
+        CrimeItem item2 = new CrimeItem(0, "诈骗", "南京",time);
 
         insert(item);
         insert(item2);

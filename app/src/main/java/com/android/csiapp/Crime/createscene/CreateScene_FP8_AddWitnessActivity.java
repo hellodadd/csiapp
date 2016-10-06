@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
-import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.WitnessItem;
 import com.android.csiapp.R;
 import java.util.ArrayList;
@@ -42,7 +41,6 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
     private ArrayList<String> mSex = new ArrayList<String>();
     private ArrayAdapter<String> mSex_adapter;
 
-    private Calendar c;
     private TextView mBirthday;
     private Button mBirthday_button;
 
@@ -114,10 +112,9 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
             }
         });
 
-        c = Calendar.getInstance();
         mBirthday = (TextView) findViewById(R.id.birthday_date);
         mBirthday_button = (Button) findViewById(R.id.birthday_date_button);
-        mBirthday.setText(CrimeItem.getCurrentTime(c));
+        mBirthday.setText(DateTimePicker.getCurrentTime(Calendar.getInstance().getTimeInMillis()));
         mBirthday_button.setOnClickListener(this);
 
         mNumber = (ClearableEditText) findViewById(R.id.contact_number_editView);
@@ -143,14 +140,13 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
     public void getMessage(){
         mName.setText(mWitnessItem.getWitnessName());
         mSex_spinner.setSelection(getSex(mWitnessItem.getWitnessSex()));
-        mBirthday.setText(mWitnessItem.getWitnessBirthday());
+        mBirthday.setText(DateTimePicker.getCurrentTime(mWitnessItem.getWitnessBirthday()));
         mNumber.setText(mWitnessItem.getWitnessNumber());
         mAddress.setText(mWitnessItem.getWitnessAddress());
     }
 
     public void saveMessage(){
         mWitnessItem.setWitnessName(mName.getText());
-        mWitnessItem.setWitnessBirthday(mBirthday.getText().toString());
         mWitnessItem.setWitnessNumber(mNumber.getText());
         mWitnessItem.setWitnessAddress(mAddress.getText());
     }
@@ -182,8 +178,9 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
             public void onClick(View v) {
                 mDateTimePicker.clearFocus();
                 // TODO Auto-generated method stub
-                c = mDateTimePicker.get();
-                textView.setText(CrimeItem.getCurrentTime(c));
+                long time = mDateTimePicker.get().getTimeInMillis();
+                mWitnessItem.setWitnessBirthday(time);
+                textView.setText(DateTimePicker.getCurrentTime(time));
                 mDateTimeDialog.dismiss();
             }
         });

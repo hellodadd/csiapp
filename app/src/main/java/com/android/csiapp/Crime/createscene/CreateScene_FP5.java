@@ -80,11 +80,13 @@ public class CreateScene_FP5 extends Fragment {
         Log.d("Photo","onActivityResult");
         if (resultCode == Activity.RESULT_OK && requestCode == 0) {
             String filepath = data.getStringExtra("photo_uri");
-            Log.d("Photo","onActivityResult, filepath: " + filepath);
-            Bitmap Bitmap = loadBitmapFromFile(new File(filepath));
-            BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
-            mScene_Evidence.setBackground(bDrawable);
-            mScene_Evidence.setVisibility(View.VISIBLE);
+            if(filepath!=null){
+                Log.d("Photo","onActivityResult, filepath: " + filepath);
+                Bitmap Bitmap = loadBitmapFromFile(new File(filepath));
+                BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
+                mScene_Evidence.setBackground(bDrawable);
+                mScene_Evidence.setVisibility(View.VISIBLE);
+            }
         }
     }
 }
