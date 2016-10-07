@@ -54,7 +54,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
             switch (menuItem.getItemId()) {
                 case R.id.action_click:
                     msg += "Save";
-                    saveMessage();
+                    saveData();
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.Databases.WitnessItem", mWitnessItem);
                     result.putExtra("Event", mEvent);
@@ -95,6 +95,16 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
+        initView();
+        initData();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_create_fp8_subactivity, menu);
+        return true;
+    }
+
+    private void initView(){
         mName = (ClearableEditText) findViewById(R.id.name_editView);
 
         mSex = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.sex)));
@@ -114,30 +124,13 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
 
         mBirthday = (TextView) findViewById(R.id.birthday_date);
         mBirthday_button = (Button) findViewById(R.id.birthday_date_button);
-        mBirthday.setText(DateTimePicker.getCurrentTime(Calendar.getInstance().getTimeInMillis()));
         mBirthday_button.setOnClickListener(this);
 
         mNumber = (ClearableEditText) findViewById(R.id.contact_number_editView);
         mAddress = (ClearableEditText) findViewById(R.id.address_editView);
-
-        if(mEvent == 2) {
-            getMessage();
-        }
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_create_fp8_subactivity, menu);
-        return true;
-    }
-
-    private int getSex(String sex){
-        for(int i=0; i<mSex.size(); i++){
-            if(sex.equalsIgnoreCase(mSex.get(i))) return i;
-        }
-        return 0;
-    }
-
-    public void getMessage(){
+    private void initData(){
         mName.setText(mWitnessItem.getWitnessName());
         mSex_spinner.setSelection(getSex(mWitnessItem.getWitnessSex()));
         mBirthday.setText(DateTimePicker.getCurrentTime(mWitnessItem.getWitnessBirthday()));
@@ -145,7 +138,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         mAddress.setText(mWitnessItem.getWitnessAddress());
     }
 
-    public void saveMessage(){
+    private void saveData(){
         mWitnessItem.setWitnessName(mName.getText());
         mWitnessItem.setWitnessNumber(mNumber.getText());
         mWitnessItem.setWitnessAddress(mAddress.getText());
@@ -163,7 +156,14 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         }
     }
 
-    public void showDateTimeDialog(final TextView textView) {
+    private int getSex(String sex){
+        for(int i=0; i<mSex.size(); i++){
+            if(sex.equalsIgnoreCase(mSex.get(i))) return i;
+        }
+        return 0;
+    }
+
+    private void showDateTimeDialog(final TextView textView) {
         // Create the dialog
         final Dialog mDateTimeDialog = new Dialog(this);
         // Inflate the root layout

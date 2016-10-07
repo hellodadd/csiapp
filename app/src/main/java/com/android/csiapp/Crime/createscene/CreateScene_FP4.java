@@ -55,6 +55,12 @@ public class CreateScene_FP4 extends Fragment {
         mItem = activity.getItem();
         context = getActivity().getApplicationContext();
 
+        initView(view);
+
+        return view;
+    }
+
+    private void initView(View view){
         mAdd_Position = (ImageButton) view.findViewById(R.id.add_position_photo_imageButton);
         mAdd_Position.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,16 +88,42 @@ public class CreateScene_FP4 extends Fragment {
             }
         });
         mImportant = (ImageButton) view.findViewById(R.id.Important_photo_imageButton);
-        return view;
     }
 
-    public void takePhoto(Uri LocalFileUri, int PHOTO_TYPE) {
+    private void takePhoto(Uri LocalFileUri, int PHOTO_TYPE) {
         Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         it.putExtra(MediaStore.EXTRA_OUTPUT, LocalFileUri);
         startActivityForResult(it, PHOTO_TYPE);
     }
 
-    public static File getOutputMediaFile(Context context, int type){
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        String path = LocalFileUri.getPath();
+        if (path != null && mPosition != null && mLike!= null && mImportant != null) {
+            Bitmap Bitmap = loadBitmapFromFile(new File(path));
+
+            if (requestCode == PHOTO_TYPE_POSITION) {
+                Log.d("Camera", "Set image to PHOTO_TYPE_POSITION");
+                BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
+                mPosition.setBackground(bDrawable);
+                mPosition.setVisibility(View.VISIBLE);
+            } else if (requestCode == PHOTO_TYPE_LIKE) {
+                Log.d("Camera", "Set image to PHOTO_TYPE_LIKE");
+                BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
+                mLike.setBackground(bDrawable);
+                mLike.setVisibility(View.VISIBLE);
+            } else if (requestCode == PHOTO_TYPE_IMPORTANT) {
+                Log.d("Camera", "Set image to PHOTO_TYPE_IMPORTANT");
+                BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
+                mImportant.setBackground(bDrawable);
+                mImportant.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    private File getOutputMediaFile(Context context, int type){
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
 
@@ -122,7 +154,7 @@ public class CreateScene_FP4 extends Fragment {
         return mediaFile;
     }
 
-    public static Bitmap loadBitmapFromFile(File f) {
+    private Bitmap loadBitmapFromFile(File f) {
         Bitmap b = null;
         BitmapFactory.Options option = new BitmapFactory.Options();
         // Bitmap sampling factor, size = (Original Size)/(inSampleSize)
@@ -141,33 +173,6 @@ public class CreateScene_FP4 extends Fragment {
             return resultImage;
         } catch(Exception e) {
             return null;
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        String path = LocalFileUri.getPath();
-        if (path != null && mPosition != null && mLike!= null && mImportant != null) {
-            Bitmap Bitmap = loadBitmapFromFile(new File(path));
-
-            if (requestCode == PHOTO_TYPE_POSITION) {
-                Log.d("Camera", "Set image to PHOTO_TYPE_POSITION");
-                BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
-                mPosition.setBackground(bDrawable);
-                mPosition.setVisibility(View.VISIBLE);
-            } else if (requestCode == PHOTO_TYPE_LIKE) {
-                Log.d("Camera", "Set image to PHOTO_TYPE_LIKE");
-                BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
-                mLike.setBackground(bDrawable);
-                mLike.setVisibility(View.VISIBLE);
-            } else if (requestCode == PHOTO_TYPE_IMPORTANT) {
-                Log.d("Camera", "Set image to PHOTO_TYPE_IMPORTANT");
-                BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
-                mImportant.setBackground(bDrawable);
-                mImportant.setVisibility(View.VISIBLE);
-            }
         }
     }
 }

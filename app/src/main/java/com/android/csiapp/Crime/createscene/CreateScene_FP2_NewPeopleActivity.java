@@ -49,7 +49,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
             switch (menuItem.getItemId()) {
                 case R.id.action_click:
                     msg += "Save";
-                    saveMessage();
+                    saveData();
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.Databases.RelatedPeopleItem", mRelatedPeopleItem);
                     result.putExtra("Event", mEvent);
@@ -90,6 +90,16 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
+        initView();
+        initData();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_create_fp2_subactivity, menu);
+        return true;
+    }
+
+    private void initView(){
         mReleationPeople = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.releation_people)));
         mReleationPeople_spinner = (Spinner) findViewById(R.id.releationPeople_spinner);
         mReleationPeople_adapter = new ArrayAdapter<String>(CreateScene_FP2_NewPeopleActivity.this, R.layout.spinnerview, mReleationPeople);
@@ -125,16 +135,24 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         mId = (ClearableEditText) findViewById(R.id.identity_number_editView);
         mNumber = (ClearableEditText) findViewById(R.id.contact_number_editView);
         mAddress = (ClearableEditText) findViewById(R.id.address_editView);
-
-        if(mEvent == 2) {
-            getMessage();
-        }
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_create_fp2_subactivity, menu);
-        return true;
+    private void initData(){
+        mReleationPeople_spinner.setSelection(getPeople(mRelatedPeopleItem.getPeopleReleation()));
+        mName.setText(mRelatedPeopleItem.getPeopleName());
+        mSex_spinner.setSelection(getSex(mRelatedPeopleItem.getPeopleSex()));
+        mId.setText(mRelatedPeopleItem.getPeopleId());
+        mNumber.setText(mRelatedPeopleItem.getPeopleNumber());
+        mAddress.setText(mRelatedPeopleItem.getPeopleAddress());
     }
+
+    private void saveData(){
+        mRelatedPeopleItem.setPeopleName(mName.getText());
+        mRelatedPeopleItem.setPeopleId(mId.getText());
+        mRelatedPeopleItem.setPeopleNumber(mNumber.getText());
+        mRelatedPeopleItem.setPeopleAddress(mAddress.getText());
+    }
+
 
     private int getPeople(String category){
         for(int i=0; i<mReleationPeople.size(); i++){
@@ -147,21 +165,5 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
             if(sex.equalsIgnoreCase(mSex.get(i))) return i;
         }
         return 0;
-    }
-
-    public void getMessage(){
-        mReleationPeople_spinner.setSelection(getPeople(mRelatedPeopleItem.getPeopleReleation()));
-        mName.setText(mRelatedPeopleItem.getPeopleName());
-        mSex_spinner.setSelection(getSex(mRelatedPeopleItem.getPeopleSex()));
-        mId.setText(mRelatedPeopleItem.getPeopleId());
-        mNumber.setText(mRelatedPeopleItem.getPeopleNumber());
-        mAddress.setText(mRelatedPeopleItem.getPeopleAddress());
-    }
-
-    public void saveMessage(){
-        mRelatedPeopleItem.setPeopleName(mName.getText());
-        mRelatedPeopleItem.setPeopleId(mId.getText());
-        mRelatedPeopleItem.setPeopleNumber(mNumber.getText());
-        mRelatedPeopleItem.setPeopleAddress(mAddress.getText());
     }
 }

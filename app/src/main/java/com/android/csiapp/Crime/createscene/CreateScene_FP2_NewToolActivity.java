@@ -46,7 +46,7 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
             switch (menuItem.getItemId()) {
                 case R.id.action_click:
                     msg += "Save";
-                    saveMessage();
+                    saveData();
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.Databases.CrimeToolItem", mCrimeToolItem);
                     result.putExtra("Event", mEvent);
@@ -87,6 +87,16 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
+        initView();
+        initData();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_create_fp2_subactivity, menu);
+        return true;
+    }
+
+    private void initView(){
         mName = (ClearableEditText) findViewById(R.id.tool_name_editView);
 
         mTool_category = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.tool_category)));
@@ -118,15 +128,16 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
-
-        if(mEvent == 2) {
-            getMessage();
-        }
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_create_fp2_subactivity, menu);
-        return true;
+    private void initData(){
+        mName.setText(mCrimeToolItem.getToolName());
+        mTool_category_spinner.setSelection(getCategory(mCrimeToolItem.getToolCategory()));
+        mTool_source_spinner.setSelection(getSource(mCrimeToolItem.getToolSource()));
+    }
+
+    private void saveData(){
+        mCrimeToolItem.setToolName(mName.getText());
     }
 
     private int getCategory(String category){
@@ -135,20 +146,11 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
         }
         return 0;
     }
+
     private int getSource(String source){
         for(int i=0; i<mTool_source.size(); i++){
             if(source.equalsIgnoreCase(mTool_source.get(i))) return i;
         }
         return 0;
-    }
-
-    public void getMessage(){
-        mName.setText(mCrimeToolItem.getToolName());
-        mTool_category_spinner.setSelection(getCategory(mCrimeToolItem.getToolCategory()));
-        mTool_source_spinner.setSelection(getSource(mCrimeToolItem.getToolSource()));
-    }
-
-    public void saveMessage(){
-        mCrimeToolItem.setToolName(mName.getText());
     }
 }

@@ -227,37 +227,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mAccess_end_time.setText(DateTimePicker.getCurrentTime(mItem.getAccessEndTime()));
     }
 
-    private int getCategory(String category){
-        for(int i=0; i<mCasetype.size(); i++){
-            if(category.equalsIgnoreCase(mCasetype.get(i))) return i;
-        }
-        return 0;
-    }
-    private int getArea(String category){
-        for(int i=0; i<mArea.size(); i++){
-            if(category.equalsIgnoreCase(mArea.get(i))) return i;
-        }
-        return 0;
-    }
-    private int getSceneCondition(String category){
-        for(int i=0; i<mSceneCondition.size(); i++){
-            if(category.equalsIgnoreCase(mSceneCondition.get(i))) return i;
-        }
-        return 0;
-    }
-    private int getWeatherCondition(String category){
-        for(int i=0; i<mWeatherCondition.size(); i++){
-            if(category.equalsIgnoreCase(mWeatherCondition.get(i))) return i;
-        }
-        return 0;
-    }
-    private int getWindDirection(String category){
-        for(int i=0; i<mWindDirection.size(); i++){
-            if(category.equalsIgnoreCase(mWindDirection.get(i))) return i;
-        }
-        return 0;
-    }
-
     public void saveData(){
         mItem.setLocationa(mLocation.getText());
         mItem.setUnitsAssigned(mUnitsAssigned.getText());
@@ -311,7 +280,38 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void showDateTimeDialog(final TextView textView,final int type) {
+    private int getCategory(String category){
+        for(int i=0; i<mCasetype.size(); i++){
+            if(category.equalsIgnoreCase(mCasetype.get(i))) return i;
+        }
+        return 0;
+    }
+    private int getArea(String category){
+        for(int i=0; i<mArea.size(); i++){
+            if(category.equalsIgnoreCase(mArea.get(i))) return i;
+        }
+        return 0;
+    }
+    private int getSceneCondition(String category){
+        for(int i=0; i<mSceneCondition.size(); i++){
+            if(category.equalsIgnoreCase(mSceneCondition.get(i))) return i;
+        }
+        return 0;
+    }
+    private int getWeatherCondition(String category){
+        for(int i=0; i<mWeatherCondition.size(); i++){
+            if(category.equalsIgnoreCase(mWeatherCondition.get(i))) return i;
+        }
+        return 0;
+    }
+    private int getWindDirection(String category){
+        for(int i=0; i<mWindDirection.size(); i++){
+            if(category.equalsIgnoreCase(mWindDirection.get(i))) return i;
+        }
+        return 0;
+    }
+
+    private void showDateTimeDialog(final TextView textView,final int type) {
         // Create the dialog
         final Dialog mDateTimeDialog = new Dialog(getContext());
         // Inflate the root layout

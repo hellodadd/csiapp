@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Databases.EvidenceItem;
 import com.android.csiapp.R;
 
 import java.io.File;
@@ -27,6 +28,7 @@ import java.io.FileInputStream;
 public class CreateScene_FP5 extends Fragment {
     private Context context = null;
     private CrimeItem mItem;
+    private EvidenceItem mEvidenceItem;
     private ImageButton mAdd_Scene_Evidence;
     private ImageButton mScene_Evidence;
 
@@ -41,19 +43,54 @@ public class CreateScene_FP5 extends Fragment {
         mItem = activity.getItem();
         context = getActivity().getApplicationContext();
 
+        initView(view);
+
+        return view;
+    }
+
+    private void initView(View view){
+        mEvidenceItem = new EvidenceItem();
         mAdd_Scene_Evidence = (ImageButton) view.findViewById(R.id.add_scene_evidence);
         mAdd_Scene_Evidence.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getActivity(), CreateScene_FP5_NewEvidenceActivity.class);
+                it.putExtra("com.android.csiapp.Databases.EvidenceItem", mEvidenceItem);
+                it.putExtra("Event",1);
                 startActivityForResult(it, 0);
             }
         });
         mScene_Evidence = (ImageButton) view.findViewById(R.id.Scene_evidence);
-        return view;
+        mScene_Evidence.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getActivity(), CreateScene_FP5_NewEvidenceActivity.class);
+                it.putExtra("com.android.csiapp.Databases.EvidenceItem", mEvidenceItem);
+                it.putExtra("Event",2);
+                startActivityForResult(it, 0);
+            }
+        });
     }
 
-    public static Bitmap loadBitmapFromFile(File f) {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("Photo","onActivityResult");
+        if (resultCode == Activity.RESULT_OK && requestCode == 0) {
+            EvidenceItem evidenceItem = (EvidenceItem) data.getSerializableExtra("com.android.csiapp.Databases.EvidenceItem");
+            int event = (int) data.getIntExtra("Event", 1);
+            mEvidenceItem = evidenceItem;
+            String filepath = mEvidenceItem.getPhotoPath();
+            if(filepath!=null){
+                Log.d("Photo","onActivityResult, filepath: " + filepath);
+                Bitmap Bitmap = loadBitmapFromFile(new File(filepath));
+                BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
+                mScene_Evidence.setBackground(bDrawable);
+                mScene_Evidence.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    private static Bitmap loadBitmapFromFile(File f) {
         Bitmap b = null;
         BitmapFactory.Options option = new BitmapFactory.Options();
         // Bitmap sampling factor, size = (Original Size)/(inSampleSize)
@@ -72,21 +109,6 @@ public class CreateScene_FP5 extends Fragment {
             return resultImage;
         } catch(Exception e) {
             return null;
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("Photo","onActivityResult");
-        if (resultCode == Activity.RESULT_OK && requestCode == 0) {
-            String filepath = data.getStringExtra("photo_uri");
-            if(filepath!=null){
-                Log.d("Photo","onActivityResult, filepath: " + filepath);
-                Bitmap Bitmap = loadBitmapFromFile(new File(filepath));
-                BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
-                mScene_Evidence.setBackground(bDrawable);
-                mScene_Evidence.setVisibility(View.VISIBLE);
-            }
         }
     }
 }

@@ -129,7 +129,7 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <com.android.csiapp.Crime.utils.ClearableEditText
-                    android:id="@+id/evidence_name_editView"
+                    android:id="@+id/evidence_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -160,7 +160,7 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <com.android.csiapp.Crime.utils.ClearableEditText
-                    android:id="@+id/legacy_site_editView"
+                    android:id="@+id/legacy_site"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -191,7 +191,7 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <com.android.csiapp.Crime.utils.ClearableEditText
-                    android:id="@+id/basice_feature_editView"
+                    android:id="@+id/basice_feature"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

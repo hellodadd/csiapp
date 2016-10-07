@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,7 +104,6 @@ public class CreateScene_FP2 extends Fragment {
         });
 
         mPeopleList = mItem.getReleatedPeople();
-        Log.d("Anita","mPeopleList = "+mPeopleList.size());
         mPeople_List=(ListView) view.findViewById(R.id.people_listView);
         mPeople_Adapter = new RelatedPeoeplAdapter(context, mPeopleList);
         mPeople_List.setAdapter(mPeople_Adapter);
@@ -124,7 +122,6 @@ public class CreateScene_FP2 extends Fragment {
         mPeople_List.setOnItemClickListener(itemListener1);
 
         mItemList = mItem.getLostItem();
-        Log.d("Anita","mItemList = "+mItemList.size());
         mItem_List=(ListView) view.findViewById(R.id.item_listView);
         mItem_Adapter = new LostItemAdapter(context, mItemList);
         mItem_List.setAdapter(mItem_Adapter);
@@ -143,7 +140,6 @@ public class CreateScene_FP2 extends Fragment {
         mItem_List.setOnItemClickListener(itemListener2);
 
         mToolList = mItem.getCrimeTool();
-        Log.d("Anita","mToolList = "+mToolList.size());
         mTool_List=(ListView) view.findViewById(R.id.tool_listView);
         mTool_Adapter = new CrimeItemAdapter(context, mToolList);
         mTool_List.setAdapter(mTool_Adapter);
@@ -162,7 +158,7 @@ public class CreateScene_FP2 extends Fragment {
         mTool_List.setOnItemClickListener(itemListener3);
     }
 
-    public void initData(){
+    private void initData(){
         mPeopleList = mItem.getReleatedPeople();
         mItemList = mItem.getLostItem();
         mToolList = mItem.getCrimeTool();
@@ -189,25 +185,6 @@ public class CreateScene_FP2 extends Fragment {
         saveData();
     }
 
-    private void setListViewHeight(ListView lv) {
-        ListAdapter la = lv.getAdapter();
-        if(null == la) {
-            return;
-        }
-        // calculate height of all items.
-        int h = 0;
-        final int cnt = la.getCount();
-        for(int i=0; i<cnt; i++) {
-            View item = la.getView(i, null, lv);
-            item.measure(0, 0);
-            h += item.getMeasuredHeight();
-        }
-        // reset ListView height
-        ViewGroup.LayoutParams lp = lv.getLayoutParams();
-        lp.height = h + (lv.getDividerHeight() * (cnt - 1));
-        lv.setLayoutParams(lp);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
@@ -216,9 +193,7 @@ public class CreateScene_FP2 extends Fragment {
                 RelatedPeopleItem relatedPeopleItem = (RelatedPeopleItem) data.getSerializableExtra("com.android.csiapp.Databases.RelatedPeopleItem");
                 int event = (int) data.getIntExtra("Event", 1);
                 if(event == 1) {
-                    Log.d("Anita","Before mPeopleList = "+mPeopleList.size());
                     mPeopleList.add(relatedPeopleItem);
-                    Log.d("Anita","After mPeopleList = "+mPeopleList.size());
                 }else{
                     int position = (int) data.getIntExtra("Position",0);
                     mPeopleList.set(position, relatedPeopleItem);
@@ -230,9 +205,7 @@ public class CreateScene_FP2 extends Fragment {
                 LostItem lostItem = (LostItem) data.getSerializableExtra("com.android.csiapp.Databases.LostItem");
                 int event = (int) data.getIntExtra("Event", 1);
                 if(event == 1) {
-                    Log.d("Anita","Before mItemList = "+mItemList.size());
                     mItemList.add(lostItem);
-                    Log.d("Anita","After mItemList = "+mItemList.size());
                 }else{
                     int position = (int) data.getIntExtra("Position",0);
                     mItemList.set(position, lostItem);
@@ -244,9 +217,7 @@ public class CreateScene_FP2 extends Fragment {
                 CrimeToolItem crimeToolItem = (CrimeToolItem) data.getSerializableExtra("com.android.csiapp.Databases.CrimeToolItem");
                 int event = (int) data.getIntExtra("Event", 1);
                 if(event == 1) {
-                    Log.d("Anita","Before mToolList = "+mToolList.size());
                     mToolList.add(crimeToolItem);
-                    Log.d("Anita","After mToolList = "+mToolList.size());
                 }else{
                     int position = (int) data.getIntExtra("Position",0);
                     mToolList.set(position, crimeToolItem);
@@ -257,7 +228,7 @@ public class CreateScene_FP2 extends Fragment {
         }
     }
 
-    public void setListViewHeightBasedOnChildren(ListView listView) {
+    private void setListViewHeightBasedOnChildren(ListView listView) {
         // 获取ListView对应的Adapter
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
@@ -265,7 +236,6 @@ public class CreateScene_FP2 extends Fragment {
         }
 
         int totalHeight = 0;
-        Log.d("AAA", "listAdapter.getCount()="+listAdapter.getCount());
         for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
             // listAdapter.getCount()获取ListView对应的Adapter
             View listItem = listAdapter.getView(i, null, listView);
@@ -277,9 +247,8 @@ public class CreateScene_FP2 extends Fragment {
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        Log.d("AAA", "params.height="+params.height);
         // listView.getDividerHeight()获取子项间分隔符占用的高度
         // params.height最后得到整个ListView完整显示需要的高度
-            listView.setLayoutParams(params);
+        listView.setLayoutParams(params);
     }
 }

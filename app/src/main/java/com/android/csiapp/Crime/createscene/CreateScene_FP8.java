@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +46,7 @@ public class CreateScene_FP8 extends Fragment {
         mEvent = activity.getEvent();
         context = getActivity().getApplicationContext();
 
+        initData();
         initView(view);
 
         return view;
@@ -59,15 +59,12 @@ public class CreateScene_FP8 extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getActivity(), CreateScene_FP8_AddWitnessActivity.class);
-                Bundle bundle = new Bundle();
                 it.putExtra("com.android.csiapp.Databases.WitnessItem", mWitnessItem);
                 it.putExtra("Event",1);
                 startActivityForResult(it,0);
             }
         });
 
-        mWitnessList = mItem.getWitness();
-        Log.d("Anita","mWitnessList = "+mWitnessList.size());
         mWitness_list=(ListView) view.findViewById(R.id.listView);
         mWitness_adapter = new WitnessListAdapter(context, mWitnessList);
         mWitness_list.setAdapter(mWitness_adapter);
@@ -84,10 +81,9 @@ public class CreateScene_FP8 extends Fragment {
             }
         };
         mWitness_list.setOnItemClickListener(itemListener);
-        setListViewHeight(mWitness_list);
     }
 
-    public void initData(){
+    private void initData(){
         mWitnessList = mItem.getWitness();
     }
 
@@ -108,25 +104,6 @@ public class CreateScene_FP8 extends Fragment {
         saveData();
     }
 
-    private void setListViewHeight(ListView lv) {
-        ListAdapter la = lv.getAdapter();
-        if(null == la) {
-            return;
-        }
-        // calculate height of all items.
-        int h = 0;
-        final int cnt = la.getCount();
-        for(int i=0; i<cnt; i++) {
-            View item = la.getView(i, null, lv);
-            item.measure(0, 0);
-            h += item.getMeasuredHeight();
-        }
-        // reset ListView height
-        ViewGroup.LayoutParams lp = lv.getLayoutParams();
-        lp.height = h + (lv.getDividerHeight() * (cnt - 1));
-        lv.setLayoutParams(lp);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
@@ -135,9 +112,7 @@ public class CreateScene_FP8 extends Fragment {
             if (requestCode == 0) {
                 // 新增記事資料到資料庫
                 if(event == 1) {
-                    Log.d("Anita","Before mWitnessList = "+mWitnessList.size());
                     mWitnessList.add(witenssItem);
-                    Log.d("Anita","After mWitnessList = "+mWitnessList.size());
                 }else{
                     int position = (int) data.getIntExtra("Position",0);
                     mWitnessList.set(position, witenssItem);
@@ -148,7 +123,7 @@ public class CreateScene_FP8 extends Fragment {
         }
     }
 
-    public void setListViewHeightBasedOnChildren(ListView listView) {
+    private void setListViewHeightBasedOnChildren(ListView listView) {
         // 获取ListView对应的Adapter
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
@@ -156,7 +131,6 @@ public class CreateScene_FP8 extends Fragment {
         }
 
         int totalHeight = 0;
-        Log.d("AAA", "listAdapter.getCount()="+listAdapter.getCount());
         for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
             // listAdapter.getCount()获取ListView对应的Adapter
             View listItem = listAdapter.getView(i, null, listView);
@@ -168,7 +142,6 @@ public class CreateScene_FP8 extends Fragment {
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        Log.d("AAA", "params.height="+params.height);
         // listView.getDividerHeight()获取子项间分隔符占用的高度
         // params.height最后得到整个ListView完整显示需要的高度
         listView.setLayoutParams(params);

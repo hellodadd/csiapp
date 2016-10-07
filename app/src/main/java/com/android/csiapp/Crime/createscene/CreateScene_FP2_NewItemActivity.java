@@ -35,7 +35,7 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
             switch (menuItem.getItemId()) {
                 case R.id.action_click:
                     msg += "Save";
-                    saveMessage();
+                    saveData();
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.Databases.LostItem", mLostItem);
                     result.putExtra("Event", mEvent);
@@ -76,15 +76,8 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
-        mName = (ClearableEditText) findViewById(R.id.item_name_editView);
-        mBrand = (ClearableEditText) findViewById(R.id.brand_model_editView);
-        mAmount = (ClearableEditText) findViewById(R.id.amount_editView);
-        mValue = (ClearableEditText) findViewById(R.id.value_editView);
-        mFeature = (ClearableEditText) findViewById(R.id.feature_description_editView);
-
-        if(mEvent == 2) {
-            getMessage();
-        }
+        initView();
+        initData();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,7 +85,15 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
         return true;
     }
 
-    public void getMessage(){
+    private void initView(){
+        mName = (ClearableEditText) findViewById(R.id.item_name_editView);
+        mBrand = (ClearableEditText) findViewById(R.id.brand_model_editView);
+        mAmount = (ClearableEditText) findViewById(R.id.amount_editView);
+        mValue = (ClearableEditText) findViewById(R.id.value_editView);
+        mFeature = (ClearableEditText) findViewById(R.id.feature_description_editView);
+    }
+
+    private void initData(){
         mName.setText(mLostItem.getItemName());
         mBrand.setText(mLostItem.getItemBrand());
         mAmount.setText(mLostItem.getItemAmount());
@@ -100,7 +101,7 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
         mFeature.setText(mLostItem.getItemFeature());
     }
 
-    public void saveMessage(){
+    private void saveData(){
         mLostItem.setItemName(mName.getText());
         mLostItem.setItemBrand(mBrand.getText());
         mLostItem.setItemAmount(mAmount.getText());

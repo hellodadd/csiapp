@@ -261,6 +261,34 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
         mCrimeTiming.setText(DateTimePicker.getCurrentTime(mItem.getCrimeTiming()));
     }
 
+    public void saveData(){
+        mItem.setCrimePeopleFeature(mPeopleFeature.getText());;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        initData();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        saveData();
+    }
+
+    @Override
+    public void onClick(View v) {
+        // TODO Auto-generated method stub
+        switch (v.getId()) {
+            case R.id.crimeTiming_button:
+                showDateTimeDialog(mCrimeTiming);
+                break;
+            default:
+                break;
+        }
+    }
+
     private int getPeopleNumber(String peopleNumber){
         for(int i=0; i<mPeopleNumber.size(); i++){
             if(peopleNumber.equalsIgnoreCase(mPeopleNumber.get(i))) return i;
@@ -331,35 +359,7 @@ public class CreateScene_FP7 extends Fragment implements View.OnClickListener{
         return 0;
     }
 
-    public void saveData(){
-        mItem.setCrimePeopleFeature(mPeopleFeature.getText());;
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        initData();
-    }
-
-    @Override
-    public void onPause(){
-        super.onPause();
-        saveData();
-    }
-
-    @Override
-    public void onClick(View v) {
-        // TODO Auto-generated method stub
-        switch (v.getId()) {
-            case R.id.crimeTiming_button:
-                showDateTimeDialog(mCrimeTiming);
-                break;
-            default:
-                break;
-        }
-    }
-
-    public void showDateTimeDialog(final TextView textView) {
+    private void showDateTimeDialog(final TextView textView) {
         // Create the dialog
         final Dialog mDateTimeDialog = new Dialog(getContext());
         // Inflate the root layout

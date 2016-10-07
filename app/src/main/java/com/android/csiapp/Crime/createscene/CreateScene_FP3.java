@@ -39,6 +39,13 @@ public class CreateScene_FP3 extends Fragment {
         mItem = activity.getItem();
         mEvent = activity.getEvent();
         context = getActivity().getApplicationContext();
+
+        initView(view);
+
+        return view;
+    }
+
+    private void initView(View view){
         mAdd_Position = (ImageButton) view.findViewById(R.id.add_position);
         mAdd_Position.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +56,6 @@ public class CreateScene_FP3 extends Fragment {
             }
         });
         mPosition = (ImageButton) view.findViewById(R.id.position);
-        return view;
     }
 
     @Override
