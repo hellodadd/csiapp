@@ -85,7 +85,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/green_60dp"
+                    android:background="@drawable/red_60dp"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
@@ -117,7 +117,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/green_60dp"
+                    android:background="@drawable/red_60dp"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
@@ -164,7 +164,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:hint="@string/write_part"
                     android:singleLine="true"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
@@ -195,7 +194,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:hint="@string/write_feature"
                     android:singleLine="true"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
@@ -242,7 +240,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/green_60dp"
+                    android:background="@drawable/red_60dp"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
@@ -281,7 +279,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/green_60dp"
+                    android:background="@drawable/red_60dp"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView

@@ -31,25 +31,26 @@
     <string name="occurred_start_time">发案开始时间</string>
     <string name="occurred_end_time">发案结束时间</string>
     <string name="get_access_time">接勘时间</string>
-    <string name="write_location">填写地点</string>
     <string name="units_assigned">指派单位</string>
     <string name="access_policemen">接警人</string>
     <string name="access_start_time">勘验开始时间</string>
     <string name="access_end_time">勘验结束时间</string>
     <string name="access_location">勘验地点</string>
     <string name="case_occur_process">案件发现过程</string>
-    <string name="write_process">填写过程</string>
     <string name="scene_condition">现场条件</string>
-    <string name="write_scene_condition">填写现场条件</string>
+    <string name="change_reason">变动原因</string>
     <string name="weather_condition">天气状况</string>
-    <string name="write_weather_condition">填写天气状况</string>
     <string name="wind_direction">风向</string>
-    <string name="write_wind_direction">填写风向</string>
     <string name="temperature">温度</string>
-    <string name="write_temperature">填写温度</string>
     <string name="humidity">湿度</string>
-    <string name="write_humidity">填写湿度</string>
     <string name="access_reason">勘验事由</string>
+    <string name="illumination_condition">光照条件</string>
+    <string name="productPeople_name">保护人姓名</string>
+    <string name="productPeople_unit">保护人单位</string>
+    <string name="productPeople_duties">保护人职务</string>
+    <string name="safeguard">保护措施</string>
+    <string name="scene_conductor">现场指挥人员</string>
+    <string name="access_inspectors">勘验检查人员</string>
 
     <string name="step_2">现场访问</string>
     <string name="add_people">添加关联人</string>
@@ -58,27 +59,18 @@
     <string name="title_activity_peopleinformation">关联人信息</string>
     <string name="type">案件人關係</string>
     <string name="name">姓名</string>
-    <string name="write_name">填写姓名</string>
     <string name="sex">性别</string>
     <string name="identity_number">身分证号</string>
-    <string name="write_number">填写号码</string>
     <string name="contact_number">联系电话</string>
     <string name="living_address">现居地址</string>
-    <string name="write_address">填写地址</string>
     <string name="title_activity_lostitem">损失物品</string>
     <string name="item_name">品名</string>
-    <string name="write_item">填写名稱</string>
     <string name="brand_model">厂牌型号</string>
-    <string name="write_brand">填写厂牌</string>
     <string name="amount">数量</string>
-    <string name="write_amount">填写数量</string>
     <string name="value">价值（元）</string>
-    <string name="write_value">填写价值（元）</string>
     <string name="feature_description">特征描述</string>
-    <string name="write_feature">填写特征</string>
     <string name="title_activity_crimetool">作案工具</string>
     <string name="tool_name">工具名称</string>
-    <string name="write_tool">填写名称</string>
     <string name="tool_category">工具数目</string>
     <string name="tool_source">工具来源</string>>
 
@@ -99,11 +91,9 @@
     <string name="evidence">手印痕迹</string>
     <string name="evidence_name">物证名称</string>
     <string name="legacy_site">遗留部位</string>
-    <string name="write_part">填写部位</string>
     <string name="basic_feature">基本特征</string>
     <string name="extraction_method">提取方法</string>
     <string name="extraction_time">提取时间</string>
-    <string name="write_time">填写时间</string>
     <string name="extraction_people">提取人</string>
 
     <string name="step_6">勘验情况</string>
@@ -126,8 +116,7 @@
     <string name="step_8">见证人</string>
     <string name="add_witness_inforamtion">添加见证人</string>
     <string name="title_activity_witness_peopleinformation">见证人信息</string>
-    <string name="birthday_date">出生日期</string>
-    <string name="write_birthday_date">填写日期</string>
+    <string name="birthday_date">出生日期</string>>
 
     <string name="step_9">静态采集</string>
 

@@ -63,7 +63,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:hint="@string/write_name"
                     android:singleLine="true"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
@@ -165,7 +164,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:hint="@string/write_number"
                     android:singleLine="true"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
@@ -196,7 +194,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:hint="@string/write_address"
                     android:singleLine="true"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>

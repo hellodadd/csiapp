@@ -32,11 +32,20 @@ public class SceneProvider {
     public static final String ACCESS_LOCATION_COLUMN = "access_location";
     public static final String CASE_OCCUR_PROCESS_COLUMN = "case_occur_process";
     public static final String SCENE_CONDITION_COLUMN = "scene_condition";
+    public static final String CHANGE_REASON_COLUMN = "change_reason";
     public static final String WEATHER_COLUMN = "weather";
     public static final String WIND_COLUMN = "wind";
     public static final String TEMPERATURE_COLUMN = "temperature";
     public static final String HUMIDITY_COLUMN = "humidity";
     public static final String ACCESS_REASON_COLUMN = "access_reason";
+
+    public static final String ILLUMINATION_CONDITION_COLUMN = "illumination_condition";
+    public static final String PRODUCT_PEOPLE_NAME_COLUMN = "product_people_name";
+    public static final String PRODUCT_PEOPLE_UNIT_COLUMN = "product_people_unit";
+    public static final String PRODUCT_PEOPLE_DUTIES_COLUMN = "product_people_duties";
+    public static final String SAFEGUARD_COLUMN = "safeguard";
+    public static final String SCENE_CONDUCTOR_COLUMN = "scene_conductor";
+    public static final String ACCESS_INSPECTOR_COLUMN = "access_inspector";
 
     // 使用上面宣告的變數建立表格的SQL指令
     public static final String CREATE_TABLE =
@@ -55,11 +64,19 @@ public class SceneProvider {
                     ACCESS_LOCATION_COLUMN + " INTEGER NOT NULL, " +
                     CASE_OCCUR_PROCESS_COLUMN + " INTEGER NOT NULL, " +
                     SCENE_CONDITION_COLUMN + " INTEGER NOT NULL, " +
+                    CHANGE_REASON_COLUMN + " INTEGER NOT NULL, " +
                     WEATHER_COLUMN + " INTEGER NOT NULL, " +
                     WIND_COLUMN + " INTEGER NOT NULL, " +
                     TEMPERATURE_COLUMN + " INTEGER NOT NULL, " +
                     HUMIDITY_COLUMN + " INTEGER NOT NULL, " +
-                    ACCESS_REASON_COLUMN + " INTEGER NOT NULL)";
+                    ACCESS_REASON_COLUMN + " INTEGER NOT NULL, " +
+                    ILLUMINATION_CONDITION_COLUMN + " INTEGER NOT NULL, " +
+                    PRODUCT_PEOPLE_NAME_COLUMN + " INTEGER NOT NULL, " +
+                    PRODUCT_PEOPLE_UNIT_COLUMN + " INTEGER NOT NULL, " +
+                    PRODUCT_PEOPLE_DUTIES_COLUMN + " INTEGER NOT NULL, " +
+                    SAFEGUARD_COLUMN + " INTEGER NOT NULL, " +
+                    SCENE_CONDUCTOR_COLUMN + " INTEGER NOT NULL, " +
+                    ACCESS_INSPECTOR_COLUMN + " INTEGER NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;
@@ -94,11 +111,19 @@ public class SceneProvider {
         cv.put(ACCESS_LOCATION_COLUMN, item.getAccessLocation());
         cv.put(CASE_OCCUR_PROCESS_COLUMN, item.getCaseOccurProcess());
         cv.put(SCENE_CONDITION_COLUMN, item.getSceneCondition());
+        cv.put(CHANGE_REASON_COLUMN, item.getChangeReason());
         cv.put(WEATHER_COLUMN, item.getWeatherCondition());
         cv.put(WIND_COLUMN, item.getWindDirection());
         cv.put(TEMPERATURE_COLUMN, item.getTemperature());
         cv.put(HUMIDITY_COLUMN, item.getHumidity());
         cv.put(ACCESS_REASON_COLUMN, item.getAccessReason());
+        cv.put(ILLUMINATION_CONDITION_COLUMN, item.getIlluminationCondition());
+        cv.put(PRODUCT_PEOPLE_NAME_COLUMN, item.getProductPeopleName());
+        cv.put(PRODUCT_PEOPLE_UNIT_COLUMN, item.getProductPeopleUnit());
+        cv.put(PRODUCT_PEOPLE_DUTIES_COLUMN, item.getProductPeopleDuties());
+        cv.put(SAFEGUARD_COLUMN, item.getSafeguard());
+        cv.put(SCENE_CONDUCTOR_COLUMN, item.getSceneConductor());
+        cv.put(ACCESS_INSPECTOR_COLUMN, item.getAccessInspectors());
         // 新增一筆資料並取得編號
         // 第一個參數是表格名稱
         // 第二個參數是沒有指定欄位值的預設值
@@ -128,12 +153,19 @@ public class SceneProvider {
         cv.put(ACCESS_LOCATION_COLUMN, item.getAccessLocation());
         cv.put(CASE_OCCUR_PROCESS_COLUMN, item.getCaseOccurProcess());
         cv.put(SCENE_CONDITION_COLUMN, item.getSceneCondition());
+        cv.put(CHANGE_REASON_COLUMN, item.getChangeReason());
         cv.put(WEATHER_COLUMN, item.getWeatherCondition());
         cv.put(WIND_COLUMN, item.getWindDirection());
         cv.put(TEMPERATURE_COLUMN, item.getTemperature());
         cv.put(HUMIDITY_COLUMN, item.getHumidity());
         cv.put(ACCESS_REASON_COLUMN, item.getAccessReason());
-
+        cv.put(ILLUMINATION_CONDITION_COLUMN, item.getIlluminationCondition());
+        cv.put(PRODUCT_PEOPLE_NAME_COLUMN, item.getProductPeopleName());
+        cv.put(PRODUCT_PEOPLE_UNIT_COLUMN, item.getProductPeopleUnit());
+        cv.put(PRODUCT_PEOPLE_DUTIES_COLUMN, item.getProductPeopleDuties());
+        cv.put(SAFEGUARD_COLUMN, item.getSafeguard());
+        cv.put(SCENE_CONDUCTOR_COLUMN, item.getSceneConductor());
+        cv.put(ACCESS_INSPECTOR_COLUMN, item.getAccessInspectors());
         // 設定修改資料的條件為編號
         // 格式為「欄位名稱＝資料」
         String where = KEY_ID + "=" + id;

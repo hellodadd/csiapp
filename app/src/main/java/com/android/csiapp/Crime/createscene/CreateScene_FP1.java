@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -63,6 +64,8 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private Spinner mSceneCondition_spinner;
     private ArrayList<String> mSceneCondition = new ArrayList<String>();;
     private ArrayAdapter<String> mSceneCondition_adapter;
+    private LinearLayout mChangeReasonLinearLayout;
+    private ClearableEditText mChangeReason;
 
     private Spinner mWeatherCondition_spinner;
     private ArrayList<String> mWeatherCondition = new ArrayList<String>();;
@@ -76,6 +79,22 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private ClearableEditText mHumidity;
     private ClearableEditText mAccessReason;
     private Button mAccessReasonBtn;
+
+    private Spinner mIlluminationCondition_spinner;
+    private ArrayList<String> mIlluminationCondition = new ArrayList<String>();;
+    private ArrayAdapter<String> mIlluminationCondition_adapter;
+
+    private ClearableEditText mProductPeopleName;
+    private ClearableEditText mProductPeopleUnit;
+    private ClearableEditText mProductPeopleDuties;
+    private ClearableEditText mSafeguard;
+
+    private Spinner mSceneConductor_spinner;
+    private ArrayList<String> mSceneConductor = new ArrayList<String>();;
+    private ArrayAdapter<String> mSceneConductor_adapter;
+    private Spinner mAccessInspectors_spinner;
+    private ArrayList<String> mAccessInspectors = new ArrayList<String>();;
+    private ArrayAdapter<String> mAccessInspectors_adapter;
 
     public CreateScene_FP1() {
         // Required empty public constructor
@@ -153,6 +172,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mCaseOccurProcessBtn = (Button) view.findViewById(R.id.caseOccurProcess_button);
         mCaseOccurProcessBtn.setOnClickListener(this);
 
+        mChangeReasonLinearLayout = (LinearLayout) view.findViewById(R.id.change_reason_linear);
         mSceneCondition = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.sceneCondition)));
         mSceneCondition_spinner = (Spinner) view.findViewById(R.id.sceneCondition_spinner);
         mSceneCondition_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mSceneCondition);
@@ -162,11 +182,17 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 mItem.setSceneCondition(mSceneCondition.get(position));
+                if(position==0){
+                    mChangeReasonLinearLayout.setVisibility(View.GONE);
+                }else{
+                    mChangeReasonLinearLayout.setVisibility(View.VISIBLE);
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
+        mChangeReason = (ClearableEditText) view.findViewById(R.id.change_reason);
 
         mWeatherCondition = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.weatherCondition)));
         mWeatherCondition_spinner = (Spinner) view.findViewById(R.id.weatherCondition_spinner);
@@ -203,6 +229,56 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mAccessReason = (ClearableEditText) view.findViewById(R.id.accessReason);
         mAccessReasonBtn = (Button) view.findViewById(R.id.accessReason_button);
         mAccessReasonBtn.setOnClickListener(this);
+
+        mIlluminationCondition = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.illuminationCondition)));
+        mIlluminationCondition_spinner = (Spinner) view.findViewById(R.id.illuminationCondition_spinner);
+        mIlluminationCondition_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mIlluminationCondition);
+        mIlluminationCondition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mIlluminationCondition_spinner.setAdapter(mIlluminationCondition_adapter);
+        mIlluminationCondition_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setIlluminationCondition(mIlluminationCondition.get(position));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+        mProductPeopleName = (ClearableEditText) view.findViewById(R.id.productPeople_name);
+        mProductPeopleUnit = (ClearableEditText) view.findViewById(R.id.productPeople_unit);
+        mProductPeopleDuties = (ClearableEditText) view.findViewById(R.id.productPeople_duties);
+        mSafeguard = (ClearableEditText) view.findViewById(R.id.safeguard);
+
+        mSceneConductor = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.sceneConductor)));
+        mSceneConductor_spinner = (Spinner) view.findViewById(R.id.sceneConductor_spinner);
+        mSceneConductor_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mSceneConductor);
+        mSceneConductor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSceneConductor_spinner.setAdapter(mSceneConductor_adapter);
+        mSceneConductor_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setSceneConductor(mSceneConductor.get(position));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+        mAccessInspectors = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.accessInspectors)));
+        mAccessInspectors_spinner = (Spinner) view.findViewById(R.id.accessInspectors_spinner);
+        mAccessInspectors_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mAccessInspectors);
+        mAccessInspectors_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mAccessInspectors_spinner.setAdapter(mAccessInspectors_adapter);
+        mAccessInspectors_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mItem.setAccessInspectors(mAccessInspectors.get(position));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
     }
 
     private void initData(){
@@ -214,11 +290,19 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mAccessLocation.setText(mItem.getAccessLocation());
         mCaseOccurProcess.setText(mItem.getCaseOccurProcess());
         mSceneCondition_spinner.setSelection(getSceneCondition(mItem.getSceneCondition()));
+        mChangeReason.setText(mItem.getChangeReason());
         mWeatherCondition_spinner.setSelection(getWeatherCondition(mItem.getWeatherCondition()));
         mWindDirection_spinner.setSelection(getWindDirection(mItem.getWindDirection()));
         mTemperature.setText(mItem.getTemperature());
         mHumidity.setText(mItem.getHumidity());
         mAccessReason.setText(mItem.getAccessReason());
+        mIlluminationCondition_spinner.setSelection(getIlluminationCondition(mItem.getIlluminationCondition()));
+        mProductPeopleName.setText(mItem.getProductPeopleName());
+        mProductPeopleUnit.setText(mItem.getProductPeopleUnit());
+        mProductPeopleDuties.setText(mItem.getProductPeopleDuties());
+        mSafeguard.setText(mItem.getSafeguard());
+        mSceneConductor_spinner.setSelection(getSceneConductor(mItem.getSceneConductor()));
+        mAccessInspectors_spinner.setSelection(getAccessInspectors(mItem.getAccessInspectors()));
 
         mOccurred_start_time.setText(DateTimePicker.getCurrentTime(mItem.getOccurredStartTime()));
         mOccurred_end_time.setText(DateTimePicker.getCurrentTime(mItem.getOccurredEndTime()));
@@ -233,9 +317,14 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mItem.setAccessPolicemen(mAccessPolicemen.getText());
         mItem.setAccessLocation(mAccessLocation.getText());
         mItem.setCaseOccurProcess(mCaseOccurProcess.getText());
+        mItem.setChangeReason(mChangeReason.getText());
         mItem.setTemperature(mTemperature.getText());
         mItem.setHumidity(mHumidity.getText());
         mItem.setAccessReason(mAccessReason.getText());
+        mItem.setProductPeopleName(mProductPeopleName.getText());
+        mItem.setProductPeopleUnit(mProductPeopleUnit.getText());
+        mItem.setProductPeopleDuties(mProductPeopleDuties.getText());
+        mItem.setSafeguard(mSafeguard.getText());
     }
 
     @Override
@@ -310,6 +399,28 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         }
         return 0;
     }
+
+    private int getIlluminationCondition(String illuminationCondition){
+        for(int i=0; i<mIlluminationCondition.size(); i++){
+            if(illuminationCondition.equalsIgnoreCase(mIlluminationCondition.get(i))) return i;
+        }
+        return 0;
+    }
+
+    private int getSceneConductor(String sceneConductor){
+        for(int i=0; i<mSceneConductor.size(); i++){
+            if(sceneConductor.equalsIgnoreCase(mSceneConductor.get(i))) return i;
+        }
+        return 0;
+    }
+
+    private int getAccessInspectors(String accessInspectors){
+        for(int i=0; i<mAccessInspectors.size(); i++){
+            if(accessInspectors.equalsIgnoreCase(mAccessInspectors.get(i))) return i;
+        }
+        return 0;
+    }
+
 
     private void showDateTimeDialog(final TextView textView,final int type) {
         // Create the dialog

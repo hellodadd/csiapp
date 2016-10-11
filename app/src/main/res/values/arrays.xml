@@ -41,6 +41,24 @@
         <item>南风</item>
     </string-array>
 
+    <string-array name="illuminationCondition">
+        <item>自然光</item>
+        <item>灯光</item>
+        <item>特种光</item>
+    </string-array>
+
+    <string-array name="sceneConductor">
+        <item>徐杰</item>
+        <item>杨奚</item>
+        <item>王方圓</item>
+    </string-array>
+
+    <string-array name="accessInspectors">
+        <item>徐杰</item>
+        <item>杨奚</item>
+        <item>王方圓</item>
+    </string-array>
+
     <!--page2-->
     <string-array name="releation_people">
         <item>报案人</item>

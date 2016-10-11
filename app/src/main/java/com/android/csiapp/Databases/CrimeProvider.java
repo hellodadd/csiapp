@@ -181,11 +181,19 @@ public class CrimeProvider {
                 result.setAccessLocation(cursor1.getString(11));
                 result.setCaseOccurProcess(cursor1.getString(12));
                 result.setSceneCondition(cursor1.getString(13));
-                result.setWeatherCondition(cursor1.getString(14));
-                result.setWindDirection(cursor1.getString(15));
-                result.setTemperature(cursor1.getString(16));
-                result.setHumidity(cursor1.getString(17));
-                result.setAccessReason(cursor1.getString(18));
+                result.setChangeReason(cursor1.getString(14));
+                result.setWeatherCondition(cursor1.getString(15));
+                result.setWindDirection(cursor1.getString(16));
+                result.setTemperature(cursor1.getString(17));
+                result.setHumidity(cursor1.getString(18));
+                result.setAccessReason(cursor1.getString(19));
+                result.setIlluminationCondition(cursor1.getString(20));
+                result.setProductPeopleName(cursor1.getString(21));
+                result.setProductPeopleUnit(cursor1.getString(22));
+                result.setProductPeopleDuties(cursor1.getString(23));
+                result.setSafeguard(cursor1.getString(24));
+                result.setSceneConductor(cursor1.getString(25));
+                result.setAccessInspectors(cursor1.getString(26));
             }
             cursor1.close();
 

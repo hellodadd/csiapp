@@ -25,11 +25,19 @@ public class CrimeItem implements Serializable {
     private String mAccessLocation;
     private String mCaseOccurProcess;
     private String mSceneCondition;
+    private String mChangeReason;
     private String mWeatherCondition;
     private String mWindDirection;
     private String mTemperature;
     private String mHumidity;
     private String mAccessReason;
+    private String mIlluminationCondition;
+    private String mProductPeopleName;
+    private String mProductPeopleUnit;
+    private String mProductPeopleDuties;
+    private String mSafeguard;
+    private String mSceneConductor;
+    private String mAccessInspectors;
 
     //Page 2 (New people)
     private List<RelatedPeopleItem> mReleatedPeopleItem;
@@ -89,11 +97,19 @@ public class CrimeItem implements Serializable {
         this.mAccessLocation = "";
         this.mCaseOccurProcess = "";
         this.mSceneCondition = "";
+        this.mChangeReason = "";
         this.mWeatherCondition = "";
         this.mWindDirection = "";
         this.mTemperature = "";
         this.mHumidity = "";
         this.mAccessReason = "";
+        this.mIlluminationCondition = "";
+        this.mProductPeopleName = "";
+        this.mProductPeopleUnit = "";
+        this.mProductPeopleDuties = "";
+        this.mSafeguard = "";
+        this.mSceneConductor = "";
+        this.mAccessInspectors = "";
 
         this.mReleatedPeopleItem = new ArrayList<RelatedPeopleItem>();
         this.mLostItem = new ArrayList<LostItem>();
@@ -243,6 +259,14 @@ public class CrimeItem implements Serializable {
         this.mSceneCondition = sceneCondition ;
     }
 
+    public String getChangeReason () {
+        return mChangeReason;
+    }
+
+    public void setChangeReason (String changeReason ) {
+        this.mChangeReason = changeReason ;
+    }
+
     public String getWeatherCondition () {
         return mWeatherCondition;
     }
@@ -281,6 +305,62 @@ public class CrimeItem implements Serializable {
 
     public void setAccessReason (String accessReason ) {
         this.mAccessReason = accessReason ;
+    }
+
+    public String getIlluminationCondition () {
+        return mIlluminationCondition;
+    }
+
+    public void setIlluminationCondition (String illuminationCondition ) {
+        this.mIlluminationCondition = illuminationCondition ;
+    }
+
+    public String getProductPeopleName () {
+        return mProductPeopleName;
+    }
+
+    public void setProductPeopleName (String productPeopleName ) {
+        this.mProductPeopleName = productPeopleName ;
+    }
+
+    public String getProductPeopleUnit () {
+        return mProductPeopleUnit;
+    }
+
+    public void setProductPeopleUnit (String productPeopleUnit ) {
+        this.mProductPeopleUnit = productPeopleUnit ;
+    }
+
+    public String getProductPeopleDuties () {
+        return mProductPeopleDuties;
+    }
+
+    public void setProductPeopleDuties (String productPeopleDuties ) {
+        this.mProductPeopleDuties = productPeopleDuties ;
+    }
+
+    public String getSafeguard() {
+        return mSafeguard;
+    }
+
+    public void setSafeguard (String safeguard ) {
+        this.mSafeguard = safeguard ;
+    }
+
+    public String getSceneConductor () {
+        return mSceneConductor;
+    }
+
+    public void setSceneConductor (String sceneConductor ) {
+        this.mSceneConductor = sceneConductor ;
+    }
+
+    public String getAccessInspectors  () {
+        return mAccessInspectors ;
+    }
+
+    public void setAccessInspectors  (String accessInspectors  ) {
+        this.mAccessInspectors  = accessInspectors ;
     }
 
     //Page 2 (New People)
