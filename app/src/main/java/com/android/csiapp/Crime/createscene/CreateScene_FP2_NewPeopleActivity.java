@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.DigitsKeyListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -135,6 +136,8 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         mId = (ClearableEditText) findViewById(R.id.identity_number_editView);
         mNumber = (ClearableEditText) findViewById(R.id.contact_number_editView);
         mAddress = (ClearableEditText) findViewById(R.id.address_editView);
+        mId.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+        mNumber.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
     }
 
     private void initData(){

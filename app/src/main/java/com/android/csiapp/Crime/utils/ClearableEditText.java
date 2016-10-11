@@ -3,6 +3,7 @@ package com.android.csiapp.Crime.utils;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.KeyListener;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,14 +92,17 @@ public class ClearableEditText extends RelativeLayout
         });
     }
 
-    public String getText()
-    {
+    public String getText() {
         Editable text = edit_text.getText();
         return text.toString();
     }
 
-    public void setText(String text)
-    {
+    public void setText(String text) {
         edit_text.setText(text);
     }
+
+    public void setKeyListener(KeyListener input) {
+        edit_text.setKeyListener(input);
+    }
+
 }
