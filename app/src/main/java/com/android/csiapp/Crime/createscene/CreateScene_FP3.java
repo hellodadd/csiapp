@@ -3,19 +3,22 @@ package com.android.csiapp.Crime.createscene;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
+import com.android.csiapp.Crime.utils.PhotoAdapter;
 import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,9 +27,13 @@ public class CreateScene_FP3 extends Fragment {
 
     private Context context = null;
     private CrimeItem mItem;
+    private PhotoItem mPositionItem;
     private int mEvent;
+
+    List<PhotoItem> mPositionList;
+    private ListView mPosition_List;
+    private PhotoAdapter mPosition_Adapter;
     private ImageButton mAdd_Position;
-    private ImageButton mPosition;
 
     public CreateScene_FP3() {
         // Required empty public constructor
@@ -40,6 +47,7 @@ public class CreateScene_FP3 extends Fragment {
         mEvent = activity.getEvent();
         context = getActivity().getApplicationContext();
 
+        initData();
         initView(view);
 
         return view;
@@ -51,23 +59,88 @@ public class CreateScene_FP3 extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getActivity(), CreateScene_FP3_PositionInformationActivity.class);
-                it.putExtra("com.android.csiapp.Databases.CrimeItem",mItem);
+                it.putExtra("com.android.csiapp.Databases.CrimeItem", mItem);
+                it.putExtra("Event",1);
                 startActivityForResult(it, 0);
             }
         });
-        mPosition = (ImageButton) view.findViewById(R.id.position);
+
+        mPosition_List=(ListView) view.findViewById(R.id.position_listview);
+        mPosition_Adapter = new PhotoAdapter(context, mPositionList, 1);
+        mPosition_List.setAdapter(mPosition_Adapter);
+        setListViewHeightBasedOnChildren(mPosition_List);
+        AdapterView.OnItemClickListener itemListener1 = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent it = new Intent(getActivity(), CreateScene_FP3_PositionInformationActivity.class);
+                it.putExtra("com.android.csiapp.Databases.CrimeItem", mItem);
+                it.putExtra("Event",2);
+                it.putExtra("Position", position);
+                startActivityForResult(it,0);
+            }
+        };
+        mPosition_List.setOnItemClickListener(itemListener1);
+    }
+
+    private void initData(){
+        mPositionList = mItem.getPosition();
+    }
+
+    private void saveData(){
+        mItem.setPosition(mPositionList);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        initData();
+        mPosition_Adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        saveData();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("BaiduMap","onActivityResult");
         if (resultCode == Activity.RESULT_OK && requestCode == 0) {
-            String filepath = data.getStringExtra("BaiduMap_ScreenShot");
-            Log.d("BaiduMap","onActivityResult, filepath: " + filepath);
-            Bitmap Bitmap = BitmapFactory.decodeFile(filepath);
-            BitmapDrawable bDrawable = new BitmapDrawable(getActivity().getApplicationContext().getResources(), Bitmap);
-            mPosition.setBackground(bDrawable);
-            mPosition.setVisibility(View.VISIBLE);
+            // 新增記事資料到資料庫
+            PhotoItem positionItem = (PhotoItem) data.getSerializableExtra("com.android.csiapp.Databases.PositionItem");
+            int event = (int) data.getIntExtra("Event", 1);
+            int position = (int) data.getIntExtra("Position",0);
+            if(event == 1) {
+                mPositionList.add(positionItem);
+            }else{
+                mPositionList.set(position, positionItem);
+            }
+            setListViewHeightBasedOnChildren(mPosition_List);
+            mPosition_Adapter.notifyDataSetChanged();
         }
+    }
+
+    private void setListViewHeightBasedOnChildren(ListView listView) {
+        // 获取ListView对应的Adapter
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
+            // listAdapter.getCount()获取ListView对应的Adapter
+            View listItem = listAdapter.getView(i, null, listView);
+            // 计算子项View 的宽高
+            listItem.measure(0, 0);
+            // 统计所有子项的总高度
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        // listView.getDividerHeight()获取子项间分隔符占用的高度
+        // params.height最后得到整个ListView完整显示需要的高度
+        listView.setLayoutParams(params);
     }
 }

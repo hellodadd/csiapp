@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Databases.EvidenceItem;
+import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
 
 import java.io.File;
@@ -109,7 +110,6 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         setContentView(R.layout.create_scene_fp5_new_evidence);
 
         context = this.getApplicationContext();
-        mEvidenceItem = (EvidenceItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.EvidenceItem");
         mEvent = (int) getIntent().getIntExtra("Event", 1);
         mPosition = (int) getIntent().getIntExtra("Position", 0);
 
@@ -209,6 +209,11 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     }
 
     private void initData(){
+        if(mEvent == 1) {
+            mEvidenceItem = new EvidenceItem();
+        }else{
+            mEvidenceItem = (EvidenceItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.EvidenceItem");
+        }
         if(!mEvidenceItem.getPhotoPath().isEmpty()) setPhoto(mEvidenceItem.getPhotoPath());
         mEvidence_category_spinner.setSelection(getCategory(mEvidenceItem.getEvidenceCategory()));
         mEvidence_spinner.setSelection(getEvidence(mEvidenceItem.getEvidence()));

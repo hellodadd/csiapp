@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
 
 import java.util.Calendar;
@@ -26,7 +27,9 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
 
     private Context context = null;
     private CrimeItem mItem;
+    private PhotoItem mPositionItem;
     private int mEvent;
+    private int mPosition;
     private ImageView mNew_Position;
     private TextView mInformationText;
     private String mFilepath;
@@ -43,7 +46,10 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
                     break;
                 case R.id.action_click:
                     msg += "Save";
-                    Intent result = getIntent().putExtra("BaiduMap_ScreenShot", mFilepath);
+                    Intent result = getIntent();
+                    result.putExtra("com.android.csiapp.Databases.PositionItem", mPositionItem);
+                    result.putExtra("Event",mEvent);
+                    result.putExtra("Position",mPosition);
                     setResult(Activity.RESULT_OK, result);
                     finish();
                     break;
@@ -63,6 +69,8 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
 
         context = this.getApplicationContext();
         mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.CrimeItem");
+        mEvent = (int) getIntent().getIntExtra("Event", 1);
+        mPosition = (int) getIntent().getIntExtra("Position", 0);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(context.getResources().getString(R.string.title_activity_position_information));
@@ -78,17 +86,33 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
-        mNew_Position = (ImageView) findViewById(R.id.new_position);
-        mInformationText = (TextView) findViewById(R.id.information);
-        mInformationText.setText(getInformation());
+        initView();
 
-        Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity.class);
-        startActivityForResult(it, 0);
+        if(mEvent == 1) {
+            mPositionItem = new PhotoItem();
+            Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity.class);
+            startActivityForResult(it, 0);
+        }else{
+            mPositionItem = mItem.getPosition().get(mPosition);
+            setPhoto(mPositionItem.getPhotoPath());
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_create_fp3_position_information, menu);
         return true;
+    }
+
+    private void initView(){
+        mNew_Position = (ImageView) findViewById(R.id.new_position);
+        mInformationText = (TextView) findViewById(R.id.information);
+        mInformationText.setText(getInformation());
+    }
+
+    private void setPhoto(String path){
+        Bitmap Bitmap = BitmapFactory.decodeFile(path);
+        mNew_Position.setImageBitmap(Bitmap);
+        mNew_Position.setVisibility(View.VISIBLE);
     }
 
     private String getInformation(){
@@ -114,13 +138,9 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("BaiduMap","onActivityResult");
         if (resultCode == Activity.RESULT_OK && requestCode == 0) {
-            mFilepath = data.getStringExtra("BaiduMap_ScreenShot");
-            Log.d("BaiduMap","onActivityResult, filepath: " + mFilepath);
-            Bitmap Bitmap = BitmapFactory.decodeFile(mFilepath);
-            mNew_Position.setImageBitmap(Bitmap);
-            mNew_Position.setVisibility(View.VISIBLE);
+            mPositionItem.setPhotoPath(data.getStringExtra("BaiduMap_ScreenShot"));
+            setPhoto(mPositionItem.getPhotoPath());
         }
     }
 }

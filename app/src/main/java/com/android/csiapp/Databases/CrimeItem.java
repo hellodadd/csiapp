@@ -40,6 +40,21 @@ public class CrimeItem implements Serializable {
     //Page 2 (New Tool)
     private List<CrimeToolItem> mCrimeToolItem;
 
+    //Page 3 (Position)
+    private List<PhotoItem> mPositionItem;
+
+    //Page 4 (PositionPhoto)
+    private List<PhotoItem> mPositionPhotoItem;
+
+    //Page 4 (Overview)
+    private List<PhotoItem> mOverviewPhotoItem;
+
+    //Page 4 (Important)
+    private List<PhotoItem> mImportantPhotoItem;
+
+    //Page 5 (Evidence)
+    private List<EvidenceItem> mEvidenceItem;
+
     //Page 7
     private String mCrimePeopleNumber;
     private String mCrimeMeans;
@@ -83,6 +98,14 @@ public class CrimeItem implements Serializable {
         this.mReleatedPeopleItem = new ArrayList<RelatedPeopleItem>();
         this.mLostItem = new ArrayList<LostItem>();
         this.mCrimeToolItem = new ArrayList<CrimeToolItem>();
+
+        this.mPositionItem = new ArrayList<PhotoItem>();
+
+        this.mPositionPhotoItem = new ArrayList<PhotoItem>();
+        this.mOverviewPhotoItem = new ArrayList<PhotoItem>();
+        this.mImportantPhotoItem = new ArrayList<PhotoItem>();
+
+        this.mEvidenceItem = new ArrayList<EvidenceItem>();
 
         this.mCrimePeopleNumber = "";
         this.mCrimeMeans = "";
@@ -274,6 +297,31 @@ public class CrimeItem implements Serializable {
     public List<CrimeToolItem>  getCrimeTool() {return mCrimeToolItem; }
 
     public void setCrimeTool(List<CrimeToolItem>  crimeTool) {this.mCrimeToolItem = crimeTool; }
+
+    //Page 3 (Position)
+    public List<PhotoItem>  getPosition() {return mPositionItem; }
+
+    public void setPosition(List<PhotoItem>  positionItem) {this.mPositionItem = positionItem; }
+
+    //Page 4 (PositionPhoto)
+    public List<PhotoItem>  getPositionPhoto() {return mPositionPhotoItem; }
+
+    public void setPositionPhoto(List<PhotoItem>  positionPhotoItem) {this.mPositionPhotoItem = positionPhotoItem; }
+
+    //Page 4 (OverviewPhoto)
+    public List<PhotoItem>  getOverviewPhoto() {return mOverviewPhotoItem; }
+
+    public void setOverviewPhoto(List<PhotoItem>  overviewPhotoItem) {this.mOverviewPhotoItem = overviewPhotoItem; }
+
+    //Page 4 (ImportantPhoto)
+    public List<PhotoItem>  getImportantPhoto() {return mImportantPhotoItem; }
+
+    public void setImportantPhoto(List<PhotoItem>  importantPhotoItem) {this.mImportantPhotoItem = importantPhotoItem; }
+
+    //Page 5 (Evidence)
+    public List<EvidenceItem>  getEvidenceItem() {return mEvidenceItem; }
+
+    public void setEvidenceItem(List<EvidenceItem>  evidenceItem) {this.mEvidenceItem = evidenceItem; }
 
     //Page 7
     public String getCrimePeopleNumber() {return mCrimePeopleNumber; }

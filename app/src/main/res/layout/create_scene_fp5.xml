@@ -44,14 +44,12 @@
                     android:background="@drawable/add" />
             </LinearLayout>
 
-            <ImageButton
-                android:layout_width="161dp"
-                android:layout_height="161dp"
-                android:id="@+id/Scene_evidence"
-                android:layout_gravity="center"
-                android:layout_marginBottom="6dp"
-                android:background="#FFFFFF"
-                android:visibility="gone"/>
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/evidence_listview"
+                android:background="#FFFFFF"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

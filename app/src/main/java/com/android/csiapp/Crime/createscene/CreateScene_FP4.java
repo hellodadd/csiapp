@@ -1,5 +1,6 @@
 package com.android.csiapp.Crime.createscene;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,15 +16,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
+import com.android.csiapp.Crime.utils.PhotoAdapter;
 import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -33,12 +40,21 @@ public class CreateScene_FP4 extends Fragment {
     private Context context = null;
     private Uri LocalFileUri = null;
     private CrimeItem mItem;
+    private PhotoItem mPositionItem;
+    private int mEvent;
+
+    List<PhotoItem> mPositionList;
+    private ListView mPosition_List;
+    private PhotoAdapter mPosition_Adapter;
+    List<PhotoItem> mLikeList;
+    private ListView mLike_List;
+    private PhotoAdapter mLike_Adapter;
+    List<PhotoItem> mImportantList;
+    private ListView mImportant_List;
+    private PhotoAdapter mImportant_Adapter;
     private ImageButton mAdd_Position;
     private ImageButton mAdd_Like;
     private ImageButton mAdd_Important;
-    private ImageButton mPosition;
-    private ImageButton mLike;
-    private ImageButton mImportant;
 
     public static final int PHOTO_TYPE_POSITION = 1;
     public static final int PHOTO_TYPE_LIKE = 2;
@@ -53,8 +69,10 @@ public class CreateScene_FP4 extends Fragment {
         View view = inflater.inflate(R.layout.create_scene_fp4, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
         mItem = activity.getItem();
+        mEvent = activity.getEvent();
         context = getActivity().getApplicationContext();
 
+        initData();
         initView(view);
 
         return view;
@@ -69,7 +87,12 @@ public class CreateScene_FP4 extends Fragment {
                 takePhoto(LocalFileUri, PHOTO_TYPE_POSITION);
             }
         });
-        mPosition = (ImageButton) view.findViewById(R.id.Position_photo_imageButton);
+
+        mPosition_List=(ListView) view.findViewById(R.id.Position_photo_listview);
+        mPosition_Adapter = new PhotoAdapter(context, mPositionList, 2);
+        mPosition_List.setAdapter(mPosition_Adapter);
+        setListViewHeightBasedOnChildren(mPosition_List);
+
         mAdd_Like = (ImageButton) view.findViewById(R.id.add_like_photo_imageButton);
         mAdd_Like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +101,12 @@ public class CreateScene_FP4 extends Fragment {
                 takePhoto(LocalFileUri, PHOTO_TYPE_LIKE);
             }
         });
-        mLike = (ImageButton) view.findViewById(R.id.Like_photo_imageButton);
+
+        mLike_List=(ListView) view.findViewById(R.id.Like_photo_listview);
+        mLike_Adapter = new PhotoAdapter(context, mLikeList, 2);
+        mLike_List.setAdapter(mLike_Adapter);
+        setListViewHeightBasedOnChildren(mLike_List);
+
         mAdd_Important = (ImageButton) view.findViewById(R.id.add_important_photo_imageButton);
         mAdd_Important.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +115,36 @@ public class CreateScene_FP4 extends Fragment {
                 takePhoto(LocalFileUri, PHOTO_TYPE_IMPORTANT);
             }
         });
-        mImportant = (ImageButton) view.findViewById(R.id.Important_photo_imageButton);
+
+        mImportant_List=(ListView) view.findViewById(R.id.Important_photo_listview);
+        mImportant_Adapter = new PhotoAdapter(context, mImportantList, 2);
+        mImportant_List.setAdapter(mImportant_Adapter);
+        setListViewHeightBasedOnChildren(mImportant_List);
+    }
+
+    private void initData(){
+        mPositionList = mItem.getPositionPhoto();
+        mLikeList = mItem.getOverviewPhoto();
+        mImportantList = mItem.getImportantPhoto();
+    }
+
+    private void saveData(){
+        mItem.setPositionPhoto(mPositionList);
+        mItem.setOverviewPhoto(mLikeList);
+        mItem.setImportantPhoto(mImportantList);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        initData();
+        mPosition_Adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        saveData();
     }
 
     private void takePhoto(Uri LocalFileUri, int PHOTO_TYPE) {
@@ -101,26 +158,51 @@ public class CreateScene_FP4 extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         String path = LocalFileUri.getPath();
-        if (path != null && mPosition != null && mLike!= null && mImportant != null) {
-            Bitmap Bitmap = loadBitmapFromFile(new File(path));
-
+        PhotoItem photoItem = new PhotoItem();
+        photoItem.setPhotoPath(path);
+        Log.d("Anita","LocalFile = "+path);
+        if (resultCode == Activity.RESULT_OK) {
             if (requestCode == PHOTO_TYPE_POSITION) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_POSITION");
-                BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
-                mPosition.setBackground(bDrawable);
-                mPosition.setVisibility(View.VISIBLE);
+                mPositionList.add(photoItem);
+                setListViewHeightBasedOnChildren(mPosition_List);
+                mPosition_Adapter.notifyDataSetChanged();
             } else if (requestCode == PHOTO_TYPE_LIKE) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_LIKE");
-                BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
-                mLike.setBackground(bDrawable);
-                mLike.setVisibility(View.VISIBLE);
+                mLikeList.add(photoItem);
+                setListViewHeightBasedOnChildren(mLike_List);
+                mLike_Adapter.notifyDataSetChanged();
             } else if (requestCode == PHOTO_TYPE_IMPORTANT) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_IMPORTANT");
-                BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
-                mImportant.setBackground(bDrawable);
-                mImportant.setVisibility(View.VISIBLE);
+                mImportantList.add(photoItem);
+                setListViewHeightBasedOnChildren(mImportant_List);
+                mImportant_Adapter.notifyDataSetChanged();
             }
         }
+    }
+
+    private void setListViewHeightBasedOnChildren(ListView listView) {
+        // 获取ListView对应的Adapter
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
+            // listAdapter.getCount()获取ListView对应的Adapter
+            View listItem = listAdapter.getView(i, null, listView);
+            // 计算子项View 的宽高
+            listItem.measure(0, 0);
+            // 统计所有子项的总高度
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        // listView.getDividerHeight()获取子项间分隔符占用的高度
+        // params.height最后得到整个ListView完整显示需要的高度
+        listView.setLayoutParams(params);
     }
 
     private File getOutputMediaFile(Context context, int type){
@@ -152,27 +234,5 @@ public class CreateScene_FP4 extends Fragment {
         }
 
         return mediaFile;
-    }
-
-    private Bitmap loadBitmapFromFile(File f) {
-        Bitmap b = null;
-        BitmapFactory.Options option = new BitmapFactory.Options();
-        // Bitmap sampling factor, size = (Original Size)/(inSampleSize)
-        option.inSampleSize = 4;
-
-        try {
-            FileInputStream fis = new FileInputStream(f);
-            b = BitmapFactory.decodeStream(fis, null, option);
-            fis.close();
-
-            // Rotate Bitmap by 90 degree
-            Matrix matrix = new Matrix();
-            matrix.setRotate(0, (float)b.getWidth()/2, (float)b.getHeight()/2);
-            Bitmap resultImage = Bitmap.createBitmap(b, 0, 0, b.getWidth(), b.getHeight(), matrix, true);
-
-            return resultImage;
-        } catch(Exception e) {
-            return null;
-        }
     }
 }
