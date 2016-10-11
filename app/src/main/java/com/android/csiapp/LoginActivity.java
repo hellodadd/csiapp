@@ -228,7 +228,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(it);
                 finish();
             } else if(!"Q5_LY".equalsIgnoreCase(SystemProperties.get("ro.product.device"))){
-                Toast.makeText(LoginActivity.this, "装置?��??�入", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "装置无法登入", Toast.LENGTH_SHORT).show();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
