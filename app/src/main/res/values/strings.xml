@@ -2,8 +2,8 @@
     <string name="app_name">快勘</string>
 
     <!-- Strings related to Login -->
-    <string name="prompt_user">使用者帐号</string>
-    <string name="prompt_password">密码</string>
+    <string name="prompt_user"><font size="15">使用者帐号</font></string>
+    <string name="prompt_password"><font size="15">密码</font></string>
     <string name="action_sign_in_short">登录</string>
     <string name="data_recorvy">恢复数据</string>
     <string name="error_field_required">需要輸入使用者帳號</string>
