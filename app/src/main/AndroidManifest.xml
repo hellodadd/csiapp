@@ -29,19 +29,23 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" 
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LockedActivity">
+        <activity android:name=".LockedActivity"
+              android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".MainActivity">
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity android:name=".Crime.createscene.CreateSceneActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
+               android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+               android:screenOrientation="portrait" >
             <intent-filter>
                 <!-- 新增用的名稱 -->
                 <action android:name="com.android.csiapp.ADD_SCENE" />
@@ -51,22 +55,30 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Crime.listscene.ListActivity" />
-        <activity android:name=".Crime.setting.SettingActivity" />
+        <activity android:name=".Crime.listscene.ListActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Crime.setting.SettingActivity" 
+            android:screenOrientation="portrait"/>
         <activity android:name=".Crime.createscene.CreateScene_FP2_NewPeopleActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" 
+            android:screenOrientation="portrait"/>
         <activity android:name=".Crime.createscene.CreateScene_FP2_NewItemActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" 
+            android:screenOrientation="portrait"/>
         <activity android:name=".Crime.createscene.CreateScene_FP2_NewToolActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" 
+            android:screenOrientation="portrait"/>
         <activity android:name=".Crime.createscene.CreateScene_FP3_PositionInformationActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity android:name=".Crime.createscene.CreateScene_FP3_NewPositionActivity"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Crime.createscene.CreateScene_FP3_NewPositionActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Crime.createscene.CreateScene_FP5_NewEvidenceActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" 
+            android:screenOrientation="portrait"/>
         <activity android:name=".Crime.createscene.CreateScene_FP8_AddWitnessActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" 
+            android:screenOrientation="portrait"/>
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
