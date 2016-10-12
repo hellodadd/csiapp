@@ -75,17 +75,6 @@ public class CreateScene_FP3 extends Fragment {
         mPosition_Adapter = new PhotoAdapter(context, mPositionList, 1);
         mPosition_List.setAdapter(mPosition_Adapter);
         setListViewHeightBasedOnChildren(mPosition_List);
-        AdapterView.OnItemClickListener itemListener1 = new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent it = new Intent(getActivity(), CreateScene_FP3_PositionInformationActivity.class);
-                it.putExtra("com.android.csiapp.Databases.CrimeItem", mItem);
-                it.putExtra("Event",2);
-                it.putExtra("Position", position);
-                startActivityForResult(it,0);
-            }
-        };
-        mPosition_List.setOnItemClickListener(itemListener1);
 
         registerForContextMenu(mPosition_List);
     }
