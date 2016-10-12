@@ -13,7 +13,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -59,6 +61,10 @@ public class CreateScene_FP4 extends Fragment {
     public static final int PHOTO_TYPE_POSITION = 1;
     public static final int PHOTO_TYPE_LIKE = 2;
     public static final int PHOTO_TYPE_IMPORTANT = 3;
+
+    final int POSITION_PHOTO_DELETE = 4;
+    final int LIKE_PHOTO_DELETE = 5;
+    final int IMPORTANT_PHOTO_DELETE = 6;
 
     public CreateScene_FP4() {
         // Required empty public constructor
@@ -120,6 +126,50 @@ public class CreateScene_FP4 extends Fragment {
         mImportant_Adapter = new PhotoAdapter(context, mImportantList, 2);
         mImportant_List.setAdapter(mImportant_Adapter);
         setListViewHeightBasedOnChildren(mImportant_List);
+
+        registerForContextMenu(mPosition_List);
+        registerForContextMenu(mLike_List);
+        registerForContextMenu(mImportant_List);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        String delete = context.getResources().getString(R.string.list_delete);
+        if (v.getId()==R.id.Position_photo_listview) {
+            menu.add(0, POSITION_PHOTO_DELETE, 0, delete);
+        }else if(v.getId()==R.id.Like_photo_listview){
+            menu.add(0, LIKE_PHOTO_DELETE, 0, delete);
+        }else if(v.getId()==R.id.Important_photo_listview){
+            menu.add(0, IMPORTANT_PHOTO_DELETE, 0, delete);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch(item.getItemId()) {
+            case POSITION_PHOTO_DELETE:
+                Log.d("Anita","mPositionList = "+mPositionList.size()+", position = "+info.position);
+                mPositionList.remove(info.position);
+                setListViewHeightBasedOnChildren(mPosition_List);
+                mPosition_Adapter.notifyDataSetChanged();
+                return true;
+            case LIKE_PHOTO_DELETE:
+                Log.d("Anita","mLikeList = "+mLikeList.size()+", position = "+info.position);
+                mLikeList.remove(info.position);
+                setListViewHeightBasedOnChildren(mLike_List);
+                mLike_Adapter.notifyDataSetChanged();
+                return true;
+            case IMPORTANT_PHOTO_DELETE:
+                Log.d("Anita","mImportantList = "+mImportantList.size()+", position = "+info.position);
+                mImportantList.remove(info.position);
+                setListViewHeightBasedOnChildren(mImportant_List);
+                mImportant_Adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     private void initData(){

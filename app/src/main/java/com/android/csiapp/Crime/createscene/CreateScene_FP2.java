@@ -5,7 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -47,6 +51,10 @@ public class CreateScene_FP2 extends Fragment {
     List<CrimeToolItem> mToolList;
     private ListView mTool_List;
     private CrimeItemAdapter mTool_Adapter;
+
+    final int PEOPLE_DELETE = 0;
+    final int ITEM_DELETE = 1;
+    final int TOOL_DELETE = 2;
 
     public CreateScene_FP2() {
         // Required empty public constructor
@@ -156,6 +164,50 @@ public class CreateScene_FP2 extends Fragment {
             }
         };
         mTool_List.setOnItemClickListener(itemListener3);
+
+        registerForContextMenu(mPeople_List);
+        registerForContextMenu(mItem_List);
+        registerForContextMenu(mTool_List);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        String delete = context.getResources().getString(R.string.list_delete);
+        if (v.getId()==R.id.people_listView) {
+            menu.add(0, PEOPLE_DELETE, 0, delete);
+        }else if(v.getId()==R.id.item_listView){
+            menu.add(0, ITEM_DELETE, 0, delete);
+        }else if(v.getId()==R.id.tool_listView){
+            menu.add(0, TOOL_DELETE, 0, delete);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch(item.getItemId()) {
+            case PEOPLE_DELETE:
+                Log.d("Anita","mPeopleList = "+mPeopleList.size()+", position = "+info.position);
+                mPeopleList.remove(info.position);
+                setListViewHeightBasedOnChildren(mPeople_List);
+                mPeople_Adapter.notifyDataSetChanged();
+                return true;
+            case ITEM_DELETE:
+                Log.d("Anita","mItemList = "+mItemList.size()+", position = "+info.position);
+                mItemList.remove(info.position);
+                setListViewHeightBasedOnChildren(mItem_List);
+                mItem_Adapter.notifyDataSetChanged();
+                return true;
+            case TOOL_DELETE:
+                Log.d("Anita","mToolList = "+mToolList.size()+", position = "+info.position);
+                mToolList.remove(info.position);
+                setListViewHeightBasedOnChildren(mTool_List);
+                mTool_Adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     private void initData(){

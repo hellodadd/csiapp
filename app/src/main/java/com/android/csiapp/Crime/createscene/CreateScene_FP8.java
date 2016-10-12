@@ -5,7 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -33,6 +37,8 @@ public class CreateScene_FP8 extends Fragment {
     List<WitnessItem> mWitnessList;
     private ListView mWitness_list;
     private WitnessListAdapter mWitness_adapter;
+
+    final int WITNESS_DELETE = 8;
 
     public CreateScene_FP8() {
         // Required empty public constructor
@@ -81,6 +87,32 @@ public class CreateScene_FP8 extends Fragment {
             }
         };
         mWitness_list.setOnItemClickListener(itemListener);
+
+        registerForContextMenu(mWitness_list);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        String delete = context.getResources().getString(R.string.list_delete);
+        if (v.getId()==R.id.listView) {
+            menu.add(0, WITNESS_DELETE, 0, delete);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch(item.getItemId()) {
+            case WITNESS_DELETE:
+                Log.d("Anita","mWitnessList = "+mWitnessList.size()+", position = "+info.position);
+                mWitnessList.remove(info.position);
+                setListViewHeightBasedOnChildren(mWitness_list);
+                mWitness_adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     private void initData(){

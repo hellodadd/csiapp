@@ -47,7 +47,7 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
                 case R.id.action_click:
                     msg += "Save";
                     Intent result = getIntent();
-                    result.putExtra("com.android.csiapp.Databases.PositionItem", mPositionItem);
+                    result.putExtra("com.android.csiapp.Databases.PhotoItem", mPositionItem);
                     result.putExtra("Event",mEvent);
                     result.putExtra("Position",mPosition);
                     setResult(Activity.RESULT_OK, result);

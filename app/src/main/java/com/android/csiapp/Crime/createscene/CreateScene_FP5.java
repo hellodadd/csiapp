@@ -9,7 +9,10 @@ import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -41,6 +44,8 @@ public class CreateScene_FP5 extends Fragment {
     private ListView mEvidence_List;
     private EvidenceAdapter mEvidence_Adapter;
     private ImageButton mAdd_Scene_Evidence;
+
+    final int EVIDENCE_DELETE = 7;
 
     public CreateScene_FP5() {
         // Required empty public constructor
@@ -89,6 +94,32 @@ public class CreateScene_FP5 extends Fragment {
             }
         };
         mEvidence_List.setOnItemClickListener(itemListener1);
+
+        registerForContextMenu(mEvidence_List);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        String delete = context.getResources().getString(R.string.list_delete);
+        if (v.getId()==R.id.evidence_listview) {
+            menu.add(0, EVIDENCE_DELETE, 0, delete);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch(item.getItemId()) {
+            case EVIDENCE_DELETE:
+                Log.d("Anita","mEvidenceList = "+mEvidenceList.size()+", position = "+info.position);
+                mEvidenceList.remove(info.position);
+                setListViewHeightBasedOnChildren(mEvidence_List);
+                mEvidence_Adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     private void initData(){
