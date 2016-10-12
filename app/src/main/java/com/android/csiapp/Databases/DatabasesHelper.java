@@ -32,19 +32,59 @@ public class DatabasesHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // 建立應用程式需要的表格
+        //Login
         db.execSQL(IdentifyProvider.IDENTIFY_TABLE);
+        //Whole key
         db.execSQL(CrimeProvider.CREATE_TABLE);
+        //Page 1
         db.execSQL(SceneProvider.CREATE_TABLE);
+        //Page 2
+        db.execSQL(RelatedPeopleProvider.CREATE_TABLE);
+        db.execSQL(LostProvider.CREATE_TABLE);
+        db.execSQL(CrimeToolProvider.CREATE_TABLE);
+        //Page 3
+        db.execSQL(PositionProvider.CREATE_TABLE);
+        //Page 4
+        db.execSQL(PositionPhotoProvider.CREATE_TABLE);
+        db.execSQL(OverviewPhotoProvider.CREATE_TABLE);
+        db.execSQL(ImportantPhotoProvider.CREATE_TABLE);
+        //Page 5
+        db.execSQL(EvidenceProvider.CREATE_TABLE);
+        //Page 6
+        db.execSQL(OverviewProvider.CREATE_TABLE);
+        //Page 7
         db.execSQL(AnalysisProvider.CREATE_TABLE);
+        //Page 8
+        db.execSQL(WitnessProvider.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // 刪除原有的表格
+        //Login
         db.execSQL("DROP TABLE IF EXISTS " + IdentifyProvider.TABLE_NAME);
+        //Whole key
         db.execSQL("DROP TABLE IF EXISTS " + CrimeProvider.TABLE_NAME);
+        //Page 1
         db.execSQL("DROP TABLE IF EXISTS " + SceneProvider.TABLE_NAME);
+        //Page 2
+        db.execSQL("DROP TABLE IF EXISTS " + RelatedPeopleProvider.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + LostProvider.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CrimeToolProvider.TABLE_NAME);
+        //Page 3
+        db.execSQL("DROP TABLE IF EXISTS " + PositionProvider.TABLE_NAME);
+        //Page 4
+        db.execSQL("DROP TABLE IF EXISTS " + PositionPhotoProvider.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + OverviewPhotoProvider.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + ImportantPhotoProvider.TABLE_NAME);
+        //Page 5
+        db.execSQL("DROP TABLE IF EXISTS " + EvidenceProvider.TABLE_NAME);
+        //Page 6
+        db.execSQL("DROP TABLE IF EXISTS " + OverviewProvider.TABLE_NAME);
+        //Page 7
         db.execSQL("DROP TABLE IF EXISTS " + AnalysisProvider.TABLE_NAME);
+        //Page 8
+        db.execSQL("DROP TABLE IF EXISTS " + WitnessProvider.TABLE_NAME);
         // 呼叫onCreate建立新版的表格
         onCreate(db);
     }

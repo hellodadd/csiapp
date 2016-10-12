@@ -21,24 +21,64 @@ public class CrimeProvider {
 
     public static final String SCENE_ITEM_NUMBER_COLUMN = "scene_item_number";
     public static final String ANALYSIS_ITEM_NUMBER_COLUMN = "analysis_item_number";
+    public static final String OVERVIEW_COLUMN = "overview_number";
+    public static final String RELATEDPEOPLE_ITEM_NUMBER_COLUMN = "relatedpeople_item_number";
+    public static final String LOST_ITEM_NUMBER_COLUMN = "lost_item_number";
+    public static final String CRIMETOOL_ITEM_NUMBER_COLUMN = "crimetool_item_number";
+    public static final String POSITION_ITEM_NUMBER_COLUMN = "position_item_number";
+    public static final String POSITIONPHOTO_ITEM_NUMBER_COLUMN = "positionphoto_item_number";
+    public static final String OVERVIEWPHOTO_ITEM_NUMBER_COLUMN = "overviewphoto_item_number";
+    public static final String IMPORTANTPHOTO_ITEM_NUMBER_COLUMN = "importantphoto_item_number";
+    public static final String EVIDENCE_ITEM_NUMBER_COLUMN = "evidence_item_number";
+    public static final String WITNESS_ITEM_NUMBER_COLUMN = "witness_item_number";
 
     // 使用上面宣告的變數建立表格的SQL指令
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     SCENE_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    ANALYSIS_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL)";
+                    ANALYSIS_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
+                    OVERVIEW_COLUMN + " INTEGER NOT NULL, " +
+                    RELATEDPEOPLE_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
+                    LOST_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
+                    CRIMETOOL_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
+                    POSITION_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
+                    POSITIONPHOTO_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
+                    OVERVIEWPHOTO_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
+                    IMPORTANTPHOTO_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
+                    EVIDENCE_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
+                    WITNESS_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;
     private SceneProvider mSceneProvider;
     private AnalysisProvider mAnalysisProvider;
+    private OverviewProvider mOverviewProvider;
+    private RelatedPeopleProvider mRelatedPeopleProvider;
+    private LostProvider mLostProvider;
+    private CrimeToolProvider mCrimeToolProvider;
+    private PositionProvider mPositionProvider;
+    private PositionPhotoProvider mPositionPhotoProvider;
+    private OverviewPhotoProvider mOverviewPhotoProvider;
+    private ImportantPhotoProvider mImportantPhotoProvider;
+    private EvidenceProvider mEvidenceProvider;
+    private WitnessProvider mWitnessProvider;
 
     // 建構子，一般的應用都不需要修改
     public CrimeProvider(Context context) {
         db = DatabasesHelper.getDatabase(context);
         mSceneProvider = new SceneProvider(context);
         mAnalysisProvider = new AnalysisProvider(context);
+        mOverviewProvider = new OverviewProvider(context);
+        mRelatedPeopleProvider = new RelatedPeopleProvider(context);
+        mLostProvider = new LostProvider(context);
+        mCrimeToolProvider = new CrimeToolProvider(context);
+        mPositionProvider = new PositionProvider(context);
+        mPositionPhotoProvider = new PositionPhotoProvider(context);
+        mOverviewPhotoProvider = new OverviewPhotoProvider(context);
+        mImportantPhotoProvider = new ImportantPhotoProvider(context);
+        mEvidenceProvider = new EvidenceProvider(context);
+        mWitnessProvider = new WitnessProvider(context);
     }
 
     // 關閉資料庫，一般的應用都不需要修改
@@ -46,6 +86,7 @@ public class CrimeProvider {
         db.close();
     }
 
+    //ToDo
     // 新增參數指定的物件
     public CrimeItem insert(CrimeItem item) {
         // 建立準備新增資料的ContentValues物件
@@ -57,6 +98,18 @@ public class CrimeProvider {
         cv.put(SCENE_ITEM_NUMBER_COLUMN, scene_id);
         long analysis_id = mAnalysisProvider.insert(item);
         cv.put(ANALYSIS_ITEM_NUMBER_COLUMN, analysis_id);
+        long overview_id = mOverviewProvider.insert(item);
+        cv.put(OVERVIEW_COLUMN, overview_id);
+
+        cv.put(RELATEDPEOPLE_ITEM_NUMBER_COLUMN, 0);
+        cv.put(LOST_ITEM_NUMBER_COLUMN, 0);
+        cv.put(CRIMETOOL_ITEM_NUMBER_COLUMN, 0);
+        cv.put(POSITION_ITEM_NUMBER_COLUMN, 0);
+        cv.put(POSITIONPHOTO_ITEM_NUMBER_COLUMN, 0);
+        cv.put(OVERVIEWPHOTO_ITEM_NUMBER_COLUMN, 0);
+        cv.put(IMPORTANTPHOTO_ITEM_NUMBER_COLUMN, 0);
+        cv.put(EVIDENCE_ITEM_NUMBER_COLUMN, 0);
+        cv.put(WITNESS_ITEM_NUMBER_COLUMN, 0);
         // 新增一筆資料並取得編號
         // 第一個參數是表格名稱
         // 第二個參數是沒有指定欄位值的預設值
@@ -69,6 +122,7 @@ public class CrimeProvider {
         return item;
     }
 
+    //Todo
     // 修改參數指定的物件
     public boolean update(CrimeItem item) {
         // 加入ContentValues物件包裝的修改資料
@@ -84,12 +138,14 @@ public class CrimeProvider {
             // 執行修改資料並回傳修改的資料數量是否成功
             boolean result1 = mSceneProvider.update(cursor.getLong(0),item);
             boolean result2 = mAnalysisProvider.update(cursor.getLong(1),item);
+            boolean result3 = mOverviewProvider.update(cursor.getLong(2),item);
             //return db.update(TABLE_NAME, cv, where, null) > 0;
             return true;
         }
         return false;
     }
 
+    //Todo
     // 刪除參數指定編號的資料
     public boolean delete(long id){
         // 設定條件為編號，格式為「欄位名稱=資料」
@@ -100,6 +156,7 @@ public class CrimeProvider {
             // 刪除指定編號資料並回傳刪除是否成功
             mSceneProvider.delete(cursor.getLong(0));
             mAnalysisProvider.delete(cursor.getLong(1));
+            mOverviewProvider.delete(cursor.getLong(2));
             //return db.delete(TABLE_NAME, where, null) > 0;
             return true;
         }
@@ -123,11 +180,57 @@ public class CrimeProvider {
     // 刪除所有記事資料
     public void deleteAll(){
         // 刪除原有的表格
+        //Login
+        db.execSQL("DROP TABLE IF EXISTS " + IdentifyProvider.TABLE_NAME);
+        //Whole key
+        db.execSQL("DROP TABLE IF EXISTS " + CrimeProvider.TABLE_NAME);
+        //Page 1
         db.execSQL("DROP TABLE IF EXISTS " + SceneProvider.TABLE_NAME);
+        //Page 2
+        db.execSQL("DROP TABLE IF EXISTS " + RelatedPeopleProvider.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + LostProvider.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CrimeToolProvider.TABLE_NAME);
+        //Page 3
+        db.execSQL("DROP TABLE IF EXISTS " + PositionProvider.TABLE_NAME);
+        //Page 4
+        db.execSQL("DROP TABLE IF EXISTS " + PositionPhotoProvider.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + OverviewPhotoProvider.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + ImportantPhotoProvider.TABLE_NAME);
+        //Page 5
+        db.execSQL("DROP TABLE IF EXISTS " + EvidenceProvider.TABLE_NAME);
+        //Page 6
+        db.execSQL("DROP TABLE IF EXISTS " + OverviewProvider.TABLE_NAME);
+        //Page 7
         db.execSQL("DROP TABLE IF EXISTS " + AnalysisProvider.TABLE_NAME);
+        //Page 8
+        db.execSQL("DROP TABLE IF EXISTS " + WitnessProvider.TABLE_NAME);
+
+
         // 建立新版的表格
+        //Login
+        db.execSQL(IdentifyProvider.IDENTIFY_TABLE);
+        //Whole key
+        db.execSQL(CrimeProvider.CREATE_TABLE);
+        //Page 1
         db.execSQL(SceneProvider.CREATE_TABLE);
+        //Page 2
+        db.execSQL(RelatedPeopleProvider.CREATE_TABLE);
+        db.execSQL(LostProvider.CREATE_TABLE);
+        db.execSQL(CrimeToolProvider.CREATE_TABLE);
+        //Page 3
+        db.execSQL(PositionProvider.CREATE_TABLE);
+        //Page 4
+        db.execSQL(PositionPhotoProvider.CREATE_TABLE);
+        db.execSQL(OverviewPhotoProvider.CREATE_TABLE);
+        db.execSQL(ImportantPhotoProvider.CREATE_TABLE);
+        //Page 5
+        db.execSQL(EvidenceProvider.CREATE_TABLE);
+        //Page 6
+        db.execSQL(OverviewProvider.CREATE_TABLE);
+        //Page 7
         db.execSQL(AnalysisProvider.CREATE_TABLE);
+        //Page 8
+        db.execSQL(WitnessProvider.CREATE_TABLE);
     }
 
     // 取得指定編號的資料物件
@@ -152,6 +255,7 @@ public class CrimeProvider {
         return item;
     }
 
+    //Todo
     // 把Cursor目前的資料包裝為物件
     private CrimeItem getRecord(long id) {
         // 準備回傳結果用的物件
@@ -216,6 +320,15 @@ public class CrimeProvider {
                 result.setCrimePurpose(cursor2.getString(12));
             }
             cursor2.close();
+
+            String where3 = KEY_ID + "=" + cursor.getLong(2);
+            Cursor cursor3 = db.query(
+                    OverviewProvider.TABLE_NAME, null, where3, null, null, null, null, null);
+            if (cursor3.moveToFirst()) {
+                // 讀取包裝一筆資料的物件
+                result.setOverview(cursor3.getString(1));
+            }
+            cursor3.close();
         }
 
         // 回傳結果

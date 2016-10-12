@@ -54,7 +54,7 @@ public class RelatedPeoeplAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         RelatedPeopleItem item = (RelatedPeopleItem)getItem(position);
-        holder.txtItemName.setText(((RelatedPeopleItem) getItem(position)).getPeopleReleation());
+        holder.txtItemName.setText(((RelatedPeopleItem) getItem(position)).getPeopleRelation());
         holder.txtItemContent.setText(((RelatedPeopleItem) getItem(position)).getPeopleName());
         return convertView;
     }

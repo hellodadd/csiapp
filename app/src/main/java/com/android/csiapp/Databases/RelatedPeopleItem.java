@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class RelatedPeopleItem implements Serializable {
     private long id;
-    private String mPeople_releation;
+    private String mPeople_relation;
     private String mPeople_name;
     private String mPeople_sex;
     private String mPeople_id;
@@ -16,7 +16,7 @@ public class RelatedPeopleItem implements Serializable {
 
     public RelatedPeopleItem(){
         this.id = 0;
-        this.mPeople_releation = "";
+        this.mPeople_relation = "";
         this.mPeople_name = "";
         this.mPeople_sex = "";
         this.mPeople_id = "";
@@ -26,7 +26,7 @@ public class RelatedPeopleItem implements Serializable {
 
     public RelatedPeopleItem(long id, String releation, String name, String sex, String identity, String number, String address) {
         this.id = id;
-        this.mPeople_releation = releation;
+        this.mPeople_relation = releation;
         this.mPeople_name = name;
         this.mPeople_sex = sex;
         this.mPeople_id = identity;
@@ -42,9 +42,9 @@ public class RelatedPeopleItem implements Serializable {
         this.id = id;
     }
 
-    public String getPeopleReleation() {return mPeople_releation; }
+    public String getPeopleRelation() {return mPeople_relation; }
 
-    public void setPeopleReleation(String people_releation) {this.mPeople_releation = people_releation; }
+    public void setPeopleRelation(String people_relation) {this.mPeople_relation = people_relation; }
 
     public String getPeopleName() {return mPeople_name; }
 

@@ -63,6 +63,9 @@ public class CrimeItem implements Serializable {
     //Page 5 (Evidence)
     private List<EvidenceItem> mEvidenceItem;
 
+    //Page 6 (Overview)
+    private String mOverview;
+
     //Page 7
     private String mCrimePeopleNumber;
     private String mCrimeMeans;
@@ -122,6 +125,8 @@ public class CrimeItem implements Serializable {
         this.mImportantPhotoItem = new ArrayList<PhotoItem>();
 
         this.mEvidenceItem = new ArrayList<EvidenceItem>();
+
+        this.mOverview = "";
 
         this.mCrimePeopleNumber = "";
         this.mCrimeMeans = "";
@@ -402,6 +407,11 @@ public class CrimeItem implements Serializable {
     public List<EvidenceItem>  getEvidenceItem() {return mEvidenceItem; }
 
     public void setEvidenceItem(List<EvidenceItem>  evidenceItem) {this.mEvidenceItem = evidenceItem; }
+
+    //Page 6
+    public String getOverview() {return mOverview; }
+
+    public void setOverview(String overview) {this.mOverview = overview; }
 
     //Page 7
     public String getCrimePeopleNumber() {return mCrimePeopleNumber; }

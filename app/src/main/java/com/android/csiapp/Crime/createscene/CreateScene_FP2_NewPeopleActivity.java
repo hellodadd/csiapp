@@ -109,7 +109,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         mReleationPeople_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mRelatedPeopleItem.setPeopleReleation(mReleationPeople.get(position));
+                mRelatedPeopleItem.setPeopleRelation(mReleationPeople.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -141,7 +141,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
     }
 
     private void initData(){
-        mReleationPeople_spinner.setSelection(getPeople(mRelatedPeopleItem.getPeopleReleation()));
+        mReleationPeople_spinner.setSelection(getPeople(mRelatedPeopleItem.getPeopleRelation()));
         mName.setText(mRelatedPeopleItem.getPeopleName());
         mSex_spinner.setSelection(getSex(mRelatedPeopleItem.getPeopleSex()));
         mId.setText(mRelatedPeopleItem.getPeopleId());
