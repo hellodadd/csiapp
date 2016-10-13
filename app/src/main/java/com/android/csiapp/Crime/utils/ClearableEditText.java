@@ -14,9 +14,6 @@ import android.widget.TextView;
 
 import com.android.csiapp.R;
 
-import java.util.Currency;
-import java.util.Locale;
-
 /**
  * Created by user on 2016/9/26.
  */
@@ -105,4 +102,5 @@ public class ClearableEditText extends RelativeLayout
         edit_text.setKeyListener(input);
     }
 
+    public void addTextChangedListener(TextWatcher input){edit_text.addTextChangedListener(input);}
 }

@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -279,6 +281,25 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
+
+        mLocation.addTextChangedListener(new TextWatcher()
+        {
+
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                mAccessLocation.setText(mLocation.getText());
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
     }
 
     private void initData(){
@@ -359,10 +380,10 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 showDateTimeDialog(mAccess_end_time,5);
                 break;
             case R.id.caseOccurProcess_button:
-                mCaseOccurProcess.setText("据<被害人/报案人>报称:<发案开始时间> 在<发案地点>，该处发现一起<案件类别>，后拨打电话报警");
+                mCaseOccurProcess.setText(getCaseOccurProcess());
                 break;
             case R.id.accessReason_button:
-                mAccessReason.setText("<发案区划><接警人>接到<指派单位>的指派: 在该所管界内<发案地点>发生一起<案件类别>，请速派人员勘查现场");
+                mAccessReason.setText(getAccessReason());
                 break;
             default:
                 break;
@@ -421,6 +442,17 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         return 0;
     }
 
+    private String getCaseOccurProcess(){
+        //Example : "据<被害人/报案人>报称:<发案开始时间> 在<发案地点>，该处发现一起<案件类别>，后拨打电话报警"
+        String result = "据<被害人/报案人>报称:<发案开始时间> 在<发案地点>，该处发现一起<案件类别>，后拨打电话报警";
+        return result;
+    }
+
+    private String getAccessReason(){
+        //Example : "<发案区划><接警人>接到<指派单位>的指派: 在该所管界内<发案地点>发生一起<案件类别>，请速派人员勘查现场"
+        String result = "<发案区划><接警人>接到<指派单位>的指派: 在该所管界内<发案地点>发生一起<案件类别>，请速派人员勘查现场";
+        return result;
+    }
 
     private void showDateTimeDialog(final TextView textView,final int type) {
         // Create the dialog
