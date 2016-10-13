@@ -183,8 +183,7 @@ public class RelatedPeopleProvider {
     public RelatedPeopleItem query(long id){
         String where = KEY_ID + "=" + id;
         RelatedPeopleItem item = new RelatedPeopleItem();
-        Cursor cursor = db.query(
-                RelatedPeopleProvider.TABLE_NAME, null, where, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, null, where, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             // 讀取包裝一筆資料的物件
             item.setId(id);

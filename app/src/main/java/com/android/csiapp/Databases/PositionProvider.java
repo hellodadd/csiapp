@@ -147,8 +147,7 @@ public class PositionProvider {
     public PhotoItem query(long id){
         String where = KEY_ID + "=" + id;
         PhotoItem item = new PhotoItem();
-        Cursor cursor = db.query(
-                LostProvider.TABLE_NAME, null, where, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, null, where, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             // 讀取包裝一筆資料的物件
             item.setId(id);

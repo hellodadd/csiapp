@@ -72,7 +72,7 @@ public class CreateScene_FP3 extends Fragment {
         });
 
         mPosition_List=(ListView) view.findViewById(R.id.position_listview);
-        mPosition_Adapter = new PhotoAdapter(context, mPositionList, 1);
+        mPosition_Adapter = new PhotoAdapter(context, mPositionList);
         mPosition_List.setAdapter(mPosition_Adapter);
         setListViewHeightBasedOnChildren(mPosition_List);
 

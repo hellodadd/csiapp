@@ -24,12 +24,10 @@ import java.util.List;
 public class PhotoAdapter extends BaseAdapter {
     private LayoutInflater myInflater;
     private List<PhotoItem> items;
-    private int type;
 
-    public PhotoAdapter(Context context, List<PhotoItem> items, int type){
+    public PhotoAdapter(Context context, List<PhotoItem> items){
         myInflater = LayoutInflater.from(context);
         this.items = items;
-        this.type = type;
     }
 
     @Override
@@ -64,13 +62,7 @@ public class PhotoAdapter extends BaseAdapter {
         Log.d("Anita", "path = "+path);
         if(!path.isEmpty()){
             Bitmap bitmap = null;
-            if(type ==1) {
-                Log.d("Anita", "type =1 and path ="+path);
-                bitmap = BitmapFactory.decodeFile(path);
-            }else if (type ==2) {
-                Log.d("Anita", "type =2 and path ="+path);
-                bitmap = loadBitmapFromFile(new File(path));
-            }
+            bitmap = loadBitmapFromFile(new File(path));
             if(bitmap!=null) holder.txtItemPhoto.setImageBitmap(bitmap);
         }
         return convertView;

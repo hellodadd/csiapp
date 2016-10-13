@@ -95,7 +95,7 @@ public class CreateScene_FP4 extends Fragment {
         });
 
         mPosition_List=(ListView) view.findViewById(R.id.Position_photo_listview);
-        mPosition_Adapter = new PhotoAdapter(context, mPositionList, 2);
+        mPosition_Adapter = new PhotoAdapter(context, mPositionList);
         mPosition_List.setAdapter(mPosition_Adapter);
         setListViewHeightBasedOnChildren(mPosition_List);
 
@@ -109,7 +109,7 @@ public class CreateScene_FP4 extends Fragment {
         });
 
         mLike_List=(ListView) view.findViewById(R.id.Like_photo_listview);
-        mLike_Adapter = new PhotoAdapter(context, mLikeList, 2);
+        mLike_Adapter = new PhotoAdapter(context, mLikeList);
         mLike_List.setAdapter(mLike_Adapter);
         setListViewHeightBasedOnChildren(mLike_List);
 
@@ -123,7 +123,7 @@ public class CreateScene_FP4 extends Fragment {
         });
 
         mImportant_List=(ListView) view.findViewById(R.id.Important_photo_listview);
-        mImportant_Adapter = new PhotoAdapter(context, mImportantList, 2);
+        mImportant_Adapter = new PhotoAdapter(context, mImportantList);
         mImportant_List.setAdapter(mImportant_Adapter);
         setListViewHeightBasedOnChildren(mImportant_List);
 

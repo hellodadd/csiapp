@@ -55,7 +55,7 @@ public class ScreenShot {
             fos = new FileOutputStream(strFileName);
             if (null != fos)
             {
-                b.compress(Bitmap.CompressFormat.PNG, 90, fos);
+                b.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                 fos.flush();
                 fos.close();
             }
@@ -68,6 +68,13 @@ public class ScreenShot {
 
     public static String shoot(Activity a){
         File mediaStorageDir = new File( a.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Report");
+
+        if (!mediaStorageDir.exists()){
+            if (!mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String path = new File(mediaStorageDir.getPath() + File.separator + "POSITION_"+ timeStamp + ".jpg").toString();
         ScreenShot.savePic(ScreenShot.takeScreenShot(a), path);
