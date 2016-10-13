@@ -53,7 +53,7 @@ public class LostItem implements Serializable {
 
     public String getItemValue() {return mItem_value; }
 
-    public void setItemVlaue(String item_value) {this.mItem_value = item_value; }
+    public void setItemValue(String item_value) {this.mItem_value = item_value; }
 
     public String getItemFeature() {return mItem_feature; }
 

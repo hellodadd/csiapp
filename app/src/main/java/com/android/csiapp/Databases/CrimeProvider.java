@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -101,15 +102,32 @@ public class CrimeProvider {
         long overview_id = mOverviewProvider.insert(item);
         cv.put(OVERVIEW_COLUMN, overview_id);
 
-        cv.put(RELATEDPEOPLE_ITEM_NUMBER_COLUMN, 0);
-        cv.put(LOST_ITEM_NUMBER_COLUMN, 0);
-        cv.put(CRIMETOOL_ITEM_NUMBER_COLUMN, 0);
-        cv.put(POSITION_ITEM_NUMBER_COLUMN, 0);
-        cv.put(POSITIONPHOTO_ITEM_NUMBER_COLUMN, 0);
-        cv.put(OVERVIEWPHOTO_ITEM_NUMBER_COLUMN, 0);
-        cv.put(IMPORTANTPHOTO_ITEM_NUMBER_COLUMN, 0);
-        cv.put(EVIDENCE_ITEM_NUMBER_COLUMN, 0);
-        cv.put(WITNESS_ITEM_NUMBER_COLUMN, 0);
+        String related_id = mRelatedPeopleProvider.inserts(item.getReleatedPeople());
+        cv.put(RELATEDPEOPLE_ITEM_NUMBER_COLUMN, related_id);
+
+        String lost_id = mLostProvider.inserts(item.getLostItem());
+        cv.put(LOST_ITEM_NUMBER_COLUMN, lost_id);
+
+        String crimetool_id = mCrimeToolProvider.inserts(item.getCrimeTool());
+        cv.put(CRIMETOOL_ITEM_NUMBER_COLUMN, crimetool_id);
+
+        String position_id = mPositionProvider.inserts(item.getPosition());
+        cv.put(POSITION_ITEM_NUMBER_COLUMN, position_id);
+
+        String positionPhoto_id = mPositionPhotoProvider.inserts(item.getPositionPhoto());
+        cv.put(POSITIONPHOTO_ITEM_NUMBER_COLUMN, positionPhoto_id);
+
+        String overviewPhoto_id = mOverviewPhotoProvider.inserts(item.getOverviewPhoto());
+        cv.put(OVERVIEWPHOTO_ITEM_NUMBER_COLUMN, overviewPhoto_id);
+
+        String importantPhoto_id = mImportantPhotoProvider.inserts(item.getImportantPhoto());
+        cv.put(IMPORTANTPHOTO_ITEM_NUMBER_COLUMN, importantPhoto_id);
+
+        String evidence_id = mEvidenceProvider.inserts(item.getEvidenceItem());
+        cv.put(EVIDENCE_ITEM_NUMBER_COLUMN, evidence_id);
+
+        String witness_id = mWitnessProvider.inserts(item.getWitness());
+        cv.put(WITNESS_ITEM_NUMBER_COLUMN, witness_id);
         // 新增一筆資料並取得編號
         // 第一個參數是表格名稱
         // 第二個參數是沒有指定欄位值的預設值
@@ -136,11 +154,21 @@ public class CrimeProvider {
 
         if(cursor.moveToFirst()) {
             // 執行修改資料並回傳修改的資料數量是否成功
-            boolean result1 = mSceneProvider.update(cursor.getLong(0),item);
-            boolean result2 = mAnalysisProvider.update(cursor.getLong(1),item);
-            boolean result3 = mOverviewProvider.update(cursor.getLong(2),item);
+            boolean result = false;
+            result = mSceneProvider.update(cursor.getLong(1),item);
+            result = mAnalysisProvider.update(cursor.getLong(2),item);
+            result = mOverviewProvider.update(cursor.getLong(3),item);
+            result = mRelatedPeopleProvider.updates(cursor.getString(4),item.getReleatedPeople());
+            result = mLostProvider.updates(cursor.getString(5),item.getLostItem());
+            result = mCrimeToolProvider.updates(cursor.getString(6),item.getCrimeTool());
+            result = mPositionProvider.updates(cursor.getString(7),item.getPosition());
+            result = mPositionPhotoProvider.updates(cursor.getString(8),item.getPositionPhoto());
+            result = mOverviewPhotoProvider.updates(cursor.getString(9),item.getOverviewPhoto());
+            result = mImportantPhotoProvider.updates(cursor.getString(10),item.getImportantPhoto());
+            result = mEvidenceProvider.updates(cursor.getString(11),item.getEvidenceItem());
+            result = mWitnessProvider.updates(cursor.getString(12),item.getWitness());
             //return db.update(TABLE_NAME, cv, where, null) > 0;
-            return true;
+            return result;
         }
         return false;
     }
@@ -154,11 +182,21 @@ public class CrimeProvider {
                 TABLE_NAME, null, where, null, null, null, null, null);
         if(cursor.moveToFirst()) {
             // 刪除指定編號資料並回傳刪除是否成功
-            mSceneProvider.delete(cursor.getLong(0));
-            mAnalysisProvider.delete(cursor.getLong(1));
-            mOverviewProvider.delete(cursor.getLong(2));
+            boolean result = false;
+            result = mSceneProvider.delete(cursor.getLong(1));
+            result = mAnalysisProvider.delete(cursor.getLong(2));
+            result = mOverviewProvider.delete(cursor.getLong(3));
+            result = mRelatedPeopleProvider.deletes(cursor.getString(4));
+            result = mLostProvider.deletes(cursor.getString(5));
+            result = mCrimeToolProvider.deletes(cursor.getString(6));
+            result = mPositionProvider.deletes(cursor.getString(7));
+            result = mPositionPhotoProvider.deletes(cursor.getString(8));
+            result = mOverviewPhotoProvider.deletes(cursor.getString(9));
+            result = mImportantPhotoProvider.deletes(cursor.getString(10));
+            result = mEvidenceProvider.deletes(cursor.getString(11));
+            result = mWitnessProvider.deletes(cursor.getString(12));
             //return db.delete(TABLE_NAME, where, null) > 0;
-            return true;
+            return result;
         }
         return false;
     }
@@ -267,7 +305,7 @@ public class CrimeProvider {
                 TABLE_NAME, null, where, null, null, null, null, null);
 
         if(cursor.moveToFirst()) {
-            String where1 = KEY_ID + "=" + cursor.getLong(0);
+            String where1 = KEY_ID + "=" + cursor.getLong(1);
             Cursor cursor1 = db.query(
                     SceneProvider.TABLE_NAME, null, where1, null, null, null, null, null);
             if (cursor1.moveToFirst()) {
@@ -301,7 +339,7 @@ public class CrimeProvider {
             }
             cursor1.close();
 
-            String where2 = KEY_ID + "=" + cursor.getLong(1);
+            String where2 = KEY_ID + "=" + cursor.getLong(2);
             Cursor cursor2 = db.query(
                     AnalysisProvider.TABLE_NAME, null, where2, null, null, null, null, null);
             if (cursor2.moveToFirst()) {
@@ -321,7 +359,7 @@ public class CrimeProvider {
             }
             cursor2.close();
 
-            String where3 = KEY_ID + "=" + cursor.getLong(2);
+            String where3 = KEY_ID + "=" + cursor.getLong(3);
             Cursor cursor3 = db.query(
                     OverviewProvider.TABLE_NAME, null, where3, null, null, null, null, null);
             if (cursor3.moveToFirst()) {
@@ -329,6 +367,33 @@ public class CrimeProvider {
                 result.setOverview(cursor3.getString(1));
             }
             cursor3.close();
+
+            List<RelatedPeopleItem> RelatedPeople_items = mRelatedPeopleProvider.querys(cursor.getString(4));
+            result.setReleatedPeople(RelatedPeople_items);
+
+            List<LostItem> Lost_items = mLostProvider.querys(cursor.getString(5));
+            result.setLostItem(Lost_items);
+
+            List<CrimeToolItem> CrimeTool_items = mCrimeToolProvider.querys(cursor.getString(6));
+            result.setCrimeTool(CrimeTool_items);
+
+            List<PhotoItem> Position_items = mPositionProvider.querys(cursor.getString(7));
+            result.setPosition(Position_items);
+
+            List<PhotoItem> PositionPhoto_items = mPositionPhotoProvider.querys(cursor.getString(8));
+            result.setPositionPhoto(PositionPhoto_items);
+
+            List<PhotoItem> OverviewPhoto_items = mOverviewPhotoProvider.querys(cursor.getString(9));
+            result.setOverviewPhoto(OverviewPhoto_items);
+
+            List<PhotoItem> ImportantPhoto_items = mImportantPhotoProvider.querys(cursor.getString(10));
+            result.setImportantPhoto(ImportantPhoto_items);
+
+            List<EvidenceItem> Evidence_items = mEvidenceProvider.querys(cursor.getString(11));
+            result.setEvidenceItem(Evidence_items);
+
+            List<WitnessItem> Witness_items = mWitnessProvider.querys(cursor.getString(11));
+            result.setWitness(Witness_items);
         }
 
         // 回傳結果

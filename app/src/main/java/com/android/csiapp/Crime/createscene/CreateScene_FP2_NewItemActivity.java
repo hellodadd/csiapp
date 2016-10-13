@@ -105,7 +105,7 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
         mLostItem.setItemName(mName.getText());
         mLostItem.setItemBrand(mBrand.getText());
         mLostItem.setItemAmount(mAmount.getText());
-        mLostItem.setItemVlaue(mValue.getText());
+        mLostItem.setItemValue(mValue.getText());
         mLostItem.setItemFeatue(mFeature.getText());
     }
 }

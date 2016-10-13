@@ -2,7 +2,12 @@ package com.android.csiapp.Databases;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 2016/10/12.
@@ -36,6 +41,21 @@ public class PositionProvider {
         db.close();
     }
 
+    // 新增參數指定list的物件
+    public String inserts(List<PhotoItem> items) {
+        int length = items.size();
+        String ids = "";
+
+        if(length == 0) return ids;
+
+        for(int i=0;i<length;i++) {
+            long id = insert(items.get(i));
+            if(i!=0) ids = ids+",";
+            ids = ids+id;
+        }
+        return ids;
+    }
+
     // 新增參數指定的物件
     public long insert(PhotoItem item) {
         // 建立準備新增資料的ContentValues物件
@@ -52,6 +72,22 @@ public class PositionProvider {
         long id = db.insert(TABLE_NAME, null, cv);
 
         return id;
+    }
+
+    // 修改參數指定list的物件
+    public boolean updates(String ids, List<PhotoItem> items) {
+        int length = items.size();
+        boolean result = false;
+
+        if(length == 0) return result;
+
+        String[] id = ids.split(",");
+        int i = 0;
+        for(String s:id){
+            long tag = Long.parseLong(s.trim());
+            result = update(tag,items.get(i++));
+        }
+        return result;
     }
 
     // 修改參數指定的物件
@@ -71,11 +107,55 @@ public class PositionProvider {
         return db.update(TABLE_NAME, cv, where, null) > 0;
     }
 
+    // 刪除參數指定list的資料
+    public boolean deletes(String ids) {
+        boolean result = false;
+
+        if(ids.length() == 0) return result;
+
+        String[] id = ids.split(",");
+        for(String s:id){
+            long tag = Long.parseLong(s.trim());
+            result = delete(tag);
+        }
+
+        return result;
+    }
+
     // 刪除參數指定編號的資料
     public boolean delete(long id){
         // 設定條件為編號，格式為「欄位名稱=資料」
         String where = KEY_ID + "=" + id;
         // 刪除指定編號資料並回傳刪除是否成功
         return db.delete(TABLE_NAME, where , null) > 0;
+    }
+
+    //搜尋指定編號的資料
+    public List<PhotoItem> querys(String ids){
+        List<PhotoItem> items = new ArrayList<PhotoItem>();
+        String[] id = ids.split(",");
+
+        if(ids.length()==0) return items;
+
+        for(String s:id){
+            PhotoItem item = query(Integer.parseInt(s.trim()));
+            items.add(item);
+        }
+        return items;
+    }
+
+    public PhotoItem query(long id){
+        String where = KEY_ID + "=" + id;
+        PhotoItem item = new PhotoItem();
+        Cursor cursor = db.query(
+                LostProvider.TABLE_NAME, null, where, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            // 讀取包裝一筆資料的物件
+            item.setId(id);
+            item.setPhotoPath(cursor.getString(1));
+        }
+        cursor.close();
+
+        return item;
     }
 }
