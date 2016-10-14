@@ -16,7 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.DateTimePicker;
+import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Crime.utils.ScreenShot;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.PhotoItem;
@@ -56,10 +58,12 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
                     setResult(Activity.RESULT_OK, result);
                     finish();
                     break;
+                default:
+                    break;
             }
 
             if(!msg.equals("")) {
-                Toast.makeText(CreateScene_FP3_PositionInformationActivity.this, msg, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CreateScene_FP3_PositionInformationActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             return true;
         }
@@ -83,8 +87,8 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 //What to do on back clicked
+                finish();
             }
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);

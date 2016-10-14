@@ -61,4 +61,12 @@ public class WitnessItem implements Serializable {
     public String getWitnessAddress() {return mWitness_address; }
 
     public void setWitnessAddress(String witness_address) {this.mWitness_address = witness_address; }
+
+    //Check Information
+    public boolean checkInformation(){
+        boolean result = false;
+        if(!mWitness_name.isEmpty())
+            result = true;
+        return result;
+    }
 }

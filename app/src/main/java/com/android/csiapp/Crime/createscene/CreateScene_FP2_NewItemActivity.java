@@ -11,7 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
+import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Databases.LostItem;
 import com.android.csiapp.R;
 
@@ -40,14 +42,22 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
                     result.putExtra("com.android.csiapp.Databases.LostItem", mLostItem);
                     result.putExtra("Event", mEvent);
                     result.putExtra("Posiotion", mPosition);
-                    setResult(Activity.RESULT_OK, result);
+                    if(mLostItem.checkInformation()){
+                        setResult(Activity.RESULT_OK, result);
+                        finish();
+                    }else {
+                        SaveAlertDialog dialog = new SaveAlertDialog(CreateScene_FP2_NewItemActivity.this);
+                        dialog.onCreateDialog(result);
+                        dialog.setOwnerActivity(CreateScene_FP2_NewItemActivity.this);
+                    }
+                    break;
+                default:
                     break;
             }
 
             if (!msg.equals("")) {
-                Toast.makeText(CreateScene_FP2_NewItemActivity.this, msg, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CreateScene_FP2_NewItemActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
-            finish();
             return true;
         }
     };
@@ -70,8 +80,10 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 //What to do on back clicked
+                BackAlertDialog dialog = new BackAlertDialog(CreateScene_FP2_NewItemActivity.this);
+                dialog.onCreateDialog();
+                dialog.setOwnerActivity(CreateScene_FP2_NewItemActivity.this);
             }
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);

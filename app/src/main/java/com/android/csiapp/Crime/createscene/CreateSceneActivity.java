@@ -21,7 +21,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.FragmentAdapter;
+import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
@@ -66,15 +68,22 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                     saveData();
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.CrimeItem", mItem);
-                    setResult(Activity.RESULT_OK, result);
+                    if(mItem.checkInformation()){
+                        setResult(Activity.RESULT_OK, result);
+                        finish();
+                    }else{
+                        SaveAlertDialog dialog = new SaveAlertDialog(CreateSceneActivity.this);
+                        dialog.onCreateDialog(result);
+                        dialog.setOwnerActivity(CreateSceneActivity.this);
+                    }
+                    break;
+                default:
                     break;
             }
 
             if (!msg.equals("")) {
-                Toast.makeText(CreateSceneActivity.this, msg, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CreateSceneActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
-
-            finish();
             return true;
         }
     };
@@ -96,8 +105,10 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 //What to do on back clicked
+                BackAlertDialog dialog = new BackAlertDialog(CreateSceneActivity.this);
+                dialog.onCreateDialog();
+                dialog.setOwnerActivity(CreateSceneActivity.this);
             }
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);

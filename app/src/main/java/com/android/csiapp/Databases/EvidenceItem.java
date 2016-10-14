@@ -113,4 +113,14 @@ public class EvidenceItem implements Serializable {
     public void setPeople(String People) {
         this.mPeople = People;
     }
+
+    //Check Information
+    public boolean checkInformation(){
+        boolean result = false;
+        if(!mPhotoPath.isEmpty()
+                &&!mEvidenceName.isEmpty()
+                &&!mLegacySite.isEmpty())
+            result = true;
+        return result;
+    }
 }

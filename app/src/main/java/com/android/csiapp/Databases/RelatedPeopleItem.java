@@ -65,4 +65,14 @@ public class RelatedPeopleItem implements Serializable {
     public String getPeopleAddress() {return mPeople_address; }
 
     public void setPeopleAddress(String people_address) {this.mPeople_address = people_address; }
+
+    //Check Information
+    public boolean checkInformation(){
+        boolean result = false;
+        if(!mPeople_name.isEmpty()
+                &&!mPeople_number.isEmpty()
+                &&!mPeople_address.isEmpty())
+            result = true;
+        return result;
+    }
 }

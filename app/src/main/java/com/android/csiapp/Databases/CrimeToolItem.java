@@ -44,4 +44,12 @@ public class CrimeToolItem implements Serializable {
     public String getToolSource() {return mTool_source; }
 
     public void setToolSource(String tool_source) {this.mTool_source = tool_source; }
+
+    //Check Information
+    public boolean checkInformation(){
+        boolean result = false;
+        if(!mTool_name.isEmpty())
+            result = true;
+        return result;
+    }
 }

@@ -28,8 +28,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
+import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Databases.EvidenceItem;
 import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
@@ -92,13 +94,21 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                     result.putExtra("com.android.csiapp.Databases.EvidenceItem", mEvidenceItem);
                     result.putExtra("Event", mEvent);
                     result.putExtra("Posiotion", mPosition);
-                    setResult(Activity.RESULT_OK, result);
-                    finish();
+                    if(mEvidenceItem.checkInformation()){
+                        setResult(Activity.RESULT_OK, result);
+                        finish();
+                    }else {
+                        SaveAlertDialog dialog = new SaveAlertDialog(CreateScene_FP5_NewEvidenceActivity.this);
+                        dialog.onCreateDialog(result);
+                        dialog.setOwnerActivity(CreateScene_FP5_NewEvidenceActivity.this);
+                    }
+                    break;
+                default:
                     break;
             }
 
             if (!msg.equals("")) {
-                Toast.makeText(CreateScene_FP5_NewEvidenceActivity.this, msg, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CreateScene_FP5_NewEvidenceActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             return true;
         }
@@ -121,8 +131,10 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 //What to do on back clicked
+                BackAlertDialog dialog = new BackAlertDialog(CreateScene_FP5_NewEvidenceActivity.this);
+                dialog.onCreateDialog();
+                dialog.setOwnerActivity(CreateScene_FP5_NewEvidenceActivity.this);
             }
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);

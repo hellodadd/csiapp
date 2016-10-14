@@ -58,4 +58,15 @@ public class LostItem implements Serializable {
     public String getItemFeature() {return mItem_feature; }
 
     public void setItemFeatue(String item_feature) {this.mItem_feature = item_feature; }
+
+    //Check Information
+    public boolean checkInformation(){
+        boolean result = false;
+        if(!mItem_name.isEmpty()
+                &&!mItem_brand.isEmpty()
+                &&!mItem_amount.isEmpty()
+                &&!mItem_value.isEmpty())
+            result = true;
+        return result;
+    }
 }

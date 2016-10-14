@@ -21,8 +21,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
+import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Databases.WitnessItem;
 import com.android.csiapp.R;
 import java.util.ArrayList;
@@ -60,14 +62,22 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
                     result.putExtra("com.android.csiapp.Databases.WitnessItem", mWitnessItem);
                     result.putExtra("Event", mEvent);
                     result.putExtra("Posiotion", mPosition);
-                    setResult(Activity.RESULT_OK, result);
+                    if(mWitnessItem.checkInformation()){
+                        setResult(Activity.RESULT_OK, result);
+                        finish();
+                    }else {
+                        SaveAlertDialog dialog = new SaveAlertDialog(CreateScene_FP8_AddWitnessActivity.this);
+                        dialog.onCreateDialog(result);
+                        dialog.setOwnerActivity(CreateScene_FP8_AddWitnessActivity.this);
+                    }
+                    break;
+                default:
                     break;
             }
 
             if(!msg.equals("")) {
-                Toast.makeText(CreateScene_FP8_AddWitnessActivity.this, msg, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CreateScene_FP8_AddWitnessActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
-            finish();
             return true;
         }
     };
@@ -90,8 +100,10 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 //What to do on back clicked
+                BackAlertDialog dialog = new BackAlertDialog(CreateScene_FP8_AddWitnessActivity.this);
+                dialog.onCreateDialog();
+                dialog.setOwnerActivity(CreateScene_FP8_AddWitnessActivity.this);
             }
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);

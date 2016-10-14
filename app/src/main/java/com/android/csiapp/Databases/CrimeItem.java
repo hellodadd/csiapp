@@ -466,4 +466,24 @@ public class CrimeItem implements Serializable {
     public List<WitnessItem> getWitness() {return mWitnessItem; }
 
     public void setWitness(List<WitnessItem> witness) {this.mWitnessItem = witness; }
+
+    //Check Information
+    public boolean checkInformation(){
+        boolean result = false;
+        if(!mLocation.isEmpty()
+                &&!mUnitsAssigned.isEmpty()
+                &&!mAccessPolicemen.isEmpty()
+                &&!mAccessLocation.isEmpty()
+                &&!mCaseOccurProcess.isEmpty()
+                &&!mTemperature.isEmpty()
+                &&!mHumidity.isEmpty()
+                &&!mAccessReason.isEmpty()
+                &&!mProductPeopleName.isEmpty()
+                &&!mProductPeopleUnit.isEmpty()
+                &&!mProductPeopleDuties.isEmpty()
+                &&!mSafeguard.isEmpty()
+                &&!mCrimePeopleFeature.isEmpty())
+            result = true;
+        return result;
+    }
 }

@@ -14,7 +14,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
+import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeToolItem;
 import com.android.csiapp.R;
@@ -51,14 +53,22 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
                     result.putExtra("com.android.csiapp.Databases.CrimeToolItem", mCrimeToolItem);
                     result.putExtra("Event", mEvent);
                     result.putExtra("Posiotion", mPosition);
-                    setResult(Activity.RESULT_OK, result);
+                    if(mCrimeToolItem.checkInformation()){
+                        setResult(Activity.RESULT_OK, result);
+                        finish();
+                    }else {
+                        SaveAlertDialog dialog = new SaveAlertDialog(CreateScene_FP2_NewToolActivity.this);
+                        dialog.onCreateDialog(result);
+                        dialog.setOwnerActivity(CreateScene_FP2_NewToolActivity.this);
+                    }
+                    break;
+                default:
                     break;
             }
 
             if(!msg.equals("")) {
-                Toast.makeText(CreateScene_FP2_NewToolActivity.this, msg, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CreateScene_FP2_NewToolActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
-            finish();
             return true;
         }
     };
@@ -81,8 +91,10 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 //What to do on back clicked
+                BackAlertDialog dialog = new BackAlertDialog(CreateScene_FP2_NewToolActivity.this);
+                dialog.onCreateDialog();
+                dialog.setOwnerActivity(CreateScene_FP2_NewToolActivity.this);
             }
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);

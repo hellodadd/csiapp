@@ -15,7 +15,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
+import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Databases.RelatedPeopleItem;
 import com.android.csiapp.R;
 
@@ -55,14 +57,22 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
                     result.putExtra("com.android.csiapp.Databases.RelatedPeopleItem", mRelatedPeopleItem);
                     result.putExtra("Event", mEvent);
                     result.putExtra("Posiotion", mPosition);
-                    setResult(Activity.RESULT_OK, result);
+                    if(mRelatedPeopleItem.checkInformation()){
+                        setResult(Activity.RESULT_OK, result);
+                        finish();
+                    }else{
+                        SaveAlertDialog dialog = new SaveAlertDialog(CreateScene_FP2_NewPeopleActivity.this);
+                        dialog.onCreateDialog(result);
+                        dialog.setOwnerActivity(CreateScene_FP2_NewPeopleActivity.this);
+                    }
+                    break;
+                default:
                     break;
             }
 
             if(!msg.equals("")) {
-                Toast.makeText(CreateScene_FP2_NewPeopleActivity.this, msg, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CreateScene_FP2_NewPeopleActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
-            finish();
             return true;
         }
     };
@@ -85,8 +95,10 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 //What to do on back clicked
+                BackAlertDialog dialog = new BackAlertDialog(CreateScene_FP2_NewPeopleActivity.this);
+                dialog.onCreateDialog();
+                dialog.setOwnerActivity(CreateScene_FP2_NewPeopleActivity.this);
             }
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
