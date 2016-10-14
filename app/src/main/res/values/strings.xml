@@ -122,12 +122,14 @@
 
     <!-- Strings related to List -->
     <string name="title_activity_list">现场列表</string>
+    <string name="title_activity_list_search">搜尋</string>
+    <string name="title_activity_list_delete">刪除</string>
     <string name="casetype_item">类型 :</string>
     <string name="area_item">区域 :</string>
     <string name="time_item">时间 :</string>
     <string name="list_search">搜索</string>
     <string name="list_delete">删除</string>
-    <string name="list_upload">上传</string>
+    <string name="list_selectall">全选</string>
     <!-- Strings related to Settings -->
     <string name="title_activity_setting">设置</string>
     <string name="scene_manager">现场管理</string>

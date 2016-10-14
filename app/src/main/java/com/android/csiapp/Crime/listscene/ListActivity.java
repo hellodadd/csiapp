@@ -38,14 +38,18 @@ public class ListActivity extends AppCompatActivity {
             switch (menuItem.getItemId()) {
                 case R.id.action_search:
                     msg += "Search";
+                    Intent it1 = new Intent(ListActivity.this, ListSearchActivity.class);
+                    startActivityForResult(it1,1);
                     break;
                 case R.id.action_delete:
-                    msg += "Search";
+                    msg += "Delete";
+                    Intent it2 = new Intent(ListActivity.this, ListDeleteActivity.class);
+                    startActivityForResult(it2,2);
                     break;
             }
 
             if(!msg.equals("")) {
-                Toast.makeText(ListActivity.this, msg, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ListActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             return true;
         }
@@ -77,7 +81,7 @@ public class ListActivity extends AppCompatActivity {
         items_list = new ArrayList<CrimeItem>();
         items_list = mCrimeProvider.getAll();
         mListV=(ListView)findViewById(R.id.listView);
-        mAdapter = new ListAdapter(ListActivity.this,items_list);
+        mAdapter = new ListAdapter(ListActivity.this,items_list,false);
         mListV.setAdapter(mAdapter);
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
@@ -131,6 +135,10 @@ public class ListActivity extends AppCompatActivity {
                 // 新增記事資料到資料庫
                 boolean result = mCrimeProvider.update(item);
                 finish();
+            }else if(requestCode == 1){
+
+            }else if(requestCode == 2){
+
             }
         }
     }

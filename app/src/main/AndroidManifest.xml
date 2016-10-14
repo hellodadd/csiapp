@@ -58,6 +58,10 @@
         </activity>
         <activity android:name=".Crime.listscene.ListActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".Crime.listscene.ListDeleteActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Crime.listscene.ListSearchActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".Crime.setting.SettingActivity" 
             android:screenOrientation="portrait"/>
         <activity android:name=".Crime.createscene.CreateScene_FP2_NewPeopleActivity"

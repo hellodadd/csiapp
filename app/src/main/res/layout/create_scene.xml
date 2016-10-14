@@ -41,7 +41,7 @@
                 android:textSize="10sp"
                 android:background="@drawable/img_step_nor"/>
             <ImageView
-                android:layout_width="21dp"
+                android:layout_width="14dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:background="@drawable/dot"/>
