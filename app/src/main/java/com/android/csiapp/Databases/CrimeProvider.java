@@ -196,6 +196,8 @@ public class CrimeProvider {
             result = mEvidenceProvider.deletes(cursor.getString(11));
             result = mWitnessProvider.deletes(cursor.getString(12));
             //return db.delete(TABLE_NAME, where, null) > 0;
+            cursor.close();
+            result = db.delete(TABLE_NAME, where , null) > 0;
             return result;
         }
         return false;

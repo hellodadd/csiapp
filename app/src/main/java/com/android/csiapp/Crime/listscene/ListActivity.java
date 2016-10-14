@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,8 +25,11 @@ public class ListActivity extends AppCompatActivity {
 
     private Context context = null;
     private CrimeProvider mCrimeProvider;
+    private List<CrimeItem> items_list;
     private ListView mListV;
     private ListAdapter mAdapter;
+
+    final int LIST_DELETE = 0;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -36,9 +40,6 @@ public class ListActivity extends AppCompatActivity {
                     msg += "Search";
                     break;
                 case R.id.action_delete:
-                    msg += "Search";
-                    break;
-                case R.id.action_upload:
                     msg += "Search";
                     break;
             }
@@ -73,7 +74,7 @@ public class ListActivity extends AppCompatActivity {
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
-        List<CrimeItem> items_list = new ArrayList<CrimeItem>();
+        items_list = new ArrayList<CrimeItem>();
         items_list = mCrimeProvider.getAll();
         mListV=(ListView)findViewById(R.id.listView);
         mAdapter = new ListAdapter(ListActivity.this,items_list);
@@ -91,6 +92,30 @@ public class ListActivity extends AppCompatActivity {
             }
         };
         mListV.setOnItemClickListener(itemListener);
+        registerForContextMenu(mListV);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        String delete = context.getResources().getString(R.string.list_delete);
+        if (v.getId()==R.id.listView) {
+            menu.add(0, LIST_DELETE, 0, delete);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch(item.getItemId()) {
+            case LIST_DELETE:
+                mCrimeProvider.delete(items_list.get(info.position).getId());
+                items_list.remove(info.position);
+                mAdapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

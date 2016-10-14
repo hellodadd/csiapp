@@ -75,7 +75,7 @@ public class PhotoAdapter extends BaseAdapter {
         }
     }
 
-    private Bitmap loadBitmapFromFile(File f) {
+    public static Bitmap loadBitmapFromFile(File f) {
         Bitmap b = null;
         BitmapFactory.Options option = new BitmapFactory.Options();
         // Bitmap sampling factor, size = (Original Size)/(inSampleSize)

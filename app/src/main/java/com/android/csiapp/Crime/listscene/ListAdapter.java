@@ -1,16 +1,22 @@
 package com.android.csiapp.Crime.listscene;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.csiapp.Crime.utils.DateTimePicker;
+import com.android.csiapp.Crime.utils.PhotoAdapter;
 import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -47,6 +53,7 @@ public class ListAdapter extends BaseAdapter {
         if(convertView==null){
             convertView = myInflater.inflate(R.layout.listview, null);
             holder = new ViewHolder(
+                (ImageView) convertView.findViewById(R.id.photo),
                 (TextView) convertView.findViewById(R.id.casetype),
                 (TextView) convertView.findViewById(R.id.area),
                 (TextView) convertView.findViewById(R.id.time)
@@ -56,6 +63,15 @@ public class ListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         CrimeItem item = (CrimeItem)getItem(position);
+        List<PhotoItem> photoItem = item.getImportantPhoto();
+        if(photoItem.size()>0) {
+            String path = photoItem.get(0).getPhotoPath();
+            if(!path.isEmpty()) {
+                Bitmap b = PhotoAdapter.loadBitmapFromFile(new File(path));
+                holder.imgPhoto.setImageBitmap(b);
+                holder.imgPhoto.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            }
+        }
         holder.txtCasetype.setText(((CrimeItem) getItem(position)).getCasetype());
         holder.txtArea.setText(((CrimeItem) getItem(position)).getArea());
         holder.txtTime.setText(DateTimePicker.getCurrentTime(((CrimeItem) getItem(position)).getOccurredStartTime()));
@@ -63,10 +79,12 @@ public class ListAdapter extends BaseAdapter {
     }
 
     private class ViewHolder {
+        ImageView imgPhoto;
         TextView txtCasetype;
         TextView txtArea;
         TextView txtTime;
-        public ViewHolder(TextView txtCasetype, TextView txtArea, TextView txtTime){
+        public ViewHolder(ImageView imgPhoto, TextView txtCasetype, TextView txtArea, TextView txtTime){
+            this.imgPhoto = imgPhoto;
             this.txtCasetype = txtCasetype;
             this.txtArea = txtArea;
             this.txtTime = txtTime;
