@@ -26,12 +26,10 @@ public class ListAdapter extends BaseAdapter {
 
     private LayoutInflater myInflater;
     private List<CrimeItem> items;
-    private boolean delete;
 
-    public ListAdapter(Context context, List<CrimeItem> items, boolean delete){
+    public ListAdapter(Context context, List<CrimeItem> items){
         myInflater = LayoutInflater.from(context);
         this.items = items;
-        this.delete = delete;
     }
 
     @Override
@@ -54,7 +52,6 @@ public class ListAdapter extends BaseAdapter {
         ViewHolder holder = null;
         if(convertView==null){
             convertView = myInflater.inflate(R.layout.listview, null);
-            if(delete) convertView.findViewById(R.id.checkbox).setVisibility(View.VISIBLE);
             holder = new ViewHolder(
                 (ImageView) convertView.findViewById(R.id.photo),
                 (TextView) convertView.findViewById(R.id.casetype),

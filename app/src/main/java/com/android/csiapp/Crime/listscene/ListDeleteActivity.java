@@ -1,9 +1,12 @@
 package com.android.csiapp.Crime.listscene;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +18,7 @@ import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -26,7 +30,8 @@ public class ListDeleteActivity extends AppCompatActivity {
     private CrimeProvider mCrimeProvider;
     private List<CrimeItem> items_list;
     private ListView mListV;
-    private ListAdapter mAdapter;
+    private HashMap<Integer, Boolean> isSelected;
+    private ListDeleteAdapter mAdapter;
 
     final int LIST_DELETE = 0;
 
@@ -35,16 +40,33 @@ public class ListDeleteActivity extends AppCompatActivity {
         public boolean onMenuItemClick(MenuItem menuItem) {
             String msg = "";
             switch (menuItem.getItemId()) {
-                case R.id.action_search_all:
-                    msg += "Search";
+                case R.id.action_select_all:
+                    msg += "Select All";
+                    for (int i = 0; i < items_list.size(); i++) {
+                        mAdapter.getIsSelected().put(i, true);
+                    }
+                    mAdapter.notifyDataSetChanged();
                     break;
                 case R.id.action_delete:
                     msg += "Delete";
+                    if(items_list.size()>0){
+                        Log.d("Anita","item size = "+items_list.size());
+                        isSelected = mAdapter.getIsSelected();
+                        Log.d("Anita","selected size = "+isSelected.size());
+                        for (int i = 0; i < isSelected.size(); i++) {
+                            if (isSelected.get(i).equals(true)) {
+                                mCrimeProvider.delete(items_list.get(i).getId());
+                            }
+                        }
+                    }
+                    Intent result = getIntent();
+                    setResult(Activity.RESULT_OK, result);
+                    finish();
                     break;
             }
 
             if(!msg.equals("")) {
-                Toast.makeText(ListDeleteActivity.this, msg, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ListDeleteActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             return true;
         }
@@ -76,7 +98,8 @@ public class ListDeleteActivity extends AppCompatActivity {
         items_list = new ArrayList<CrimeItem>();
         items_list = mCrimeProvider.getAll();
         mListV=(ListView)findViewById(R.id.listView);
-        mAdapter = new ListAdapter(ListDeleteActivity.this,items_list,true);
+        isSelected = new HashMap<Integer,Boolean>();
+        mAdapter = new ListDeleteAdapter(ListDeleteActivity.this,items_list, isSelected);
         mListV.setAdapter(mAdapter);
     }
 

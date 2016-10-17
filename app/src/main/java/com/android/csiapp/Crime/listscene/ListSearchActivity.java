@@ -75,7 +75,7 @@ public class ListSearchActivity extends AppCompatActivity {
         items_list = new ArrayList<CrimeItem>();
         //items_list = mCrimeProvider.getAll();
         mListV=(ListView)findViewById(R.id.listView);
-        mAdapter = new ListAdapter(ListSearchActivity.this,items_list,false);
+        mAdapter = new ListAdapter(ListSearchActivity.this,items_list);
         mListV.setAdapter(mAdapter);
     }
 

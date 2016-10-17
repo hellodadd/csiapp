@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,12 +40,12 @@ public class ListActivity extends AppCompatActivity {
                 case R.id.action_search:
                     msg += "Search";
                     Intent it1 = new Intent(ListActivity.this, ListSearchActivity.class);
-                    startActivityForResult(it1,1);
+                    startActivityForResult(it1, 1);
                     break;
                 case R.id.action_delete:
                     msg += "Delete";
                     Intent it2 = new Intent(ListActivity.this, ListDeleteActivity.class);
-                    startActivityForResult(it2,2);
+                    startActivityForResult(it2, 2);
                     break;
             }
 
@@ -81,7 +82,7 @@ public class ListActivity extends AppCompatActivity {
         items_list = new ArrayList<CrimeItem>();
         items_list = mCrimeProvider.getAll();
         mListV=(ListView)findViewById(R.id.listView);
-        mAdapter = new ListAdapter(ListActivity.this,items_list,false);
+        mAdapter = new ListAdapter(ListActivity.this,items_list);
         mListV.setAdapter(mAdapter);
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
@@ -130,16 +131,19 @@ public class ListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            CrimeItem item = (CrimeItem) data.getExtras().getSerializable("com.android.csiapp.CrimeItem");
             if (requestCode == 0) {
                 // 新增記事資料到資料庫
+                CrimeItem item = (CrimeItem) data.getExtras().getSerializable("com.android.csiapp.CrimeItem");
                 boolean result = mCrimeProvider.update(item);
-                finish();
             }else if(requestCode == 1){
-
+                Log.d("Anita","return search item size = "+items_list.size());
+                //Search
             }else if(requestCode == 2){
-
+                //Delete
             }
+            items_list = mCrimeProvider.getAll();
+            mAdapter = new ListAdapter(ListActivity.this,items_list);
+            mListV.setAdapter(mAdapter);
         }
     }
 }
