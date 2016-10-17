@@ -3,10 +3,6 @@ package com.android.csiapp.Crime.createscene;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -25,7 +21,10 @@ import android.widget.ListView;
 
 import com.android.csiapp.Crime.utils.PhotoAdapter;
 import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Databases.ImportantPhotoProvider;
+import com.android.csiapp.Databases.OverviewPhotoProvider;
 import com.android.csiapp.Databases.PhotoItem;
+import com.android.csiapp.Databases.PositionPhotoProvider;
 import com.android.csiapp.R;
 
 import java.io.File;
@@ -66,6 +65,10 @@ public class CreateScene_FP4 extends Fragment {
     final int LIKE_PHOTO_DELETE = 5;
     final int IMPORTANT_PHOTO_DELETE = 6;
 
+    private PositionPhotoProvider mPositionPhotoProvider;
+    private OverviewPhotoProvider mOverviewPhotoProvider;
+    private ImportantPhotoProvider mImportantPhotoProvider;
+
     public CreateScene_FP4() {
         // Required empty public constructor
     }
@@ -80,6 +83,10 @@ public class CreateScene_FP4 extends Fragment {
 
         initData();
         initView(view);
+
+        mPositionPhotoProvider = new PositionPhotoProvider(context);
+        mOverviewPhotoProvider = new OverviewPhotoProvider(context);
+        mImportantPhotoProvider = new ImportantPhotoProvider(context);
 
         return view;
     }
@@ -151,18 +158,21 @@ public class CreateScene_FP4 extends Fragment {
         switch(item.getItemId()) {
             case POSITION_PHOTO_DELETE:
                 Log.d("Anita","mPositionList = "+mPositionList.size()+", position = "+info.position);
+                if(mEvent == 2) mPositionPhotoProvider.delete(mPositionList.get(info.position).getId());
                 mPositionList.remove(info.position);
                 setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
                 return true;
             case LIKE_PHOTO_DELETE:
                 Log.d("Anita","mLikeList = "+mLikeList.size()+", position = "+info.position);
+                if(mEvent == 2) mOverviewPhotoProvider.delete(mLikeList.get(info.position).getId());
                 mLikeList.remove(info.position);
                 setListViewHeightBasedOnChildren(mLike_List);
                 mLike_Adapter.notifyDataSetChanged();
                 return true;
             case IMPORTANT_PHOTO_DELETE:
                 Log.d("Anita","mImportantList = "+mImportantList.size()+", position = "+info.position);
+                if(mEvent == 2) mImportantPhotoProvider.delete(mImportantList.get(info.position).getId());
                 mImportantList.remove(info.position);
                 setListViewHeightBasedOnChildren(mImportant_List);
                 mImportant_Adapter.notifyDataSetChanged();
@@ -214,16 +224,19 @@ public class CreateScene_FP4 extends Fragment {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == PHOTO_TYPE_POSITION) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_POSITION");
+                if(mEvent == 2) photoItem.setId(mPositionPhotoProvider.insert(photoItem));
                 mPositionList.add(photoItem);
                 setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
             } else if (requestCode == PHOTO_TYPE_LIKE) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_LIKE");
+                if(mEvent == 2) photoItem.setId(mOverviewPhotoProvider.insert(photoItem));
                 mLikeList.add(photoItem);
                 setListViewHeightBasedOnChildren(mLike_List);
                 mLike_Adapter.notifyDataSetChanged();
             } else if (requestCode == PHOTO_TYPE_IMPORTANT) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_IMPORTANT");
+                if(mEvent == 2) photoItem.setId(mImportantPhotoProvider.insert(photoItem));
                 mImportantList.add(photoItem);
                 setListViewHeightBasedOnChildren(mImportant_List);
                 mImportant_Adapter.notifyDataSetChanged();

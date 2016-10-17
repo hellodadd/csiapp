@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +21,11 @@ import com.android.csiapp.Crime.utils.LostItemAdapter;
 import com.android.csiapp.Crime.utils.RelatedPeoeplAdapter;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeToolItem;
+import com.android.csiapp.Databases.CrimeToolProvider;
 import com.android.csiapp.Databases.LostItem;
+import com.android.csiapp.Databases.LostProvider;
 import com.android.csiapp.Databases.RelatedPeopleItem;
+import com.android.csiapp.Databases.RelatedPeopleProvider;
 import com.android.csiapp.R;
 
 import java.util.List;
@@ -56,6 +58,10 @@ public class CreateScene_FP2 extends Fragment {
     final int ITEM_DELETE = 1;
     final int TOOL_DELETE = 2;
 
+    private RelatedPeopleProvider mRelatedPeopelProvider;
+    private LostProvider mLostProvider;
+    private CrimeToolProvider mCrimeToolProvider;
+
     public CreateScene_FP2() {
         // Required empty public constructor
     }
@@ -70,6 +76,10 @@ public class CreateScene_FP2 extends Fragment {
 
         initData();
         initView(view);
+
+        mRelatedPeopelProvider = new RelatedPeopleProvider(context);
+        mLostProvider = new LostProvider(context);
+        mCrimeToolProvider = new CrimeToolProvider(context);
 
         return view;
     }
@@ -189,18 +199,21 @@ public class CreateScene_FP2 extends Fragment {
         switch(item.getItemId()) {
             case PEOPLE_DELETE:
                 Log.d("Anita","mPeopleList = "+mPeopleList.size()+", position = "+info.position);
+                if(mEvent == 2) mRelatedPeopelProvider.delete(mPeopleList.get(info.position).getId());
                 mPeopleList.remove(info.position);
                 setListViewHeightBasedOnChildren(mPeople_List);
                 mPeople_Adapter.notifyDataSetChanged();
                 return true;
             case ITEM_DELETE:
                 Log.d("Anita","mItemList = "+mItemList.size()+", position = "+info.position);
+                if(mEvent == 2) mLostProvider.delete(mItemList.get(info.position).getId());
                 mItemList.remove(info.position);
                 setListViewHeightBasedOnChildren(mItem_List);
                 mItem_Adapter.notifyDataSetChanged();
                 return true;
             case TOOL_DELETE:
                 Log.d("Anita","mToolList = "+mToolList.size()+", position = "+info.position);
+                if(mEvent == 2) mCrimeToolProvider.delete(mToolList.get(info.position).getId());
                 mToolList.remove(info.position);
                 setListViewHeightBasedOnChildren(mTool_List);
                 mTool_Adapter.notifyDataSetChanged();
@@ -244,6 +257,7 @@ public class CreateScene_FP2 extends Fragment {
                 // 新增記事資料到資料庫
                 RelatedPeopleItem relatedPeopleItem = (RelatedPeopleItem) data.getSerializableExtra("com.android.csiapp.Databases.RelatedPeopleItem");
                 int event = (int) data.getIntExtra("Event", 1);
+                if(mEvent == 2 && event ==1) relatedPeopleItem.setId(mRelatedPeopelProvider.insert(relatedPeopleItem));
                 if(event == 1) {
                     mPeopleList.add(relatedPeopleItem);
                 }else{
@@ -256,6 +270,7 @@ public class CreateScene_FP2 extends Fragment {
                 // 新增記事資料到資料庫
                 LostItem lostItem = (LostItem) data.getSerializableExtra("com.android.csiapp.Databases.LostItem");
                 int event = (int) data.getIntExtra("Event", 1);
+                if(mEvent == 2 && event ==1) lostItem.setId(mLostProvider.insert(lostItem));
                 if(event == 1) {
                     mItemList.add(lostItem);
                 }else{
@@ -268,6 +283,7 @@ public class CreateScene_FP2 extends Fragment {
                 // 新增記事資料到資料庫
                 CrimeToolItem crimeToolItem = (CrimeToolItem) data.getSerializableExtra("com.android.csiapp.Databases.CrimeToolItem");
                 int event = (int) data.getIntExtra("Event", 1);
+                if(mEvent == 2 && event ==1) crimeToolItem.setId(mCrimeToolProvider.insert(crimeToolItem));
                 if(event == 1) {
                     mToolList.add(crimeToolItem);
                 }else{

@@ -99,19 +99,22 @@ public class EvidenceProvider {
     }
 
     // 修改參數指定list的物件
-    public boolean updates(String ids, List<EvidenceItem> items) {
+    public String updates(String ids, List<EvidenceItem> items) {
         int length = items.size();
+        String newIds = "";
+
+        if(length == 0) return newIds;
+
         boolean result = false;
-
-        if(length == 0) return result;
-
-        String[] id = ids.split(",");
-        int i = 0;
-        for(String s:id){
-            long tag = Long.parseLong(s.trim());
-            result = update(tag,items.get(i++));
+        for(int i=0;i<items.size();i++){
+            long id = items.get(i).getId();
+            result = update(id, items.get(i));
+            if(i!=0) newIds=newIds+",";
+            newIds=newIds+String.valueOf(id);
         }
-        return result;
+
+        if(result) return newIds;
+        return "";
     }
 
     // 修改參數指定的物件

@@ -147,30 +147,48 @@ public class CrimeProvider {
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
         // 設定修改資料的條件為編號
         // 格式為「欄位名稱＝資料」
+        boolean result = false;
         String where = KEY_ID + "=" + item.getId();
 
         Cursor cursor = db.query(
                 TABLE_NAME, null, where, null, null, null, null, null);
 
+        String RelatedPeople_id="", Lost_id="", CrimeTool_id="", Position_id="", PositionPhoto_id="", OverviewPhoto_id="", ImportantPhoto_id="", Evidence_id="", Witness_id="";
+
         if(cursor.moveToFirst()) {
             // 執行修改資料並回傳修改的資料數量是否成功
-            boolean result = false;
+
             result = mSceneProvider.update(cursor.getLong(1),item);
             result = mAnalysisProvider.update(cursor.getLong(2),item);
             result = mOverviewProvider.update(cursor.getLong(3),item);
-            result = mRelatedPeopleProvider.updates(cursor.getString(4),item.getReleatedPeople());
-            result = mLostProvider.updates(cursor.getString(5),item.getLostItem());
-            result = mCrimeToolProvider.updates(cursor.getString(6),item.getCrimeTool());
-            result = mPositionProvider.updates(cursor.getString(7),item.getPosition());
-            result = mPositionPhotoProvider.updates(cursor.getString(8),item.getPositionPhoto());
-            result = mOverviewPhotoProvider.updates(cursor.getString(9),item.getOverviewPhoto());
-            result = mImportantPhotoProvider.updates(cursor.getString(10),item.getImportantPhoto());
-            result = mEvidenceProvider.updates(cursor.getString(11),item.getEvidenceItem());
-            result = mWitnessProvider.updates(cursor.getString(12),item.getWitness());
+            RelatedPeople_id = mRelatedPeopleProvider.updates(cursor.getString(4),item.getReleatedPeople());
+            Lost_id = mLostProvider.updates(cursor.getString(5),item.getLostItem());
+            CrimeTool_id = mCrimeToolProvider.updates(cursor.getString(6),item.getCrimeTool());
+            Position_id = mPositionProvider.updates(cursor.getString(7),item.getPosition());
+            PositionPhoto_id = mPositionPhotoProvider.updates(cursor.getString(8),item.getPositionPhoto());
+            OverviewPhoto_id = mOverviewPhotoProvider.updates(cursor.getString(9),item.getOverviewPhoto());
+            ImportantPhoto_id = mImportantPhotoProvider.updates(cursor.getString(10),item.getImportantPhoto());
+            Evidence_id = mEvidenceProvider.updates(cursor.getString(11),item.getEvidenceItem());
+            Witness_id = mWitnessProvider.updates(cursor.getString(12),item.getWitness());
             //return db.update(TABLE_NAME, cv, where, null) > 0;
-            return result;
         }
-        return false;
+        cursor.close();
+
+        ContentValues cv = new ContentValues();
+        cv.put(SCENE_ITEM_NUMBER_COLUMN, item.getId());
+        cv.put(ANALYSIS_ITEM_NUMBER_COLUMN, item.getId());
+        cv.put(OVERVIEW_COLUMN, item.getId());
+        cv.put(RELATEDPEOPLE_ITEM_NUMBER_COLUMN, RelatedPeople_id);
+        cv.put(LOST_ITEM_NUMBER_COLUMN, Lost_id);
+        cv.put(CRIMETOOL_ITEM_NUMBER_COLUMN, CrimeTool_id);
+        cv.put(POSITION_ITEM_NUMBER_COLUMN, Position_id);
+        cv.put(POSITIONPHOTO_ITEM_NUMBER_COLUMN, PositionPhoto_id);
+        cv.put(OVERVIEWPHOTO_ITEM_NUMBER_COLUMN, OverviewPhoto_id);
+        cv.put(IMPORTANTPHOTO_ITEM_NUMBER_COLUMN, ImportantPhoto_id);
+        cv.put(EVIDENCE_ITEM_NUMBER_COLUMN, Evidence_id);
+        cv.put(WITNESS_ITEM_NUMBER_COLUMN, Witness_id);
+
+        return db.update(TABLE_NAME, cv, where, null) > 0;
     }
 
     //Todo

@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import android.widget.ListView;
 import com.android.csiapp.Crime.utils.WitnessListAdapter;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.WitnessItem;
+import com.android.csiapp.Databases.WitnessProvider;
 import com.android.csiapp.R;
 
 import java.util.List;
@@ -40,6 +40,8 @@ public class CreateScene_FP8 extends Fragment {
 
     final int WITNESS_DELETE = 8;
 
+    private WitnessProvider mWitnessProvider;
+
     public CreateScene_FP8() {
         // Required empty public constructor
     }
@@ -54,6 +56,8 @@ public class CreateScene_FP8 extends Fragment {
 
         initData();
         initView(view);
+
+        mWitnessProvider = new WitnessProvider(context);
 
         return view;
     }
@@ -106,6 +110,7 @@ public class CreateScene_FP8 extends Fragment {
         switch(item.getItemId()) {
             case WITNESS_DELETE:
                 Log.d("Anita","mWitnessList = "+mWitnessList.size()+", position = "+info.position);
+                if(mEvent == 2) mWitnessProvider.delete(mWitnessList.get(info.position).getId());
                 mWitnessList.remove(info.position);
                 setListViewHeightBasedOnChildren(mWitness_list);
                 mWitness_adapter.notifyDataSetChanged();
@@ -141,6 +146,7 @@ public class CreateScene_FP8 extends Fragment {
         if (resultCode == Activity.RESULT_OK) {
             WitnessItem witenssItem = (WitnessItem) data.getSerializableExtra("com.android.csiapp.Databases.WitnessItem");
             int event = (int) data.getIntExtra("Event", 1);
+            if(mEvent == 2 && event ==1) witenssItem.setId(mWitnessProvider.insert(witenssItem));
             if (requestCode == 0) {
                 // 新增記事資料到資料庫
                 if(event == 1) {

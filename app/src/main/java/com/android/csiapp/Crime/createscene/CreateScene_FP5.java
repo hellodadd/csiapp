@@ -3,15 +3,11 @@ package com.android.csiapp.Crime.createscene;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +17,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.android.csiapp.Crime.utils.EvidenceAdapter;
-import com.android.csiapp.Crime.utils.PhotoAdapter;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.EvidenceItem;
-import com.android.csiapp.Databases.PhotoItem;
+import com.android.csiapp.Databases.EvidenceProvider;
 import com.android.csiapp.R;
 
 import java.io.File;
@@ -47,6 +42,8 @@ public class CreateScene_FP5 extends Fragment {
 
     final int EVIDENCE_DELETE = 7;
 
+    private EvidenceProvider mEvidenceProvider;
+
     public CreateScene_FP5() {
         // Required empty public constructor
     }
@@ -61,6 +58,8 @@ public class CreateScene_FP5 extends Fragment {
 
         initData();
         initView(view);
+
+        mEvidenceProvider = new EvidenceProvider(context);
 
         return view;
     }
@@ -113,6 +112,7 @@ public class CreateScene_FP5 extends Fragment {
         switch(item.getItemId()) {
             case EVIDENCE_DELETE:
                 Log.d("Anita","mEvidenceList = "+mEvidenceList.size()+", position = "+info.position);
+                if(mEvent == 2) mEvidenceProvider.delete(mEvidenceList.get(info.position).getId());
                 mEvidenceList.remove(info.position);
                 setListViewHeightBasedOnChildren(mEvidence_List);
                 mEvidence_Adapter.notifyDataSetChanged();
@@ -150,6 +150,7 @@ public class CreateScene_FP5 extends Fragment {
             EvidenceItem evidenceItem = (EvidenceItem) data.getSerializableExtra("com.android.csiapp.Databases.EvidenceItem");
             int event = (int) data.getIntExtra("Event", 1);
             int position = (int) data.getIntExtra("Position",0);
+            if(mEvent == 2 && event ==1) evidenceItem.setId(mEvidenceProvider.insert(evidenceItem));
             if(event == 1) {
                 mEvidenceList.add(evidenceItem);
             }else{

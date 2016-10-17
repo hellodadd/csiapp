@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import android.widget.ListView;
 import com.android.csiapp.Crime.utils.PhotoAdapter;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.PhotoItem;
+import com.android.csiapp.Databases.PositionProvider;
 import com.android.csiapp.R;
 
 import java.util.List;
@@ -41,6 +41,8 @@ public class CreateScene_FP3 extends Fragment {
 
     final int POSITION_DELETE = 3;
 
+    private PositionProvider mPositionProvider;
+
     public CreateScene_FP3() {
         // Required empty public constructor
     }
@@ -55,6 +57,8 @@ public class CreateScene_FP3 extends Fragment {
 
         initData();
         initView(view);
+
+        mPositionProvider = new PositionProvider(context);
 
         return view;
     }
@@ -94,6 +98,7 @@ public class CreateScene_FP3 extends Fragment {
         switch(item.getItemId()) {
             case POSITION_DELETE:
                 Log.d("Anita","mPositionList fg3 = "+mPositionList.size()+", position = "+info.position);
+                if(mEvent == 2) mPositionProvider.delete(mPositionList.get(info.position).getId());
                 mPositionList.remove(info.position);
                 setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
@@ -131,6 +136,7 @@ public class CreateScene_FP3 extends Fragment {
             PhotoItem positionItem = (PhotoItem) data.getSerializableExtra("com.android.csiapp.Databases.PhotoItem");
             int event = (int) data.getIntExtra("Event", 1);
             int position = (int) data.getIntExtra("Position",0);
+            if(mEvent == 2 && event ==1) positionItem.setId(mPositionProvider.insert(positionItem));
             if(event == 1) {
                 mPositionList.add(positionItem);
             }else{
