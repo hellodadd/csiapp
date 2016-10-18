@@ -31,7 +31,10 @@
             android:name=".LoginActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" 
             android:screenOrientation="portrait">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".LockedActivity"
               android:screenOrientation="portrait">
@@ -39,10 +42,6 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Crime.createscene.CreateSceneActivity"
                android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
