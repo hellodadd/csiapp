@@ -30,6 +30,7 @@
     <string name="location">发案地点</string>
     <string name="occurred_start_time">发案开始时间</string>
     <string name="occurred_end_time">发案结束时间</string>
+    <string name="occurred_time">发案时间</string>
     <string name="get_access_time">接勘时间</string>
     <string name="units_assigned">指派单位</string>
     <string name="access_policemen">接警人</string>

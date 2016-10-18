@@ -17,6 +17,7 @@ import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,10 +27,13 @@ public class ListAdapter extends BaseAdapter {
 
     private LayoutInflater myInflater;
     private List<CrimeItem> items;
+    private ArrayList<CrimeItem> arraylist;
 
     public ListAdapter(Context context, List<CrimeItem> items){
         myInflater = LayoutInflater.from(context);
         this.items = items;
+        this.arraylist = new ArrayList<CrimeItem>();
+        this.arraylist.addAll(items);
     }
 
     @Override
@@ -89,5 +93,38 @@ public class ListAdapter extends BaseAdapter {
             this.txtArea = txtArea;
             this.txtTime = txtTime;
         }
+    }
+
+    public void filter(int searchType, String text, long timeStart, long timeEnd) {
+        switch (searchType){
+            case 1:
+                for(CrimeItem item:arraylist){
+                    if(item.getCasetype().equalsIgnoreCase(text)){
+                        items.add(item);
+                    }
+                }
+                break;
+            case 2:
+                for(CrimeItem item:arraylist){
+                    if(item.getArea().equalsIgnoreCase(text)){
+                        items.add(item);
+                    }
+                }
+                break;
+            case 3:
+                for(CrimeItem item:arraylist){
+                    if(item.getOccurredStartTime()>=timeStart && item.getOccurredEndTime()<=timeEnd){
+                        items.add(item);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+        notifyDataSetChanged();
+    }
+
+    public void clearItem(){
+        items.clear();
     }
 }

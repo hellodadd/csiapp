@@ -19,10 +19,76 @@
             android:layout_gravity="center"
             android:id="@+id/toolbar_title" />
     </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/toolbar">
+        <Button
+            android:id="@+id/categoryBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/casetype"
+            android:background="#FF888888"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/areaBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/area"
+            android:background="#FF888888"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/timeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/occurred_time"
+            android:background="#FF888888"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearlayout">
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/category_listView"
+            android:visibility="gone">
+        </ListView>
+        <Button
+            android:id="@+id/clickCategoryBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/list_search"
+            android:visibility="gone"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearlayout">
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/area_listView"
+            android:visibility="gone">
+        </ListView>
+        <Button
+            android:id="@+id/clickAreaBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/list_search"
+            android:visibility="gone"/>
+    </LinearLayout>
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_below="@+id/toolbar" >
+        android:layout_below="@+id/linearlayout">
     </ListView>
 </RelativeLayout>
