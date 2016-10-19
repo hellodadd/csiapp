@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class XmlHandler {
@@ -200,6 +201,130 @@ public class XmlHandler {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void createScenesInfoXml(Object[] obj) {
+
+        XmlSerializer xmlSerializer;
+        FileOutputStream fileOutputStream = null;
+
+        if (obj.length < 5) {
+            Log.d(TAG, "Information is incorrect");
+            return;
+        }
+
+        try {
+            xmlSerializer = Xml.newSerializer();
+            File file = new File(Environment.getExternalStorageDirectory(), "BaseMsg");
+            fileOutputStream = new FileOutputStream(file);
+
+            String encoding = "utf-8";
+            xmlSerializer.setOutput(fileOutputStream, encoding);
+            xmlSerializer.startDocument(encoding, null);
+
+            xmlSerializer.startTag(null, "datas");
+
+            List<HashMap<String, String>> baseInfoList =  (List<HashMap<String, String>>) obj[0];
+
+            if (baseInfoList.size() > 0) {
+
+                xmlSerializer.startTag(null, "baseinfo");
+
+                for (int i =0; i< baseInfoList.size() ; i++) {
+                    HashMap<String, String> map = baseInfoList.get(i);
+                    for(HashMap.Entry<String,String> entry:map.entrySet()){
+                        xmlSerializer.startTag(null, entry.getKey());
+                        xmlSerializer.text(entry.getValue());
+                        xmlSerializer.endTag(null, entry.getKey());
+                    }
+                }
+                xmlSerializer.endTag(null, "baseinfo");
+            }
+
+            List<HashMap<String, String>> peopleInfoList =  (List<HashMap<String, String>>) obj[1];
+
+            if (peopleInfoList.size() > 0) {
+
+                xmlSerializer.startTag(null, "peopleinfos");
+                for (int i =0; i< peopleInfoList.size() ; i++) {
+                    HashMap<String, String> map = peopleInfoList.get(i);
+                    xmlSerializer.startTag(null, "peopleinfo");
+                    for(HashMap.Entry<String,String> entry:map.entrySet()){
+                        xmlSerializer.startTag(null, entry.getKey());
+                        xmlSerializer.text(entry.getValue());
+                        xmlSerializer.endTag(null, entry.getKey());
+                    }
+                    xmlSerializer.endTag(null, "peopleinfo");
+                }
+                xmlSerializer.endTag(null, "peopleinfos");
+            }
+
+            List<HashMap<String, String>> goodsInfoList =  (List<HashMap<String, String>>) obj[2];
+
+            if (goodsInfoList.size() > 0) {
+
+                xmlSerializer.startTag(null, "goodsinfos");
+                for (int i =0; i< goodsInfoList.size() ; i++) {
+                    HashMap<String, String> map = goodsInfoList.get(i);
+                    xmlSerializer.startTag(null, "goodsinfo");
+                    for(HashMap.Entry<String,String> entry:map.entrySet()){
+                        xmlSerializer.startTag(null, entry.getKey());
+                        xmlSerializer.text(entry.getValue());
+                        xmlSerializer.endTag(null, entry.getKey());
+                    }
+                    xmlSerializer.endTag(null, "goodsinfo");
+                }
+                xmlSerializer.endTag(null, "goodsinfos");
+            }
+
+            List<HashMap<String, String>> traceInfoList =  (List<HashMap<String, String>>) obj[3];
+
+            if (traceInfoList.size() > 0) {
+
+                xmlSerializer.startTag(null, "traceinfos");
+                for (int i =0; i< traceInfoList.size() ; i++) {
+                    HashMap<String, String> map = traceInfoList.get(i);
+                    xmlSerializer.startTag(null, "traceinfo");
+                    for(HashMap.Entry<String,String> entry:map.entrySet()){
+                        xmlSerializer.startTag(null, entry.getKey());
+                        xmlSerializer.text(entry.getValue());
+                        xmlSerializer.endTag(null, entry.getKey());
+                    }
+                    xmlSerializer.endTag(null, "traceinfo");
+                }
+                xmlSerializer.endTag(null, "traceinfos");
+            }
+
+            List<HashMap<String, String>> attachInfoList =  (List<HashMap<String, String>>) obj[4];
+
+            if (attachInfoList.size() > 0) {
+
+                xmlSerializer.startTag(null, "attachinfos");
+                for (int i =0; i< attachInfoList.size() ; i++) {
+                    HashMap<String, String> map = attachInfoList.get(i);
+                    xmlSerializer.startTag(null, "attachinfo");
+                    for(HashMap.Entry<String,String> entry:map.entrySet()){
+                        xmlSerializer.startTag(null, entry.getKey());
+                        xmlSerializer.text(entry.getValue());
+                        xmlSerializer.endTag(null, entry.getKey());
+                    }
+                    xmlSerializer.endTag(null, "attachinfo");
+                }
+                xmlSerializer.endTag(null, "attachinfos");
+            }
+            xmlSerializer.endTag(null, "datas");
+            xmlSerializer.endDocument();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (fileOutputStream != null) {
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
