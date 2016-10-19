@@ -149,7 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textSize="@dimen/create_vp1_textsize"
+                    android:textSize="14sp"
                     android:layout_weight="1"/>
 
                 <Button
@@ -188,7 +188,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textSize="@dimen/create_vp1_textsize"
+                    android:textSize="14sp"
                     android:layout_weight="1"/>
 
                 <Button
@@ -227,7 +227,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textSize="@dimen/create_vp1_textsize"
+                    android:textSize="14sp"
                     android:layout_weight="1"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
@@ -327,7 +327,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textSize="@dimen/create_vp1_textsize"
+                    android:textSize="14sp"
                     android:layout_weight="1"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
@@ -367,7 +367,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textSize="@dimen/create_vp1_textsize"
+                    android:textSize="14sp"
                     android:layout_weight="1"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 

@@ -20,7 +20,7 @@
         android:paddingBottom="8dp"
         android:paddingLeft="8dp"
         android:paddingRight="24dp"
-        android:textSize="12sp"/>
+        android:textSize="14sp"/>
 
     <Button
         android:id="@+id/clearable_button_clear"

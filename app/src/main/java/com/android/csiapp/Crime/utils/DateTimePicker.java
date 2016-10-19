@@ -161,7 +161,7 @@ public class DateTimePicker extends RelativeLayout implements View.OnClickListen
 		sb.append("月");
 		if (a[2]<10) {sb.append("0" + (a[2]));}
 		else {sb.append("" + (a[2]));}
-		sb.append("日\n");
+		sb.append("日");
 		if (a[3]<10) {sb.append(" 0" + (a[3]));}
 		else {sb.append("" + (a[3]));}
 		sb.append("時");

@@ -443,14 +443,33 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     }
 
     private String getCaseOccurProcess(){
+        saveData();
         //Example : "据<被害人/报案人>报称:<发案开始时间> 在<发案地点>，该处发现一起<案件类别>，后拨打电话报警"
-        String result = "据<被害人/报案人>报称:<发案开始时间> 在<发案地点>，该处发现一起<案件类别>，后拨打电话报警";
+        String result = "据";
+        if(mItem.getReleatedPeople().size()>0){
+            for(int i = 0;i<mItem.getReleatedPeople().size();i++){
+                result = result + mItem.getReleatedPeople().get(i).getPeopleName();
+                if(i!=mItem.getReleatedPeople().size()-1) result = result + ",";
+            }
+        }else{
+            result = result + "<被害人/报案人>";
+        }
+
+        result = result + "报称:"+ DateTimePicker.getCurrentTime(mItem.getOccurredStartTime())
+                        + "，在" + mItem.getLocation()
+                        + "，该处发现一起" + mItem.getCasetype()
+                        + "，后拨打电话报警。";
+
         return result;
     }
 
     private String getAccessReason(){
+        saveData();
         //Example : "<发案区划><接警人>接到<指派单位>的指派: 在该所管界内<发案地点>发生一起<案件类别>，请速派人员勘查现场"
-        String result = "<发案区划><接警人>接到<指派单位>的指派: 在该所管界内<发案地点>发生一起<案件类别>，请速派人员勘查现场";
+        String result = mItem.getArea() + mItem.getAccessPolicemen() + "接到"
+                        + mItem.getUnitsAssigned() + "的指派: 在该所管界内"
+                        + mItem.getLocation() + "发生一起" + mItem.getCasetype()
+                        + "，请速派人员勘查现场。";
         return result;
     }
 
