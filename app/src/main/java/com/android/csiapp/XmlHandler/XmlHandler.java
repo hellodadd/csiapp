@@ -205,6 +205,114 @@ public class XmlHandler {
         }
     }
 
+    public String[] getSceneListCmd() {
+        try {
+            File file = new File(Environment.getExternalStorageDirectory(), "getSceneListCmd.xml");
+            FileInputStream fileInputStream = new FileInputStream(file);
+            XmlPullParser parser = Xml.newPullParser();
+            parser.setInput(fileInputStream, "utf-8");
+            int eventType = parser.getEventType();
+            String loginName = "";
+            String unitCode = "";
+
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                switch (eventType) {
+                    case XmlPullParser.START_DOCUMENT:
+                        break;
+                    case XmlPullParser.START_TAG:
+                        String name = parser.getName();
+                        if (name.equalsIgnoreCase("loginname")) {
+                            loginName = parser.getText();
+                        } else if (name.equalsIgnoreCase("unitcode")) {
+                            unitCode = parser.getText();
+                        }
+                        break;
+                    case XmlPullParser.END_TAG:
+                        break;
+                }
+                eventType = parser.next();
+
+            }
+            fileInputStream.close();
+            return new String[]{loginName, unitCode};
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String[] writeSceneIdCmd() {
+        try {
+            File file = new File(Environment.getExternalStorageDirectory(), "writeSceneIdCmd.xml");
+            FileInputStream fileInputStream = new FileInputStream(file);
+            XmlPullParser parser = Xml.newPullParser();
+            parser.setInput(fileInputStream, "utf-8");
+            int eventType = parser.getEventType();
+            String sceneId = "";
+            String sceneNo = "";
+
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                switch (eventType) {
+                    case XmlPullParser.START_DOCUMENT:
+                        break;
+                    case XmlPullParser.START_TAG:
+                        String name = parser.getName();
+                        if (name.equalsIgnoreCase("sceneid")) {
+                            sceneId = parser.getText();
+                        } else if (name.equalsIgnoreCase("sceneno")) {
+                            sceneNo = parser.getText();
+                        }
+                        break;
+                    case XmlPullParser.END_TAG:
+                        break;
+                }
+                eventType = parser.next();
+
+            }
+            fileInputStream.close();
+            return new String[]{sceneId, sceneNo};
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String[] deleteSceneInfoCmd() {
+
+        String[] sceneId = new String[]{};
+        int count = 0;
+        try {
+            File file = new File(Environment.getExternalStorageDirectory(), "deleteSceneInfoCmd.xml");
+            FileInputStream fileInputStream = new FileInputStream(file);
+            XmlPullParser parser = Xml.newPullParser();
+            parser.setInput(fileInputStream, "utf-8");
+            int eventType = parser.getEventType();
+
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                switch (eventType) {
+                    case XmlPullParser.START_DOCUMENT:
+                        break;
+                    case XmlPullParser.START_TAG:
+                        String name = parser.getName();
+                        if (name.equalsIgnoreCase("sceneid")) {
+                            sceneId[count] = parser.getText();
+                            count++;
+                        }
+                        break;
+                    case XmlPullParser.END_TAG:
+                        break;
+                }
+                eventType = parser.next();
+
+            }
+            fileInputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sceneId;
+    }
+
     public void createScenesInfoXml(Object[] obj) {
 
         XmlSerializer xmlSerializer;

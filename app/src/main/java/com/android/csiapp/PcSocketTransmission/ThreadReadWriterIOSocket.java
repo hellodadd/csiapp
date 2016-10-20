@@ -1,12 +1,14 @@
 package com.android.csiapp.PcSocketTransmission;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -33,9 +35,10 @@ public class ThreadReadWriterIOSocket implements Runnable {
         BufferedOutputStream out;
         BufferedInputStream in;
         try {
-			/* PC端发来的数据msg */
+            /* PC端发来的数据msg */
             String currCMD = "";
             int[] currcmdinfo;
+            String receiveString ="";
             //String currCMD = new String[4];
             out = new BufferedOutputStream(client.getOutputStream());
             in = new BufferedInputStream(client.getInputStream());
@@ -45,7 +48,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
                     if (!client.isConnected()) {
                         break;
                     }
-					/* 接收PC发来的数据 */
+                    /* 接收PC发来的数据 */
                     Log.v(TAG, Thread.currentThread().getName() + "---->" + "will read......");
 
                     /* 读操作命令 */
@@ -54,7 +57,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
                     Log.v(TAG, Thread.currentThread().getName() + "---->" + "**currCMD ==== " + currCMD);
 
 
-					/* 根据命令分别处理数据 */
+                    /* 根据命令分别处理数据 */
                     if (currcmdinfo != null) {
                         switch (currcmdinfo[1]) {
                             case 1: //获取设备信息命令
@@ -73,12 +76,24 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 SocketService.ioThreadFlag=false;
                                 break;
                             case 2: //设备初始化命令
+                                receiveString = receiveDataFromSocket(in, currcmdinfo);
+                                FileHelper.writeStringToFile(receiveString, Environment.getExternalStorageDirectory().getAbsolutePath(), "InitDeviceCmd.xml");
+                                // Todo: confirm if the configuration is set successfully.
+                                concatCmdline(out, currcmdinfo, 1);
+                                sendResult(out,true);
                                 break;
                             case 3: //App更新命令
                                 break;
                             case 4: //地图更新命令
                                 break;
                             case 11: //获取现场列表命令
+                                receiveString = receiveDataFromSocket(in, currcmdinfo);
+                                FileHelper.writeStringToFile(receiveString, Environment.getExternalStorageDirectory().getAbsolutePath(), "getSceneListCmd.xml");
+                                // Todo: confirm if the configuration is set successfully.
+                                String errstr= "File Not Found";
+                                byte [] errbyte = errstr.getBytes("UTF-8");
+                                concatCmdline(out, currcmdinfo, errbyte.length);
+                                sendErrorString(out, errbyte);
                                 break;
                             case 12: //获取现场信息命令
                                 break;
@@ -159,46 +174,14 @@ public class ThreadReadWriterIOSocket implements Runnable {
         return cmdinfo;
     }
 
-    public void receiveDataFromSocket(BufferedInputStream in, int[] cmdinfo) {
+    public String receiveDataFromSocket(BufferedInputStream in, int[] cmdinfo) {
         int ch = 0;
         //int count = 0;
         int receivedatalength = cmdinfo[3];
-        int count=0, readcount=0;
-        byte[] b = null;
+        int count=0;
+        String receiveString = "";
 
-        /*
-        try {
-            while (count == 0) {
-                count = in.available();
-                Log.d(TAG,"count="+count);
-            }
-            if (receivedatalength == count){
-                Log.d(TAG, "receive data is same");
-            } else {
-                Log.d(TAG, "receivedatalength="+receivedatalength+", count="+count);
-            }
-            b = new byte[count];
-            while (readcount < count) {
-                readcount += in.read(b, readcount, count - readcount);
-            }
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String filedata="";
-
-        if (b!=null) {
-            try {
-                filedata = new String(b, "UTF-8");
-            }catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-        }
-
-        Log.d(TAG,"File Data="+ filedata);
-        */    
               StringBuilder receiveStream = new StringBuilder();
-              count=0;
               try {
                   while ((ch = in.read()) != -1) {
                       receiveStream.append((char)ch);
@@ -209,11 +192,14 @@ public class ThreadReadWriterIOSocket implements Runnable {
                       }
 
                   }
-
              } catch (Exception e) {
                  e.printStackTrace();
              }
-             Log.d(TAG,"receiveStream="+receiveStream.toString());
+
+        receiveString = receiveStream.toString();
+        Log.d(TAG,"ReceiveStream="+receiveString);
+
+        return receiveString;
 
     }
 

@@ -6,6 +6,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -49,5 +50,17 @@ public class FileHelper {
         bis.read(b, 0, leng);
         bis.close();
         return b;
+    }
+
+    public static void writeStringToFile(String textstring, String filepath, String filename) {
+        try {
+            File file = new File(filepath, filename);
+            FileWriter writer = new FileWriter(file);
+            writer.write(textstring);
+            writer.flush();
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
