@@ -6,8 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.android.csiapp.Crime.utils.DateTimePicker;
+import com.android.csiapp.XmlHandler.XmlHandler;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -440,5 +445,190 @@ public class CrimeProvider {
 
         insert(item);
         insert(item2);
+    }
+
+    public void createBaseMsgXml(int id){
+        List<CrimeItem> mItem = new ArrayList<>();
+        List<HashMap<String, String>> mBaseInfoList = new ArrayList<>();
+        List<HashMap<String, String>> mPeopleInfoList = new ArrayList<>();
+        List<HashMap<String, String>> mGoodsInfoList = new ArrayList<>();
+        List<HashMap<String, String>> mTraceInfoList = new ArrayList<>();
+        List<HashMap<String, String>> mAttachInfoList = new ArrayList<>();
+
+        if(id == -1) {
+            mItem = getAll();
+        }else{
+            mItem.add(getRecord(id));
+        }
+        Log.d("Anita", "size = "+mItem.size());
+        if(mItem.size()>0){
+            for(int i=0;i<mItem.size();i++){
+                CrimeItem item = mItem.get(i);
+
+                //BaseInfo
+                HashMap<String, String> mBaseInfo = new LinkedHashMap<String, String>();
+                mBaseInfo.put("id", String.valueOf(item.getId()));
+                mBaseInfo.put("casetype", item.getCasetype());
+                mBaseInfo.put("regionalism", item.getArea());
+                mBaseInfo.put("address", item.getLocation());
+                mBaseInfo.put("starttime", DateTimePicker.getCurrentDate(item.getOccurredStartTime()));
+                mBaseInfo.put("endtime", DateTimePicker.getCurrentDate(item.getOccurredEndTime()));
+                mBaseInfo.put("receivertime", DateTimePicker.getCurrentDate(item.getGetAccessTime()));
+                mBaseInfo.put("appointunit", item.getUnitsAssigned());
+                mBaseInfo.put("receivedperson", item.getAccessPolicemen());
+                mBaseInfo.put("inqueststarttime", DateTimePicker.getCurrentDate(item.getAccessStartTime()));
+                mBaseInfo.put("inquestendtime", DateTimePicker.getCurrentDate(item.getAccessEndTime()));
+                mBaseInfo.put("inquestaddress", item.getAccessLocation());
+                mBaseInfo.put("discover", item.getCaseOccurProcess());
+                mBaseInfo.put("scenesituation", item.getSceneCondition());
+                mBaseInfo.put("changeresason", item.getChangeReason());
+                mBaseInfo.put("weather", item.getWeatherCondition());
+                mBaseInfo.put("wind", item.getWindDirection());
+                mBaseInfo.put("temperature", item.getTemperature());
+                mBaseInfo.put("humidity", item.getHumidity());
+                mBaseInfo.put("investigatecause", item.getAccessReason());
+                mBaseInfo.put("beamsituation", item.getIlluminationCondition());
+                mBaseInfo.put("protectionname", item.getProductPeopleName());
+                mBaseInfo.put("protectionorg", item.getProductPeopleUnit());
+                mBaseInfo.put("protectionpost", item.getProductPeopleDuties());
+                mBaseInfo.put("protectionmeasure", item.getSafeguard());
+                mBaseInfo.put("director", item.getSceneConductor());
+                mBaseInfo.put("investigators", item.getAccessInspectors());
+
+                mBaseInfo.put("inqueststate", item.getOverview());
+
+                mBaseInfo.put("crimersnum", item.getCrimePeopleNumber());
+                mBaseInfo.put("crimersmethod", item.getCrimeMeans());
+                mBaseInfo.put("crimersnature", item.getCrimeCharacter());
+                mBaseInfo.put("crimersenter", item.getCrimeEntrance());
+                mBaseInfo.put("crimerstime", DateTimePicker.getCurrentDate(item.getCrimeTiming()));
+                mBaseInfo.put("crimersobject", item.getSelectObject());
+                mBaseInfo.put("crimersexit", item.getCrimeExport());
+                mBaseInfo.put("crimerfeature", item.getCrimePeopleFeature());
+                mBaseInfo.put("crimerskeypoint", item.getCrimeFeature());
+                mBaseInfo.put("crimersentermethod", item.getIntrusiveMethod());
+                mBaseInfo.put("crimershouse", item.getSelectLocation());
+                mBaseInfo.put("crimersmotive", item.getCrimePurpose());
+
+                mBaseInfoList.add(mBaseInfo);
+
+                //PeopleInfo
+                List<RelatedPeopleItem> mRelatedPeopleItem = item.getReleatedPeople();
+                List<WitnessItem> mWitnessItem = item.getWitness();
+                for(int iP =0; iP<mRelatedPeopleItem.size();iP++){
+                    HashMap<String, String> mPeopleInfo = new LinkedHashMap<String, String>();
+                    mPeopleInfo.put("caseid",String.valueOf(item.getId()));
+                    mPeopleInfo.put("type",mRelatedPeopleItem.get(iP).getPeopleRelation());
+                    mPeopleInfo.put("name",mRelatedPeopleItem.get(iP).getPeopleName());
+                    mPeopleInfo.put("sex",mRelatedPeopleItem.get(iP).getPeopleSex());
+                    mPeopleInfo.put("idnum",mRelatedPeopleItem.get(iP).getPeopleId());
+                    mPeopleInfo.put("birthday","");
+                    mPeopleInfo.put("mobile",mRelatedPeopleItem.get(iP).getPeopleNumber());
+                    mPeopleInfo.put("address",mRelatedPeopleItem.get(iP).getPeopleAddress());
+                    mPeopleInfo.put("sign","");
+                    mPeopleInfoList.add(mPeopleInfo);
+                }
+                for(int iW =0; iW<mWitnessItem.size();iW++){
+                    HashMap<String, String> mPeopleInfo = new LinkedHashMap<String, String>();
+                    mPeopleInfo.put("id",String.valueOf(item.getId()));
+                    mPeopleInfo.put("type","见证人");
+                    mPeopleInfo.put("name",mWitnessItem.get(iW).getWitnessName());
+                    mPeopleInfo.put("sex",mWitnessItem.get(iW).getWitnessSex());
+                    mPeopleInfo.put("idnum","");
+                    mPeopleInfo.put("birthday",DateTimePicker.getCurrentDate(mWitnessItem.get(iW).getWitnessBirthday()));
+                    mPeopleInfo.put("mobile",mWitnessItem.get(iW).getWitnessNumber());
+                    mPeopleInfo.put("address",mWitnessItem.get(iW).getWitnessAddress());
+                    mPeopleInfo.put("sign","0");
+                    mPeopleInfoList.add(mPeopleInfo);
+                }
+
+                //GoodsInfo
+                List<LostItem> mLostItem = item.getLostItem();
+                List<CrimeToolItem> mCrimeToolItem = item.getCrimeTool();
+                for(int iG =0; iG<mLostItem.size();iG++){
+                    HashMap<String, String> mGoodsInfo = new LinkedHashMap<String, String>();
+                    mGoodsInfo.put("id",String.valueOf(item.getId()));
+                    mGoodsInfo.put("type","损失物品");
+                    mGoodsInfo.put("name",mLostItem.get(iG).getItemName());
+                    mGoodsInfo.put("factory",mLostItem.get(iG).getItemBrand());
+                    mGoodsInfo.put("number",mLostItem.get(iG).getItemAmount());
+                    mGoodsInfo.put("price",mLostItem.get(iG).getItemValue());
+                    mGoodsInfo.put("describe",mLostItem.get(iG).getItemFeature());
+                    mGoodsInfoList.add(mGoodsInfo);
+                }
+                for(int iC =0; iC<mCrimeToolItem.size();iC++){
+                    HashMap<String, String> mGoodsInfo = new LinkedHashMap<String, String>();
+                    mGoodsInfo.put("id",String.valueOf(item.getId()));
+                    mGoodsInfo.put("type","作案工具");
+                    mGoodsInfo.put("name",mCrimeToolItem.get(iC).getToolName());
+                    mGoodsInfo.put("sort",mCrimeToolItem.get(iC).getToolCategory());
+                    mGoodsInfo.put("source",mCrimeToolItem.get(iC).getToolSource());
+                    mGoodsInfoList.add(mGoodsInfo);
+                }
+
+                //TraceInfo
+                List<EvidenceItem> mEvidenceItem = item.getEvidenceItem();
+                for(int iE =0; iE<mEvidenceItem.size();iE++) {
+                    HashMap<String, String> mTraceInfo = new LinkedHashMap<String, String>();
+                    mTraceInfo.put("id", String.valueOf(item.getId()));
+                    mTraceInfo.put("filename",mEvidenceItem.get(iE).getPhotoPath().substring(mEvidenceItem.get(iE).getPhotoPath().lastIndexOf("/")));
+                    mTraceInfo.put("type",mEvidenceItem.get(iE).getEvidenceCategory());
+                    mTraceInfo.put("subtype","");
+                    mTraceInfo.put("material",mEvidenceItem.get(iE).getEvidence());
+                    mTraceInfo.put("retain_port",mEvidenceItem.get(iE).getLegacySite());
+                    mTraceInfo.put("basic_feature",mEvidenceItem.get(iE).getBasiceFeature());
+                    mTraceInfo.put("tool_infer","");
+                    mTraceInfo.put("extract_method",mEvidenceItem.get(iE).getMethod());
+                    mTraceInfo.put("extract_time",DateTimePicker.getCurrentDate(mEvidenceItem.get(iE).getTime()));
+                    mTraceInfo.put("extract_person",mEvidenceItem.get(iE).getPeople());
+                    mTraceInfoList.add(mTraceInfo);
+                }
+
+                //AttachInfo
+                List<PhotoItem> mPosition = item.getPosition();
+                List<PhotoItem> mPositionPhoto = item.getPositionPhoto();
+                List<PhotoItem> mOverviewPhoto = item.getOverviewPhoto();
+                List<PhotoItem> mImportantPhoto = item.getImportantPhoto();
+                for(int iP=0;iP<mPosition.size();iP++){
+                    HashMap<String, String> mAttachInfo = new LinkedHashMap<String, String>();
+                    mAttachInfo.put("type","方位示意图");
+                    mAttachInfo.put("id",String.valueOf(item.getId()));
+                    mAttachInfo.put("filename",mPosition.get(iP).getPhotoPath().substring(mPosition.get(iP).getPhotoPath().lastIndexOf("/")));
+                    mAttachInfoList.add(mAttachInfo);
+                }
+                for(int iPP=0;iPP<mPositionPhoto.size();iPP++){
+                    HashMap<String, String> mAttachInfo = new LinkedHashMap<String, String>();
+                    mAttachInfo.put("type","方位照片");
+                    mAttachInfo.put("id",String.valueOf(item.getId()));
+                    mAttachInfo.put("filename",mPositionPhoto.get(iPP).getPhotoPath().substring(mPositionPhoto.get(iPP).getPhotoPath().lastIndexOf("/")));
+                    mAttachInfoList.add(mAttachInfo);
+                }
+                for(int iO=0;iO<mOverviewPhoto.size();iO++){
+                    HashMap<String, String> mAttachInfo = new LinkedHashMap<String, String>();
+                    mAttachInfo.put("type","概貌照片");
+                    mAttachInfo.put("id",String.valueOf(item.getId()));
+                    mAttachInfo.put("filename",mOverviewPhoto.get(iO).getPhotoPath().substring(mOverviewPhoto.get(iO).getPhotoPath().lastIndexOf("/")));
+                    mAttachInfoList.add(mAttachInfo);
+                }
+                for(int iI=0;iI<mImportantPhoto.size();iI++){
+                    HashMap<String, String> mAttachInfo = new LinkedHashMap<String, String>();
+                    mAttachInfo.put("type","重点部位");
+                    mAttachInfo.put("id",String.valueOf(item.getId()));
+                    mAttachInfo.put("filename",mImportantPhoto.get(iI).getPhotoPath().substring(mImportantPhoto.get(iI).getPhotoPath().lastIndexOf("/")));
+                    mAttachInfoList.add(mAttachInfo);
+                }
+
+            }
+        }
+
+        final Object[] obj = new Object[5];
+        obj[0] = mBaseInfoList;
+        obj[1] = mPeopleInfoList;
+        obj[2] = mGoodsInfoList;
+        obj[3] = mTraceInfoList;
+        obj[4] = mAttachInfoList;
+
+        XmlHandler xmlhandler = new XmlHandler();
+        xmlhandler.createSceneInfoXmlFile(obj);
     }
 }

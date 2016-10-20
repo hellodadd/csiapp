@@ -313,7 +313,7 @@ public class XmlHandler {
         return sceneId;
     }
 
-    public void createScenesInfoXml(Object[] obj) {
+    public void createSceneInfoXmlFile(Object[] obj) {
 
         XmlSerializer xmlSerializer;
         FileOutputStream fileOutputStream = null;
@@ -325,7 +325,7 @@ public class XmlHandler {
 
         try {
             xmlSerializer = Xml.newSerializer();
-            File file = new File(Environment.getExternalStorageDirectory(), "ScenesMsg");
+            File file = new File(Environment.getExternalStorageDirectory(), "ScenesMsg.xml");
             fileOutputStream = new FileOutputStream(file);
 
             String encoding = "utf-8";
@@ -355,10 +355,10 @@ public class XmlHandler {
 
     public void createSubSceneInfo(XmlSerializer xmlSerializer, List<HashMap<String, String>> info, String tagstring) {
 
-        if(info.size() > 0) {
+        if(info.size() < 0) {
             Log.d(TAG, "The Sub Scene information is incorrect !!");
             return;
-            }
+        }
         try {
             xmlSerializer.startTag(null, tagstring+"s");
             for (int i = 0; i < info.size(); i++) {

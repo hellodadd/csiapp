@@ -38,7 +38,6 @@ public class SceneProvider {
     public static final String TEMPERATURE_COLUMN = "temperature";
     public static final String HUMIDITY_COLUMN = "humidity";
     public static final String ACCESS_REASON_COLUMN = "access_reason";
-
     public static final String ILLUMINATION_CONDITION_COLUMN = "illumination_condition";
     public static final String PRODUCT_PEOPLE_NAME_COLUMN = "product_people_name";
     public static final String PRODUCT_PEOPLE_UNIT_COLUMN = "product_people_unit";

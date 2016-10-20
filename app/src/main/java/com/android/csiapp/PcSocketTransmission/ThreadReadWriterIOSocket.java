@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
+import com.android.csiapp.Databases.CrimeProvider;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -87,15 +89,45 @@ public class ThreadReadWriterIOSocket implements Runnable {
                             case 4: //地图更新命令
                                 break;
                             case 11: //获取现场列表命令
-                                receiveString = receiveDataFromSocket(in, currcmdinfo);
-                                FileHelper.writeStringToFile(receiveString, Environment.getExternalStorageDirectory().getAbsolutePath(), "getSceneListCmd.xml");
-                                // Todo: confirm if the configuration is set successfully.
-                                String errstr= "File Not Found";
-                                byte [] errbyte = errstr.getBytes("UTF-8");
-                                concatCmdline(out, currcmdinfo, errbyte.length);
-                                sendErrorString(out, errbyte);
+                                //組成BaseMsg.xml
+                                CrimeProvider mCrimeProvider1 = new CrimeProvider(context);
+                                mCrimeProvider1.createBaseMsgXml(-1);
+
+                                //获取BaseMsg.xml
+                                receiveDataFromSocket(in, currcmdinfo);
+                                File fileBaseMsgs = FileHelper.newFile("BaseMsg.xml");
+                                if (fileBaseMsgs.exists() == true) {
+                                    byte[] abyte = FileHelper.readFile(fileBaseMsgs);
+                                    concatCmdline(out, currcmdinfo, abyte.length);
+                                    sendDeviceinfo(out, currcmdinfo, fileBaseMsgs);
+                                } else {
+                                    String errstr= "File Not Found";
+                                    byte [] errbyte = errstr.getBytes("UTF-8");
+                                    concatCmdline(out, currcmdinfo, errbyte.length);
+                                    sendErrorString(out, errbyte);
+                                }
+                                SocketService.ioThreadFlag=false;
                                 break;
                             case 12: //获取现场信息命令
+                                //組成單一BaseMsg.xml
+                                int id = 0;
+                                CrimeProvider mCrimeProvider2 = new CrimeProvider(context);
+                                mCrimeProvider2.createBaseMsgXml(id);
+
+                                //获取單一BaseMsg.xml
+                                receiveDataFromSocket(in, currcmdinfo);
+                                File fileBaseMsg = FileHelper.newFile("BaseMsg.xml");
+                                if (fileBaseMsg.exists() == true) {
+                                    byte[] abyte = FileHelper.readFile(fileBaseMsg);
+                                    concatCmdline(out, currcmdinfo, abyte.length);
+                                    sendDeviceinfo(out, currcmdinfo, fileBaseMsg);
+                                } else {
+                                    String errstr= "File Not Found";
+                                    byte [] errbyte = errstr.getBytes("UTF-8");
+                                    concatCmdline(out, currcmdinfo, errbyte.length);
+                                    sendErrorString(out, errbyte);
+                                }
+                                SocketService.ioThreadFlag=false;
                                 break;
                             case 13: //回写现勘编号命令
                                 break;
