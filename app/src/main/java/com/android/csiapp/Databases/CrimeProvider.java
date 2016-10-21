@@ -417,7 +417,7 @@ public class CrimeProvider {
             List<EvidenceItem> Evidence_items = mEvidenceProvider.querys(cursor.getString(11));
             result.setEvidenceItem(Evidence_items);
 
-            List<WitnessItem> Witness_items = mWitnessProvider.querys(cursor.getString(11));
+            List<WitnessItem> Witness_items = mWitnessProvider.querys(cursor.getString(12));
             result.setWitness(Witness_items);
         }
 
@@ -539,6 +539,7 @@ public class CrimeProvider {
                     mPeopleInfo.put("mobile",mWitnessItem.get(iW).getWitnessNumber());
                     mPeopleInfo.put("address",mWitnessItem.get(iW).getWitnessAddress());
                     mPeopleInfo.put("sign","0");
+                    mPeopleInfo.put("sign",mWitnessItem.get(iW).getPhotoPath().substring(mWitnessItem.get(iW).getPhotoPath().lastIndexOf("/")));
                     mPeopleInfoList.add(mPeopleInfo);
                 }
 

@@ -13,6 +13,7 @@ public class WitnessItem implements Serializable {
     private long mWitness_birthday;
     private String mWitness_number;
     private String mWitness_address;
+    private String mPhotoPath;
 
     public WitnessItem(){
         Calendar c = Calendar.getInstance();
@@ -23,6 +24,7 @@ public class WitnessItem implements Serializable {
         this.mWitness_birthday = time;
         this.mWitness_number = "";
         this.mWitness_address = "";
+        this.mPhotoPath = "";
     }
 
     public WitnessItem(long id, String name, String sex, long birthday, String number, String address) {
@@ -61,6 +63,14 @@ public class WitnessItem implements Serializable {
     public String getWitnessAddress() {return mWitness_address; }
 
     public void setWitnessAddress(String witness_address) {this.mWitness_address = witness_address; }
+
+    public String getPhotoPath() {
+        return mPhotoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.mPhotoPath = photoPath;
+    }
 
     //Check Information
     public boolean checkInformation(){

@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.DigitsKeyListener;
@@ -16,6 +19,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,12 +28,14 @@ import android.widget.Toast;
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
+import com.android.csiapp.Crime.utils.HandWriteActivity;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Databases.WitnessItem;
 import com.android.csiapp.R;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 
 public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -49,6 +55,9 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
 
     private ClearableEditText mNumber;
     private ClearableEditText mAddress;
+
+    private ImageView mImage;
+    private Button mBtn;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -142,6 +151,15 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         mNumber = (ClearableEditText) findViewById(R.id.contact_number_editView);
         mNumber.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
         mAddress = (ClearableEditText) findViewById(R.id.address_editView);
+
+        mImage = (ImageView) findViewById(R.id.image);
+        mBtn = (Button) findViewById(R.id.btn);
+        mBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(CreateScene_FP8_AddWitnessActivity.this, HandWriteActivity.class), 1);
+            }
+        });
     }
 
     private void initData(){
@@ -150,6 +168,13 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         mBirthday.setText(DateTimePicker.getCurrentTime(mWitnessItem.getWitnessBirthday()));
         mNumber.setText(mWitnessItem.getWitnessNumber());
         mAddress.setText(mWitnessItem.getWitnessAddress());
+        if(!mWitnessItem.getPhotoPath().isEmpty()){
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 2;
+            Bitmap bm = BitmapFactory.decodeFile(mWitnessItem.getPhotoPath(), options);
+            mImage.setImageBitmap(bm);
+            mImage.setVisibility(View.VISIBLE);
+        }
     }
 
     private void saveData(){
@@ -167,6 +192,20 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode==100)
+        {
+            String path = data.getStringExtra("SIGN");
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 2;
+            Bitmap bm = BitmapFactory.decodeFile(path, options);
+            mImage.setImageBitmap(bm);
+            mImage.setVisibility(View.VISIBLE);
+            mWitnessItem.setPhotoPath(path);
         }
     }
 

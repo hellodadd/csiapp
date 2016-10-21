@@ -83,6 +83,9 @@
         <activity android:name=".Crime.createscene.CreateScene_FP8_AddWitnessActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" 
             android:screenOrientation="portrait"/>
+        <activity android:name=".Crime.utils.HandWriteActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:screenOrientation="portrait"/>
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
