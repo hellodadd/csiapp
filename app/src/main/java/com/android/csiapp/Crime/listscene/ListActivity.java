@@ -20,6 +20,8 @@ import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
@@ -81,6 +83,15 @@ public class ListActivity extends AppCompatActivity {
 
         items_list = new ArrayList<CrimeItem>();
         items_list = mCrimeProvider.getAll();
+
+        Collections.sort(items_list,
+                new Comparator<CrimeItem>() {
+                    public int compare(CrimeItem o1, CrimeItem o2) {
+                        return String.valueOf(o1.getOccurredStartTime()).compareTo(String.valueOf(o2.getOccurredStartTime()));
+                    }
+                });
+        Collections.reverse(items_list);
+
         mListV=(ListView)findViewById(R.id.listView);
         mAdapter = new ListAdapter(ListActivity.this,items_list);
         mListV.setAdapter(mAdapter);

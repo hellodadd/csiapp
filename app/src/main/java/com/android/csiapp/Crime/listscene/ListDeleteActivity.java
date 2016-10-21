@@ -18,6 +18,8 @@ import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -95,6 +97,15 @@ public class ListDeleteActivity extends AppCompatActivity {
 
         items_list = new ArrayList<CrimeItem>();
         items_list = mCrimeProvider.getAll();
+
+        Collections.sort(items_list,
+                new Comparator<CrimeItem>() {
+                    public int compare(CrimeItem o1, CrimeItem o2) {
+                        return String.valueOf(o1.getOccurredStartTime()).compareTo(String.valueOf(o2.getOccurredStartTime()));
+                    }
+                });
+        Collections.reverse(items_list);
+
         mListV=(ListView)findViewById(R.id.listView);
         isSelected = new HashMap<Integer,Boolean>();
         mAdapter = new ListDeleteAdapter(ListDeleteActivity.this,items_list, isSelected);

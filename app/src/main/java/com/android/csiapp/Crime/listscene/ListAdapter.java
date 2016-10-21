@@ -18,6 +18,8 @@ import com.android.csiapp.R;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -121,6 +123,13 @@ public class ListAdapter extends BaseAdapter {
             default:
                 break;
         }
+        Collections.sort(arraylist,
+                new Comparator<CrimeItem>() {
+                    public int compare(CrimeItem o1, CrimeItem o2) {
+                        return String.valueOf(o1.getOccurredStartTime()).compareTo(String.valueOf(o2.getOccurredStartTime()));
+                    }
+                });
+        Collections.reverse(arraylist);
         notifyDataSetChanged();
     }
 
