@@ -216,7 +216,7 @@ public class CreateScene_FP4 extends Fragment {
 
         String path = LocalFileUri.getPath();
         PhotoItem photoItem = new PhotoItem();
-        photoItem.setPhotoPath(path);;
+        photoItem.setPhotoPath(path);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == PHOTO_TYPE_POSITION) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_POSITION");
