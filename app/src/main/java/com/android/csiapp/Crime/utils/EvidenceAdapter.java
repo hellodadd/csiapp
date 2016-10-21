@@ -59,7 +59,6 @@ public class EvidenceAdapter extends BaseAdapter {
         }
         EvidenceItem item = (EvidenceItem)getItem(position);
         String path = item.getPhotoPath();
-        Log.d("Anita", "path = "+path);
         if(!path.isEmpty()){
             Bitmap bitmap = loadBitmapFromFile(new File(path));
             if(bitmap!=null) holder.txtItemPhoto.setImageBitmap(bitmap);

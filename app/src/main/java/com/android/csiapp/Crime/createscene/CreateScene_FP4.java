@@ -157,21 +157,18 @@ public class CreateScene_FP4 extends Fragment {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
             case POSITION_PHOTO_DELETE:
-                Log.d("Anita","mPositionList = "+mPositionList.size()+", position = "+info.position);
                 if(mEvent == 2) mPositionPhotoProvider.delete(mPositionList.get(info.position).getId());
                 mPositionList.remove(info.position);
                 setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
                 return true;
             case LIKE_PHOTO_DELETE:
-                Log.d("Anita","mLikeList = "+mLikeList.size()+", position = "+info.position);
                 if(mEvent == 2) mOverviewPhotoProvider.delete(mLikeList.get(info.position).getId());
                 mLikeList.remove(info.position);
                 setListViewHeightBasedOnChildren(mLike_List);
                 mLike_Adapter.notifyDataSetChanged();
                 return true;
             case IMPORTANT_PHOTO_DELETE:
-                Log.d("Anita","mImportantList = "+mImportantList.size()+", position = "+info.position);
                 if(mEvent == 2) mImportantPhotoProvider.delete(mImportantList.get(info.position).getId());
                 mImportantList.remove(info.position);
                 setListViewHeightBasedOnChildren(mImportant_List);
@@ -219,8 +216,7 @@ public class CreateScene_FP4 extends Fragment {
 
         String path = LocalFileUri.getPath();
         PhotoItem photoItem = new PhotoItem();
-        photoItem.setPhotoPath(path);
-        Log.d("Anita","LocalFile = "+path);
+        photoItem.setPhotoPath(path);;
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == PHOTO_TYPE_POSITION) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_POSITION");

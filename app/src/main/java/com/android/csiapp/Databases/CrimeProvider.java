@@ -460,7 +460,6 @@ public class CrimeProvider {
         }else{
             mItem.add(getRecord(id));
         }
-        Log.d("Anita", "size = "+mItem.size());
         if(mItem.size()>0){
             for(int i=0;i<mItem.size();i++){
                 CrimeItem item = mItem.get(i);

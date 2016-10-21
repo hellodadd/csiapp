@@ -50,9 +50,7 @@ public class ListDeleteActivity extends AppCompatActivity {
                 case R.id.action_delete:
                     msg += "Delete";
                     if(items_list.size()>0){
-                        Log.d("Anita","item size = "+items_list.size());
                         isSelected = mAdapter.getIsSelected();
-                        Log.d("Anita","selected size = "+isSelected.size());
                         for (int i = 0; i < isSelected.size(); i++) {
                             if (isSelected.get(i).equals(true)) {
                                 mCrimeProvider.delete(items_list.get(i).getId());

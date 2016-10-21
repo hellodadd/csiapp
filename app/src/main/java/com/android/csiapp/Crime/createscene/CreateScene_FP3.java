@@ -97,7 +97,6 @@ public class CreateScene_FP3 extends Fragment {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
             case POSITION_DELETE:
-                Log.d("Anita","mPositionList fg3 = "+mPositionList.size()+", position = "+info.position);
                 if(mEvent == 2) mPositionProvider.delete(mPositionList.get(info.position).getId());
                 mPositionList.remove(info.position);
                 setListViewHeightBasedOnChildren(mPosition_List);

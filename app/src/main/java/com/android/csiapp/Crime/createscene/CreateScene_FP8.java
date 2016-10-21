@@ -109,7 +109,6 @@ public class CreateScene_FP8 extends Fragment {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
             case WITNESS_DELETE:
-                Log.d("Anita","mWitnessList = "+mWitnessList.size()+", position = "+info.position);
                 if(mEvent == 2) mWitnessProvider.delete(mWitnessList.get(info.position).getId());
                 mWitnessList.remove(info.position);
                 setListViewHeightBasedOnChildren(mWitness_list);

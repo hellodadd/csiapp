@@ -59,7 +59,6 @@ public class PhotoAdapter extends BaseAdapter {
         }
         PhotoItem item = (PhotoItem)getItem(position);
         String path = item.getPhotoPath();
-        Log.d("Anita", "path = "+path);
         if(!path.isEmpty()){
             Bitmap bitmap = null;
             bitmap = loadBitmapFromFile(new File(path));

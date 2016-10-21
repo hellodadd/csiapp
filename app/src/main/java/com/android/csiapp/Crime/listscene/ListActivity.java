@@ -136,7 +136,6 @@ public class ListActivity extends AppCompatActivity {
                 CrimeItem item = (CrimeItem) data.getExtras().getSerializable("com.android.csiapp.CrimeItem");
                 boolean result = mCrimeProvider.update(item);
             }else if(requestCode == 1){
-                Log.d("Anita","return search item size = "+items_list.size());
                 //Search
             }else if(requestCode == 2){
                 //Delete

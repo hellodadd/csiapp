@@ -198,21 +198,18 @@ public class CreateScene_FP2 extends Fragment {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
             case PEOPLE_DELETE:
-                Log.d("Anita","mPeopleList = "+mPeopleList.size()+", position = "+info.position);
                 if(mEvent == 2) mRelatedPeopelProvider.delete(mPeopleList.get(info.position).getId());
                 mPeopleList.remove(info.position);
                 setListViewHeightBasedOnChildren(mPeople_List);
                 mPeople_Adapter.notifyDataSetChanged();
                 return true;
             case ITEM_DELETE:
-                Log.d("Anita","mItemList = "+mItemList.size()+", position = "+info.position);
                 if(mEvent == 2) mLostProvider.delete(mItemList.get(info.position).getId());
                 mItemList.remove(info.position);
                 setListViewHeightBasedOnChildren(mItem_List);
                 mItem_Adapter.notifyDataSetChanged();
                 return true;
             case TOOL_DELETE:
-                Log.d("Anita","mToolList = "+mToolList.size()+", position = "+info.position);
                 if(mEvent == 2) mCrimeToolProvider.delete(mToolList.get(info.position).getId());
                 mToolList.remove(info.position);
                 setListViewHeightBasedOnChildren(mTool_List);
