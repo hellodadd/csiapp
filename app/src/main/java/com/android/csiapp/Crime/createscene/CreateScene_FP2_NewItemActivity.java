@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.DigitsKeyListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -103,6 +104,8 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
         mAmount = (ClearableEditText) findViewById(R.id.amount_editView);
         mValue = (ClearableEditText) findViewById(R.id.value_editView);
         mFeature = (ClearableEditText) findViewById(R.id.feature_description_editView);
+        mAmount.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+        mValue.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
     }
 
     private void initData(){

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.method.DigitsKeyListener;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -227,7 +228,9 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         });
 
         mTemperature = (ClearableEditText) view.findViewById(R.id.temperature);
+        mTemperature.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
         mHumidity = (ClearableEditText) view.findViewById(R.id.humidity);
+        mHumidity.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
         mAccessReason = (ClearableEditText) view.findViewById(R.id.accessReason);
         mAccessReasonBtn = (Button) view.findViewById(R.id.accessReason_button);
         mAccessReasonBtn.setOnClickListener(this);
