@@ -74,9 +74,7 @@ public class SettingActivity extends AppCompatActivity {
     private View.OnClickListener btnBackupOnClick = new View.OnClickListener () {
         @Override
         public void onClick(View view) {
-            //dataBackup();
-            CrimeProvider mCrimeProvider = new CrimeProvider(mContext);
-            mCrimeProvider.createBaseMsgXml(-1);
+            dataBackup();
         }
     };
 
