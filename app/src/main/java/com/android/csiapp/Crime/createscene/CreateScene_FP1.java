@@ -22,10 +22,12 @@ import android.widget.TextView;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -333,6 +335,21 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mGet_access_time.setText(DateTimePicker.getCurrentTime(mItem.getGetAccessTime()));
         mAccess_start_time.setText(DateTimePicker.getCurrentTime(mItem.getAccessStartTime()));
         mAccess_end_time.setText(DateTimePicker.getCurrentTime(mItem.getAccessEndTime()));
+
+        if(mEvent == 1){
+            CrimeItem lastItem = getLastRecord();
+            if(lastItem!=null){
+                mAccessPolicemen.setText(lastItem.getAccessPolicemen());
+                mWeatherCondition_spinner.setSelection(getWeatherCondition(lastItem.getWeatherCondition()));
+                mWindDirection_spinner.setSelection(getWindDirection(lastItem.getWindDirection()));
+                mTemperature.setText(lastItem.getTemperature());
+                mHumidity.setText(lastItem.getHumidity());
+                mProductPeopleName.setText(lastItem.getProductPeopleName());
+                mProductPeopleUnit.setText(lastItem.getProductPeopleUnit());
+                mProductPeopleDuties.setText(lastItem.getProductPeopleDuties());
+                mSafeguard.setText(lastItem.getSafeguard());
+            }
+        }
     }
 
     public void saveData(){
@@ -524,5 +541,13 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mDateTimeDialog.setContentView(mDateTimeDialogView);
         // Display the dialog
         mDateTimeDialog.show();
+    }
+
+    private CrimeItem getLastRecord(){
+        CrimeProvider crimeProvider = new CrimeProvider(context);
+        List<CrimeItem> items = crimeProvider.getAll();
+        CrimeItem item = null;
+        if(items.size()>0) item = items.get(items.size()-1);
+        return item;
     }
 }
