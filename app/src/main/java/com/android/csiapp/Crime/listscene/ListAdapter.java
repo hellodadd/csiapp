@@ -27,12 +27,14 @@ import java.util.List;
  */
 public class ListAdapter extends BaseAdapter {
 
+    private Context mContext;
     private LayoutInflater myInflater;
     private List<CrimeItem> items;
     private ArrayList<CrimeItem> arraylist;
 
     public ListAdapter(Context context, List<CrimeItem> items){
         myInflater = LayoutInflater.from(context);
+        this.mContext = context;
         this.items = items;
         this.arraylist = new ArrayList<CrimeItem>();
         this.arraylist.addAll(items);
@@ -68,6 +70,7 @@ public class ListAdapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
+
         CrimeItem item = (CrimeItem)getItem(position);
         List<PhotoItem> photoItem = item.getImportantPhoto();
         if(photoItem.size()>0) {
@@ -77,6 +80,8 @@ public class ListAdapter extends BaseAdapter {
                 holder.imgPhoto.setImageBitmap(b);
                 holder.imgPhoto.setBackgroundColor(Color.parseColor("#FFFFFF"));
             }
+        }else{
+            holder.imgPhoto.setImageDrawable(mContext.getResources().getDrawable(R.drawable.no_completed));
         }
         holder.txtCasetype.setText(((CrimeItem) getItem(position)).getCasetype());
         holder.txtArea.setText(((CrimeItem) getItem(position)).getArea());
