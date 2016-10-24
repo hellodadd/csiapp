@@ -119,6 +119,11 @@ public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
                     Toast.makeText(CreateScene_FP3_NewPositionActivity.this, "Screen Shot", Toast.LENGTH_SHORT).show();
                     //finish();
                     break;
+                case R.id.action_download_map:
+                    Intent intent = new Intent(CreateScene_FP3_NewPositionActivity.this,
+                            OfflineMapActivity.class);
+                    startActivity(intent);
+                    break;
             }
 
             if (!msg.equals("")) {
@@ -142,19 +147,19 @@ public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
         MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(18f);
         mBaiduMap.setMapStatus(msu);
 
-        // 定位初始化
+        // 定�??��???
         mLocationClient = new LocationClient(this);
         mFirstLocation =true;
 
-        // 设置定位的相关配置
+        // 设置定�??�相?��?�?
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         option.setOpenGps(true);
-        option.setCoorType("bd09ll"); // 设置坐标类型
+        option.setCoorType("bd09ll"); // 设置?��?类�?
         option.setScanSpan(1000);
         mLocationClient.setLocOption(option);
 
-        // 设置自定义图标
+        // 设置?��?义图??
         mCurrentMarker = BitmapDescriptorFactory.fromResource(R.drawable.map_marker);
 
         mConfig = new MyLocationConfiguration(
@@ -165,23 +170,23 @@ public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
             @Override
             public void onReceiveLocation(BDLocation location) {
                 Log.d("baidumapdemo","onReceiveLocation1");
-                // map view 销毁后不在处理新接收的位置
+                // map view ?�毁�?不在处�??�接?��?位置
                 Log.d("baidumapdemo","onReceiveLocation2");
                 if (location == null || mMapView == null) {
                     return;
                 }
 
-                // 构造定位数据
+                // ?�造�?位数??
                 mLocData = new MyLocationData.Builder()
                         .accuracy(location.getRadius())
-                        // 此处设置开发者获取到的方向信息，顺时针0-360
+                        // 此�?设置开?�者获?�到?�方?�信?��?顺时??-360
                         .direction(0).latitude(location.getLatitude())
                         .longitude(location.getLongitude()).build();
 
-                // 设置定位数据
+                // 设置定�??�据
                 mBaiduMap.setMyLocationData(mLocData);
 
-                // 第一次定位时，将地图位置移动到当前位置
+                // 第�?次�?位时，�??�图位置移动?��??��?�?
                 if (mFirstLocation) {
                     mFirstLocation = false;
                     LatLng xy = new LatLng(location.getLatitude(), location.getLongitude());;
@@ -221,7 +226,7 @@ public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        // 如果要显示位置图标,必须先开启图层定位
+        // 如�?要显示�?置图??必须?��??�图层�?�?
         mBaiduMap.setMyLocationEnabled(true);
         if (!mLocationClient.isStarted())
         {
@@ -233,7 +238,7 @@ public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        // 关闭图层定位
+        // ?�闭?��?定�?
         mBaiduMap.setMyLocationEnabled(false);
         mLocationClient.stop();
         super.onStop();
@@ -242,7 +247,7 @@ public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // 在activity执行onDestroy时执行mMapView.onDestroy()
+        // ?�activity?��?onDestroy?�执行mMapView.onDestroy()
         mMapView.onDestroy();
         mMapView = null;
     }
@@ -250,14 +255,14 @@ public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // 在activity执行onResume时执行mMapView. onResume ()
+        // ?�activity?��?onResume?�执行mMapView. onResume ()
         mMapView.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        // 在activity执行onPause时执行mMapView. onPause ()
+        // ?�activity?��?onPause?�执行mMapView. onPause ()
         mMapView.onPause();
     }
 
