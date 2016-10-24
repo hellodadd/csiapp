@@ -49,41 +49,77 @@
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
+        android:id="@+id/CategoryLL"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/linearlayout">
+        android:layout_below="@+id/linearlayout"
+        android:visibility="gone">
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/category_listView"
-            android:visibility="gone">
+            android:id="@+id/category_listView">
         </ListView>
         <Button
             android:id="@+id/clickCategoryBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/list_search"
-            android:visibility="gone"/>
+            android:text="@string/list_search" />
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
+        android:id="@+id/AreaLL"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/linearlayout">
+        android:layout_below="@+id/linearlayout"
+        android:visibility="gone">
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/area_listView"
-            android:visibility="gone">
+            android:id="@+id/area_listView">
         </ListView>
         <Button
             android:id="@+id/clickAreaBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/list_search"
-            android:visibility="gone"/>
+            android:text="@string/list_search" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/TimeLL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearlayout"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:text="发案开始时间" />
+        <com.android.csiapp.Crime.utils.DateTimePicker
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:id="@+id/startTime" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:text="发案结束时间" />
+        <com.android.csiapp.Crime.utils.DateTimePicker
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:id="@+id/endTime" />
+        <Button
+            android:id="@+id/clickTimeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/list_search" />
     </LinearLayout>
     <ListView
         android:layout_width="wrap_content"

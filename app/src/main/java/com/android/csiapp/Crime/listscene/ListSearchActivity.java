@@ -1,6 +1,8 @@
 package com.android.csiapp.Crime.listscene;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,9 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.R;
@@ -34,11 +38,14 @@ public class ListSearchActivity extends AppCompatActivity {
     private ListView mListV;
     private ListAdapter mAdapter;
 
-    private Button mCategory, mArea, mTime, mCategory_Search, mArea_Search;
+    private Button mCategory, mArea, mTime, mCategory_Search, mArea_Search, mTime_Search;
+    private LinearLayout mCategoryLL, mAreaLL, mTimeLL;
     private List<String> mItem_Category, mItem_Area;
     private ListView mList_Catetype, mList_Area;
     private ListSearchAdapter mAdapter_Category, mAdapter_Area;
     private HashMap<Integer, Boolean> isSelected_Category, isSelected_Area;
+    private DateTimePicker mStartTime, mEndTime;
+    private long mStartTimeMills, mEndTimeMills;
 
     final int LIST_DELETE = 0;
 
@@ -52,6 +59,9 @@ public class ListSearchActivity extends AppCompatActivity {
                     for (int i = 0; i < items_list.size(); i++) {
                         mCrimeProvider.delete(items_list.get(i).getId());
                     }
+                    Intent result = getIntent();
+                    setResult(Activity.RESULT_OK, result);
+                    finish();
                     break;
             }
 
@@ -106,10 +116,9 @@ public class ListSearchActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //mAdapter.filter(1,catetype[0],0,0);
                 mListV.setVisibility(View.GONE);
-                mList_Catetype.setVisibility(View.VISIBLE);
-                mCategory_Search.setVisibility(View.VISIBLE);
-                mList_Area.setVisibility(View.GONE);
-                mArea_Search.setVisibility(View.GONE);
+                mCategoryLL.setVisibility(View.VISIBLE);
+                mAreaLL.setVisibility(View.GONE);
+                mTimeLL.setVisibility(View.GONE);
 
                 mCategory.setBackgroundColor(Color.WHITE);
                 mArea.setBackgroundColor(Color.GRAY);
@@ -123,10 +132,9 @@ public class ListSearchActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //mAdapter.filter(2,area[0],0,0);
                 mListV.setVisibility(View.GONE);
-                mList_Catetype.setVisibility(View.GONE);
-                mCategory_Search.setVisibility(View.GONE);
-                mList_Area.setVisibility(View.VISIBLE);
-                mArea_Search.setVisibility(View.VISIBLE);
+                mCategoryLL.setVisibility(View.GONE);
+                mAreaLL.setVisibility(View.VISIBLE);
+                mTimeLL.setVisibility(View.GONE);
 
                 mCategory.setBackgroundColor(Color.GRAY);
                 mArea.setBackgroundColor(Color.WHITE);
@@ -139,17 +147,20 @@ public class ListSearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //mAdapter.filter(3,null, Calendar.getInstance().getTimeInMillis()-10000,Calendar.getInstance().getTimeInMillis()+10000);
-                mListV.setVisibility(View.VISIBLE);
-                mList_Catetype.setVisibility(View.GONE);
-                mCategory_Search.setVisibility(View.GONE);
-                mList_Area.setVisibility(View.GONE);
-                mArea_Search.setVisibility(View.GONE);
+                mListV.setVisibility(View.GONE);
+                mCategoryLL.setVisibility(View.GONE);
+                mAreaLL.setVisibility(View.GONE);
+                mTimeLL.setVisibility(View.VISIBLE);
 
                 mCategory.setBackgroundColor(Color.GRAY);
                 mArea.setBackgroundColor(Color.GRAY);
                 mTime.setBackgroundColor(Color.WHITE);
             }
         });
+
+        mCategoryLL = (LinearLayout) findViewById(R.id.CategoryLL);
+        mAreaLL = (LinearLayout) findViewById(R.id.AreaLL);
+        mTimeLL = (LinearLayout) findViewById(R.id.TimeLL);
 
         mItem_Category = Arrays.asList(getResources().getStringArray(R.array.casetype));
         mList_Catetype = (ListView)findViewById(R.id.category_listView);
@@ -170,10 +181,7 @@ public class ListSearchActivity extends AppCompatActivity {
                 }
 
                 mListV.setVisibility(View.VISIBLE);
-                mList_Catetype.setVisibility(View.GONE);
-                mCategory_Search.setVisibility(View.GONE);
-                mList_Area.setVisibility(View.GONE);
-                mArea_Search.setVisibility(View.GONE);
+                mCategoryLL.setVisibility(View.GONE);
             }
         });
 
@@ -196,10 +204,24 @@ public class ListSearchActivity extends AppCompatActivity {
                 }
 
                 mListV.setVisibility(View.VISIBLE);
-                mList_Catetype.setVisibility(View.GONE);
-                mCategory_Search.setVisibility(View.GONE);
-                mList_Area.setVisibility(View.GONE);
-                mArea_Search.setVisibility(View.GONE);
+                mAreaLL.setVisibility(View.GONE);
+            }
+        });
+
+        mStartTime = (DateTimePicker) findViewById(R.id.startTime);
+        mEndTime = (DateTimePicker) findViewById(R.id.endTime);
+
+        mTime_Search = (Button) findViewById(R.id.clickTimeBtn);
+        mTime_Search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAdapter.clearItem();
+                mStartTimeMills = mStartTime.get().getTimeInMillis();
+                mEndTimeMills = mEndTime.get().getTimeInMillis();
+                mAdapter.filter(3,null,mStartTimeMills,mEndTimeMills);
+
+                mListV.setVisibility(View.VISIBLE);
+                mTimeLL.setVisibility(View.GONE);
             }
         });
     }
