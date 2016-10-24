@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -150,6 +153,32 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         mAddress = (ClearableEditText) findViewById(R.id.address_editView);
         mId.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
         mNumber.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+
+        mId.addTextChangedListener(new TextWatcher(){
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length()==17) mId.setKeyListener(new DigitsKeyListener() {
+                    @Override
+                    public int getInputType() {
+                        return InputType.TYPE_TEXT_VARIATION_PASSWORD;
+                    }
+                    @Override
+                    protected char[] getAcceptedChars() {
+                        char[] data = getResources().getString(R.string.login_only_can_input).toCharArray();
+                        return data;
+                    }
+                });
+                if(s.length()!=17) mId.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
     private void initData(){
