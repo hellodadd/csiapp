@@ -80,6 +80,7 @@
     <string name="position">方位示意图</string>
     <string name="title_activity_position_information">方位示意图</string>
     <string name="title_activity_new_position">方位示意图</string>
+    <string name="title_activity_offlinemap">下载离线地图</string>
     <string name="screen_shot">截取</string>
     <string name="step_4">现场照片</string>
     <string name="position_image">方位照片</string>
