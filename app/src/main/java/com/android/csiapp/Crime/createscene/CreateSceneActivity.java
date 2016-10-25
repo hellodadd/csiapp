@@ -38,9 +38,9 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
     private CrimeItem mItem;
     private int mEvent;
 
-    private Button mPageButton1, mPageButton2, mPageButton3, mPageButton4, mPageButton5, mPageButton6, mPageButton7, mPageButton8, mPageButton9;
+    private Button mPageButton1, mPageButton2, mPageButton3, mPageButton4, mPageButton5, mPageButton6, mPageButton7, mPageButton8;
 
-    private TextView mPageText1, mPageText2, mPageText3, mPageText4, mPageText5, mPageText6, mPageText7, mPageText8, mPageText9;
+    private TextView mPageText1, mPageText2, mPageText3, mPageText4, mPageText5, mPageText6, mPageText7, mPageText8;
 
     private CreateScene_FP1 mMyFragmentPage1;
     private CreateScene_FP2 mMyFragmentPage2;
@@ -50,7 +50,6 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
     private CreateScene_FP6 mMyFragmentPage6;
     private CreateScene_FP7 mMyFragmentPage7;
     private CreateScene_FP8 mMyFragmentPage8;
-    private CreateScene_FP9 mMyFragmentPage9;
 
     private ViewPager mViewPager;
 
@@ -136,7 +135,6 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         mPageButton6 = (Button) this.findViewById(R.id.pagebutton6);
         mPageButton7 = (Button) this.findViewById(R.id.pagebutton7);
         mPageButton8 = (Button) this.findViewById(R.id.pagebutton8);
-        mPageButton9 = (Button) this.findViewById(R.id.pagebutton9);
 
         mPageText1 = (TextView) this.findViewById(R.id.pageTextView1);
         mPageText2 = (TextView) this.findViewById(R.id.pageTextView2);
@@ -146,7 +144,6 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         mPageText6 = (TextView) this.findViewById(R.id.pageTextView6);
         mPageText7 = (TextView) this.findViewById(R.id.pageTextView7);
         mPageText8 = (TextView) this.findViewById(R.id.pageTextView8);
-        mPageText9 = (TextView) this.findViewById(R.id.pageTextView9);
 
         mPageButton1.setOnClickListener(this);
         mPageButton2.setOnClickListener(this);
@@ -156,7 +153,6 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         mPageButton6.setOnClickListener(this);
         mPageButton7.setOnClickListener(this);
         mPageButton8.setOnClickListener(this);
-        mPageButton9.setOnClickListener(this);
 
         mSelect_background = context.getResources().getDrawable(R.drawable.img_step_selected);
         mBackground = context.getResources().getDrawable(R.drawable.img_step_nor);
@@ -172,7 +168,6 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         mMyFragmentPage6 = new CreateScene_FP6();
         mMyFragmentPage7 = new CreateScene_FP7();
         mMyFragmentPage8 = new CreateScene_FP8();
-        mMyFragmentPage9 = new CreateScene_FP9();
         List<Fragment> fragmentList = new ArrayList<Fragment>();
         fragmentList.add(mMyFragmentPage1);
         fragmentList.add(mMyFragmentPage2);
@@ -182,7 +177,6 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         fragmentList.add(mMyFragmentPage6);
         fragmentList.add(mMyFragmentPage7);
         fragmentList.add(mMyFragmentPage8);
-        fragmentList.add(mMyFragmentPage9);
         FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), fragmentList);
         mViewPager.setAdapter(fragmentAdapter);
         mViewPager.setCurrentItem(0);
@@ -225,9 +219,6 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
             case R.id.pagebutton8:
                 mViewPager.setCurrentItem(7);
                 break;
-            case R.id.pagebutton9:
-                mViewPager.setCurrentItem(8);
-                break;
             default:
                 break;
         }
@@ -257,8 +248,6 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         mPageText7.setVisibility(View.GONE);
         mPageButton8.setBackground(mBackground);
         mPageText8.setVisibility(View.GONE);
-        mPageButton9.setBackground(mBackground);
-        mPageText9.setVisibility(View.GONE);
         switch (position){
             case 0:
                 mPageButton1.setBackground(mSelect_background);
@@ -319,14 +308,10 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                 mPageText7.setVisibility(View.GONE);
                 mPageButton8.setBackground(mSelect_background);
                 mPageText8.setVisibility(View.VISIBLE);
-                mPageButton9.setBackground(mBackground);
-                mPageText9.setVisibility(View.GONE);
                 break;
             case 8:
                 mPageButton8.setBackground(mBackground);
                 mPageText8.setVisibility(View.GONE);
-                mPageButton9.setBackground(mSelect_background);
-                mPageText9.setVisibility(View.VISIBLE);
                 break;
         }
     }

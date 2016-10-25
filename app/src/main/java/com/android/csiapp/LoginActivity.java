@@ -223,12 +223,10 @@ public class LoginActivity extends AppCompatActivity {
             mAuthTask = null;
             showProgress(false);
 
-            if (success && "Q5_LY".equalsIgnoreCase(SystemProperties.get("ro.product.device"))) {
+            if (success) {
                 Intent it = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(it);
                 finish();
-            } else if(!"Q5_LY".equalsIgnoreCase(SystemProperties.get("ro.product.device"))){
-                Toast.makeText(LoginActivity.this, "装置无法登入", Toast.LENGTH_SHORT).show();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

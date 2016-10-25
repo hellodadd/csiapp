@@ -131,19 +131,6 @@
                 android:textColor="#4192FF"
                 android:textSize="10sp"
                 android:background="@drawable/img_step_nor"/>
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:background="@drawable/dot"/>
-            <Button
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:id="@+id/pagebutton9"
-                android:text="9"
-                android:textColor="#4192FF"
-                android:textSize="10sp"
-                android:background="@drawable/img_step_nor"/>
         </LinearLayout>
 
         <LinearLayout
@@ -222,15 +209,6 @@
                 android:text="@string/step_8"
                 android:textSize="@dimen/createscene_textsize"
                 android:id="@+id/pageTextView8"
-                android:visibility="gone"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:text="@string/step_9"
-                android:textSize="@dimen/createscene_textsize"
-                android:id="@+id/pageTextView9"
                 android:visibility="gone"/>
         </LinearLayout>
     </LinearLayout>
