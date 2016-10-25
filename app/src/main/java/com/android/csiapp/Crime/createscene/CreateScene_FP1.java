@@ -115,6 +115,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
         initView(view);
         initData();
+        getLastData();
 
         return view;
     }
@@ -307,6 +308,24 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         });
     }
 
+    private void getLastData(){
+        if(mEvent == 1){
+            CrimeItem lastItem = getLastRecord();
+            if(lastItem!=null){
+                mAccessPolicemen.setText(lastItem.getAccessPolicemen());
+                mWeatherCondition_spinner.setSelection(getWeatherCondition(lastItem.getWeatherCondition()));
+                mWindDirection_spinner.setSelection(getWindDirection(lastItem.getWindDirection()));
+                mTemperature.setText(lastItem.getTemperature());
+                mHumidity.setText(lastItem.getHumidity());
+                mProductPeopleName.setText(lastItem.getProductPeopleName());
+                mProductPeopleUnit.setText(lastItem.getProductPeopleUnit());
+                mProductPeopleDuties.setText(lastItem.getProductPeopleDuties());
+                mSafeguard.setText(lastItem.getSafeguard());
+                saveData();
+            }
+        }
+    }
+
     private void initData(){
         mCasetype_spinner.setSelection(getCategory(mItem.getCasetype()));
         mArea_spinner.setSelection(getArea(mItem.getArea()));
@@ -335,21 +354,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mGet_access_time.setText(DateTimePicker.getCurrentTime(mItem.getGetAccessTime()));
         mAccess_start_time.setText(DateTimePicker.getCurrentTime(mItem.getAccessStartTime()));
         mAccess_end_time.setText(DateTimePicker.getCurrentTime(mItem.getAccessEndTime()));
-
-        if(mEvent == 1){
-            CrimeItem lastItem = getLastRecord();
-            if(lastItem!=null){
-                mAccessPolicemen.setText(lastItem.getAccessPolicemen());
-                mWeatherCondition_spinner.setSelection(getWeatherCondition(lastItem.getWeatherCondition()));
-                mWindDirection_spinner.setSelection(getWindDirection(lastItem.getWindDirection()));
-                mTemperature.setText(lastItem.getTemperature());
-                mHumidity.setText(lastItem.getHumidity());
-                mProductPeopleName.setText(lastItem.getProductPeopleName());
-                mProductPeopleUnit.setText(lastItem.getProductPeopleUnit());
-                mProductPeopleDuties.setText(lastItem.getProductPeopleDuties());
-                mSafeguard.setText(lastItem.getSafeguard());
-            }
-        }
     }
 
     public void saveData(){
