@@ -66,7 +66,7 @@ public class ListSearchActivity extends AppCompatActivity {
             }
 
             if(!msg.equals("")) {
-                Toast.makeText(ListSearchActivity.this, msg, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ListSearchActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             return true;
         }

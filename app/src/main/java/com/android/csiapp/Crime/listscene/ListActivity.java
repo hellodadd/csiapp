@@ -154,6 +154,14 @@ public class ListActivity extends AppCompatActivity {
             items_list = mCrimeProvider.getAll();
             mAdapter = new ListAdapter(ListActivity.this,items_list);
             mListV.setAdapter(mAdapter);
+
+            Collections.sort(items_list,
+                    new Comparator<CrimeItem>() {
+                        public int compare(CrimeItem o1, CrimeItem o2) {
+                            return String.valueOf(o1.getOccurredStartTime()).compareTo(String.valueOf(o2.getOccurredStartTime()));
+                        }
+                    });
+            Collections.reverse(items_list);
         }
     }
 }

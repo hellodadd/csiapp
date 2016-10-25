@@ -94,7 +94,7 @@ public class SettingActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             mCrimeProvider.deleteAll();
-            Toast.makeText(SettingActivity.this, "Reactive", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(SettingActivity.this, "Reactive", Toast.LENGTH_SHORT).show();
         }
     };
 
