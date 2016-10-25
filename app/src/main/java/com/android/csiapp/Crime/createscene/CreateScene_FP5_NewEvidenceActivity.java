@@ -141,6 +141,11 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
 
         initView();
         initData();
+
+        if(mEvent == 1) {
+            LocalFileUri = Uri.fromFile(getOutputMediaFile(context, PHOTO_TYPE_NEW_EVIDENCE));
+            takePhoto(LocalFileUri, PHOTO_TYPE_NEW_EVIDENCE);
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -290,6 +295,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         if (path != null) {
             mEvidenceItem.setPhotoPath(path);
             setPhoto(path);
+        }else{
+            finish();
         }
     }
 
