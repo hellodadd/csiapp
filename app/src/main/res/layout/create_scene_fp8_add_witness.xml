@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/toolbar"
-            android:background="#FFFFFF">
+            android:background="#F7F7F7">
 
             <TextView
                 android:layout_width="match_parent"
@@ -198,26 +198,33 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:layout_gravity="center"
-                android:visibility="gone"/>
-            <Button
-                android:id="@+id/btn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                android:layout_gravity="center"
-                android:background="@drawable/btn_sign_nor" />
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="签名"/>
+                android:orientation="vertical"
+                android:background="#FFFFFF">
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+                <Button
+                    android:id="@+id/btn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/create_item_margin_bottom"
+                    android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                    android:layout_gravity="center"
+                    android:background="@drawable/btn_sign_nor" />
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="签名"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
