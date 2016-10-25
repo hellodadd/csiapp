@@ -14,6 +14,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -71,6 +72,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private ArrayAdapter<String> mSceneCondition_adapter;
     private LinearLayout mChangeReasonLinearLayout;
     private ClearableEditText mChangeReason;
+    private CheckBox mInformantCkBx, mVictimCkBx, mOtherCkBx;
 
     private Spinner mWeatherCondition_spinner;
     private ArrayList<String> mWeatherCondition = new ArrayList<String>();;
@@ -199,6 +201,30 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             }
         });
         mChangeReason = (ClearableEditText) view.findViewById(R.id.change_reason);
+        mInformantCkBx = (CheckBox) view.findViewById(R.id.InformantCkBx);
+        mInformantCkBx.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mChangeReason.setText("报案人进入");
+                mVictimCkBx.setChecked(false);
+                mOtherCkBx.setChecked(false);
+            }
+        });
+        mVictimCkBx = (CheckBox) view.findViewById(R.id.VictimCkBx);
+        mVictimCkBx.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mChangeReason.setText("事主进入");
+                mInformantCkBx.setChecked(false);
+                mOtherCkBx.setChecked(false);
+            }
+        });
+        mOtherCkBx = (CheckBox) view.findViewById(R.id.OtherCkBx);
+        mOtherCkBx.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mChangeReason.setText("其他");
+                mInformantCkBx.setChecked(false);
+                mVictimCkBx.setChecked(false);
+            }
+        });
 
         mWeatherCondition = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.weatherCondition)));
         mWeatherCondition_spinner = (Spinner) view.findViewById(R.id.weatherCondition_spinner);
@@ -335,7 +361,12 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mAccessLocation.setText(mItem.getAccessLocation());
         mCaseOccurProcess.setText(mItem.getCaseOccurProcess());
         mSceneCondition_spinner.setSelection(getSceneCondition(mItem.getSceneCondition()));
+
+        if(mItem.getChangeReason().equalsIgnoreCase("报案人进入")) mInformantCkBx.setChecked(true);
+        else if(mItem.getChangeReason().equalsIgnoreCase("事主进入")) mVictimCkBx.setChecked(true);
+        else if(!mItem.getChangeReason().isEmpty()) mOtherCkBx.setChecked(true);
         mChangeReason.setText(mItem.getChangeReason());
+
         mWeatherCondition_spinner.setSelection(getWeatherCondition(mItem.getWeatherCondition()));
         mWindDirection_spinner.setSelection(getWindDirection(mItem.getWindDirection()));
         mTemperature.setText(mItem.getTemperature());
@@ -362,7 +393,11 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mItem.setAccessPolicemen(mAccessPolicemen.getText());
         mItem.setAccessLocation(mAccessLocation.getText());
         mItem.setCaseOccurProcess(mCaseOccurProcess.getText());
-        mItem.setChangeReason(mChangeReason.getText());
+
+        if(mInformantCkBx.isChecked()) mItem.setChangeReason("报案人进入");
+        else if(mVictimCkBx.isChecked()) mItem.setChangeReason("事主进入");
+        else mItem.setChangeReason(mChangeReason.getText());
+
         mItem.setTemperature(mTemperature.getText());
         mItem.setHumidity(mHumidity.getText());
         mItem.setAccessReason(mAccessReason.getText());
