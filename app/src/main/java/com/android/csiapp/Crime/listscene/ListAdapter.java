@@ -128,13 +128,13 @@ public class ListAdapter extends BaseAdapter {
             default:
                 break;
         }
-        Collections.sort(arraylist,
+        Collections.sort(items,
                 new Comparator<CrimeItem>() {
                     public int compare(CrimeItem o1, CrimeItem o2) {
                         return String.valueOf(o1.getOccurredStartTime()).compareTo(String.valueOf(o2.getOccurredStartTime()));
                     }
                 });
-        Collections.reverse(arraylist);
+        Collections.reverse(items);
         notifyDataSetChanged();
     }
 
