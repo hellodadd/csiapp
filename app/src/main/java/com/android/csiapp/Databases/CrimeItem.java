@@ -71,7 +71,7 @@ public class CrimeItem implements Serializable {
     private String mCrimeMeans;
     private String mCrimeCharacter;
     private String mCrimeEntrance;
-    private long mCrimeTiming;
+    private String mCrimeTiming;
     private String mSelectObject;
     private String mCrimeExport;
     private String mCrimePeopleFeature;
@@ -132,7 +132,7 @@ public class CrimeItem implements Serializable {
         this.mCrimeMeans = "";
         this.mCrimeCharacter = "";
         this.mCrimeEntrance = "";
-        this.mCrimeTiming = time;
+        this.mCrimeTiming = "";
         this.mSelectObject = "";
         this.mCrimeExport = "";
         this.mCrimePeopleFeature = "";
@@ -430,9 +430,9 @@ public class CrimeItem implements Serializable {
 
     public void setCrimeEntrance(String crimeEntrance) {this.mCrimeEntrance = crimeEntrance; }
 
-    public long getCrimeTiming() {return mCrimeTiming; }
+    public String getCrimeTiming() {return mCrimeTiming; }
 
-    public void setCrimeTiming(long crimeTiming) {this.mCrimeTiming = crimeTiming; }
+    public void setCrimeTiming(String crimeTiming) {this.mCrimeTiming = crimeTiming; }
 
     public String getSelectObject() {return mSelectObject; }
 

@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -62,6 +63,13 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private ClearableEditText mEvidenceName;
     private ClearableEditText mLegacySite;
     private ClearableEditText mBasiceFeature;
+
+    private TextView mEvidenceTextLabel;
+    private ImageView mBasiceFeatureLabel;
+    private LinearLayout mInferLL;
+    private Spinner mInfer_spinner;
+    private ArrayList<String> mInfer = new ArrayList<String>();
+    private ArrayAdapter<String> mInfer_adapter;
 
     private Spinner mMethod_spinner;
     private ArrayList<String> mMethod = new ArrayList<String>();
@@ -164,6 +172,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         mEvidence_category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                refeshEvidenceItem(position);
                 mEvidenceItem.setEvidenceCategory(mEvidence_category.get(position));
             }
             @Override
@@ -171,7 +180,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             }
         });
 
-        mEvidence = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence)));
+        mEvidence = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence_hand)));
         mEvidence_spinner = (Spinner) findViewById(R.id.evidence_spinner);
         mEvidence_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mEvidence);
         mEvidence_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -180,6 +189,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 mEvidenceItem.setEvidence(mEvidence.get(position));
+                mEvidenceName.setText(mEvidence.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -190,7 +200,25 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         mLegacySite = (ClearableEditText) findViewById(R.id.legacy_site);
         mBasiceFeature = (ClearableEditText) findViewById(R.id.basice_feature);
 
-        mMethod = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.method)));
+        mEvidenceTextLabel = (TextView) findViewById(R.id.evidenceTextLabel);
+        mBasiceFeatureLabel = (ImageView) findViewById(R.id.basicFeatureLabel);
+        mInferLL = (LinearLayout) findViewById(R.id.inferLL);
+        mInfer = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.tool_infer)));
+        mInfer_spinner = (Spinner) findViewById(R.id.infer_spinner);
+        mInfer_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mInfer);
+        mInfer_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mInfer_spinner.setAdapter(mInfer_adapter);
+        mInfer_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                mEvidenceItem.setInfer(mInfer.get(position));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+        mMethod = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.method_hand)));
         mMethod_spinner = (Spinner) findViewById(R.id.method_spinner);
         mMethod_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mMethod);
         mMethod_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -237,6 +265,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         mEvidenceName.setText(mEvidenceItem.getEvidenceName());
         mLegacySite.setText(mEvidenceItem.getLegacySite());
         mBasiceFeature.setText(mEvidenceItem.getBasiceFeature());
+        mInfer_spinner.setSelection(getInfer(mEvidenceItem.getInfer()));
         mMethod_spinner.setSelection(getMethod(mEvidenceItem.getMethod()));
         mTime.setText(DateTimePicker.getCurrentTime(mEvidenceItem.getTime()));
         mGetPeople_spinner.setSelection(getPeople(mEvidenceItem.getPeople()));
@@ -258,6 +287,13 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private int getEvidence(String evidence){
         for(int i=0; i<mEvidence.size(); i++){
             if(evidence.equalsIgnoreCase(mEvidence.get(i))) return i;
+        }
+        return 0;
+    }
+
+    private int getInfer(String infer){
+        for(int i=0; i<mInfer.size(); i++){
+            if(infer.equalsIgnoreCase(mInfer.get(i))) return i;
         }
         return 0;
     }
@@ -298,6 +334,40 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         }else{
             finish();
         }
+    }
+
+    private void refeshEvidenceItem(int category){
+        if(category==0){
+            //手印
+            mEvidence = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence_hand)));
+            mMethod = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.method_hand)));
+            mEvidenceTextLabel.setText(getResources().getString(R.string.evidence_hand));
+            mBasiceFeatureLabel.setBackground(getResources().getDrawable(R.drawable.green_60dp));
+            mInferLL.setVisibility(View.GONE);
+            mEvidenceItem.setInfer("");
+        }else if(category==1){
+            //足跡
+            mEvidence = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence_foot)));
+            mMethod = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.method_foot)));
+            mEvidenceTextLabel.setText(getResources().getString(R.string.evidence_foot));
+            mBasiceFeatureLabel.setBackground(getResources().getDrawable(R.drawable.green_60dp));
+            mInferLL.setVisibility(View.GONE);
+            mEvidenceItem.setInfer("");
+        }else if(category==2){
+            //工痕
+            mEvidence = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence_tool)));
+            mMethod = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.method_tool)));
+            mEvidenceTextLabel.setText(getResources().getString(R.string.evidence_tool));
+            mBasiceFeatureLabel.setBackground(getResources().getDrawable(R.drawable.red_60dp));
+            mInferLL.setVisibility(View.VISIBLE);
+        }
+        mEvidence_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mEvidence);
+        mEvidence_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mEvidence_spinner.setAdapter(mEvidence_adapter);
+
+        mMethod_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mMethod);
+        mMethod_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mMethod_spinner.setAdapter(mMethod_adapter);
     }
 
     private void takePhoto(Uri LocalFileUri, int PHOTO_TYPE) {

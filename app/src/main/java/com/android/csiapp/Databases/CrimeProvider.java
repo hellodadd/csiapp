@@ -373,7 +373,7 @@ public class CrimeProvider {
                 result.setCrimeMeans(cursor2.getString(2));
                 result.setCrimeCharacter(cursor2.getString(3));
                 result.setCrimeEntrance(cursor2.getString(4));
-                result.setCrimeTiming(cursor2.getLong(5));
+                result.setCrimeTiming(cursor2.getString(5));
                 result.setSelectObject(cursor2.getString(6));
                 result.setCrimeExport(cursor2.getString(7));
                 result.setCrimePeopleFeature(cursor2.getString(8));
@@ -500,7 +500,7 @@ public class CrimeProvider {
                 mBaseInfo.put("crimersmethod", item.getCrimeMeans());
                 mBaseInfo.put("crimersnature", item.getCrimeCharacter());
                 mBaseInfo.put("crimersenter", item.getCrimeEntrance());
-                mBaseInfo.put("crimerstime", DateTimePicker.getCurrentDate(item.getCrimeTiming()));
+                mBaseInfo.put("crimerstime", item.getCrimeTiming());
                 mBaseInfo.put("crimersobject", item.getSelectObject());
                 mBaseInfo.put("crimersexit", item.getCrimeExport());
                 mBaseInfo.put("crimerfeature", item.getCrimePeopleFeature());
@@ -537,7 +537,6 @@ public class CrimeProvider {
                     mPeopleInfo.put("birthday",DateTimePicker.getCurrentDate(mWitnessItem.get(iW).getWitnessBirthday()));
                     mPeopleInfo.put("mobile",mWitnessItem.get(iW).getWitnessNumber());
                     mPeopleInfo.put("address",mWitnessItem.get(iW).getWitnessAddress());
-                    mPeopleInfo.put("sign","0");
                     mPeopleInfo.put("sign",mWitnessItem.get(iW).getPhotoPath().substring(mWitnessItem.get(iW).getPhotoPath().lastIndexOf("/")));
                     mPeopleInfoList.add(mPeopleInfo);
                 }
@@ -573,11 +572,11 @@ public class CrimeProvider {
                     mTraceInfo.put("id", String.valueOf(item.getId()));
                     mTraceInfo.put("filename",mEvidenceItem.get(iE).getPhotoPath().substring(mEvidenceItem.get(iE).getPhotoPath().lastIndexOf("/")));
                     mTraceInfo.put("type",mEvidenceItem.get(iE).getEvidenceCategory());
-                    mTraceInfo.put("subtype","");
-                    mTraceInfo.put("material",mEvidenceItem.get(iE).getEvidence());
+                    mTraceInfo.put("subtype",mEvidenceItem.get(iE).getEvidence());
+                    mTraceInfo.put("material",mEvidenceItem.get(iE).getEvidenceName());
                     mTraceInfo.put("retain_port",mEvidenceItem.get(iE).getLegacySite());
                     mTraceInfo.put("basic_feature",mEvidenceItem.get(iE).getBasiceFeature());
-                    mTraceInfo.put("tool_infer","");
+                    mTraceInfo.put("tool_infer",mEvidenceItem.get(iE).getInfer());
                     mTraceInfo.put("extract_method",mEvidenceItem.get(iE).getMethod());
                     mTraceInfo.put("extract_time",DateTimePicker.getCurrentDate(mEvidenceItem.get(iE).getTime()));
                     mTraceInfo.put("extract_person",mEvidenceItem.get(iE).getPeople());

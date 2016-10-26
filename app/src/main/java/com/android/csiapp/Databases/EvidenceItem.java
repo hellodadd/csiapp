@@ -15,6 +15,7 @@ public class EvidenceItem implements Serializable {
     private String mEvidenceName;
     private String mLegacySite;
     private String mBasiceFeature;
+    private String mInfer;
     private String mMethod;
     private long mTime;
     private String mPeople;
@@ -29,6 +30,7 @@ public class EvidenceItem implements Serializable {
         this.mEvidenceName = "";
         this.mLegacySite = "";
         this.mBasiceFeature = "";
+        this.mInfer = "";
         this.mMethod = "";
         this.mTime = time;
         this.mPeople = "";
@@ -88,6 +90,14 @@ public class EvidenceItem implements Serializable {
 
     public void setBasiceFeature(String basiceFeature) {
         this.mBasiceFeature = basiceFeature;
+    }
+
+    public String getInfer() {
+        return mInfer;
+    }
+
+    public void setInfer(String infer) {
+        this.mInfer = infer;
     }
 
     public String getMethod() {

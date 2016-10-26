@@ -91,10 +91,13 @@
     <string name="scene_evidence">现场痕迹</string>
     <string name="title_activity_new_evidence">现场痕迹</string>
     <string name="category">类型</string>
-    <string name="evidence">手印痕迹</string>
+    <string name="evidence_hand">手印痕迹</string>
+    <string name="evidence_foot">足印痕迹</string>
+    <string name="evidence_tool">工具痕迹</string>
     <string name="evidence_name">物证名称</string>
     <string name="legacy_site">遗留部位</string>
     <string name="basic_feature">基本特征</string>
+    <string name="infer">工具推斷</string>
     <string name="extraction_method">提取方法</string>
     <string name="extraction_time">提取时间</string>
     <string name="extraction_people">提取人</string>

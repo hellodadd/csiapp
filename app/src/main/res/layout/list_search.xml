@@ -54,17 +54,17 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/linearlayout"
         android:visibility="gone">
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/category_listView">
-        </ListView>
         <Button
             android:id="@+id/clickCategoryBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/list_search" />
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/category_listView">
+        </ListView>
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -73,17 +73,17 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/linearlayout"
         android:visibility="gone">
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/area_listView">
-        </ListView>
         <Button
             android:id="@+id/clickAreaBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/list_search" />
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/area_listView">
+        </ListView>
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -92,6 +92,12 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/linearlayout"
         android:visibility="gone">
+        <Button
+            android:id="@+id/clickTimeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/list_search" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -114,12 +120,6 @@
             android:layout_width="wrap_content"
             android:layout_height="180dp"
             android:id="@+id/endTime" />
-        <Button
-            android:id="@+id/clickTimeBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/list_search" />
     </LinearLayout>
     <ListView
         android:layout_width="wrap_content"

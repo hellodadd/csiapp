@@ -26,6 +26,7 @@ public class EvidenceProvider {
     public static final String EVIDENCE_NAME_COLUMN = "evidence_name";
     public static final String LEGACY_SITE_COLUMN = "legacy_site";
     public static final String BASIC_FEATURE_COLUMN = "basice_feature";
+    public static final String INFER_COLUMN = "infer";
     public static final String METHOD_COLUMN = "method";
     public static final String TIME_COLUMN = "time";
     public static final String PEOPLE_COLUMN = "people";
@@ -40,6 +41,7 @@ public class EvidenceProvider {
                     EVIDENCE_NAME_COLUMN + " INTEGER NOT NULL, " +
                     LEGACY_SITE_COLUMN + " INTEGER NOT NULL, " +
                     BASIC_FEATURE_COLUMN + " INTEGER NOT NULL, " +
+                    INFER_COLUMN + " INTEGER NOT NULL, " +
                     METHOD_COLUMN + " INTEGER NOT NULL, " +
                     TIME_COLUMN + " INTEGER NOT NULL, " +
                     PEOPLE_COLUMN + " INTEGER NOT NULL)";
@@ -85,6 +87,7 @@ public class EvidenceProvider {
         cv.put(EVIDENCE_NAME_COLUMN, item.getEvidenceName());
         cv.put(LEGACY_SITE_COLUMN, item.getLegacySite());
         cv.put(BASIC_FEATURE_COLUMN, item.getBasiceFeature());
+        cv.put(INFER_COLUMN, item.getInfer());
         cv.put(METHOD_COLUMN, item.getMethod());
         cv.put(TIME_COLUMN, item.getTime());
         cv.put(PEOPLE_COLUMN, item.getPeople());
@@ -130,6 +133,7 @@ public class EvidenceProvider {
         cv.put(EVIDENCE_NAME_COLUMN, item.getEvidenceName());
         cv.put(LEGACY_SITE_COLUMN, item.getLegacySite());
         cv.put(BASIC_FEATURE_COLUMN, item.getBasiceFeature());
+        cv.put(INFER_COLUMN, item.getInfer());
         cv.put(METHOD_COLUMN, item.getMethod());
         cv.put(TIME_COLUMN, item.getTime());
         cv.put(PEOPLE_COLUMN, item.getPeople());
@@ -192,9 +196,10 @@ public class EvidenceProvider {
             item.setEvidenceName(cursor.getString(4));
             item.setLegacySite(cursor.getString(5));
             item.setBasiceFeature(cursor.getString(6));
-            item.setMethod(cursor.getString(7));
-            item.setTime(cursor.getLong(8));
-            item.setPeople(cursor.getString(9));
+            item.setInfer(cursor.getString(7));
+            item.setMethod(cursor.getString(8));
+            item.setTime(cursor.getLong(9));
+            item.setPeople(cursor.getString(10));
         }
         cursor.close();
 
