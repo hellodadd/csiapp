@@ -13,6 +13,7 @@
     <dimen name="create_vp6_textsize">20sp</dimen>
     <dimen name="create_vp7_textsize">18sp</dimen>
     <dimen name="create_vp8_textsize">20sp</dimen>
+    <dimen name="create_item_textsize">14sp</dimen>
     <dimen name="list_textsize">16sp</dimen>
     <dimen name="list_margin">16dp</dimen>
     <dimen name="create_item2_w_buttom">200dp</dimen>

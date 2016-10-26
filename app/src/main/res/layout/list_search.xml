@@ -99,9 +99,10 @@
             android:layout_gravity="center"
             android:text="@string/list_search" />
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="6dp"
             android:text="发案开始时间" />
@@ -110,9 +111,10 @@
             android:layout_height="180dp"
             android:id="@+id/startTime" />
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="6dp"
             android:text="发案结束时间" />

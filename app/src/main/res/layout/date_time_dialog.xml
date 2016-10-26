@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/DateTimeDialog" android:layout_width="fill_parent"
-	android:layout_height="wrap_content">
+	android:layout_height="wrap_content" android:background="#97CBFF">
 	<LinearLayout android:id="@+id/ControlButtons"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:layout_below="@+id/DateTimePicker"
 		android:padding="5dip">
 		<Button android:id="@+id/SetDateTime" android:layout_width="0dip"
 			android:text="ok" android:layout_weight="1"
+			android:textColor="@color/text" android:background="@color/windowBackground"
+			android:layout_marginRight="5dip"
 			android:layout_height="wrap_content"  />
 		<Button android:id="@+id/ResetDateTime" android:layout_width="0dip"
 			android:text="Reset" android:layout_weight="1"
-			android:layout_height="wrap_content" />
+			android:textColor="@color/text" android:background="@color/windowBackground"
+			android:layout_marginRight="5dip"
+		android:layout_height="wrap_content" />
 		<Button android:id="@+id/CancelDialog" android:layout_width="0dip"
 			android:text="cancel" android:layout_weight="1"
+			android:textColor="@color/text" android:background="@color/windowBackground"
 			android:layout_height="wrap_content" />
 	</LinearLayout>
 	<com.android.csiapp.Crime.utils.DateTimePicker
