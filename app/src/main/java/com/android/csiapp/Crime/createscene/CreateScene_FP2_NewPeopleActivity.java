@@ -65,7 +65,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
                         finish();
                     }else{
                         SaveAlertDialog dialog = new SaveAlertDialog(CreateScene_FP2_NewPeopleActivity.this);
-                        dialog.onCreateDialog(result);
+                        dialog.onCreateDialog(result,false,null);
                         dialog.setOwnerActivity(CreateScene_FP2_NewPeopleActivity.this);
                     }
                     break;
@@ -100,7 +100,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //What to do on back clicked
                 BackAlertDialog dialog = new BackAlertDialog(CreateScene_FP2_NewPeopleActivity.this);
-                dialog.onCreateDialog();
+                dialog.onCreateDialog(false,null);
                 dialog.setOwnerActivity(CreateScene_FP2_NewPeopleActivity.this);
             }
         });

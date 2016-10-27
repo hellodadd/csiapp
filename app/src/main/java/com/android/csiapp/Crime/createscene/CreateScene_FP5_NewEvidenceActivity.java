@@ -107,7 +107,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                         finish();
                     }else {
                         SaveAlertDialog dialog = new SaveAlertDialog(CreateScene_FP5_NewEvidenceActivity.this);
-                        dialog.onCreateDialog(result);
+                        dialog.onCreateDialog(result,false,null);
                         dialog.setOwnerActivity(CreateScene_FP5_NewEvidenceActivity.this);
                     }
                     break;
@@ -141,7 +141,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             public void onClick(View v) {
                 //What to do on back clicked
                 BackAlertDialog dialog = new BackAlertDialog(CreateScene_FP5_NewEvidenceActivity.this);
-                dialog.onCreateDialog();
+                dialog.onCreateDialog(false,null);
                 dialog.setOwnerActivity(CreateScene_FP5_NewEvidenceActivity.this);
             }
         });

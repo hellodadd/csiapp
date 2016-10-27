@@ -486,4 +486,17 @@ public class CrimeItem implements Serializable {
             result = true;
         return result;
     }
+
+    public String needToCheckInformation(String message){
+        if(mLocation.isEmpty()) message = message + "发案地点\n";
+        if(mAccessLocation.isEmpty()) message = message + "勘验地点\n";
+        if(mCaseOccurProcess.isEmpty()) message = message + "案件发现过程\n";
+        if(mTemperature.isEmpty()) message = message + "温度\n";
+        if(mHumidity.isEmpty()) message = message + "湿度\n";
+        if(mAccessReason.isEmpty()) message = message + "勘验事由\n";
+        if(mPositionItem.isEmpty()) message = message + "方位示意图\n";
+        if(mOverview.isEmpty()) message = message + "勘验情况\n";
+        if(mWitnessItem.isEmpty()) message = message + "见证人\n";
+        return message;
+    }
 }

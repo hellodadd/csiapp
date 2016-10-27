@@ -72,7 +72,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                         finish();
                     }else{
                         SaveAlertDialog dialog = new SaveAlertDialog(CreateSceneActivity.this);
-                        dialog.onCreateDialog(result);
+                        dialog.onCreateDialog(result,true,mItem);
                         dialog.setOwnerActivity(CreateSceneActivity.this);
                     }
                     break;
@@ -106,7 +106,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
             public void onClick(View v) {
                 //What to do on back clicked
                 BackAlertDialog dialog = new BackAlertDialog(CreateSceneActivity.this);
-                dialog.onCreateDialog();
+                dialog.onCreateDialog(true,mItem);
                 dialog.setOwnerActivity(CreateSceneActivity.this);
             }
         });

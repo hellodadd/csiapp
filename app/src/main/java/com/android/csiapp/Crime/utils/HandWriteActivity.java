@@ -105,7 +105,7 @@ public class HandWriteActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //What to do on back clicked
                 BackAlertDialog dialog = new BackAlertDialog(HandWriteActivity.this);
-                dialog.onCreateDialog();
+                dialog.onCreateDialog(false,null);
                 dialog.setOwnerActivity(HandWriteActivity.this);
             }
         });
