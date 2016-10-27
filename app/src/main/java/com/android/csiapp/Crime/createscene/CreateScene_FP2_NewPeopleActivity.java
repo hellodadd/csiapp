@@ -173,6 +173,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
                     }
                 });
                 if(s.length()!=17) mId.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
+                if(s.length()>=18) mId.setKeyListener(DigitsKeyListener.getInstance(""));
             }
 
             @Override
