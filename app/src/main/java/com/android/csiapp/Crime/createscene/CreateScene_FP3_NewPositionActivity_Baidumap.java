@@ -118,11 +118,11 @@ public class CreateScene_FP3_NewPositionActivity_Baidumap extends AppCompatActiv
                     Toast.makeText(CreateScene_FP3_NewPositionActivity_Baidumap.this, "Screen Shot", Toast.LENGTH_SHORT).show();
                     //finish();
                     break;
-                case R.id.action_download_map:
+                /*case R.id.action_download_map:
                     Intent intent = new Intent(CreateScene_FP3_NewPositionActivity_Baidumap.this,
                             OfflineMapActivity.class);
                     startActivity(intent);
-                    break;
+                    break;*/
             }
 
             if (!msg.equals("")) {

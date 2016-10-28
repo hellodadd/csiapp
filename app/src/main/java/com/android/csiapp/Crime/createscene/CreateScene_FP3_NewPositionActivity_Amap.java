@@ -34,11 +34,9 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.offlinemap.OfflineMapManager;
 import com.amap.api.maps.offlinemap.OfflineMapManager.OfflineMapDownloadListener;
 import com.amap.api.maps.offlinemap.OfflineMapStatus;
-import com.android.csiapp.Crime.utils.ScreenShot;
 import com.android.csiapp.R;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -122,8 +120,8 @@ public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity 
                         }
                     });
                     break;
-                case R.id.action_download_map:
-                    break;
+                /*case R.id.action_download_map:
+                    break;*/
             }
 
             if (!msg.equals("")) {
@@ -189,7 +187,7 @@ public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity 
         //初始化定位参数
         mLocationOption = new AMapLocationClientOption();
         //设置定位模式为Hight_Accuracy高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Device_Sensors);
         //设置是否返回地址信息（默认返回地址信息）
         mLocationOption.setNeedAddress(true);
         //设置是否只定位一次,默认为false
@@ -199,7 +197,7 @@ public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity 
         //设置是否允许模拟位置,默认为false，不允许模拟位置
         mLocationOption.setMockEnable(false);
         //设置定位间隔,单位毫秒,默认为2000ms
-        mLocationOption.setInterval(2000);
+        mLocationOption.setInterval(1000);
         //给定位客户端对象设置定位参数
         mLocationClient.setLocationOption(mLocationOption);
         //启动定位
