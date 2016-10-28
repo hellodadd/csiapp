@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -40,7 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
+public class CreateScene_FP3_NewPositionActivity_Baidumap extends AppCompatActivity {
     private Context context = null;
 
     private File mediaStorageDir;
@@ -59,7 +58,7 @@ public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
             switch(msg.what){
                 case 1:
                     Log.d("BaiduMap","filepath3: " + msg.obj.toString());
-                    Intent result = getIntent().putExtra("BaiduMap_ScreenShot", msg.obj.toString());
+                    Intent result = getIntent().putExtra("Map_ScreenShot", msg.obj.toString());
                     setResult(Activity.RESULT_OK, result);
                     finish();
                     break;
@@ -116,18 +115,18 @@ public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
                     //Log.d("BaiduMap","filepath2: " + filepath);
                     //Intent result = getIntent().putExtra("BaiduMap_ScreenShot", filepath);
                     //setResult(Activity.RESULT_OK, result);
-                    Toast.makeText(CreateScene_FP3_NewPositionActivity.this, "Screen Shot", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateScene_FP3_NewPositionActivity_Baidumap.this, "Screen Shot", Toast.LENGTH_SHORT).show();
                     //finish();
                     break;
                 case R.id.action_download_map:
-                    Intent intent = new Intent(CreateScene_FP3_NewPositionActivity.this,
+                    Intent intent = new Intent(CreateScene_FP3_NewPositionActivity_Baidumap.this,
                             OfflineMapActivity.class);
                     startActivity(intent);
                     break;
             }
 
             if (!msg.equals("")) {
-                Toast.makeText(CreateScene_FP3_NewPositionActivity.this, msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateScene_FP3_NewPositionActivity_Baidumap.this, msg, Toast.LENGTH_SHORT).show();
             }
             //finish();
             return true;
@@ -138,7 +137,7 @@ public class CreateScene_FP3_NewPositionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SDKInitializer.initialize(getApplicationContext());
-        setContentView(R.layout.create_scene_fp3_new_position);
+        setContentView(R.layout.create_scene_fp3_new_position_baidumap);
         context = this.getApplicationContext();
 
         // Baidu Map Initialization

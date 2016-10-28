@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -75,7 +76,10 @@
         <activity android:name=".Crime.createscene.CreateScene_FP3_PositionInformationActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:screenOrientation="portrait" />
-        <activity android:name=".Crime.createscene.CreateScene_FP3_NewPositionActivity"
+        <activity
+            android:name=".Crime.createscene.CreateScene_FP3_NewPositionActivity_Amap"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Crime.createscene.CreateScene_FP3_NewPositionActivity_Baidumap"
             android:screenOrientation="portrait"/>
         <activity android:name=".Crime.createscene.CreateScene_FP5_NewEvidenceActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" 
@@ -95,6 +99,8 @@
             android:enabled="true"
             android:process=":remote" >
         </service>
+        <service android:name="com.amap.api.location.APSService">
+        </service>
 
         <service android:name=".PcSocketTransmission.SocketService"
             android:exported="true">
@@ -113,5 +119,9 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="qI2cRYpq2LyyZZjnm7ifMyeIXZVcnGKe" />
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="5d1714e4a82d5b185fd043188b0459e1" />
     </application>
 </manifest>

@@ -44,7 +44,7 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
             switch (menuItem.getItemId()) {
                 case R.id.action_camera:
                     msg += "Camera";
-                    Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity.class);
+                    Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity_Baidumap.class);
                     startActivityForResult(it, 0);
                     break;
                 case R.id.action_click:
@@ -97,7 +97,7 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
 
         if(mEvent == 1) {
             mPositionItem = new PhotoItem();
-            Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity.class);
+            Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity_Baidumap.class);
             startActivityForResult(it, 0);
         }else{
             mPositionItem = mItem.getPosition().get(mPosition);
@@ -146,7 +146,7 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == 0) {
-            mPositionItem.setPhotoPath(data.getStringExtra("BaiduMap_ScreenShot"));
+            mPositionItem.setPhotoPath(data.getStringExtra("Map_ScreenShot"));
             setPhoto(mPositionItem.getPhotoPath());
         }
     }

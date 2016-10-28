@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -350,6 +351,28 @@ public class OfflineMapActivity extends AppCompatActivity {
             TextView cityName;
             TextView progress;
 
+        }
+    }
+
+    public static  String getSdCacheDir(Context context) {
+        if (Environment.getExternalStorageState().equals(
+                Environment.MEDIA_MOUNTED)) {
+            java.io.File fExternalStorageDirectory = Environment
+                    .getExternalStorageDirectory();
+            java.io.File autonaviDir = new java.io.File(
+                    fExternalStorageDirectory, "amapsdk");
+            boolean result = false;
+            if (!autonaviDir.exists()) {
+                result = autonaviDir.mkdir();
+            }
+            java.io.File minimapDir = new java.io.File(autonaviDir,
+                    "offlineMap");
+            if (!minimapDir.exists()) {
+                result = minimapDir.mkdir();
+            }
+            return minimapDir.toString() + "/";
+        } else {
+            return "";
         }
     }
 }
