@@ -22,4 +22,8 @@
     <dimen name="create_item_margin_right">16dp</dimen>
     <dimen name="toolbar_size">48dp</dimen>
 
+    <dimen name="parent_expandable_list_height">50dp</dimen>
+    <dimen name="parent_expandable_list_group_padding_left">10dp</dimen>
+    <dimen name="child_expandable_list_group_padding_left">40dp</dimen>
+    <dimen name="child_expandable_list_child_padding_left">75dp</dimen>
 </resources>
