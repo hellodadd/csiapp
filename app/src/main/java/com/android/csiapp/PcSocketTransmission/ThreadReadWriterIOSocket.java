@@ -4,16 +4,14 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
-import com.android.csiapp.Databases.CrimeProvider;
+import com.android.csiapp.XmlHandler.DataInitial;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 
 /**
@@ -58,11 +56,13 @@ public class ThreadReadWriterIOSocket implements Runnable {
 
                     Log.v(TAG, Thread.currentThread().getName() + "---->" + "**currCMD ==== " + currCMD);
 
-
+                    DataInitial dataInitial = new DataInitial(context);
                     /* 根据命令分别处理数据 */
                     if (currcmdinfo != null) {
                         switch (currcmdinfo[1]) {
                             case 1: //获取设备信息命令
+                                dataInitial.createDeviceMsgXml();
+
                                 receiveDataFromSocket(in, currcmdinfo);
                                 File file = FileHelper.newFile("DeviceMsg.xml");
                                 if (file.exists() == true) {
@@ -80,9 +80,16 @@ public class ThreadReadWriterIOSocket implements Runnable {
                             case 2: //设备初始化命令
                                 receiveString = receiveDataFromSocket(in, currcmdinfo);
                                 FileHelper.writeStringToFile(receiveString, Environment.getExternalStorageDirectory().getAbsolutePath(), "InitDeviceCmd.xml");
-                                // Todo: confirm if the configuration is set successfully.
-                                concatCmdline(out, currcmdinfo, 1);
-                                sendResult(out,true);
+                                if(dataInitial.InitialDevice()){
+                                    concatCmdline(out, currcmdinfo, 1);
+                                    sendResult(out,true);
+                                }else{
+                                    String errstr= "Prase Fail";
+                                    byte [] errbyte = errstr.getBytes("UTF-8");
+                                    concatCmdline(out, currcmdinfo, errbyte.length);
+                                    sendErrorString(out, errbyte);
+                                }
+                                SocketService.ioThreadFlag=false;
                                 break;
                             case 3: //App更新命令
                                 break;
@@ -90,8 +97,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 break;
                             case 11: //获取现场列表命令
                                 //組成BaseMsg.xml
-                                CrimeProvider mCrimeProvider1 = new CrimeProvider(context);
-                                mCrimeProvider1.createBaseMsgXml(-1);
+                                dataInitial.CreateBaseMsg();
 
                                 //获取BaseMsg.xml
                                 receiveDataFromSocket(in, currcmdinfo);
@@ -110,13 +116,11 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 break;
                             case 12: //获取现场信息命令
                                 //組成單一BaseMsg.xml
-                                int id = 0;
-                                CrimeProvider mCrimeProvider2 = new CrimeProvider(context);
-                                mCrimeProvider2.createBaseMsgXml(id);
+                                dataInitial.CreateBaseMsgIdZip(currcmdinfo[2]);
 
                                 //获取單一BaseMsg.xml
                                 receiveDataFromSocket(in, currcmdinfo);
-                                File fileBaseMsg = FileHelper.newFile("BaseMsg.xml");
+                                File fileBaseMsg = FileHelper.newFile("BaseMsg.zip");
                                 if (fileBaseMsg.exists() == true) {
                                     byte[] abyte = FileHelper.readFile(fileBaseMsg);
                                     concatCmdline(out, currcmdinfo, abyte.length);
@@ -130,8 +134,32 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 SocketService.ioThreadFlag=false;
                                 break;
                             case 13: //回写现勘编号命令
+                                receiveString = receiveDataFromSocket(in, currcmdinfo);
+                                FileHelper.writeStringToFile(receiveString, Environment.getExternalStorageDirectory().getAbsolutePath(), "writeSceneIdCmd.xml");
+                                if(dataInitial.WriteSceneId()){
+                                    concatCmdline(out, currcmdinfo, 1);
+                                    sendResult(out,true);
+                                }else{
+                                    String errstr= "Prase Fail";
+                                    byte [] errbyte = errstr.getBytes("UTF-8");
+                                    concatCmdline(out, currcmdinfo, errbyte.length);
+                                    sendErrorString(out, errbyte);
+                                }
+                                SocketService.ioThreadFlag=false;
                                 break;
                             case 14: //删除现场信息命令
+                                receiveString = receiveDataFromSocket(in, currcmdinfo);
+                                FileHelper.writeStringToFile(receiveString, Environment.getExternalStorageDirectory().getAbsolutePath(), "deleteSceneInfoCmd.xml");
+                                if(dataInitial.deleteSceneInfo()){
+                                    concatCmdline(out, currcmdinfo, 1);
+                                    sendResult(out,true);
+                                }else{
+                                    String errstr= "Prase Fail";
+                                    byte [] errbyte = errstr.getBytes("UTF-8");
+                                    concatCmdline(out, currcmdinfo, errbyte.length);
+                                    sendErrorString(out, errbyte);
+                                }
+                                SocketService.ioThreadFlag=false;
                                 break;
                             case 21: //获取现场基站列表命令
                                 break;

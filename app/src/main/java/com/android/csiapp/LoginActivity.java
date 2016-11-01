@@ -2,14 +2,12 @@ package com.android.csiapp;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.os.SystemProperties;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -19,14 +17,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.csiapp.Databases.IdentifyProvider;
-import com.android.csiapp.XmlHandler.XmlHandler;
-
-import com.baidu.mapapi.VersionInfo;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via user/password.
@@ -59,8 +51,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private String mUser;
-    private String mPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +72,9 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
-        getUserNameAndPassword();
+
+        mIdentify = new IdentifyProvider(context);
+        getLastUserName();
 
         Button mUserSignInButton = (Button) findViewById(R.id.user_sign_in_button);
         mUserSignInButton.setOnClickListener(new OnClickListener() {
@@ -94,18 +86,17 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-        createDeviceMsgXml();
     }
 
-    private void getUserNameAndPassword() {
-        mIdentify = new IdentifyProvider(context);
-
+    private void getLastUserName() {
         if (mIdentify.getCount() == 0) {
             mIdentify.sample();
+            mUserView.setText(mIdentify.getUser());
+            return;
         }
-        mUserView.setText(mIdentify.getUser());
-        mUser = mIdentify.getUser();
-        mPassword = mIdentify.getPassword();
+
+        SharedPreferences prefs = context.getSharedPreferences("UserName", 0);
+        mUserView.setText(prefs.getString("name", ""));
     }
 
     /**
@@ -162,12 +153,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isUserValid(String user) {
         //TODO: Replace this with your own logic
-        return user.toString().equals(mUser);
+        return true;
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.toString().equals(mPassword);
+        return true;
     }
 
     /**
@@ -223,7 +214,11 @@ public class LoginActivity extends AppCompatActivity {
             mAuthTask = null;
             showProgress(false);
 
-            if (success) {
+            if (success&&mIdentify.checkPasswordFromName(mUser,mPassword)) {
+                SharedPreferences.Editor editor = context.getSharedPreferences("UserName", 0).edit();
+                editor.putString("name", mUser);
+                editor.commit();
+
                 Intent it = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(it);
                 finish();
@@ -238,25 +233,6 @@ public class LoginActivity extends AppCompatActivity {
             mAuthTask = null;
             showProgress(false);
         }
-    }
-
-    public void createDeviceMsgXml() {
-
-        XmlHandler xmlhandler = new XmlHandler();
-        String deviceid = (SystemProperties.get("ro.serialno"));
-        String initstatus = "0";
-        String swversion = "";
-        String mapversion= VersionInfo.getApiVersion();
-        try {
-            PackageManager manager = getApplicationContext().getPackageManager();
-            PackageInfo info = manager.getPackageInfo(getApplicationContext().getPackageName(), 0);
-            swversion = info.versionName;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        xmlhandler.createDeviceMsg(deviceid, initstatus, swversion, mapversion);
-
     }
 }
 

@@ -3,8 +3,6 @@ package com.android.csiapp.XmlHandler;
 /**
  * Created by JOWE on 2016/9/29.
  */
-
-import android.bluetooth.BluetoothClass;
 import android.os.Environment;
 import android.util.Log;
 import android.util.Xml;
