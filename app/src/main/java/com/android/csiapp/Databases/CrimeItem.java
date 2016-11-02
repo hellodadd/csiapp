@@ -12,6 +12,7 @@ public class CrimeItem implements Serializable {
     // 編號、日期時間、顏色、標題、內容、檔案名稱、經緯度、修改、已選擇
     //Page 1
     private long id;
+    private String mSceneNo;
     private String mCasetype;
     private String mArea;
     private String mLocation;
@@ -87,6 +88,7 @@ public class CrimeItem implements Serializable {
         Calendar c = Calendar.getInstance();
         long time = c.getTimeInMillis();
         this.id = 0;
+        this.mSceneNo = "";
         this.mCasetype = "";
         this.mArea = "";
         this.mLocation = "";
@@ -157,6 +159,14 @@ public class CrimeItem implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getSceneNo() {
+        return mSceneNo;
+    }
+
+    public void setSceneNo(String sceneNo) {
+        this.mSceneNo = sceneNo;
     }
 
     //Page 1

@@ -97,17 +97,17 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 break;
                             case 11: //获取现场列表命令
                                 //組成BaseMsg.xml
-                                dataInitial.CreateBaseMsg();
+                                boolean result = dataInitial.CreateBaseMsg();
 
                                 //获取BaseMsg.xml
                                 receiveDataFromSocket(in, currcmdinfo);
                                 File fileBaseMsgs = FileHelper.newFile("BaseMsg.xml");
-                                if (fileBaseMsgs.exists() == true) {
+                                if (result && fileBaseMsgs.exists() == true) {
                                     byte[] abyte = FileHelper.readFile(fileBaseMsgs);
                                     concatCmdline(out, currcmdinfo, abyte.length);
                                     sendDeviceinfo(out, currcmdinfo, fileBaseMsgs);
                                 } else {
-                                    String errstr= "File Not Found";
+                                    String errstr= "Login Fail";
                                     byte [] errbyte = errstr.getBytes("UTF-8");
                                     concatCmdline(out, currcmdinfo, errbyte.length);
                                     sendErrorString(out, errbyte);

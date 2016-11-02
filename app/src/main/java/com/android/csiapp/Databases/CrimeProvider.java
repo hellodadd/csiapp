@@ -25,6 +25,8 @@ public class CrimeProvider {
     // 編號表格欄位名稱，固定不變
     public static final String KEY_ID = "_id";
 
+    public static final String SCENE_NO_COLUMN = "scene_no";
+
     public static final String SCENE_ITEM_NUMBER_COLUMN = "scene_item_number";
     public static final String ANALYSIS_ITEM_NUMBER_COLUMN = "analysis_item_number";
     public static final String OVERVIEW_COLUMN = "overview_number";
@@ -42,6 +44,7 @@ public class CrimeProvider {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    SCENE_NO_COLUMN + " INTEGER NOT NULL, " +
                     SCENE_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
                     ANALYSIS_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
                     OVERVIEW_COLUMN + " INTEGER NOT NULL, " +
@@ -100,6 +103,9 @@ public class CrimeProvider {
 
         // 加入ContentValues物件包裝的新增資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
+        String scene_no = item.getSceneNo();
+        cv.put(SCENE_NO_COLUMN, scene_no);
+
         long scene_id = mSceneProvider.insert(item);
         cv.put(SCENE_ITEM_NUMBER_COLUMN, scene_id);
         long analysis_id = mAnalysisProvider.insert(item);
@@ -180,6 +186,7 @@ public class CrimeProvider {
         cursor.close();
 
         ContentValues cv = new ContentValues();
+        cv.put(SCENE_NO_COLUMN, item.getSceneNo());
         cv.put(SCENE_ITEM_NUMBER_COLUMN, item.getId());
         cv.put(ANALYSIS_ITEM_NUMBER_COLUMN, item.getId());
         cv.put(OVERVIEW_COLUMN, item.getId());
@@ -330,7 +337,9 @@ public class CrimeProvider {
                 TABLE_NAME, null, where, null, null, null, null, null);
 
         if(cursor.moveToFirst()) {
-            String where1 = KEY_ID + "=" + cursor.getLong(1);
+            result.setSceneNo(cursor.getString(1));
+
+            String where1 = KEY_ID + "=" + cursor.getLong(2);
             Cursor cursor1 = db.query(
                     SceneProvider.TABLE_NAME, null, where1, null, null, null, null, null);
             if (cursor1.moveToFirst()) {
@@ -364,7 +373,7 @@ public class CrimeProvider {
             }
             cursor1.close();
 
-            String where2 = KEY_ID + "=" + cursor.getLong(2);
+            String where2 = KEY_ID + "=" + cursor.getLong(3);
             Cursor cursor2 = db.query(
                     AnalysisProvider.TABLE_NAME, null, where2, null, null, null, null, null);
             if (cursor2.moveToFirst()) {
@@ -384,7 +393,7 @@ public class CrimeProvider {
             }
             cursor2.close();
 
-            String where3 = KEY_ID + "=" + cursor.getLong(3);
+            String where3 = KEY_ID + "=" + cursor.getLong(4);
             Cursor cursor3 = db.query(
                     OverviewProvider.TABLE_NAME, null, where3, null, null, null, null, null);
             if (cursor3.moveToFirst()) {
@@ -393,31 +402,31 @@ public class CrimeProvider {
             }
             cursor3.close();
 
-            List<RelatedPeopleItem> RelatedPeople_items = mRelatedPeopleProvider.querys(cursor.getString(4));
+            List<RelatedPeopleItem> RelatedPeople_items = mRelatedPeopleProvider.querys(cursor.getString(5));
             result.setReleatedPeople(RelatedPeople_items);
 
-            List<LostItem> Lost_items = mLostProvider.querys(cursor.getString(5));
+            List<LostItem> Lost_items = mLostProvider.querys(cursor.getString(6));
             result.setLostItem(Lost_items);
 
-            List<CrimeToolItem> CrimeTool_items = mCrimeToolProvider.querys(cursor.getString(6));
+            List<CrimeToolItem> CrimeTool_items = mCrimeToolProvider.querys(cursor.getString(7));
             result.setCrimeTool(CrimeTool_items);
 
-            List<PhotoItem> Position_items = mPositionProvider.querys(cursor.getString(7));
+            List<PhotoItem> Position_items = mPositionProvider.querys(cursor.getString(8));
             result.setPosition(Position_items);
 
-            List<PhotoItem> PositionPhoto_items = mPositionPhotoProvider.querys(cursor.getString(8));
+            List<PhotoItem> PositionPhoto_items = mPositionPhotoProvider.querys(cursor.getString(9));
             result.setPositionPhoto(PositionPhoto_items);
 
-            List<PhotoItem> OverviewPhoto_items = mOverviewPhotoProvider.querys(cursor.getString(9));
+            List<PhotoItem> OverviewPhoto_items = mOverviewPhotoProvider.querys(cursor.getString(10));
             result.setOverviewPhoto(OverviewPhoto_items);
 
-            List<PhotoItem> ImportantPhoto_items = mImportantPhotoProvider.querys(cursor.getString(10));
+            List<PhotoItem> ImportantPhoto_items = mImportantPhotoProvider.querys(cursor.getString(11));
             result.setImportantPhoto(ImportantPhoto_items);
 
-            List<EvidenceItem> Evidence_items = mEvidenceProvider.querys(cursor.getString(11));
+            List<EvidenceItem> Evidence_items = mEvidenceProvider.querys(cursor.getString(12));
             result.setEvidenceItem(Evidence_items);
 
-            List<WitnessItem> Witness_items = mWitnessProvider.querys(cursor.getString(12));
+            List<WitnessItem> Witness_items = mWitnessProvider.querys(cursor.getString(13));
             result.setWitness(Witness_items);
         }
 
@@ -467,6 +476,8 @@ public class CrimeProvider {
                 //BaseInfo
                 HashMap<String, String> mBaseInfo = new LinkedHashMap<String, String>();
                 mBaseInfo.put("id", String.valueOf(item.getId()));
+                mBaseInfo.put("inquestNo", item.getSceneNo());
+                //mBaseInfo.put("complete", item.checkInformation()?"1":"0");
                 mBaseInfo.put("casetype", item.getCasetype());
                 mBaseInfo.put("regionalism", item.getArea());
                 mBaseInfo.put("address", item.getLocation());

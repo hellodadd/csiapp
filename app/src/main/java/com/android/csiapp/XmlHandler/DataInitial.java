@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.SystemProperties;
 import android.util.Log;
 
+import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.IdentifyProvider;
 import com.android.csiapp.XmlHandler.Dictionary;
@@ -34,6 +35,7 @@ public class DataInitial {
         this.mContext = context;
     }
 
+    //Command 1
     public void createDeviceMsgXml() {
         XmlHandler xmlhandler = new XmlHandler();
         String deviceid = (SystemProperties.get("ro.serialno"));
@@ -55,6 +57,7 @@ public class DataInitial {
         xmlhandler.createDeviceMsg(deviceid, initstatus, swversion, mapversion);
     }
 
+    //Command 2
     public boolean InitialDevice(){
         XmlHandler xmlhandler = new XmlHandler();
         Object[] object = xmlhandler.getInitialDeviceCmd();
@@ -216,11 +219,12 @@ public class DataInitial {
         return true;
     }
 
-    public void CreateBaseMsg(){
+    //Command 11
+    public boolean CreateBaseMsg(){
         XmlHandler xmlhandler = new XmlHandler();
         String[] object = xmlhandler.getSceneListCmd();
 
-        if(object==null && object.length!=2) return;
+        if(object==null && object.length!=2) return false;
 
         String name = object[0];
         String password = object[1];
@@ -228,29 +232,63 @@ public class DataInitial {
         IdentifyProvider mIdentify = new IdentifyProvider(mContext);
         boolean isCorrect = mIdentify.checkPasswordFromName(name,password);
 
-        if(isCorrect) return;
+        if(isCorrect) return false;
 
         CrimeProvider mCrimeProvider = new CrimeProvider(mContext);
         mCrimeProvider.createBaseMsgXml(-1);
+
+        return true;
     }
 
+    //Command 12
     public void CreateBaseMsgIdZip(int id){
         CrimeProvider mCrimeProvider = new CrimeProvider(mContext);
+        CrimeItem crimeItem = mCrimeProvider.get(id);
+
+        if(crimeItem == null) return ;
+
         mCrimeProvider.createBaseMsgXml(id);
-        // Todo:need to get photo and xml to zip file
+
+        //Todo:move photo path and to zip
     }
 
+    //Command 13
     public boolean WriteSceneId(){
         XmlHandler xmlhandler = new XmlHandler();
         String[] object = xmlhandler.writeSceneIdCmd();
-        // Todo:need to rewrite scene
-        return false;
+
+        if(object == null && object.length==0) return false;
+
+        long id = Integer.parseInt(object[0]);
+        String SceneNo = object[1];
+        CrimeProvider mCrime = new CrimeProvider(mContext);
+        CrimeItem mCrimeItem = mCrime.get(id);
+
+        if(mCrimeItem == null || SceneNo.length() ==0) return false;
+
+        mCrimeItem.setSceneNo(SceneNo);
+        mCrime.update(mCrimeItem);
+
+        return true;
     }
 
+    //Command 14
     public boolean deleteSceneInfo(){
         XmlHandler xmlhandler = new XmlHandler();
         String[] object = xmlhandler.deleteSceneInfoCmd();
-        // Todo:need to delete scene
-        return false;
+
+        if(object == null && object.length==0) return false;
+
+        CrimeProvider mCrime = new CrimeProvider(mContext);
+        for(int i=0;i<object.length;i++){
+            long id = Integer.parseInt(object[i]);
+            if(mCrime.get(id)!=null) {
+                mCrime.delete(id);
+            }else{
+                Log.d("Anita","Cannot get the id from databases");
+            }
+        }
+
+        return true;
     }
 }
