@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         mAppVersionTv = (TextView) findViewById(R.id.display_app_version);
-        String appVerStr = "ª©¥»:" + AppInfo.getAppVersionName(context);
+        String appVerStr = "ç‰ˆæœ¬:" + AppInfo.getAppVersionName(context);
         mAppVersionTv.setText(appVerStr);
     }
 
