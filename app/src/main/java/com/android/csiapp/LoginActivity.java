@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.csiapp.Crime.utils.AppInfo;
+import com.android.csiapp.Crime.utils.RestoreListDialog;
 import com.android.csiapp.Databases.IdentifyProvider;
 
 /**
@@ -51,6 +53,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    //app version
+    private TextView mAppVersionTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +91,18 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        Button mDataRecorvy  = (Button) findViewById(R.id.data_recorvy_button);
+        mDataRecorvy.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RestoreListDialog restoreListDialog = new RestoreListDialog(LoginActivity.this);
+                restoreListDialog.createRestoreListDialog();
+            }
+        });
+
+        mAppVersionTv = (TextView) findViewById(R.id.display_app_version);
+        String appVerStr = "ª©¥»:" + AppInfo.getAppVersionName(context);
+        mAppVersionTv.setText(appVerStr);
     }
 
     private void getLastUserName() {

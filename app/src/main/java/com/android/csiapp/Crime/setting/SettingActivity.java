@@ -1,31 +1,18 @@
 package com.android.csiapp.Crime.setting;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
+import com.android.csiapp.Crime.utils.RestoreListDialog;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.R;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -34,11 +21,8 @@ public class SettingActivity extends AppCompatActivity {
     private ImageButton mBackupBtn;
     private ImageButton mRestoreBtn;
     private ImageButton mReactiveBtn;
-    private int mSelectedItem = -1;
     private AlertDialog.Builder mBuilder;
     private AlertDialog mDialog;
-    private ListView mResoteItems;
-    private SimpleAdapter mAdapter;
     private final String TAG = "SettingActivity";
 
     @Override
@@ -74,29 +58,70 @@ public class SettingActivity extends AppCompatActivity {
     private View.OnClickListener btnBackupOnClick = new View.OnClickListener () {
         @Override
         public void onClick(View view) {
+
+            mBuilder = new AlertDialog.Builder(SettingActivity.this);
+            mBuilder.setCancelable(false);
+            mBuilder.setTitle(mContext.getResources().getString(R.string.bcakup_prompt_title));
+            mBuilder.setMessage(mContext.getResources().getString(R.string.backup_prompt_msg));
+            mBuilder.setNegativeButton(mContext.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            mBuilder.setPositiveButton(mContext.getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
             dataBackup();
+        }
+            });
+
+            mDialog = mBuilder.create();
+            mDialog.show();
         }
     };
 
     private View.OnClickListener btnRestoreOnClick = new View.OnClickListener () {
         @Override
         public void onClick(View view) {
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Csibackup";
-            File file = new File(path);
-            File[] files = file.listFiles(); // Read file
-            ArrayList listData = getFileName(files);
-            showRestoreListDialog(listData);
-
+            RestoreListDialog restoreListDialog = new RestoreListDialog(SettingActivity.this);
+            restoreListDialog.createRestoreListDialog();
         }
     };
 
     private View.OnClickListener btnReactiveOnClick = new View.OnClickListener () {
         @Override
         public void onClick(View view) {
+
+            mBuilder = new AlertDialog.Builder(SettingActivity.this);
+            mBuilder.setCancelable(false);
+            mBuilder.setTitle(mContext.getResources().getString(R.string.reactive_promp_title));
+            mBuilder.setMessage(mContext.getResources().getString(R.string.reactive_prompt_msg));
+            mBuilder.setNegativeButton(mContext.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            mBuilder.setPositiveButton(mContext.getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
             mCrimeProvider.deleteAll();
-            //Toast.makeText(SettingActivity.this, "Reactive", Toast.LENGTH_SHORT).show();
+                    restartApp();
+                }
+            });
+
+            mDialog = mBuilder.show();
         }
     };
+
+    public void restartApp() {
+        final Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 
     private void dataBackup() {
         // TODO Auto-generated method stub
@@ -106,66 +131,5 @@ public class SettingActivity extends AppCompatActivity {
     private void dataRecover(String filename) {
         // TODO Auto-generated method stub
         new BackupRestore(this).execute("restroeDatabase", filename);
-    }
-
-    private ArrayList<Hashtable<String, String>> getFileName(File[] files) {
-        ArrayList<Hashtable<String, String>> listData = new ArrayList<Hashtable<String, String>>();
-        if (files != null) { // determine if the file is null
-            for (File file : files) {
-                if (file.isDirectory()) {
-                    getFileName(file.listFiles());
-                } else {
-                    String fileName = file.getName();
-                    String filePath = file.getPath();
-                    if (fileName.endsWith(".zip")) {
-                        Hashtable<String, String> fileItem = new Hashtable<String, String>();
-                        fileItem.put("Name", fileName);
-                        fileItem.put("Path", filePath);
-                        listData.add(fileItem);
-                    }
-                }
-            }
-        }
-        return  listData;
-    }
-
-    public void showRestoreListDialog(ArrayList listFile){
-        if(listFile.size() == 0) {
-            Log.i(TAG,"File Not Found");
-            return;
-        }
-
-        LayoutInflater layout = LayoutInflater.from(this);
-        View resorelistview = layout.inflate(R.layout.restore_list, null);
-
-        mResoteItems = (ListView) resorelistview
-                .findViewById(R.id.lvSudokuItems);
-        mAdapter = new SimpleAdapter(this,
-                listFile, R.layout.filelist, new String[] { "Name" }, new int[] { R.id.tvFileItem });
-        mResoteItems.setAdapter(mAdapter);
-        mResoteItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @SuppressWarnings("unchecked")
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                mSelectedItem = position;
-                String filename = ((Hashtable<String, String>) mAdapter.getItem(position)).get("Name");
-                String filePath = ((Hashtable<String, String>) mAdapter.getItem(position)).get("Path");
-                Log.d(TAG, "selectedItem="+mSelectedItem+", filename="+filename+", filePath="+filePath);
-                dataRecover(filename);
-                mDialog.cancel();
-            }
-        });
-
-        mBuilder = new AlertDialog.Builder(this);
-        mBuilder.setView(resorelistview);
-        mBuilder.setCancelable(false);
-        mBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        mDialog = mBuilder.show();
     }
 }
