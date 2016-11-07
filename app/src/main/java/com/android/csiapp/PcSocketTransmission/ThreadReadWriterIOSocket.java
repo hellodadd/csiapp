@@ -101,7 +101,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
 
                                 //获取BaseMsg.xml
                                 receiveDataFromSocket(in, currcmdinfo);
-                                File fileBaseMsgs = FileHelper.newFile("BaseMsg.xml");
+                                File fileBaseMsgs = FileHelper.newFile("ScenesMsg.xml");
                                 if (result && fileBaseMsgs.exists() == true) {
                                     byte[] abyte = FileHelper.readFile(fileBaseMsgs);
                                     concatCmdline(out, currcmdinfo, abyte.length);
@@ -120,7 +120,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
 
                                 //获取單一BaseMsg.xml
                                 receiveDataFromSocket(in, currcmdinfo);
-                                File fileBaseMsg = FileHelper.newFile("BaseMsg.zip");
+                                File fileBaseMsg = FileHelper.newFile("SceneMsg.zip");
                                 if (fileBaseMsg.exists() == true) {
                                     byte[] abyte = FileHelper.readFile(fileBaseMsg);
                                     concatCmdline(out, currcmdinfo, abyte.length);

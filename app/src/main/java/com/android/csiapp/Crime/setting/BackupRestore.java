@@ -191,7 +191,7 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
      * @param newPath String Copy path
      * @return boolean
      */
-    public void copyFile(String oldPath, String newPath) {
+    public static void copyFile(String oldPath, String newPath) {
         try {
             int bytesum = 0;
             int byteread = 0;
@@ -203,7 +203,6 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
                 int length;
                 while ( (byteread = inStream.read(buffer)) != -1) {
                     bytesum += byteread;
-                    System.out.println(bytesum);
                     fs.write(buffer, 0, byteread);
                 }
                 inStream.close();
@@ -211,7 +210,6 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
         }
         catch (Exception e) {
             e.printStackTrace();
-
         }
 
     }
@@ -222,7 +220,7 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
      * @param newPath String Copy path
      * @return boolean
      */
-    public void copyFolder(String oldPath, String newPath) {
+    public static void copyFolder(String oldPath, String newPath) {
 
         try {
             (new File(newPath)).mkdirs();// If the folder is not exist, we need to create it.
@@ -269,7 +267,7 @@ public class BackupRestore extends AsyncTask<String, Void, String> {
         }
     }
 
-    public void deleteFiles(File file) {
+    public static void deleteFiles(File file) {
         if (file.isFile()) {
             file.delete();
             return;

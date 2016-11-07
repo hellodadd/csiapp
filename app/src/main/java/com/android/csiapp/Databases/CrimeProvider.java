@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.android.csiapp.Crime.utils.DateTimePicker;
+import com.android.csiapp.XmlHandler.Dictionary;
 import com.android.csiapp.XmlHandler.XmlHandler;
 
 import java.util.ArrayList;
@@ -252,6 +253,8 @@ public class CrimeProvider {
         // 刪除原有的表格
         //Login
         db.execSQL("DROP TABLE IF EXISTS " + IdentifyProvider.TABLE_NAME);
+        //Dictionary
+        db.execSQL("DROP TABLE IF EXISTS " + DictionaryProvider.TABLE_NAME);
         //Whole key
         db.execSQL("DROP TABLE IF EXISTS " + CrimeProvider.TABLE_NAME);
         //Page 1
@@ -279,6 +282,8 @@ public class CrimeProvider {
         // 建立新版的表格
         //Login
         db.execSQL(IdentifyProvider.IDENTIFY_TABLE);
+        //Dictionary
+        db.execSQL(DictionaryProvider.IDENTIFY_TABLE);
         //Whole key
         db.execSQL(CrimeProvider.CREATE_TABLE);
         //Page 1

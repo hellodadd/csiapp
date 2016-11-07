@@ -4,12 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.android.csiapp.XmlHandler.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by user on 2016/9/29.
@@ -125,6 +121,16 @@ public class IdentifyProvider {
 
         cursor.close();
         return result;
+    }
+
+    // 刪除所有記事資料
+    public void deleteAll(){
+        // 刪除原有的表格
+        //Login
+        db.execSQL("DROP TABLE IF EXISTS " + IdentifyProvider.TABLE_NAME);
+        // 建立新版的表格
+        //Login
+        db.execSQL(IdentifyProvider.IDENTIFY_TABLE);
     }
 
     // 取得資料數量

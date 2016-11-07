@@ -23,7 +23,7 @@ public class Dictionary {
 
     public String getRootKey() { return mRootKey;}
 
-    public String getDictValu() { return mDictValue;}
+    public String getDictValue() { return mDictValue;}
 
     public String getDictRemark() { return mDictRemark;}
 

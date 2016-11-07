@@ -266,7 +266,6 @@ public class XmlHandler {
                         break;
                 }
                 eventType = parser.next();
-
             }
             fileInputStream.close();
             return new String[]{sceneId, sceneNo};
@@ -277,7 +276,6 @@ public class XmlHandler {
     }
 
     public String[] deleteSceneInfoCmd() {
-
         String[] sceneId = new String[]{};
         int count = 0;
         try {
@@ -302,7 +300,6 @@ public class XmlHandler {
                         break;
                 }
                 eventType = parser.next();
-
             }
             fileInputStream.close();
         } catch (Exception e) {
@@ -312,7 +309,6 @@ public class XmlHandler {
     }
 
     public void createSceneInfoXmlFile(Object[] obj) {
-
         XmlSerializer xmlSerializer;
         FileOutputStream fileOutputStream = null;
 
@@ -346,10 +342,10 @@ public class XmlHandler {
                     fileOutputStream.close();
                 } catch (IOException e) {
                     e.printStackTrace();
-            }
-                    }
                 }
             }
+        }
+    }
 
     public void createSubSceneInfo(XmlSerializer xmlSerializer, List<HashMap<String, String>> info, String tagstring) {
 
@@ -363,17 +359,17 @@ public class XmlHandler {
                 HashMap<String, String> map = info.get(i);
                 xmlSerializer.startTag(null, tagstring);
                 for (HashMap.Entry<String, String> entry : map.entrySet()) {
-                        xmlSerializer.startTag(null, entry.getKey());
-                        xmlSerializer.text(entry.getValue());
-                        xmlSerializer.endTag(null, entry.getKey());
-                    }
-                xmlSerializer.endTag(null, tagstring);
+                    xmlSerializer.startTag(null, entry.getKey());
+                    xmlSerializer.text(entry.getValue());
+                    xmlSerializer.endTag(null, entry.getKey());
                 }
+            xmlSerializer.endTag(null, tagstring);
+            }
             xmlSerializer.endTag(null, tagstring+"s");
         } catch (Exception e) {
             e.printStackTrace();
-            }
         }
+    }
 
     public static HashMap<String, String> getSceneTypes() {
 
@@ -386,6 +382,5 @@ public class XmlHandler {
         sceneTypes.put("4","attachinfo");
 
         return sceneTypes;
-
     }
 }
