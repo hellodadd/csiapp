@@ -15,6 +15,18 @@ public class User {
     private String mContact;   // 用戶聯絡方式
     private String mDuty;      // 用戶職務
 
+    public User(){
+        this.id = 0;
+        this.mLoginName = "";
+        this.mPassword = "";
+        this.mUserName = "";
+        this.mUnitCode = "";
+        this.mUnitName = "";
+        this.mIdCardNo = "";
+        this.mContact = "";
+        this.mDuty = "";
+    }
+
     public void setId(int id) {
         this.id=id;
     }

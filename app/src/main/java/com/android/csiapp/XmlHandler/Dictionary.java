@@ -13,6 +13,16 @@ public class Dictionary {
     private String mDictRemark;
     private String mDictSpell;
 
+    public Dictionary(){
+        this.id = 0;
+        this.mDictKey = "";
+        this.mParentKey = "";
+        this.mRootKey = "";
+        this.mDictValue = "";
+        this.mDictRemark = "";
+        this.mDictSpell = "";
+    }
+
     public int getId() {
         return id;
     }

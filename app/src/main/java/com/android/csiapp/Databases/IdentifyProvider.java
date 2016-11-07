@@ -26,6 +26,7 @@ public class IdentifyProvider {
     public static final String UNITNAME_COLUMN = "unitname";
     public static final String IDCARDNO_COLUMN = "idcardno";
     public static final String CONTACT_COLUMN = "contact";
+    public static final String DUTY_COLUMN = "duty";
 
     // 使用上面宣告的變數建立表格的SQL指令
     public static final String IDENTIFY_TABLE =
@@ -37,7 +38,8 @@ public class IdentifyProvider {
                     UNITCODE_COLUMN + " TEXT NOT NULL, " +
                     UNITNAME_COLUMN + " TEXT NOT NULL, " +
                     IDCARDNO_COLUMN + " TEXT NOT NULL, " +
-                    CONTACT_COLUMN + " TEXT NOT NULL)";
+                    CONTACT_COLUMN + " TEXT NOT NULL, " +
+                    DUTY_COLUMN + " TEXT NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;
@@ -66,6 +68,7 @@ public class IdentifyProvider {
         cv.put(UNITNAME_COLUMN, "");
         cv.put(IDCARDNO_COLUMN, "");
         cv.put(CONTACT_COLUMN, "");
+        cv.put(DUTY_COLUMN, "");
 
         // 新增一筆資料並取得編號
         // 第一個參數是表格名稱
@@ -86,7 +89,8 @@ public class IdentifyProvider {
         cv.put(UNITCODE_COLUMN, user.getUnitCode());
         cv.put(UNITNAME_COLUMN, user.getUnitName());
         cv.put(IDCARDNO_COLUMN, user.getIdCardNo());
-        cv.put(CONTACT_COLUMN, user.getContact());
+        cv.put(CONTACT_COLUMN, (user.getContact()==null)?"":user.getContact());
+        cv.put(DUTY_COLUMN, (user.getDuty()==null)?"":user.getDuty());
 
         // 新增一筆資料並取得編號
         // 第一個參數是表格名稱

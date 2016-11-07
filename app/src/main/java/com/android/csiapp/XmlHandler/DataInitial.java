@@ -80,6 +80,7 @@ public class DataInitial {
         //Prase Dictionary
         DictionaryProvider mDictionary = new DictionaryProvider(mContext);
         mDictionary.deleteAll();
+        Log.d("Anita","dictionary count = "+dictionarys.size());
         for(int i=0;i<dictionarys.size();i++){
             mDictionary.insert(dictionarys.get(i));
         }
@@ -87,6 +88,7 @@ public class DataInitial {
         //Prase User
         IdentifyProvider mIdentify = new IdentifyProvider(mContext);
         mIdentify.deleteAll();
+        Log.d("Anita","user count = "+users.size());
         for(int j=0;j<users.size();j++){
             mIdentify.insert(users.get(j));
         }
