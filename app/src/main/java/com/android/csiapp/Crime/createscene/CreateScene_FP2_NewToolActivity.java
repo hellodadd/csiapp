@@ -16,13 +16,12 @@ import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
+import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
-import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeToolItem;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
 
@@ -109,9 +108,11 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
     }
 
     private void initView(){
+        DictionaryInfo info = new DictionaryInfo(context);
+
         mName = (ClearableEditText) findViewById(R.id.tool_name_editView);
 
-        mTool_category = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.tool_category)));
+        mTool_category = info.getArray(info.mToolCategoryKey);
         mTool_category_spinner= (Spinner) findViewById(R.id.tool_category_spinner);
         mTool_category_adapter = new ArrayAdapter<String>(CreateScene_FP2_NewToolActivity.this, R.layout.spinnerview, mTool_category);
         mTool_category_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -126,7 +127,7 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
             }
         });
 
-        mTool_source = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.tool_source)));
+        mTool_source = info.getArray(info.mToolSourceKey);
         mTool_source_spinner = (Spinner) findViewById(R.id.tool_source_spinner);
         mTool_source_adapter = new ArrayAdapter<String>(CreateScene_FP2_NewToolActivity.this, R.layout.spinnerview, mTool_source);
         mTool_source_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

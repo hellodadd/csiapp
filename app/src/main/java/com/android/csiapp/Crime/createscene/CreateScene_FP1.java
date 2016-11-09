@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
+import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.R;
@@ -123,6 +124,8 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     }
 
     private void initView(View view){
+        DictionaryInfo info = new DictionaryInfo(context);
+
         mCasetype = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.casetype)));
         mCasetype_spinner = (Spinner) view.findViewById(R.id.casetype_spinner);
         mCasetype_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mCasetype);
@@ -138,7 +141,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             }
         });
 
-        mArea = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.area)));
+        mArea = info.getArray(info.mAreaKey);
         mArea_spinner = (Spinner) view.findViewById(R.id.area_spinner);
         mArea_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mArea);
         mArea_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -181,7 +184,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mCaseOccurProcessBtn.setOnClickListener(this);
 
         mChangeReasonLinearLayout = (LinearLayout) view.findViewById(R.id.change_reason_linear);
-        mSceneCondition = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.sceneCondition)));
+        mSceneCondition = info.getArray(info.mSceneConditionKey);
         mSceneCondition_spinner = (Spinner) view.findViewById(R.id.sceneCondition_spinner);
         mSceneCondition_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mSceneCondition);
         mSceneCondition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -226,7 +229,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             }
         });
 
-        mWeatherCondition = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.weatherCondition)));
+        mWeatherCondition = info.getArray(info.mWeatherConditionKey);
         mWeatherCondition_spinner = (Spinner) view.findViewById(R.id.weatherCondition_spinner);
         mWeatherCondition_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mWeatherCondition);
         mWeatherCondition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -241,7 +244,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             }
         });
 
-        mWindDirection = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.windDirection)));
+        mWindDirection = info.getArray(info.mWindDirectionKey);
         mWindDirection_spinner = (Spinner) view.findViewById(R.id.windDirection_spinner);
         mWindDirection_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mWindDirection);
         mWindDirection_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -264,7 +267,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mAccessReasonBtn = (Button) view.findViewById(R.id.accessReason_button);
         mAccessReasonBtn.setOnClickListener(this);
 
-        mIlluminationCondition = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.illuminationCondition)));
+        mIlluminationCondition = info.getArray(info.mIlluminationConditionKey);
         mIlluminationCondition_spinner = (Spinner) view.findViewById(R.id.illuminationCondition_spinner);
         mIlluminationCondition_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mIlluminationCondition);
         mIlluminationCondition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

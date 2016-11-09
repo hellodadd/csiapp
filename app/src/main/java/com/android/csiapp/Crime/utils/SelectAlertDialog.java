@@ -42,21 +42,21 @@ public class SelectAlertDialog extends AppCompatActivity implements OnChildTreeV
         HashMap<String,String> ParentData = new HashMap<>();
         HashMap<String, HashMap<String,List<String>>> Data = new HashMap<>();
 
-        //test
+        /*//test
         for(int i1 = 0; i1< 10; i1++){
             HashMap<String, List<String>> ChildsData = new HashMap<>();
-            ParentData.put(String.valueOf(i1),"父類父分組第"+String.valueOf(i1)+"類");
+            ParentData.put(String.valueOf(i1),"���������ղ�"+String.valueOf(i1)+"��");
             for(int j2 = 0;j2<8; j2++){
                 List<String> ChildData = new ArrayList<>();
-                ChildData.add("子類父分組第"+String.valueOf(j2)+"組");
+                ChildData.add("�l�������ղ�"+String.valueOf(j2)+"��");
                 for(int k3 = 0;k3<5; k3++){
-                    ChildData.add("子類子分組第"+String.valueOf(k3)+"項");
+                    ChildData.add("�l���l���ղ�"+String.valueOf(k3)+"��");
                 }
                 ChildsData.put(String.valueOf(j2),ChildData);
             }
             Data.put(String.valueOf(i1),ChildsData);
         }
-        //test
+        //test*/
 
         parents = new ArrayList<ParentEntity>();
         for (int i = 0; i < ParentData.size(); i++) {

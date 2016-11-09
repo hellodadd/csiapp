@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -32,7 +33,9 @@ import android.widget.Toast;
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
+import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
+import com.android.csiapp.Databases.DictionaryProvider;
 import com.android.csiapp.Databases.EvidenceItem;
 import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
@@ -162,6 +165,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     }
 
     private void initView(){
+        DictionaryInfo info = new DictionaryInfo(context);
+
         mNew_evidence = (ImageView) findViewById(R.id.new_evidence);
 
         mEvidence_category = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence_category)));
@@ -180,7 +185,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             }
         });
 
-        mEvidence = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence_hand)));
+        mEvidence = info.getArray(info.mEvidenceHandKey);
         mEvidence_spinner = (Spinner) findViewById(R.id.evidence_spinner);
         mEvidence_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mEvidence);
         mEvidence_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -203,7 +208,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         mEvidenceTextLabel = (TextView) findViewById(R.id.evidenceTextLabel);
         mBasiceFeatureLabel = (ImageView) findViewById(R.id.basicFeatureLabel);
         mInferLL = (LinearLayout) findViewById(R.id.inferLL);
-        mInfer = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.tool_infer)));
+        mInfer = info.getArray(info.mToolInferKey);
         mInfer_spinner = (Spinner) findViewById(R.id.infer_spinner);
         mInfer_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mInfer);
         mInfer_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -218,7 +223,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             }
         });
 
-        mMethod = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.method_hand)));
+        mMethod = info.getArray(info.mMethodHandKey);
         mMethod_spinner = (Spinner) findViewById(R.id.method_spinner);
         mMethod_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mMethod);
         mMethod_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -337,26 +342,28 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     }
 
     private void refeshEvidenceItem(int category){
+        DictionaryInfo info = new DictionaryInfo(context);
+
         if(category==0){
             //手印
-            mEvidence = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence_hand)));
-            mMethod = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.method_hand)));
+            mEvidence = info.getArray(info.mEvidenceHandKey);
+            mMethod = info.getArray(info.mMethodHandKey);
             mEvidenceTextLabel.setText(getResources().getString(R.string.evidence_hand));
             mBasiceFeatureLabel.setBackground(getResources().getDrawable(R.drawable.green_60dp));
             mInferLL.setVisibility(View.GONE);
             mEvidenceItem.setInfer("");
         }else if(category==1){
             //足跡
-            mEvidence = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence_foot)));
-            mMethod = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.method_foot)));
+            mEvidence = info.getArray(info.mEvidenceFootKey);
+            mMethod = info.getArray(info.mMethodFootKey);
             mEvidenceTextLabel.setText(getResources().getString(R.string.evidence_foot));
             mBasiceFeatureLabel.setBackground(getResources().getDrawable(R.drawable.green_60dp));
             mInferLL.setVisibility(View.GONE);
             mEvidenceItem.setInfer("");
         }else if(category==2){
             //工痕
-            mEvidence = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence_tool)));
-            mMethod = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.method_tool)));
+            mEvidence = info.getArray(info.mEvidenceToolKey);
+            mMethod = info.getArray(info.mMethodToolKey);
             mEvidenceTextLabel.setText(getResources().getString(R.string.evidence_tool));
             mBasiceFeatureLabel.setBackground(getResources().getDrawable(R.drawable.red_60dp));
             mInferLL.setVisibility(View.VISIBLE);

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.DigitsKeyListener;
@@ -28,12 +27,12 @@ import android.widget.Toast;
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
+import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.HandWriteActivity;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Databases.WitnessItem;
 import com.android.csiapp.R;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -127,9 +126,11 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
     }
 
     private void initView(){
+        DictionaryInfo info = new DictionaryInfo(context);
+
         mName = (ClearableEditText) findViewById(R.id.name_editView);
 
-        mSex = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.sex)));
+        mSex = info.getArray(info.mSexKey);
         mSex_spinner = (Spinner) findViewById(R.id.sex_spinner);
         mSex_adapter = new ArrayAdapter<String>(CreateScene_FP8_AddWitnessActivity.this, R.layout.spinnerview, mSex);
         mSex_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

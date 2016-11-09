@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
+import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Databases.RelatedPeopleItem;
 import com.android.csiapp.R;
@@ -116,6 +117,8 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
     }
 
     private void initView(){
+        DictionaryInfo info = new DictionaryInfo(context);
+
         mReleationPeople = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.releation_people)));
         mReleationPeople_spinner = (Spinner) findViewById(R.id.releationPeople_spinner);
         mReleationPeople_adapter = new ArrayAdapter<String>(CreateScene_FP2_NewPeopleActivity.this, R.layout.spinnerview, mReleationPeople);
@@ -133,7 +136,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
 
         mName = (ClearableEditText) findViewById(R.id.name_editView);
 
-        mSex = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.sex)));
+        mSex = info.getArray(info.mSexKey);
         mSex_spinner = (Spinner) findViewById(R.id.sex_spinner);
         mSex_adapter = new ArrayAdapter<String>(CreateScene_FP2_NewPeopleActivity.this, R.layout.spinnerview, mSex);
         mSex_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

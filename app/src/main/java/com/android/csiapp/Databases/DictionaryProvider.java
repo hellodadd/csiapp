@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import com.android.csiapp.XmlHandler.Dictionary;
 import com.android.csiapp.XmlHandler.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by user on 2016/11/7.
  */
@@ -30,7 +33,7 @@ public class DictionaryProvider {
     public static final String IDENTIFY_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    DICTKEY_COLUMN + " TEXT NOT NULL, " +
+                    DICTKEY_COLUMN + " INTEGER NOT NULL, " +
                     PARENTKEY_COLUMN + " TEXT NOT NULL, " +
                     ROOTKEY_COLUMN + " TEXT NOT NULL, " +
                     DICTVALUE_COLUMN + " TEXT NOT NULL, " +
@@ -90,5 +93,23 @@ public class DictionaryProvider {
         }
 
         return result;
+    }
+
+    public List<String> query(String rootkey){
+        List<String> list = new ArrayList<>();
+        String[] projection = new String[] {DICTKEY_COLUMN, PARENTKEY_COLUMN, DICTVALUE_COLUMN};
+        String where = ROOTKEY_COLUMN + " = '" + rootkey +"'";
+        Cursor cursor = db.query(TABLE_NAME, projection, where, null, null, null, DICTKEY_COLUMN, null);
+        if(cursor==null) {
+            return null;
+        }
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.add(cursor.getString(2));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
     }
 }
