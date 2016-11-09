@@ -149,13 +149,13 @@ public class DataInitial {
     //Command 14
     public boolean deleteSceneInfo(){
         XmlHandler xmlhandler = new XmlHandler();
-        String[] object = xmlhandler.deleteSceneInfoCmd();
+        List<String> object = xmlhandler.deleteSceneInfoCmd();
 
-        if(object == null && object.length==0) return false;
+        if(object == null && object.size()==0) return false;
 
         CrimeProvider mCrime = new CrimeProvider(mContext);
-        for(int i=0;i<object.length;i++){
-            long id = Integer.parseInt(object[i]);
+        for(int i=0;i<object.size();i++){
+            long id = Long.parseLong(object.get(i));
             if(mCrime.get(id)!=null) {
                 mCrime.delete(id);
             }else{

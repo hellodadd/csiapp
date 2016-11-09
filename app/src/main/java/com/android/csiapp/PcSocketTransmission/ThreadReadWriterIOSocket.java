@@ -27,6 +27,10 @@ public class ThreadReadWriterIOSocket implements Runnable {
     public static final String TAG = "ThreadRWIOSocket";
     String mMapPath = Environment.getExternalStorageDirectory()+"/amapsdk/offlineMap/data";
     String mMapCachePath = Environment.getExternalStorageDirectory()+"/Csibackup/Amap.zip";
+    String mInitDevicePath = Environment.getExternalStorageDirectory()+"/InitDeviceCmd.xml";
+    String mSceneListPath = Environment.getExternalStorageDirectory()+"/getSceneListCmd.xml";
+    String mWriteSceneIdPath = Environment.getExternalStorageDirectory()+"/writeSceneIdCmd.xml";
+    String mDeleteSceneInfoPath = Environment.getExternalStorageDirectory()+"/deleteSceneInfoCmd.xml";
     private Socket client;
     private Context context;
 
@@ -46,6 +50,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
             String currCMD = "";
             int[] currcmdinfo;
             String receiveString ="";
+            byte[] filebytes;
             //String currCMD = new String[4];
             out = new BufferedOutputStream(client.getOutputStream());
             in = new BufferedInputStream(client.getInputStream());
@@ -84,8 +89,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 SocketService.ioThreadFlag=false;
                                 break;
                             case 2: //设备初始化命令
-                                receiveString = receiveDataFromSocket(in, currcmdinfo);
-                                FileHelper.writeStringToFile(receiveString, Environment.getExternalStorageDirectory().getAbsolutePath(), "InitDeviceCmd.xml");
+                                filebytes = receiveDataFromSocketByte(in, currcmdinfo);
                                 if(dataInitial.InitialDevice()){
                                     concatCmdline(out, currcmdinfo, 1);
                                     sendResult(out,true);
@@ -101,7 +105,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 break;
                             case 4: //地图更新命令
                                 Log.d(TAG, "Map Update!!");
-                                byte[] filebytes = receiveDataFromSocketByte(in, currcmdinfo);
+                                filebytes = receiveDataFromSocketByte(in, currcmdinfo);
                                 File Uzfile = new File(mMapCachePath);
                                 try {
                                     ZipUtils.upZipFile(Uzfile, mMapPath);
@@ -116,11 +120,11 @@ public class ThreadReadWriterIOSocket implements Runnable {
 
                                 break;
                             case 11: //获取现场列表命令
+                                filebytes = receiveDataFromSocketByte(in, currcmdinfo);
                                 //組成BaseMsg.xml
                                 result = dataInitial.CreateBaseMsg();
 
                                 //获取BaseMsg.xml
-                                receiveDataFromSocket(in, currcmdinfo);
                                 File fileBaseMsgs = FileHelper.newFile("ScenesMsg.xml");
                                 if (result && fileBaseMsgs.exists() == true) {
                                     byte[] abyte = FileHelper.readFile(fileBaseMsgs);
@@ -135,11 +139,11 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 SocketService.ioThreadFlag=false;
                                 break;
                             case 12: //获取现场信息命令
+                                receiveString = receiveDataFromSocket(in, currcmdinfo);
                                 //組成單一BaseMsg.xml
-                                dataInitial.CreateBaseMsgIdZip(currcmdinfo[2]);
+                                dataInitial.CreateBaseMsgIdZip(Integer.valueOf(receiveString));
 
                                 //获取單一BaseMsg.xml
-                                receiveDataFromSocket(in, currcmdinfo);
                                 File fileBaseMsg = FileHelper.newFile("SceneMsg.zip");
                                 if (fileBaseMsg.exists() == true) {
                                     byte[] abyte = FileHelper.readFile(fileBaseMsg);
@@ -154,8 +158,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 SocketService.ioThreadFlag=false;
                                 break;
                             case 13: //回写现勘编号命令
-                                receiveString = receiveDataFromSocket(in, currcmdinfo);
-                                FileHelper.writeStringToFile(receiveString, Environment.getExternalStorageDirectory().getAbsolutePath(), "writeSceneIdCmd.xml");
+                                filebytes = receiveDataFromSocketByte(in, currcmdinfo);
                                 if(dataInitial.WriteSceneId()){
                                     concatCmdline(out, currcmdinfo, 1);
                                     sendResult(out,true);
@@ -168,8 +171,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 SocketService.ioThreadFlag=false;
                                 break;
                             case 14: //删除现场信息命令
-                                receiveString = receiveDataFromSocket(in, currcmdinfo);
-                                FileHelper.writeStringToFile(receiveString, Environment.getExternalStorageDirectory().getAbsolutePath(), "deleteSceneInfoCmd.xml");
+                                filebytes = receiveDataFromSocketByte(in, currcmdinfo);
                                 if(dataInitial.deleteSceneInfo()){
                                     concatCmdline(out, currcmdinfo, 1);
                                     sendResult(out,true);
@@ -217,7 +219,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
                 Log.e(TAG, Thread.currentThread().getName() + "---->" + "read write error333333");
                 e.printStackTrace();
             }
-            restartApp();
+            //restartApp();
         }
     }
 
@@ -307,8 +309,29 @@ public class ThreadReadWriterIOSocket implements Runnable {
 
         int pos = 0;
         int rcvLen =0;
+        String path = "";
+        switch (cmdinfo[1]){
+            case 2:
+                path = mInitDevicePath;
+                break;
+            case 4:
+                path = mMapCachePath;
+                break;
+            case 11:
+                path = mSceneListPath;
+                break;
+            case 13:
+                path = mWriteSceneIdPath;
+                break;
+            case 14:
+                path = mDeleteSceneInfoPath;
+                break;
+            default:
+                Log.d(TAG,"Error : cannot get path!");
+                return filebytes;
+        }
+
         try {
-            String path = mMapCachePath;
             filebytes = new byte[receivedatalength];
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(path));
 

@@ -275,9 +275,8 @@ public class XmlHandler {
         }
     }
 
-    public String[] deleteSceneInfoCmd() {
-        String[] sceneId = new String[]{};
-        int count = 0;
+    public List<String> deleteSceneInfoCmd() {
+        List<String> sceneId = new ArrayList<String>();
         try {
             File file = new File(Environment.getExternalStorageDirectory(), "deleteSceneInfoCmd.xml");
             FileInputStream fileInputStream = new FileInputStream(file);
@@ -292,8 +291,8 @@ public class XmlHandler {
                     case XmlPullParser.START_TAG:
                         String name = parser.getName();
                         if (name.equalsIgnoreCase("sceneid")) {
-                            sceneId[count] = parser.getText();
-                            count++;
+                            eventType = parser.next();
+                            sceneId.add(parser.getText());
                         }
                         break;
                     case XmlPullParser.END_TAG:
