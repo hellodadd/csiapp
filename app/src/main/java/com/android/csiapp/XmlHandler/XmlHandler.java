@@ -257,8 +257,10 @@ public class XmlHandler {
                     case XmlPullParser.START_TAG:
                         String name = parser.getName();
                         if (name.equalsIgnoreCase("sceneid")) {
+                            eventType = parser.next();
                             sceneId = parser.getText();
                         } else if (name.equalsIgnoreCase("sceneno")) {
+                            eventType = parser.next();
                             sceneNo = parser.getText();
                         }
                         break;

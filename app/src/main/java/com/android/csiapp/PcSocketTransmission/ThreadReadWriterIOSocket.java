@@ -58,6 +58,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
             while (SocketService.ioThreadFlag) {
                 try {
                     if (!client.isConnected()) {
+                        Log.v(TAG, "client didn't connect!");
                         break;
                     }
                     /* 接收PC发来的数据 */
@@ -155,7 +156,8 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                     concatCmdline(out, currcmdinfo, errbyte.length);
                                     sendErrorString(out, errbyte);
                                 }
-                                SocketService.ioThreadFlag=false;
+                                //Wait command 13
+                                //SocketService.ioThreadFlag=false;
                                 break;
                             case 13: //回写现勘编号命令
                                 filebytes = receiveDataFromSocketByte(in, currcmdinfo);
@@ -196,9 +198,10 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 break;
                             default:
                                 Log.e(TAG, "incorrect cmd =" + currcmdinfo[1]);
+                                SocketService.ioThreadFlag=false;
                                 break;
                         }
-                        SocketService.ioThreadFlag=false;
+                        //SocketService.ioThreadFlag=false;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
