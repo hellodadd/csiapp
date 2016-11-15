@@ -341,6 +341,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         if(mEvent == 1){
             CrimeItem lastItem = getLastRecord();
             if(lastItem!=null){
+                mUnitsAssigned.setText(lastItem.getUnitsAssigned());
                 mAccessPolicemen.setText(lastItem.getAccessPolicemen());
                 mWeatherCondition_spinner.setSelection(getWeatherCondition(lastItem.getWeatherCondition()));
                 mWindDirection_spinner.setSelection(getWindDirection(lastItem.getWindDirection()));

@@ -166,7 +166,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
     private void initData(){
         mName.setText(mWitnessItem.getWitnessName());
         mSex_spinner.setSelection(getSex(mWitnessItem.getWitnessSex()));
-        mBirthday.setText(DateTimePicker.getCurrentTime(mWitnessItem.getWitnessBirthday()));
+        mBirthday.setText(DateTimePicker.getCurrentDate(mWitnessItem.getWitnessBirthday()));
         mNumber.setText(mWitnessItem.getWitnessNumber());
         mAddress.setText(mWitnessItem.getWitnessAddress());
         if(!mWitnessItem.getPhotoPath().isEmpty()){
@@ -234,7 +234,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
                 // TODO Auto-generated method stub
                 long time = mDateTimePicker.get().getTimeInMillis();
                 mWitnessItem.setWitnessBirthday(time);
-                textView.setText(DateTimePicker.getCurrentTime(time));
+                textView.setText(DateTimePicker.getCurrentDate(time));
                 mDateTimeDialog.dismiss();
             }
         });

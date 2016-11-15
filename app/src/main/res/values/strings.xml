@@ -58,7 +58,7 @@
     <string name="add_item">添加损失物品</string>
     <string name="add_tools">添加作案工具</string>
     <string name="title_activity_peopleinformation">关联人信息</string>
-    <string name="type">案件人關係</string>
+    <string name="type">案件人关系</string>
     <string name="name">姓名</string>
     <string name="sex">性别</string>
     <string name="identity_number">身分证号</string>
