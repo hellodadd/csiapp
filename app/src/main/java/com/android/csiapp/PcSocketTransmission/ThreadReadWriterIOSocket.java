@@ -149,7 +149,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 if (fileBaseMsg.exists() == true) {
                                     byte[] abyte = FileHelper.readFile(fileBaseMsg);
                                     concatCmdline(out, currcmdinfo, abyte.length);
-                                    sendDeviceinfo(out, currcmdinfo, fileBaseMsg);
+                                    sendDeviceinfoZip(out, currcmdinfo, fileBaseMsg);
                                 } else {
                                     String errstr= "File Not Found";
                                     byte [] errbyte = errstr.getBytes("UTF-8");
@@ -355,6 +355,29 @@ public class ThreadReadWriterIOSocket implements Runnable {
             e.printStackTrace();
         }
         return filebytes;
+    }
+
+    public void sendDeviceinfoZip(BufferedOutputStream out, int[] cmdinfo, File file){
+        Log.d(TAG,"Enter sendDeviceinfoZip");
+        int byteRead=0;
+
+        try {
+            long length = file.length();
+            byte[] buffer = new byte[(int)length];
+            int offset = 0;
+            FileInputStream fileInputStream = new FileInputStream(file);
+
+            while (offset < buffer.length && ((byteRead = fileInputStream.read(buffer, offset, buffer.length-offset)) >= 0)) {
+                offset += byteRead;
+//out.write(buffer, 0, byteRead);
+                Log.d(TAG, "offset="+offset);
+            }
+            out.write(buffer, 0, offset);
+            fileInputStream.close();
+            out.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void sendDeviceinfo(BufferedOutputStream out, int[] cmdinfo, File file) {
