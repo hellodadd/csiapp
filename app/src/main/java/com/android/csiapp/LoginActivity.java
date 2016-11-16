@@ -22,6 +22,8 @@ import com.android.csiapp.Crime.utils.AppInfo;
 import com.android.csiapp.Crime.utils.RestoreListDialog;
 import com.android.csiapp.Databases.IdentifyProvider;
 
+import java.security.MessageDigest;
+
 /**
  * A login screen that offers login via user/password.
  */
@@ -133,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
         // Store values at the time of the login attempt.
         String user = mUserView.getText().toString();
         String password = mPasswordView.getText().toString();
+        password = MD5(password);
 
         boolean cancel = false;
         View focusView = null;
@@ -166,6 +169,41 @@ public class LoginActivity extends AppCompatActivity {
             mAuthTask = new UserLoginTask(user, password);
             mAuthTask.execute((Void) null);
         }
+    }
+
+    //MD5加密，32位
+    public String MD5(String str)
+    {
+        MessageDigest md5 = null;
+        try
+        {
+            md5 = MessageDigest.getInstance("MD5");
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+            return "";
+        }
+
+        char[] charArray = str.toCharArray();
+        byte[] byteArray = new byte[charArray.length];
+
+        for(int i = 0; i < charArray.length; i++)
+        {
+            byteArray[i] = (byte)charArray[i];
+        }
+        byte[] md5Bytes = md5.digest(byteArray);
+
+        StringBuffer hexValue = new StringBuffer();
+        for( int i = 0; i < md5Bytes.length; i++)
+        {
+            int val = ((int)md5Bytes[i])&0xff;
+            if(val < 16)
+            {
+                hexValue.append("0");
+            }
+            hexValue.append(Integer.toHexString(val));
+        }
+        return hexValue.toString();
     }
 
     private boolean isUserValid(String user) {

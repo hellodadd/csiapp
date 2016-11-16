@@ -168,6 +168,6 @@ public class IdentifyProvider {
 
     // 建立範例資料
     public void sample() {
-        insert("admin","123456");
+        insert("admin","e10adc3949ba59abbe56e057f20f883e");
     }
 }
