@@ -123,7 +123,74 @@ public class DataInitial {
 
     //Command 12
     public void CreateBaseMsgIdZip(int id){
-        new SceneMsgZip(mContext).execute(String.valueOf(id));
+        CrimeProvider mCrimeProvider = new CrimeProvider(mContext);
+        CrimeItem crimeItem = mCrimeProvider.get(id);
+        if(crimeItem == null) return ;
+        mCrimeProvider.createBaseMsgXml(id);
+
+        String catchPath = Environment.getExternalStorageDirectory()+"/BaseMsg/";
+        File cacheDir = new File(catchPath);
+        if(!cacheDir.exists()) {
+            cacheDir.mkdir();
+        }
+
+        try {
+            BackupRestore.copyFile(FileHelper.newFile("ScenesMsg.xml").toString(), catchPath+"ScenesMsg.xml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(crimeItem.getPosition().size()!=0){
+            for(int i=0;i<crimeItem.getPosition().size();i++){
+                String path = crimeItem.getPosition().get(i).getPhotoPath();
+                String[] filename = path.split("/");
+                BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
+            }
+        }
+        if(crimeItem.getPositionPhoto().size()!=0){
+            for(int i=0;i<crimeItem.getPositionPhoto().size();i++){
+                String path = crimeItem.getPositionPhoto().get(i).getPhotoPath();
+                String[] filename = path.split("/");
+                BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
+            }
+        }
+        if(crimeItem.getOverviewPhoto().size()!=0){
+            for(int i=0;i<crimeItem.getOverviewPhoto().size();i++){
+                String path = crimeItem.getOverviewPhoto().get(i).getPhotoPath();
+                String[] filename = path.split("/");
+                BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
+            }
+        }
+        if(crimeItem.getImportantPhoto().size()!=0){
+            for(int i=0;i<crimeItem.getImportantPhoto().size();i++){
+                String path = crimeItem.getImportantPhoto().get(i).getPhotoPath();
+                String[] filename = path.split("/");
+                BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
+            }
+        }
+        if(crimeItem.getEvidenceItem().size()!=0){
+            for(int i=0;i<crimeItem.getEvidenceItem().size();i++){
+                String path = crimeItem.getEvidenceItem().get(i).getPhotoPath();
+                String[] filename = path.split("/");
+                BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
+            }
+        }
+        if(crimeItem.getWitness().size()!=0){
+            for(int i=0;i<crimeItem.getWitness().size();i++){
+                String path = crimeItem.getWitness().get(i).getPhotoPath();
+                String[] filename = path.split("/");
+                BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
+            }
+        }
+
+        try{
+            LinkedList<File> files = DirTraversal.listLinkedFiles(catchPath);
+            String backupFileName = "/SceneMsg.zip";
+            File file = DirTraversal.getFilePath(Environment.getExternalStorageDirectory().getAbsolutePath(), backupFileName);
+            ZipUtils.zipFiles(files, file);
+            BackupRestore.deleteFiles(cacheDir);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //Command 13
@@ -164,88 +231,5 @@ public class DataInitial {
         }
 
         return true;
-    }
-
-    public class SceneMsgZip extends AsyncTask<String, Void, String> {
-        private Context mContext;
-        public SceneMsgZip(Context context) {
-            this.mContext = context;
-        }
-        @Override
-        protected String doInBackground(String... params) {
-            if(params==null) return "Fail";
-            int id = Integer.valueOf(params[0]);
-
-            CrimeProvider mCrimeProvider = new CrimeProvider(mContext);
-            CrimeItem crimeItem = mCrimeProvider.get(id);
-            if(crimeItem == null) return "Fail";
-            mCrimeProvider.createBaseMsgXml(id);
-
-            String catchPath = Environment.getExternalStorageDirectory()+"/BaseMsg/";
-            File cacheDir = new File(catchPath);
-            if(!cacheDir.exists()) {
-                cacheDir.mkdir();
-            }
-
-            try {
-                BackupRestore.copyFile(FileHelper.newFile("ScenesMsg.xml").toString(), catchPath+"ScenesMsg.xml");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if(crimeItem.getPosition().size()!=0){
-                for(int i=0;i<crimeItem.getPosition().size();i++){
-                    String path = crimeItem.getPosition().get(i).getPhotoPath();
-                    String[] filename = path.split("/");
-                    BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
-                }
-            }
-            if(crimeItem.getPositionPhoto().size()!=0){
-                for(int i=0;i<crimeItem.getPositionPhoto().size();i++){
-                    String path = crimeItem.getPositionPhoto().get(i).getPhotoPath();
-                    String[] filename = path.split("/");
-                    BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
-                }
-            }
-            if(crimeItem.getOverviewPhoto().size()!=0){
-                for(int i=0;i<crimeItem.getOverviewPhoto().size();i++){
-                    String path = crimeItem.getOverviewPhoto().get(i).getPhotoPath();
-                    String[] filename = path.split("/");
-                    BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
-                }
-            }
-            if(crimeItem.getImportantPhoto().size()!=0){
-                for(int i=0;i<crimeItem.getImportantPhoto().size();i++){
-                    String path = crimeItem.getImportantPhoto().get(i).getPhotoPath();
-                    String[] filename = path.split("/");
-                    BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
-                }
-            }
-            if(crimeItem.getEvidenceItem().size()!=0){
-                for(int i=0;i<crimeItem.getEvidenceItem().size();i++){
-                    String path = crimeItem.getEvidenceItem().get(i).getPhotoPath();
-                    String[] filename = path.split("/");
-                    BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
-                }
-            }
-
-            try{
-                LinkedList<File> files = DirTraversal.listLinkedFiles(catchPath);
-                String backupFileName = "/SceneMsg.zip";
-                File file = DirTraversal.getFilePath(Environment.getExternalStorageDirectory().getAbsolutePath(), backupFileName);
-                ZipUtils.zipFiles(files, file);
-                BackupRestore.deleteFiles(cacheDir);
-                return "Pass";
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "Fail";
-        }
-        @Override
-        protected void onPostExecute(String result) {
-            Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
-            if (result.equals("Pass")) {
-                Toast.makeText(mContext, "Result Pass", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 }
