@@ -8,6 +8,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by user on 2016/10/12.
@@ -20,12 +21,14 @@ public class OverviewPhotoProvider {
     public static final String KEY_ID = "_id";
 
     // 其它表格欄位名稱
+    public static final String UUID_COLUMN = "uuid";
     public static final String PHOTO_PATH_COLUMN = "photo_path";
 
     // 使用上面宣告的變數建立表格的SQL指令
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    UUID_COLUMN + " INTEGER NOT NULL, " +
                     PHOTO_PATH_COLUMN + " INTEGER NOT NULL)";
 
     // 資料庫物件
@@ -63,6 +66,7 @@ public class OverviewPhotoProvider {
 
         // 加入ContentValues物件包裝的新增資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
+        cv.put(UUID_COLUMN, CrimeProvider.getUUID());
         cv.put(PHOTO_PATH_COLUMN, item.getPhotoPath());
 
         // 新增一筆資料並取得編號
@@ -100,6 +104,7 @@ public class OverviewPhotoProvider {
 
         // 加入ContentValues物件包裝的修改資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
+        cv.put(UUID_COLUMN, item.getUuid());
         cv.put(PHOTO_PATH_COLUMN, item.getPhotoPath());
 
         // 設定修改資料的條件為編號
@@ -154,7 +159,8 @@ public class OverviewPhotoProvider {
         if (cursor.moveToFirst()) {
             // 讀取包裝一筆資料的物件
             item.setId(id);
-            item.setPhotoPath(cursor.getString(1));
+            item.setUuid(cursor.getString(1));
+            item.setPhotoPath(cursor.getString(2));
         }
         cursor.close();
 

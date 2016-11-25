@@ -220,8 +220,10 @@ public class XmlHandler {
                     case XmlPullParser.START_TAG:
                         String name = parser.getName();
                         if (name.equalsIgnoreCase("loginname")) {
+                            parser.next();
                             loginName = parser.getText();
                         } else if (name.equalsIgnoreCase("unitcode")) {
+                            parser.next();
                             unitCode = parser.getText();
                         }
                         break;

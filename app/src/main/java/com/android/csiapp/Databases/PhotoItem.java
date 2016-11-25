@@ -7,10 +7,12 @@ import java.io.Serializable;
  */
 public class PhotoItem implements Serializable {
     private long id;
+    private String mUuid;
     private String mPhotoPath;
 
     public PhotoItem(){
         this.id = 0;
+        this.mUuid = "";
         this.mPhotoPath = "";
     }
 
@@ -20,6 +22,14 @@ public class PhotoItem implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getUuid() {
+        return mUuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.mUuid = uuid;
     }
 
     public String getPhotoPath() {

@@ -138,7 +138,6 @@ public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity 
         setContentView(R.layout.create_scene_fp3_new_position_amap);
         context = this.getApplicationContext();
 
-        Log.d("Anita","path = "+OfflineMapActivity.getSdCacheDir(this));
         MapsInitializer.sdcardDir =OfflineMapActivity.getSdCacheDir(this);
         mMapView = (MapView) findViewById(R.id.amap);
         mMapView.onCreate(savedInstanceState);
@@ -278,10 +277,7 @@ public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity 
 
                 // 如果不设置标志位，此时再拖动地图时，它会不断将地图移动到当前的位置
                 if (isFirstLoc) {
-                    Log.d("Anita", "最高放大層級："+aMap.getMaxZoomLevel());
-                    Log.d("Anita", "最低放大層級："+aMap.getMinZoomLevel());
                     //将地图移动到定位点
-                    Log.d("Anita","Lat = "+ aMapLocation.getLatitude()+", Lon = "+aMapLocation.getLongitude());
                     LatLng latLng = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
                     aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
                     //设置缩放级别

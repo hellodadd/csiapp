@@ -7,19 +7,22 @@ import java.io.Serializable;
  */
 public class CrimeToolItem implements Serializable {
     private long id;
+    private String mUuid;
     private String mTool_name;
     private String mTool_category;
     private String mTool_source;
 
     public CrimeToolItem(){
         this.id = 0;
+        this.mUuid = "";
         this.mTool_name = "";
         this.mTool_category = "";
         this.mTool_source = "";
     }
 
-    public CrimeToolItem(long id, String name, String category, String source) {
+    public CrimeToolItem(long id,String uuid, String name, String category, String source) {
         this.id = id;
+        this.mUuid = uuid;
         this.mTool_name = name;
         this.mTool_category = category;
         this.mTool_source = source;
@@ -31,6 +34,14 @@ public class CrimeToolItem implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getUuid() {
+        return mUuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.mUuid = uuid;
     }
 
     public String getToolName() {return mTool_name; }

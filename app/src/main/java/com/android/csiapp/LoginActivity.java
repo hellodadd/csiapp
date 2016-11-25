@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        SharedPreferences prefs = context.getSharedPreferences("UserName", 0);
+        SharedPreferences prefs = context.getSharedPreferences("LoginName", 0);
         mUserView.setText(prefs.getString("name", ""));
     }
 
@@ -270,9 +270,20 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(false);
 
             if (success&&mIdentify.checkPasswordFromName(mUser,mPassword)) {
-                SharedPreferences.Editor editor = context.getSharedPreferences("UserName", 0).edit();
-                editor.putString("name", mUser);
-                editor.commit();
+                SharedPreferences.Editor editor1 = context.getSharedPreferences("LoginName", 0).edit();
+                editor1.putString("name", mUser);
+                editor1.commit();
+
+                SharedPreferences prefs = context.getSharedPreferences("InitialDevice", 0);
+                String initstatus = prefs.getString("Initial", "0");
+
+                if(initstatus.equalsIgnoreCase("1")) {
+                    IdentifyProvider identifyProvider = new IdentifyProvider(context);
+                    String UnitCode = identifyProvider.getUnitCode(mUser);
+                    SharedPreferences.Editor editor2 = context.getSharedPreferences("UnitCode", 0).edit();
+                    editor2.putString("code", UnitCode);
+                    editor2.commit();
+                }
 
                 Intent it = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(it);

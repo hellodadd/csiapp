@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.FragmentAdapter;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Databases.IdentifyProvider;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
@@ -66,11 +68,14 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                     msg += "Save";
                     saveData();
                     Intent result = getIntent();
-                    result.putExtra("com.android.csiapp.CrimeItem", mItem);
                     if(mItem.checkInformation()){
+                        mItem.setComplete("1");
+                        result.putExtra("com.android.csiapp.CrimeItem", mItem);
                         setResult(Activity.RESULT_OK, result);
                         finish();
                     }else{
+                        mItem.setComplete("0");
+                        result.putExtra("com.android.csiapp.CrimeItem", mItem);
                         SaveAlertDialog dialog = new SaveAlertDialog(CreateSceneActivity.this);
                         dialog.onCreateDialog(result,true,mItem);
                         dialog.setOwnerActivity(CreateSceneActivity.this);
@@ -119,6 +124,12 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         if (action.equals("com.android.csiapp.ADD_SCENE")) {
             mItem = new CrimeItem();
             mEvent = 1;
+            SharedPreferences prefs1 = context.getSharedPreferences("LoginName", 0);
+            String login_name = prefs1.getString("name", "");
+            mItem.setLoginName(login_name);
+            SharedPreferences prefs2 = context.getSharedPreferences("UnitCode", 0);
+            String unit_code = prefs2.getString("code", "");
+            mItem.setUnitCode(unit_code);
         } else if(action.equals("com.android.csiapp.EDIT_SCENE")){
             title.setText(context.getResources().getString(R.string.title_activity_editscene));
             mItem = (CrimeItem) intent.getSerializableExtra("CrimeItem");

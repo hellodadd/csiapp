@@ -9,6 +9,7 @@ import com.android.csiapp.XmlHandler.Dictionary;
 import com.android.csiapp.XmlHandler.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -95,7 +96,7 @@ public class DictionaryProvider {
         return result;
     }
 
-    public List<String> query(String rootkey){
+    public List<String> queryToGetList(String rootkey){
         List<String> list = new ArrayList<>();
         String[] projection = new String[] {DICTKEY_COLUMN, PARENTKEY_COLUMN, DICTVALUE_COLUMN};
         String where = ROOTKEY_COLUMN + " = '" + rootkey +"'";
@@ -107,6 +108,24 @@ public class DictionaryProvider {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             list.add(cursor.getString(2));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
+    }
+
+    public HashMap<String,String> queryToGetHashMap(String rootkey){
+        HashMap<String,String> list = new HashMap<String,String>();
+        String[] projection = new String[] {DICTKEY_COLUMN, PARENTKEY_COLUMN, DICTVALUE_COLUMN};
+        String where = ROOTKEY_COLUMN + " = '" + rootkey +"'";
+        Cursor cursor = db.query(TABLE_NAME, projection, where, null, null, null, DICTKEY_COLUMN, null);
+        if(cursor==null) {
+            return null;
+        }
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.put(cursor.getString(2), cursor.getString(0));
             cursor.moveToNext();
         }
         cursor.close();

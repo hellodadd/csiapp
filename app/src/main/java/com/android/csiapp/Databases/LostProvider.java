@@ -8,6 +8,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by user on 2016/10/12.
@@ -20,6 +21,7 @@ public class LostProvider {
     public static final String KEY_ID = "_id";
 
     // 其它表格欄位名稱
+    public static final String UUID_COLUMN = "uuid";
     public static final String ITEM_NAME_COLUMN = "item_name";
     public static final String ITEM_BRAND_COLUMN = "item_brand";
     public static final String ITEM_AMOUNT_COLUMN = "item_amount";
@@ -30,6 +32,7 @@ public class LostProvider {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    UUID_COLUMN + " INTEGER NOT NULL, " +
                     ITEM_NAME_COLUMN + " INTEGER NOT NULL, " +
                     ITEM_BRAND_COLUMN + " INTEGER NOT NULL, " +
                     ITEM_AMOUNT_COLUMN + " INTEGER NOT NULL, " +
@@ -71,6 +74,7 @@ public class LostProvider {
 
         // 加入ContentValues物件包裝的新增資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
+        cv.put(UUID_COLUMN, CrimeProvider.getUUID());
         cv.put(ITEM_NAME_COLUMN, item.getItemName());
         cv.put(ITEM_BRAND_COLUMN, item.getItemBrand());
         cv.put(ITEM_AMOUNT_COLUMN, item.getItemAmount());
@@ -112,6 +116,7 @@ public class LostProvider {
 
         // 加入ContentValues物件包裝的修改資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
+        cv.put(UUID_COLUMN, item.getUuid());
         cv.put(ITEM_NAME_COLUMN, item.getItemName());
         cv.put(ITEM_BRAND_COLUMN, item.getItemBrand());
         cv.put(ITEM_AMOUNT_COLUMN, item.getItemAmount());
@@ -170,11 +175,12 @@ public class LostProvider {
         if (cursor.moveToFirst()) {
             // 讀取包裝一筆資料的物件
             item.setId(id);
-            item.setItemName(cursor.getString(1));
-            item.setItemBrand(cursor.getString(2));
-            item.setItemAmount(cursor.getString(3));
-            item.setItemValue(cursor.getString(4));
-            item.setItemFeatue(cursor.getString(5));
+            item.setUuid(cursor.getString(1));
+            item.setItemName(cursor.getString(2));
+            item.setItemBrand(cursor.getString(3));
+            item.setItemAmount(cursor.getString(4));
+            item.setItemValue(cursor.getString(5));
+            item.setItemFeatue(cursor.getString(6));
         }
         cursor.close();
 

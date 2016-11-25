@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class LostItem implements Serializable {
     private long id;
+    private String mUuid;
     private String mItem_name;
     private String mItem_brand;
     private String mItem_amount;
@@ -15,6 +16,7 @@ public class LostItem implements Serializable {
 
     public LostItem(){
         this.id = 0;
+        this.mUuid = "";
         this.mItem_name = "";
         this.mItem_brand = "";
         this.mItem_amount = "";
@@ -22,8 +24,9 @@ public class LostItem implements Serializable {
         this.mItem_feature = "";
     }
 
-    public LostItem(long id, String name, String brand, String amount, String value, String feature) {
+    public LostItem(long id, String uuid, String name, String brand, String amount, String value, String feature) {
         this.id = id;
+        this.mUuid = uuid;
         this.mItem_name = name;
         this.mItem_brand = brand;
         this.mItem_amount = amount;
@@ -37,6 +40,14 @@ public class LostItem implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getUuid() {
+        return mUuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.mUuid = uuid;
     }
 
     public String getItemName() {return mItem_name; }

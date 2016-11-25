@@ -141,16 +141,15 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 break;
                             case 12: //获取现场信息命令
                                 receiveString = receiveDataFromSocket(in, currcmdinfo);
-                                //組成單一BaseMsg.xml
-                                dataInitial.CreateBaseMsgIdZip(Integer.valueOf(receiveString));
 
-                                //获取單一BaseMsg.xml
-                                File fileBaseMsg = FileHelper.newFile("SceneMsg.zip");
-                                if (fileBaseMsg.exists() == true) {
+                                //組成單一BaseMsg.xml
+                                if (dataInitial.CreateBaseMsgIdZip(receiveString)) {
+                                    File fileBaseMsg = FileHelper.newFile("SceneMsg.zip");
                                     byte[] abyte = FileHelper.readFile(fileBaseMsg);
                                     concatCmdline(out, currcmdinfo, abyte.length);
                                     sendDeviceinfoZip(out, currcmdinfo, fileBaseMsg);
                                 } else {
+                                    Log.d("Anita","File Not Found");
                                     String errstr= "File Not Found";
                                     byte [] errbyte = errstr.getBytes("UTF-8");
                                     concatCmdline(out, currcmdinfo, errbyte.length);
@@ -160,11 +159,11 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 //SocketService.ioThreadFlag=false;
                                 break;
                             case 13: //回写现勘编号命令
-                                filebytes = receiveDataFromSocketByte(in, currcmdinfo);
-                                if(dataInitial.WriteSceneId()){
+                                if(dataInitial.WriteSceneNo()){
                                     concatCmdline(out, currcmdinfo, 1);
                                     sendResult(out,true);
                                 }else{
+                                    Log.d("Anita","Prase Fail");
                                     String errstr= "Prase Fail";
                                     byte [] errbyte = errstr.getBytes("UTF-8");
                                     concatCmdline(out, currcmdinfo, errbyte.length);
@@ -241,7 +240,6 @@ public class ThreadReadWriterIOSocket implements Runnable {
 
         try {
             while ((ch = in.read()) != -1) {
-                Log.d(TAG,"ch="+ch);
                 commandbytes[count] =(byte) ch;
                 count++ ;
                 if (count == COMMAND_LENGTH) {

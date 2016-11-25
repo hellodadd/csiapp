@@ -8,6 +8,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by user on 2016/10/12.
@@ -20,6 +21,7 @@ public class EvidenceProvider {
     public static final String KEY_ID = "_id";
 
     // 其它表格欄位名稱
+    public static final String UUID_COLUMN = "uuid";
     public static final String PHOTO_PATH_COLUMN = "photo_path";
     public static final String EVIDENCE_CATEGORY_COLUMN = "evidence_category";
     public static final String EVIDENCE_COLUMN = "evidence";
@@ -35,6 +37,7 @@ public class EvidenceProvider {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    UUID_COLUMN + " INTEGER NOT NULL, " +
                     PHOTO_PATH_COLUMN + " INTEGER NOT NULL, " +
                     EVIDENCE_CATEGORY_COLUMN + " INTEGER NOT NULL, " +
                     EVIDENCE_COLUMN + " INTEGER NOT NULL, " +
@@ -81,6 +84,7 @@ public class EvidenceProvider {
 
         // 加入ContentValues物件包裝的新增資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
+        cv.put(UUID_COLUMN, CrimeProvider.getUUID());
         cv.put(PHOTO_PATH_COLUMN, item.getPhotoPath());
         cv.put(EVIDENCE_CATEGORY_COLUMN, item.getEvidenceCategory());
         cv.put(EVIDENCE_COLUMN, item.getEvidence());
@@ -127,6 +131,7 @@ public class EvidenceProvider {
 
         // 加入ContentValues物件包裝的修改資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
+        cv.put(UUID_COLUMN, item.getUuid());
         cv.put(PHOTO_PATH_COLUMN, item.getPhotoPath());
         cv.put(EVIDENCE_CATEGORY_COLUMN, item.getEvidenceCategory());
         cv.put(EVIDENCE_COLUMN, item.getEvidence());
@@ -190,16 +195,17 @@ public class EvidenceProvider {
         if (cursor.moveToFirst()) {
             // 讀取包裝一筆資料的物件
             item.setId(id);
-            item.setPhotoPath(cursor.getString(1));
-            item.setEvidenceCategory(cursor.getString(2));
-            item.setEvidence(cursor.getString(3));
-            item.setEvidenceName(cursor.getString(4));
-            item.setLegacySite(cursor.getString(5));
-            item.setBasiceFeature(cursor.getString(6));
-            item.setInfer(cursor.getString(7));
-            item.setMethod(cursor.getString(8));
-            item.setTime(cursor.getLong(9));
-            item.setPeople(cursor.getString(10));
+            item.setUuid(cursor.getString(1));
+            item.setPhotoPath(cursor.getString(2));
+            item.setEvidenceCategory(cursor.getString(3));
+            item.setEvidence(cursor.getString(4));
+            item.setEvidenceName(cursor.getString(5));
+            item.setLegacySite(cursor.getString(6));
+            item.setBasiceFeature(cursor.getString(7));
+            item.setInfer(cursor.getString(8));
+            item.setMethod(cursor.getString(9));
+            item.setTime(cursor.getLong(10));
+            item.setPeople(cursor.getString(11));
         }
         cursor.close();
 

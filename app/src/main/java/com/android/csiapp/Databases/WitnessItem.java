@@ -8,6 +8,7 @@ import java.util.Calendar;
  */
 public class WitnessItem implements Serializable {
     private long id;
+    private String mUuid;
     private String mWitness_name;
     private String mWitness_sex;
     private long mWitness_birthday;
@@ -19,6 +20,7 @@ public class WitnessItem implements Serializable {
         Calendar c = Calendar.getInstance();
         long time = c.getTimeInMillis();
         this.id = 0;
+        this.mUuid = "";
         this.mWitness_name = "";
         this.mWitness_sex = "";
         this.mWitness_birthday = time;
@@ -27,8 +29,9 @@ public class WitnessItem implements Serializable {
         this.mPhotoPath = "";
     }
 
-    public WitnessItem(long id, String name, String sex, long birthday, String number, String address) {
+    public WitnessItem(long id, String uuid, String name, String sex, long birthday, String number, String address) {
         this.id = id;
+        this.mUuid = uuid;
         this.mWitness_name = name;
         this.mWitness_sex = sex;
         this.mWitness_birthday = birthday;
@@ -42,6 +45,14 @@ public class WitnessItem implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getUuid() {
+        return mUuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.mUuid = uuid;
     }
 
     public String getWitnessName() {return mWitness_name; }

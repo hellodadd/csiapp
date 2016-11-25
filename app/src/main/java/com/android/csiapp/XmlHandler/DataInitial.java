@@ -63,7 +63,6 @@ public class DataInitial {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.d("Anita","initstatus = "+initstatus+", mapversion = "+mapversion);
         xmlhandler.createDeviceMsg(deviceid, initstatus, swversion, mapversion);
     }
 
@@ -80,7 +79,6 @@ public class DataInitial {
         //Prase Dictionary
         DictionaryProvider mDictionary = new DictionaryProvider(mContext);
         mDictionary.deleteAll();
-        Log.d("Anita","dictionary count = "+dictionarys.size());
         for(int i=0;i<dictionarys.size();i++){
             mDictionary.insert(dictionarys.get(i));
         }
@@ -88,7 +86,6 @@ public class DataInitial {
         //Prase User
         IdentifyProvider mIdentify = new IdentifyProvider(mContext);
         mIdentify.deleteAll();
-        Log.d("Anita","user count = "+users.size());
         for(int j=0;j<users.size();j++){
             mIdentify.insert(users.get(j));
         }
@@ -108,25 +105,21 @@ public class DataInitial {
         if(object==null && object.length!=2) return false;
 
         String name = object[0];
-        String password = object[1];
-
-        IdentifyProvider mIdentify = new IdentifyProvider(mContext);
-        boolean isCorrect = mIdentify.checkPasswordFromName(name,password);
-
-        if(isCorrect) return false;
+        String unit = object[1];
 
         CrimeProvider mCrimeProvider = new CrimeProvider(mContext);
-        mCrimeProvider.createBaseMsgXml(-1);
+        mCrimeProvider.createScenesInfoXml(name);
 
         return true;
     }
 
     //Command 12
-    public void CreateBaseMsgIdZip(int id){
+    public boolean CreateBaseMsgIdZip(String id){
         CrimeProvider mCrimeProvider = new CrimeProvider(mContext);
-        CrimeItem crimeItem = mCrimeProvider.get(id);
-        if(crimeItem == null) return ;
-        mCrimeProvider.createBaseMsgXml(id);
+        CrimeItem crimeItem = mCrimeProvider.createBaseMsgXml(id);
+
+        if(crimeItem==null) return false;
+        if(crimeItem.getComplete().equalsIgnoreCase("0")) return false;
 
         String catchPath = Environment.getExternalStorageDirectory()+"/BaseMsg/";
         File cacheDir = new File(catchPath);
@@ -188,24 +181,31 @@ public class DataInitial {
             File file = DirTraversal.getFilePath(Environment.getExternalStorageDirectory().getAbsolutePath(), backupFileName);
             ZipUtils.zipFiles(files, file);
             BackupRestore.deleteFiles(cacheDir);
+            crimeItem.setComplete("2");
+            mCrimeProvider.update(crimeItem);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return true;
     }
 
     //Command 13
-    public boolean WriteSceneId(){
+    public boolean WriteSceneNo(){
         XmlHandler xmlhandler = new XmlHandler();
         String[] object = xmlhandler.writeSceneIdCmd();
 
         if(object == null && object.length==0) return false;
 
-        long id = Integer.parseInt(object[0]);
+        String id = object[0];
+        Log.d("Anita","Scene Id = "+id);
         String SceneNo = object[1];
+        Log.d("Anita","Scene No = "+SceneNo);
         CrimeProvider mCrime = new CrimeProvider(mContext);
-        CrimeItem mCrimeItem = mCrime.get(id);
+        CrimeItem mCrimeItem = mCrime.getRecordBySceneId(id);
 
         if(mCrimeItem == null || SceneNo.length() ==0) return false;
+        if(mCrimeItem.getComplete().equalsIgnoreCase("0")) return false;
 
         mCrimeItem.setSceneNo(SceneNo);
         mCrime.update(mCrimeItem);

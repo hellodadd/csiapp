@@ -9,6 +9,7 @@ import java.util.Calendar;
 public class EvidenceItem implements Serializable {
 
     private long id;
+    private String mUuid;
     private String mPhotoPath;
     private String mEvidenceCategory;
     private String mEvidence;
@@ -24,6 +25,7 @@ public class EvidenceItem implements Serializable {
         Calendar c = Calendar.getInstance();
         long time = c.getTimeInMillis();
         this.id = 0;
+        this.mUuid = "";
         this.mPhotoPath = "";
         this.mEvidenceCategory = "";
         this.mEvidence = "";
@@ -42,6 +44,14 @@ public class EvidenceItem implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getUuid() {
+        return mUuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.mUuid = uuid;
     }
 
     public String getPhotoPath() {

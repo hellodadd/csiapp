@@ -8,6 +8,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by user on 2016/10/12.
@@ -20,6 +21,7 @@ public class RelatedPeopleProvider {
     public static final String KEY_ID = "_id";
 
     // 其它表格欄位名稱
+    public static final String UUID_COLUMN = "uuid";
     public static final String PEOPLE_RELATION_COLUMN = "people_relation";
     public static final String PEOPLE_NAME_COLUMN = "people_name";
     public static final String PEOPLE_SEX_COLUMN = "people_sex";
@@ -31,6 +33,7 @@ public class RelatedPeopleProvider {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    UUID_COLUMN + " INTEGER NOT NULL, " +
                     PEOPLE_RELATION_COLUMN + " INTEGER NOT NULL, " +
                     PEOPLE_NAME_COLUMN + " INTEGER NOT NULL, " +
                     PEOPLE_SEX_COLUMN + " INTEGER NOT NULL, " +
@@ -73,6 +76,7 @@ public class RelatedPeopleProvider {
 
         // 加入ContentValues物件包裝的新增資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
+        cv.put(UUID_COLUMN, CrimeProvider.getUUID());
         cv.put(PEOPLE_RELATION_COLUMN, item.getPeopleRelation());
         cv.put(PEOPLE_NAME_COLUMN, item.getPeopleName());
         cv.put(PEOPLE_SEX_COLUMN, item.getPeopleSex());
@@ -115,6 +119,7 @@ public class RelatedPeopleProvider {
 
         // 加入ContentValues物件包裝的修改資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
+        cv.put(UUID_COLUMN, item.getUuid());
         cv.put(PEOPLE_RELATION_COLUMN, item.getPeopleRelation());
         cv.put(PEOPLE_NAME_COLUMN, item.getPeopleName());
         cv.put(PEOPLE_SEX_COLUMN, item.getPeopleSex());
@@ -174,12 +179,13 @@ public class RelatedPeopleProvider {
         if (cursor.moveToFirst()) {
             // 讀取包裝一筆資料的物件
             item.setId(id);
-            item.setPeopleRelation(cursor.getString(1));
-            item.setPeopleName(cursor.getString(2));
-            item.setPeopleSex(cursor.getString(3));
-            item.setPeopleId(cursor.getString(4));
-            item.setPeopleNumber(cursor.getString(5));
-            item.setPeopleAddress(cursor.getString(6));
+            item.setUuid(cursor.getString(1));
+            item.setPeopleRelation(cursor.getString(2));
+            item.setPeopleName(cursor.getString(3));
+            item.setPeopleSex(cursor.getString(4));
+            item.setPeopleId(cursor.getString(5));
+            item.setPeopleNumber(cursor.getString(6));
+            item.setPeopleAddress(cursor.getString(7));
         }
         cursor.close();
 

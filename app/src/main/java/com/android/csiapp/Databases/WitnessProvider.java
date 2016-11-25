@@ -8,6 +8,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by user on 2016/10/12.
@@ -20,6 +21,7 @@ public class WitnessProvider {
     public static final String KEY_ID = "_id";
 
     // 其它表格欄位名稱
+    public static final String UUID_COLUMN = "uuid";
     public static final String WITNESS_NAME_COLUMN = "witness_name";
     public static final String WITNESS_SEX_COLUMN = "witness_sex";
     public static final String WITNESS_BIRTHDAY_COLUMN = "witness_birthday";
@@ -31,6 +33,7 @@ public class WitnessProvider {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    UUID_COLUMN + " INTEGER NOT NULL, " +
                     WITNESS_NAME_COLUMN + " INTEGER NOT NULL, " +
                     WITNESS_SEX_COLUMN + " INTEGER NOT NULL, " +
                     WITNESS_BIRTHDAY_COLUMN + " INTEGER NOT NULL, " +
@@ -73,6 +76,7 @@ public class WitnessProvider {
 
         // 加入ContentValues物件包裝的新增資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
+        cv.put(UUID_COLUMN, CrimeProvider.getUUID());
         cv.put(WITNESS_NAME_COLUMN, item.getWitnessName());
         cv.put(WITNESS_SEX_COLUMN, item.getWitnessSex());
         cv.put(WITNESS_BIRTHDAY_COLUMN, item.getWitnessBirthday());
@@ -115,6 +119,7 @@ public class WitnessProvider {
 
         // 加入ContentValues物件包裝的修改資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
+        cv.put(UUID_COLUMN, item.getUuid());
         cv.put(WITNESS_NAME_COLUMN, item.getWitnessName());
         cv.put(WITNESS_SEX_COLUMN, item.getWitnessSex());
         cv.put(WITNESS_BIRTHDAY_COLUMN, item.getWitnessBirthday());
@@ -174,12 +179,13 @@ public class WitnessProvider {
         if (cursor.moveToFirst()) {
             // 讀取包裝一筆資料的物件
             item.setId(id);
-            item.setWitnessName(cursor.getString(1));
-            item.setWitnessSex(cursor.getString(2));
-            item.setWitnessBirthday(cursor.getLong(3));
-            item.setWitnessNumber(cursor.getString(4));
-            item.setWitnessAddress(cursor.getString(5));
-            item.setPhotoPath(cursor.getString(6));
+            item.setUuid(cursor.getString(1));
+            item.setWitnessName(cursor.getString(2));
+            item.setWitnessSex(cursor.getString(3));
+            item.setWitnessBirthday(cursor.getLong(4));
+            item.setWitnessNumber(cursor.getString(5));
+            item.setWitnessAddress(cursor.getString(6));
+            item.setPhotoPath(cursor.getString(7));
         }
         cursor.close();
 

@@ -8,6 +8,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by user on 2016/10/12.
@@ -20,6 +21,7 @@ public class CrimeToolProvider {
     public static final String KEY_ID = "_id";
 
     // 其它表格欄位名稱
+    public static final String UUID_COLUMN = "uuid";
     public static final String TOOL_NAME_COLUMN = "tool_name";
     public static final String TOOL_CATEGORY_COLUMN = "tool_category";
     public static final String TOOL_SOURCE_COLUMN = "tool_source";
@@ -28,6 +30,7 @@ public class CrimeToolProvider {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    UUID_COLUMN + " INTEGER NOT NULL, " +
                     TOOL_NAME_COLUMN + " INTEGER NOT NULL, " +
                     TOOL_CATEGORY_COLUMN + " INTEGER NOT NULL, " +
                     TOOL_SOURCE_COLUMN + " INTEGER NOT NULL)";
@@ -67,6 +70,7 @@ public class CrimeToolProvider {
 
         // 加入ContentValues物件包裝的新增資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
+        cv.put(UUID_COLUMN, CrimeProvider.getUUID());
         cv.put(TOOL_NAME_COLUMN, item.getToolName());
         cv.put(TOOL_CATEGORY_COLUMN, item.getToolCategory());
         cv.put(TOOL_SOURCE_COLUMN, item.getToolSource());
@@ -106,6 +110,7 @@ public class CrimeToolProvider {
 
         // 加入ContentValues物件包裝的修改資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
+        cv.put(UUID_COLUMN, item.getUuid());
         cv.put(TOOL_NAME_COLUMN, item.getToolName());
         cv.put(TOOL_CATEGORY_COLUMN, item.getToolCategory());
         cv.put(TOOL_SOURCE_COLUMN, item.getToolSource());
@@ -162,9 +167,10 @@ public class CrimeToolProvider {
         if (cursor.moveToFirst()) {
             // 讀取包裝一筆資料的物件
             item.setId(id);
-            item.setToolName(cursor.getString(1));
-            item.setToolCategory(cursor.getString(2));
-            item.setToolSource(cursor.getString(3));
+            item.setUuid(cursor.getString(1));
+            item.setToolName(cursor.getString(2));
+            item.setToolCategory(cursor.getString(3));
+            item.setToolSource(cursor.getString(4));
         }
         cursor.close();
 

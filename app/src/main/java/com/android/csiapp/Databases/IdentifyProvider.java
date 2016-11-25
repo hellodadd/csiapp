@@ -127,6 +127,20 @@ public class IdentifyProvider {
         return result;
     }
 
+    public String getUnitCode(String name) {
+        String result ="";
+        String[] projection = new String[] {LOGINNAME_COLUMN, UNITCODE_COLUMN};
+        String where = LOGINNAME_COLUMN + " = '" + name + "'";
+        Cursor cursor = db.query(TABLE_NAME, projection, where, null, null, null, null, null);
+
+        while (cursor!=null && cursor.moveToNext()) {
+            result = cursor.getString(2);
+        }
+
+        cursor.close();
+        return result;
+    }
+
     // 刪除所有記事資料
     public void deleteAll(){
         // 刪除原有的表格

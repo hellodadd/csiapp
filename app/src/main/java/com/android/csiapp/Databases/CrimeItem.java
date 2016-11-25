@@ -12,7 +12,14 @@ public class CrimeItem implements Serializable {
     // 編號、日期時間、顏色、標題、內容、檔案名稱、經緯度、修改、已選擇
     //Page 1
     private long id;
+    private String mSceneId;
     private String mSceneNo;
+    private String mCaseId;
+    private String mLoginName;
+    private String mUnitCode;
+    private String mCreateTime;
+    private String mComplete;
+    private String mDelete;
     private String mCasetype;
     private String mArea;
     private String mLocation;
@@ -88,7 +95,14 @@ public class CrimeItem implements Serializable {
         Calendar c = Calendar.getInstance();
         long time = c.getTimeInMillis();
         this.id = 0;
+        this.mSceneId = "";
         this.mSceneNo = "";
+        this.mCaseId = "";
+        this.mLoginName = "";
+        this.mUnitCode = "";
+        this.mCreateTime = "";
+        this.mComplete = "";
+        this.mDelete = "";
         this.mCasetype = "";
         this.mArea = "";
         this.mLocation = "";
@@ -161,12 +175,68 @@ public class CrimeItem implements Serializable {
         this.id = id;
     }
 
+    public String getSceneId() {
+        return mSceneId;
+    }
+
+    public void setSceneId(String sceneCaseId) {
+        this.mSceneId = sceneCaseId;
+    }
+
     public String getSceneNo() {
         return mSceneNo;
     }
 
     public void setSceneNo(String sceneNo) {
         this.mSceneNo = sceneNo;
+    }
+
+    public String getCaseId() {
+        return mCaseId;
+    }
+
+    public void setCaseId(String caseId) {
+        this.mCaseId = caseId;
+    }
+
+    public String getLoginName() {
+        return mLoginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.mLoginName = loginName;
+    }
+
+    public String getUnitCode() {
+        return mUnitCode;
+    }
+
+    public void setUnitCode(String unitCode) {
+        this.mUnitCode = unitCode;
+    }
+
+    public String getCreateTime() {
+        return mCreateTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.mCreateTime = createTime;
+    }
+
+    public String getComplete() {
+        return mComplete;
+    }
+
+    public void setComplete(String complete) {
+        this.mComplete = complete;
+    }
+
+    public String getDelete() {
+        return mDelete;
+    }
+
+    public void setDelete(String delete) {
+        this.mDelete = delete;
     }
 
     //Page 1
