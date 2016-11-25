@@ -86,6 +86,51 @@ public class XmlHandler {
         }
     }
 
+    public static void createSuccessDeleteMsgFile(Object obj) {
+        XmlSerializer xmlSerializer = null;
+        FileOutputStream fileOutputStream = null;
+        String enter = System.getProperty("line.separator");
+        List<String> result = (List<String>) obj;
+
+        try {
+            //获取xmlSerializer
+            xmlSerializer = Xml.newSerializer();
+            File file = new File(Environment.getExternalStorageDirectory(), "SuccessToDelete.xml");
+            fileOutputStream = new FileOutputStream(file);
+
+            String encoding = "utf-8";
+            xmlSerializer.setOutput(fileOutputStream, encoding);
+            xmlSerializer.startDocument(encoding, null);
+            changeLine(xmlSerializer, enter);
+            //根节点开始
+
+            xmlSerializer.startTag(null, "delete");
+            changeLine(xmlSerializer, enter);
+
+            //内容结点
+            for (String d : result) {
+                xmlSerializer.startTag(null, "sceneid");
+                xmlSerializer.text(d);
+                xmlSerializer.endTag(null, "sceneid");
+                changeLine(xmlSerializer, enter);
+            }
+
+            //根节点结束
+            xmlSerializer.endTag(null, "delete");
+            xmlSerializer.endDocument();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (fileOutputStream != null) {
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public static void changeLine(XmlSerializer serializer, String enter){
         try{
             serializer.text(enter);

@@ -250,8 +250,7 @@ public class CrimeProvider {
     // 刪除參數指定編號的資料
     public boolean delete(long id){
         // 設定條件為編號，格式為「欄位名稱=資料」
-        //Todo:fake delete feature
-        /*String where = KEY_ID + "=" + id;
+        String where = KEY_ID + "=" + id;
         Cursor cursor = db.query(
                 TABLE_NAME, null, where, null, null, null, null, null);
         if(cursor.moveToFirst()) {
@@ -273,15 +272,16 @@ public class CrimeProvider {
             cursor.close();
             result = db.delete(TABLE_NAME, where , null) > 0;
             return result;
-        }*/
+        }
         return false;
     }
 
     // 讀取所有記事資料
     public List<CrimeItem> getAll() {
         List<CrimeItem> result = new ArrayList<>();
+        String where = DELETE_COLUMN + "= '0'";
         Cursor cursor = db.query(
-                TABLE_NAME, null, null, null, null, null, null, null);
+                TABLE_NAME, null, where, null, null, null, null, null);
 
         while (cursor.moveToNext()) {
             result.add(getRecord(cursor.getInt(0), null));
@@ -295,8 +295,9 @@ public class CrimeProvider {
         if(name!=null) return getAll();
 
         List<CrimeItem> result = new ArrayList<>();
+        String where = DELETE_COLUMN + "= '0'";
         Cursor cursor = db.query(
-                TABLE_NAME, null, null, null, null, null, null, null);
+                TABLE_NAME, null, where, null, null, null, null, null);
 
         while (cursor.moveToNext()) {
             result.add(getRecord(cursor.getInt(0), name));
@@ -509,9 +510,12 @@ public class CrimeProvider {
         // 準備回傳結果用的物件
         CrimeItem result = new CrimeItem();
 
-        String where = SCENE_ID_COLUMN + " = '" + id +"'";
+        String where = SCENE_ID_COLUMN + " = '" + id +"' AND " + DELETE_COLUMN + " = '0'";
         Cursor cursor = db.query(TABLE_NAME, null, where, null, null, null, null, null);
-        if(cursor==null) Log.d("Anita","cursor is null");
+        if(cursor==null) {
+            Log.d("Anita", "cursor is null");
+            return null;
+        }
         Log.d("Anita","cursor size = "+cursor.getCount());
         if(cursor.moveToNext() || cursor.getCount()!=0) {
             result.setId(cursor.getLong(0));

@@ -217,18 +217,23 @@ public class DataInitial {
     public boolean deleteSceneInfo(){
         XmlHandler xmlhandler = new XmlHandler();
         List<String> object = xmlhandler.deleteSceneInfoCmd();
+        List result = new ArrayList<String>();
 
         if(object == null && object.size()==0) return false;
 
         CrimeProvider mCrime = new CrimeProvider(mContext);
         for(int i=0;i<object.size();i++){
-            long id = Long.parseLong(object.get(i));
-            if(mCrime.get(id)!=null) {
-                mCrime.delete(id);
+            String id = object.get(i);
+            CrimeItem mCrimeItem = mCrime.getRecordBySceneId(id);
+            if(mCrimeItem != null) {
+                mCrimeItem.setDelete("1");
+                mCrime.update(mCrimeItem);
+                result.add(id);
             }else{
-                Log.d("Anita","Cannot get the id from databases");
+                Log.d("Anita","Cannot get the scene id from databases");
             }
         }
+        if(result.size()!=0) xmlhandler.createSuccessDeleteMsgFile(result);
 
         return true;
     }

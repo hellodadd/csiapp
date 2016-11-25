@@ -173,9 +173,13 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 break;
                             case 14: //删除现场信息命令
                                 filebytes = receiveDataFromSocketByte(in, currcmdinfo);
-                                if(dataInitial.deleteSceneInfo()){
-                                    concatCmdline(out, currcmdinfo, 1);
-                                    sendResult(out,true);
+                                result = dataInitial.deleteSceneInfo();
+                                //获取BaseMsg.xml
+                                File fileSuccessToDelete = FileHelper.newFile("SuccessToDelete.xml");
+                                if(result && fileSuccessToDelete.exists() == true){
+                                    byte[] abyte = FileHelper.readFile(fileSuccessToDelete);
+                                    concatCmdline(out, currcmdinfo, abyte.length);
+                                    sendDeviceinfo(out, currcmdinfo, fileSuccessToDelete);
                                 }else{
                                     String errstr= "Prase Fail";
                                     byte [] errbyte = errstr.getBytes("UTF-8");
