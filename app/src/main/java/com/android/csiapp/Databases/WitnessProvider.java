@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.android.csiapp.Crime.utils.DictionaryInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -78,7 +80,7 @@ public class WitnessProvider {
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
         cv.put(UUID_COLUMN, CrimeProvider.getUUID());
         cv.put(WITNESS_NAME_COLUMN, item.getWitnessName());
-        cv.put(WITNESS_SEX_COLUMN, item.getWitnessSex());
+        cv.put(WITNESS_SEX_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mSexKey, item.getWitnessSex()));
         cv.put(WITNESS_BIRTHDAY_COLUMN, item.getWitnessBirthday());
         cv.put(WITNESS_NUMBER_COLUMN, item.getWitnessNumber());
         cv.put(WITNESS_ADDRESS_COLUMN, item.getWitnessAddress());
@@ -121,7 +123,7 @@ public class WitnessProvider {
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
         cv.put(UUID_COLUMN, item.getUuid());
         cv.put(WITNESS_NAME_COLUMN, item.getWitnessName());
-        cv.put(WITNESS_SEX_COLUMN, item.getWitnessSex());
+        cv.put(WITNESS_SEX_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mSexKey, item.getWitnessSex()));
         cv.put(WITNESS_BIRTHDAY_COLUMN, item.getWitnessBirthday());
         cv.put(WITNESS_NUMBER_COLUMN, item.getWitnessNumber());
         cv.put(WITNESS_ADDRESS_COLUMN, item.getWitnessAddress());
@@ -181,7 +183,7 @@ public class WitnessProvider {
             item.setId(id);
             item.setUuid(cursor.getString(1));
             item.setWitnessName(cursor.getString(2));
-            item.setWitnessSex(cursor.getString(3));
+            item.setWitnessSex(DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, cursor.getString(3)));
             item.setWitnessBirthday(cursor.getLong(4));
             item.setWitnessNumber(cursor.getString(5));
             item.setWitnessAddress(cursor.getString(6));

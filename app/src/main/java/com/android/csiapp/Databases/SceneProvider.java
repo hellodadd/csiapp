@@ -4,6 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+import com.android.csiapp.Crime.utils.DictionaryInfo;
+import com.android.csiapp.XmlHandler.Dictionary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +102,7 @@ public class SceneProvider {
         // 加入ContentValues物件包裝的新增資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
         cv.put(CASETYPE_COLUMN, item.getCasetype());
-        cv.put(AREA_COLUMN, item.getArea());
+        cv.put(AREA_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mAreaKey, item.getArea()));
         cv.put(LOCATION_COLUMN, item.getLocation());
         cv.put(OCCURRED_START_TIME_COLUMN, item.getOccurredStartTime());
         cv.put(OCCURRED_END_TIME_COLUMN, item.getOccurredEndTime());
@@ -109,14 +113,14 @@ public class SceneProvider {
         cv.put(ACCESS_END_TIME_COLUMN, item.getAccessEndTime());
         cv.put(ACCESS_LOCATION_COLUMN, item.getAccessLocation());
         cv.put(CASE_OCCUR_PROCESS_COLUMN, item.getCaseOccurProcess());
-        cv.put(SCENE_CONDITION_COLUMN, item.getSceneCondition());
+        cv.put(SCENE_CONDITION_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mSceneConditionKey, item.getSceneCondition()));
         cv.put(CHANGE_REASON_COLUMN, item.getChangeReason());
-        cv.put(WEATHER_COLUMN, item.getWeatherCondition());
-        cv.put(WIND_COLUMN, item.getWindDirection());
+        cv.put(WEATHER_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mWeatherConditionKey, item.getWeatherCondition()));
+        cv.put(WIND_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mWindDirectionKey, item.getWindDirection()));
         cv.put(TEMPERATURE_COLUMN, item.getTemperature());
         cv.put(HUMIDITY_COLUMN, item.getHumidity());
         cv.put(ACCESS_REASON_COLUMN, item.getAccessReason());
-        cv.put(ILLUMINATION_CONDITION_COLUMN, item.getIlluminationCondition());
+        cv.put(ILLUMINATION_CONDITION_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mIlluminationConditionKey, item.getIlluminationCondition()));
         cv.put(PRODUCT_PEOPLE_NAME_COLUMN, item.getProductPeopleName());
         cv.put(PRODUCT_PEOPLE_UNIT_COLUMN, item.getProductPeopleUnit());
         cv.put(PRODUCT_PEOPLE_DUTIES_COLUMN, item.getProductPeopleDuties());
@@ -140,7 +144,7 @@ public class SceneProvider {
         // 加入ContentValues物件包裝的修改資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
         cv.put(CASETYPE_COLUMN, item.getCasetype());
-        cv.put(AREA_COLUMN, item.getArea());
+        cv.put(AREA_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mAreaKey, item.getArea()));
         cv.put(LOCATION_COLUMN, item.getLocation());
         cv.put(OCCURRED_START_TIME_COLUMN, item.getOccurredStartTime());
         cv.put(OCCURRED_END_TIME_COLUMN, item.getOccurredEndTime());
@@ -151,14 +155,14 @@ public class SceneProvider {
         cv.put(ACCESS_END_TIME_COLUMN, item.getAccessEndTime());
         cv.put(ACCESS_LOCATION_COLUMN, item.getAccessLocation());
         cv.put(CASE_OCCUR_PROCESS_COLUMN, item.getCaseOccurProcess());
-        cv.put(SCENE_CONDITION_COLUMN, item.getSceneCondition());
+        cv.put(SCENE_CONDITION_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mSceneConditionKey, item.getSceneCondition()));
         cv.put(CHANGE_REASON_COLUMN, item.getChangeReason());
-        cv.put(WEATHER_COLUMN, item.getWeatherCondition());
-        cv.put(WIND_COLUMN, item.getWindDirection());
+        cv.put(WEATHER_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mWeatherConditionKey, item.getWeatherCondition()));
+        cv.put(WIND_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mWindDirectionKey, item.getWindDirection()));
         cv.put(TEMPERATURE_COLUMN, item.getTemperature());
         cv.put(HUMIDITY_COLUMN, item.getHumidity());
         cv.put(ACCESS_REASON_COLUMN, item.getAccessReason());
-        cv.put(ILLUMINATION_CONDITION_COLUMN, item.getIlluminationCondition());
+        cv.put(ILLUMINATION_CONDITION_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mIlluminationConditionKey, item.getIlluminationCondition()));
         cv.put(PRODUCT_PEOPLE_NAME_COLUMN, item.getProductPeopleName());
         cv.put(PRODUCT_PEOPLE_UNIT_COLUMN, item.getProductPeopleUnit());
         cv.put(PRODUCT_PEOPLE_DUTIES_COLUMN, item.getProductPeopleDuties());

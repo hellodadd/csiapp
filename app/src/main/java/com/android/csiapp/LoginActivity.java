@@ -269,25 +269,26 @@ public class LoginActivity extends AppCompatActivity {
             mAuthTask = null;
             showProgress(false);
 
-            if (success&&mIdentify.checkPasswordFromName(mUser,mPassword)) {
+            SharedPreferences prefs = context.getSharedPreferences("InitialDevice", 0);
+            String initstatus = prefs.getString("Initial", "0");
+
+            if (success && mIdentify.checkPasswordFromName(mUser, mPassword) && initstatus.equalsIgnoreCase("1")) {
                 SharedPreferences.Editor editor1 = context.getSharedPreferences("LoginName", 0).edit();
                 editor1.putString("name", mUser);
                 editor1.commit();
 
-                SharedPreferences prefs = context.getSharedPreferences("InitialDevice", 0);
-                String initstatus = prefs.getString("Initial", "0");
-
-                if(initstatus.equalsIgnoreCase("1")) {
-                    IdentifyProvider identifyProvider = new IdentifyProvider(context);
-                    String UnitCode = identifyProvider.getUnitCode(mUser);
-                    SharedPreferences.Editor editor2 = context.getSharedPreferences("UnitCode", 0).edit();
-                    editor2.putString("code", UnitCode);
-                    editor2.commit();
-                }
+                IdentifyProvider identifyProvider = new IdentifyProvider(context);
+                String UnitCode = identifyProvider.getUnitCode(mUser);
+                SharedPreferences.Editor editor2 = context.getSharedPreferences("UnitCode", 0).edit();
+                editor2.putString("code", UnitCode);
+                editor2.commit();
 
                 Intent it = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(it);
                 finish();
+            } else if(!initstatus.equalsIgnoreCase("1")){
+                mPasswordView.setError(getString(R.string.error_initial_device));
+                mPasswordView.requestFocus();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

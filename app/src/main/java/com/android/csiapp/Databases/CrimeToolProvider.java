@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.android.csiapp.Crime.utils.DictionaryInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -72,8 +74,8 @@ public class CrimeToolProvider {
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
         cv.put(UUID_COLUMN, CrimeProvider.getUUID());
         cv.put(TOOL_NAME_COLUMN, item.getToolName());
-        cv.put(TOOL_CATEGORY_COLUMN, item.getToolCategory());
-        cv.put(TOOL_SOURCE_COLUMN, item.getToolSource());
+        cv.put(TOOL_CATEGORY_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mToolCategoryKey, item.getToolCategory()));
+        cv.put(TOOL_SOURCE_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mToolSourceKey, item.getToolSource()));
 
         // 新增一筆資料並取得編號
         // 第一個參數是表格名稱
@@ -112,8 +114,8 @@ public class CrimeToolProvider {
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
         cv.put(UUID_COLUMN, item.getUuid());
         cv.put(TOOL_NAME_COLUMN, item.getToolName());
-        cv.put(TOOL_CATEGORY_COLUMN, item.getToolCategory());
-        cv.put(TOOL_SOURCE_COLUMN, item.getToolSource());
+        cv.put(TOOL_CATEGORY_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mToolCategoryKey, item.getToolCategory()));
+        cv.put(TOOL_SOURCE_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mToolSourceKey, item.getToolSource()));
 
         // 設定修改資料的條件為編號
         // 格式為「欄位名稱＝資料」
@@ -169,8 +171,8 @@ public class CrimeToolProvider {
             item.setId(id);
             item.setUuid(cursor.getString(1));
             item.setToolName(cursor.getString(2));
-            item.setToolCategory(cursor.getString(3));
-            item.setToolSource(cursor.getString(4));
+            item.setToolCategory(DictionaryInfo.getDictValue(DictionaryInfo.mToolCategoryKey, cursor.getString(3)));
+            item.setToolSource(DictionaryInfo.getDictValue(DictionaryInfo.mToolSourceKey, cursor.getString(4)));
         }
         cursor.close();
 

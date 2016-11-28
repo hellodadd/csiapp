@@ -125,7 +125,7 @@ public class DictionaryProvider {
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            list.put(cursor.getString(2), cursor.getString(0));
+            list.put(cursor.getString(0), cursor.getString(2));
             cursor.moveToNext();
         }
         cursor.close();
