@@ -134,7 +134,7 @@ public class IdentifyProvider {
         Cursor cursor = db.query(TABLE_NAME, projection, where, null, null, null, null, null);
 
         while (cursor!=null && cursor.moveToNext()) {
-            result = cursor.getString(2);
+            result = cursor.getString(1);
         }
 
         cursor.close();

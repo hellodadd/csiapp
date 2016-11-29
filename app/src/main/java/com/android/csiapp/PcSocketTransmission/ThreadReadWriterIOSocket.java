@@ -26,7 +26,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
 
     public static final String TAG = "ThreadRWIOSocket";
     String mMapPath = Environment.getExternalStorageDirectory()+"/amapsdk/offlineMap/data";
-    String mMapCachePath = Environment.getExternalStorageDirectory()+"/Csibackup/Amap.zip";
+    String mMapCachePath = Environment.getExternalStorageDirectory()+"/Amap.zip";
     String mInitDevicePath = Environment.getExternalStorageDirectory()+"/InitDeviceCmd.xml";
     String mSceneListPath = Environment.getExternalStorageDirectory()+"/getSceneListCmd.xml";
     String mWriteSceneIdPath = Environment.getExternalStorageDirectory()+"/writeSceneIdCmd.xml";
@@ -106,8 +106,8 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 break;
                             case 4: //地图更新命令
                                 Log.d(TAG, "Map Update!!");
-                                filebytes = receiveDataFromSocketByte(in, currcmdinfo);
                                 File Uzfile = new File(mMapCachePath);
+                                filebytes = receiveDataFromSocketByte(in, currcmdinfo);
                                 try {
                                     ZipUtils.upZipFile(Uzfile, mMapPath);
                                     deleteFiles(Uzfile);
