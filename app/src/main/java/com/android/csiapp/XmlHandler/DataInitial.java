@@ -225,7 +225,7 @@ public class DataInitial {
         for(int i=0;i<object.size();i++){
             String id = object.get(i);
             CrimeItem mCrimeItem = mCrime.getRecordBySceneId(id);
-            if(mCrimeItem != null) {
+            if(mCrimeItem != null && !mCrimeItem.getComplete().equalsIgnoreCase("2")) {
                 mCrimeItem.setDelete("1");
                 mCrime.update(mCrimeItem);
                 result.add(id);
@@ -233,8 +233,14 @@ public class DataInitial {
                 Log.d("Anita","Cannot get the scene id from databases");
             }
         }
-        if(result.size()!=0) xmlhandler.createSuccessDeleteMsgFile(result);
 
-        return true;
+        if(result.size()!=0){
+            xmlhandler.createSuccessDeleteMsgFile(result);
+            return true;
+        }else{
+            return false;
+        }
+
+
     }
 }

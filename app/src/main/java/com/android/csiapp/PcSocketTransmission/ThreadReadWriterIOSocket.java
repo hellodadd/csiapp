@@ -150,10 +150,10 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                     sendDeviceinfoZip(out, currcmdinfo, fileBaseMsg);
                                 } else {
                                     Log.d("Anita","File Not Found");
-                                    String errstr= "File Not Found";
-                                    byte [] errbyte = errstr.getBytes("UTF-8");
-                                    concatCmdline(out, currcmdinfo, errbyte.length);
-                                    sendErrorString(out, errbyte);
+                                    //String errstr= "File Not Found";
+                                    //byte [] errbyte = errstr.getBytes("UTF-8");
+                                    concatCmdline(out, currcmdinfo, 0);
+                                    //sendErrorString(out, errbyte);
                                 }
                                 //Wait command 13
                                 //SocketService.ioThreadFlag=false;
@@ -166,10 +166,10 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                     sendResult(out,true);
                                 }else{
                                     Log.d("Anita","Prase Fail");
-                                    String errstr= "Prase Fail";
-                                    byte [] errbyte = errstr.getBytes("UTF-8");
-                                    concatCmdline(out, currcmdinfo, errbyte.length);
-                                    sendErrorString(out, errbyte);
+                                    //String errstr= "Prase Fail";
+                                    //byte [] errbyte = errstr.getBytes("UTF-8");
+                                    concatCmdline(out, currcmdinfo, 0);
+                                    //sendErrorString(out, errbyte);
                                 }
                                 SocketService.ioThreadFlag=false;
                                 break;
@@ -183,10 +183,10 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                     concatCmdline(out, currcmdinfo, abyte.length);
                                     sendDeviceinfo(out, currcmdinfo, fileSuccessToDelete);
                                 }else{
-                                    String errstr= "Prase Fail";
-                                    byte [] errbyte = errstr.getBytes("UTF-8");
-                                    concatCmdline(out, currcmdinfo, errbyte.length);
-                                    sendErrorString(out, errbyte);
+                                    //String errstr= "Prase Fail";
+                                    //byte [] errbyte = errstr.getBytes("UTF-8");
+                                    concatCmdline(out, currcmdinfo, 0);
+                                    //sendErrorString(out, errbyte);
                                 }
                                 SocketService.ioThreadFlag=false;
                                 break;
