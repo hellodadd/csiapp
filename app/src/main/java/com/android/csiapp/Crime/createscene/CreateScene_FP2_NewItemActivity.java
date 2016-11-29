@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
+import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.LostItem;
 import com.android.csiapp.R;
 
@@ -122,5 +123,6 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
         mLostItem.setItemAmount(mAmount.getText());
         mLostItem.setItemValue(mValue.getText());
         mLostItem.setItemFeatue(mFeature.getText());
+        mLostItem.setUuid(CrimeProvider.getUUID());
     }
 }

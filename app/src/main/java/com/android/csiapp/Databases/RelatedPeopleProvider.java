@@ -78,7 +78,7 @@ public class RelatedPeopleProvider {
 
         // 加入ContentValues物件包裝的新增資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
-        cv.put(UUID_COLUMN, CrimeProvider.getUUID());
+        cv.put(UUID_COLUMN, item.getUuid());
         cv.put(PEOPLE_RELATION_COLUMN, item.getPeopleRelation());
         cv.put(PEOPLE_NAME_COLUMN, item.getPeopleName());
         cv.put(PEOPLE_SEX_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mSexKey, item.getPeopleSex()));

@@ -35,6 +35,7 @@ import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
+import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.DictionaryProvider;
 import com.android.csiapp.Databases.EvidenceItem;
 import com.android.csiapp.Databases.PhotoItem;
@@ -102,6 +103,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                     saveData();
                     Intent result = getIntent();
                     if(mEvidenceItem.getPhotoPath().isEmpty()) result.putExtra("photo_uri", mEvidenceItem.getPhotoPath());
+                    mEvidenceItem.setUuid(CrimeProvider.getUUID());
                     result.putExtra("com.android.csiapp.Databases.EvidenceItem", mEvidenceItem);
                     result.putExtra("Event", mEvent);
                     result.putExtra("Posiotion", mPosition);

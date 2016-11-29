@@ -139,9 +139,9 @@ public class CrimeProvider {
 
         cv.put(CREATE_TIME_COLUMN, Calendar.getInstance().getTimeInMillis());
 
-        cv.put(COMPLETE_COLUMN, "0");
+        cv.put(COMPLETE_COLUMN, item.getComplete());
 
-        cv.put(DELETE_COLUMN, "0");
+        cv.put(DELETE_COLUMN, item.getDelete());
 
         long scene_id = mSceneProvider.insert(item);
         cv.put(SCENE_ITEM_NUMBER_COLUMN, scene_id);
@@ -255,18 +255,18 @@ public class CrimeProvider {
         if(cursor.moveToFirst()) {
             // 刪除指定編號資料並回傳刪除是否成功
             boolean result = false;
-            result = mSceneProvider.delete(cursor.getLong(1));
-            result = mAnalysisProvider.delete(cursor.getLong(2));
-            result = mOverviewProvider.delete(cursor.getLong(3));
-            result = mRelatedPeopleProvider.deletes(cursor.getString(4));
-            result = mLostProvider.deletes(cursor.getString(5));
-            result = mCrimeToolProvider.deletes(cursor.getString(6));
-            result = mPositionProvider.deletes(cursor.getString(7));
-            result = mPositionPhotoProvider.deletes(cursor.getString(8));
-            result = mOverviewPhotoProvider.deletes(cursor.getString(9));
-            result = mImportantPhotoProvider.deletes(cursor.getString(10));
-            result = mEvidenceProvider.deletes(cursor.getString(11));
-            result = mWitnessProvider.deletes(cursor.getString(12));
+            result = mSceneProvider.delete(cursor.getLong(9));
+            result = mAnalysisProvider.delete(cursor.getLong(10));
+            result = mOverviewProvider.delete(cursor.getLong(11));
+            result = mRelatedPeopleProvider.deletes(cursor.getString(12));
+            result = mLostProvider.deletes(cursor.getString(13));
+            result = mCrimeToolProvider.deletes(cursor.getString(14));
+            result = mPositionProvider.deletes(cursor.getString(15));
+            result = mPositionPhotoProvider.deletes(cursor.getString(16));
+            result = mOverviewPhotoProvider.deletes(cursor.getString(17));
+            result = mImportantPhotoProvider.deletes(cursor.getString(18));
+            result = mEvidenceProvider.deletes(cursor.getString(19));
+            result = mWitnessProvider.deletes(cursor.getString(20));
             //return db.delete(TABLE_NAME, where, null) > 0;
             cursor.close();
             result = db.delete(TABLE_NAME, where , null) > 0;
@@ -667,7 +667,7 @@ public class CrimeProvider {
                 mBaseInfo.put("inquestNo", item.getSceneNo());
                 mBaseInfo.put("complete", item.getComplete());
                 mBaseInfo.put("casetype", item.getCasetype());
-                mBaseInfo.put("regionalism", item.getArea());
+                mBaseInfo.put("regionalism", DictionaryInfo.getDictKey(DictionaryInfo.mAreaKey, item.getArea()));
                 mBaseInfo.put("sceneaddress", item.getLocation());
                 mBaseInfo.put("starttime", DateTimePicker.getCurrentDate(item.getOccurredStartTime()));
                 mBaseInfo.put("endtime", DateTimePicker.getCurrentDate(item.getOccurredEndTime()));
@@ -723,7 +723,7 @@ public class CrimeProvider {
                 mBaseInfo.put("createtime", item.getCreateTime());
                 mBaseInfo.put("complete", item.getComplete());
                 mBaseInfo.put("casetype", item.getCasetype());
-                mBaseInfo.put("regionalism", item.getArea());
+                mBaseInfo.put("regionalism", DictionaryInfo.getDictKey(DictionaryInfo.mAreaKey, item.getArea()));
                 mBaseInfo.put("address", item.getLocation());
                 mBaseInfo.put("starttime", DateTimePicker.getCurrentDate(item.getOccurredStartTime()));
                 mBaseInfo.put("endtime", DateTimePicker.getCurrentDate(item.getOccurredEndTime()));
@@ -734,14 +734,14 @@ public class CrimeProvider {
                 mBaseInfo.put("inquestendtime", DateTimePicker.getCurrentDate(item.getAccessEndTime()));
                 mBaseInfo.put("inquestaddress", item.getAccessLocation());
                 mBaseInfo.put("discover", item.getCaseOccurProcess());
-                mBaseInfo.put("scenesituation", item.getSceneCondition());
+                mBaseInfo.put("scenesituation", DictionaryInfo.getDictKey(DictionaryInfo.mSceneConditionKey, item.getSceneCondition()));
                 mBaseInfo.put("changeresason", item.getChangeReason());
-                mBaseInfo.put("weather", item.getWeatherCondition());
-                mBaseInfo.put("wind", item.getWindDirection());
+                mBaseInfo.put("weather", DictionaryInfo.getDictKey(DictionaryInfo.mWeatherConditionKey, item.getWeatherCondition()));
+                mBaseInfo.put("wind", DictionaryInfo.getDictKey(DictionaryInfo.mWindDirectionKey, item.getWindDirection()));
                 mBaseInfo.put("temperature", item.getTemperature());
                 mBaseInfo.put("humidity", item.getHumidity());
                 mBaseInfo.put("investigatecause", item.getAccessReason());
-                mBaseInfo.put("beamsituation", item.getIlluminationCondition());
+                mBaseInfo.put("beamsituation", DictionaryInfo.getDictKey(DictionaryInfo.mIlluminationConditionKey, item.getIlluminationCondition()));
                 mBaseInfo.put("protectionname", item.getProductPeopleName());
                 mBaseInfo.put("protectionorg", item.getProductPeopleUnit());
                 mBaseInfo.put("protectionpost", item.getProductPeopleDuties());
@@ -751,18 +751,18 @@ public class CrimeProvider {
 
                 mBaseInfo.put("inqueststate", item.getOverview());
 
-                mBaseInfo.put("crimersnum", item.getCrimePeopleNumber());
-                mBaseInfo.put("crimersmethod", item.getCrimeMeans());
-                mBaseInfo.put("crimersnature", item.getCrimeCharacter());
-                mBaseInfo.put("crimersenter", item.getCrimeEntrance());
-                mBaseInfo.put("crimerstime", item.getCrimeTiming());
-                mBaseInfo.put("crimersobject", item.getSelectObject());
-                mBaseInfo.put("crimersexit", item.getCrimeExport());
+                mBaseInfo.put("crimersnum", DictionaryInfo.getDictKey(DictionaryInfo.mPeopleNumberKey, item.getCrimePeopleNumber()));
+                mBaseInfo.put("crimersmethod", DictionaryInfo.getDictKey(DictionaryInfo.mCrimeMeansKey, item.getCrimeMeans()));
+                mBaseInfo.put("crimersnature", DictionaryInfo.getDictKey(DictionaryInfo.mCrimeCharacterKey, item.getCrimeCharacter()));
+                mBaseInfo.put("crimersenter", DictionaryInfo.getDictKey(DictionaryInfo.mCrimeEntranceExportKey, item.getCrimeEntrance()));
+                mBaseInfo.put("crimerstime", DictionaryInfo.getDictKey(DictionaryInfo.mCrimeTimingKey, item.getCrimeTiming()));
+                mBaseInfo.put("crimersobject", DictionaryInfo.getDictKey(DictionaryInfo.mSelectObjectKey, item.getSelectObject()));
+                mBaseInfo.put("crimersexit", DictionaryInfo.getDictKey(DictionaryInfo.mCrimeEntranceExportKey, item.getCrimeExport()));
                 mBaseInfo.put("crimerfeature", item.getCrimePeopleFeature());
-                mBaseInfo.put("crimerskeypoint", item.getCrimeFeature());
-                mBaseInfo.put("crimersentermethod", item.getIntrusiveMethod());
-                mBaseInfo.put("crimershouse", item.getSelectLocation());
-                mBaseInfo.put("crimersmotive", item.getCrimePurpose());
+                mBaseInfo.put("crimerskeypoint", DictionaryInfo.getDictKey(DictionaryInfo.mCrimeFeatureKey, item.getCrimeFeature()));
+                mBaseInfo.put("crimersentermethod", DictionaryInfo.getDictKey(DictionaryInfo.mIntrusiveMethodKey, item.getIntrusiveMethod()));
+                mBaseInfo.put("crimershouse", DictionaryInfo.getDictKey(DictionaryInfo.mSelectLocationKey, item.getSelectLocation()));
+                mBaseInfo.put("crimersmotive", DictionaryInfo.getDictKey(DictionaryInfo.mCrimePurposeKey, item.getCrimePurpose()));
 
                 mBaseInfoList.add(mBaseInfo);
 
@@ -775,7 +775,7 @@ public class CrimeProvider {
                     mPeopleInfo.put("caseid",item.getSceneId());
                     mPeopleInfo.put("type",mRelatedPeopleItem.get(iP).getPeopleRelation());
                     mPeopleInfo.put("name",mRelatedPeopleItem.get(iP).getPeopleName());
-                    mPeopleInfo.put("sex",mRelatedPeopleItem.get(iP).getPeopleSex());
+                    mPeopleInfo.put("sex",DictionaryInfo.getDictKey(DictionaryInfo.mSexKey, mRelatedPeopleItem.get(iP).getPeopleSex()));
                     mPeopleInfo.put("idnum",mRelatedPeopleItem.get(iP).getPeopleId());
                     mPeopleInfo.put("birthday","");
                     mPeopleInfo.put("mobile",mRelatedPeopleItem.get(iP).getPeopleNumber());
@@ -789,7 +789,7 @@ public class CrimeProvider {
                     mPeopleInfo.put("caseid",item.getSceneId());
                     mPeopleInfo.put("type","见证人");
                     mPeopleInfo.put("name",mWitnessItem.get(iW).getWitnessName());
-                    mPeopleInfo.put("sex",mWitnessItem.get(iW).getWitnessSex());
+                    mPeopleInfo.put("sex",DictionaryInfo.getDictKey(DictionaryInfo.mSexKey, mWitnessItem.get(iW).getWitnessSex()));
                     mPeopleInfo.put("idnum","");
                     mPeopleInfo.put("birthday",DateTimePicker.getCurrentDate(mWitnessItem.get(iW).getWitnessBirthday()));
                     mPeopleInfo.put("mobile",mWitnessItem.get(iW).getWitnessNumber());
@@ -823,8 +823,8 @@ public class CrimeProvider {
                     mGoodsInfo.put("caseid",item.getSceneId());
                     mGoodsInfo.put("type","作案工具");
                     mGoodsInfo.put("name",mCrimeToolItem.get(iC).getToolName());
-                    mGoodsInfo.put("sort",mCrimeToolItem.get(iC).getToolCategory());
-                    mGoodsInfo.put("source",mCrimeToolItem.get(iC).getToolSource());
+                    mGoodsInfo.put("sort",DictionaryInfo.getDictKey(DictionaryInfo.mToolCategoryKey, mCrimeToolItem.get(iC).getToolCategory()));
+                    mGoodsInfo.put("source",DictionaryInfo.getDictKey(DictionaryInfo.mToolSourceKey, mCrimeToolItem.get(iC).getToolSource()));
                     mGoodsInfoList.add(mGoodsInfo);
                 }
 

@@ -55,7 +55,11 @@ public class ListDeleteActivity extends AppCompatActivity {
                         isSelected = mAdapter.getIsSelected();
                         for (int i = 0; i < isSelected.size(); i++) {
                             if (isSelected.get(i).equals(true)) {
-                                mCrimeProvider.delete(items_list.get(i).getId());
+                                if(!items_list.get(i).getComplete().equalsIgnoreCase("2")) {
+                                    mCrimeProvider.delete(items_list.get(i).getId());
+                                }else{
+                                    Toast.makeText(ListDeleteActivity.this, "已上报数据无法删除", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }
                     }

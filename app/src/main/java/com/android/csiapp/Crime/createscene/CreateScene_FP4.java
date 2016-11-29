@@ -21,6 +21,7 @@ import android.widget.ListView;
 
 import com.android.csiapp.Crime.utils.PhotoAdapter;
 import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.ImportantPhotoProvider;
 import com.android.csiapp.Databases.OverviewPhotoProvider;
 import com.android.csiapp.Databases.PhotoItem;
@@ -217,6 +218,7 @@ public class CreateScene_FP4 extends Fragment {
         String path = LocalFileUri.getPath();
         PhotoItem photoItem = new PhotoItem();
         photoItem.setPhotoPath(path);
+        photoItem.setUuid(CrimeProvider.getUUID());
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == PHOTO_TYPE_POSITION) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_POSITION");

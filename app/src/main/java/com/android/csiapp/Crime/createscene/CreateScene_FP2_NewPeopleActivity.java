@@ -22,6 +22,7 @@ import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
+import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.RelatedPeopleItem;
 import com.android.csiapp.R;
 
@@ -199,6 +200,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         mRelatedPeopleItem.setPeopleId(mId.getText());
         mRelatedPeopleItem.setPeopleNumber(mNumber.getText());
         mRelatedPeopleItem.setPeopleAddress(mAddress.getText());
+        mRelatedPeopleItem.setUuid(CrimeProvider.getUUID());
     }
 
 

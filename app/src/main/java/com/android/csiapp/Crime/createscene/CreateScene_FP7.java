@@ -159,7 +159,7 @@ public class CreateScene_FP7 extends Fragment{
         mCrimeTiming_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setCrimeEntrance(mCrimeTiming.get(position));
+                mItem.setCrimeTiming(mCrimeTiming.get(position));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -267,6 +267,7 @@ public class CreateScene_FP7 extends Fragment{
         mCrimeTiming_spinner.setSelection(getCrimeTiming(mItem.getCrimeTiming()));
         mSelectObject_spinner.setSelection(getSelectObject(mItem.getSelectObject()));
         mCrimeExport_spinner.setSelection(getCrimeExport(mItem.getCrimeExport()));
+        mPeopleFeature.setText(mItem.getCrimePeopleFeature());
         mCrimeFeature_spinner.setSelection(getCrimeFeature(mItem.getCrimeFeature()));
         mIntrusiveMethod_spinner.setSelection(getIntrusiveMethod(mItem.getIntrusiveMethod()));
         mSelectLocation_spinner.setSelection(getSelectLocation(mItem.getSelectLocation()));
@@ -274,7 +275,7 @@ public class CreateScene_FP7 extends Fragment{
     }
 
     public void saveData(){
-        mItem.setCrimePeopleFeature(mPeopleFeature.getText());;
+        mItem.setCrimePeopleFeature(mPeopleFeature.getText());
     }
 
     @Override

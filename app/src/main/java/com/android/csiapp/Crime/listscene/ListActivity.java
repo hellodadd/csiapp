@@ -99,12 +99,16 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // 讀取選擇的記事物件
                 CrimeItem item = (CrimeItem) mAdapter.getItem(position);
-                Intent intent = new Intent("com.android.csiapp.EDIT_SCENE");
-                // 設定記事編號與記事物件
-                intent.putExtra("CrimeItem", item);
-                startActivityForResult(intent, 0);
+                if(!item.getComplete().equalsIgnoreCase("2")) {
+                    // 讀取選擇的記事物件
+                    Intent intent = new Intent("com.android.csiapp.EDIT_SCENE");
+                    // 設定記事編號與記事物件
+                    intent.putExtra("CrimeItem", item);
+                    startActivityForResult(intent, 0);
+                }else{
+                    Toast.makeText(ListActivity.this, "已上报数据无法修改", Toast.LENGTH_SHORT).show();
+                }
             }
         };
         mListV.setOnItemClickListener(itemListener);
@@ -125,9 +129,13 @@ public class ListActivity extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
             case LIST_DELETE:
-                mCrimeProvider.delete(items_list.get(info.position).getId());
-                items_list.remove(info.position);
-                mAdapter.notifyDataSetChanged();
+                if(!items_list.get(info.position).getComplete().equalsIgnoreCase("2")) {
+                    mCrimeProvider.delete(items_list.get(info.position).getId());
+                    items_list.remove(info.position);
+                    mAdapter.notifyDataSetChanged();
+                }else{
+                    Toast.makeText(ListActivity.this, "已上报数据无法删除", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             default:
                 return super.onContextItemSelected(item);

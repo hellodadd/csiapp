@@ -159,6 +159,8 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 //SocketService.ioThreadFlag=false;
                                 break;
                             case 13: //回写现勘编号命令
+                                filebytes = receiveDataFromSocketByte(in, currcmdinfo);
+
                                 if(dataInitial.WriteSceneNo()){
                                     concatCmdline(out, currcmdinfo, 1);
                                     sendResult(out,true);

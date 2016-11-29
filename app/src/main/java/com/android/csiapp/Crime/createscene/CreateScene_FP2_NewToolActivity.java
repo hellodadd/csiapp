@@ -18,6 +18,7 @@ import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
+import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.CrimeToolItem;
 import com.android.csiapp.R;
 
@@ -151,6 +152,7 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
 
     private void saveData(){
         mCrimeToolItem.setToolName(mName.getText());
+        mCrimeToolItem.setUuid(CrimeProvider.getUUID());
     }
 
     private int getCategory(String category){

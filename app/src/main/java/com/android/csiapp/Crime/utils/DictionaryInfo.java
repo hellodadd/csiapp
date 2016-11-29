@@ -383,14 +383,14 @@ public class DictionaryInfo {
             case mPeopleNumberKey:
                 if(mPeopleNumberHashMap.size()!=0) result = (String) valueGetKey(mPeopleNumberHashMap, DictValue);
                 break;
-            case mCrimeEntranceExportKey:
-                if(mCrimeEntranceExportHashMap.size()!=0) result = (String) valueGetKey(mCrimeEntranceExportHashMap, DictValue);
-                break;
             case mCrimeMeansKey:
                 if(mCrimeMeansHashMap.size()!=0) result = (String) valueGetKey(mCrimeMeansHashMap, DictValue);
                 break;
             case mCrimeCharacterKey:
                 if(mCrimeCharacterHashMap.size()!=0) result = (String) valueGetKey(mCrimeCharacterHashMap, DictValue);
+                break;
+            case mCrimeEntranceExportKey:
+                if(mCrimeEntranceExportHashMap.size()!=0) result = (String) valueGetKey(mCrimeEntranceExportHashMap, DictValue);
                 break;
             case mCrimeTimingKey:
                 if(mCrimeTimingHashMap.size()!=0) result = (String) valueGetKey(mCrimeTimingHashMap, DictValue);

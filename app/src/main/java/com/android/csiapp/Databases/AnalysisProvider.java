@@ -72,7 +72,7 @@ public class AnalysisProvider {
         cv.put(CRIME_CHARACTER_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mCrimeCharacterKey, item.getCrimeCharacter()));
         cv.put(CRIME_ENTRANCE_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mCrimeEntranceExportKey, item.getCrimeEntrance()));
         cv.put(CRIME_TIMING_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mCrimeTimingKey, item.getCrimeTiming()));
-        cv.put(SELECT_OBJECT_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mPeopleNumberKey, item.getSelectObject()));
+        cv.put(SELECT_OBJECT_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mSelectObjectKey, item.getSelectObject()));
         cv.put(CRIME_EXPORT_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mCrimeEntranceExportKey, item.getCrimeExport()));
         cv.put(PEOPLE_FEATURE_COLUMN, item.getCrimePeopleFeature());
         cv.put(CRIME_FEATURE_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mCrimeFeatureKey, item.getCrimeFeature()));
@@ -101,7 +101,7 @@ public class AnalysisProvider {
         cv.put(CRIME_CHARACTER_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mCrimeCharacterKey, item.getCrimeCharacter()));
         cv.put(CRIME_ENTRANCE_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mCrimeEntranceExportKey, item.getCrimeEntrance()));
         cv.put(CRIME_TIMING_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mCrimeTimingKey, item.getCrimeTiming()));
-        cv.put(SELECT_OBJECT_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mPeopleNumberKey, item.getSelectObject()));
+        cv.put(SELECT_OBJECT_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mSelectObjectKey, item.getSelectObject()));
         cv.put(CRIME_EXPORT_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mCrimeEntranceExportKey, item.getCrimeExport()));
         cv.put(PEOPLE_FEATURE_COLUMN, item.getCrimePeopleFeature());
         cv.put(CRIME_FEATURE_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mCrimeFeatureKey, item.getCrimeFeature()));

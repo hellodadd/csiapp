@@ -21,6 +21,7 @@ import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Crime.utils.ScreenShot;
 import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
 
@@ -51,6 +52,7 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
                     msg += "Save";
                     String path = ScreenShot.shoot(CreateScene_FP3_PositionInformationActivity.this);
                     mPositionItem.setPhotoPath(path);
+                    mPositionItem.setUuid(CrimeProvider.getUUID());
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.Databases.PhotoItem", mPositionItem);
                     result.putExtra("Event",mEvent);

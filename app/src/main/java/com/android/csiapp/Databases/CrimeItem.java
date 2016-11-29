@@ -101,8 +101,8 @@ public class CrimeItem implements Serializable {
         this.mLoginName = "";
         this.mUnitCode = "";
         this.mCreateTime = "";
-        this.mComplete = "";
-        this.mDelete = "";
+        this.mComplete = "0";
+        this.mDelete = "0";
         this.mCasetype = "";
         this.mArea = "";
         this.mLocation = "";

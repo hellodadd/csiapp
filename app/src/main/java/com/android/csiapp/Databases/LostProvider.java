@@ -74,7 +74,7 @@ public class LostProvider {
 
         // 加入ContentValues物件包裝的新增資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
-        cv.put(UUID_COLUMN, CrimeProvider.getUUID());
+        cv.put(UUID_COLUMN, item.getUuid());
         cv.put(ITEM_NAME_COLUMN, item.getItemName());
         cv.put(ITEM_BRAND_COLUMN, item.getItemBrand());
         cv.put(ITEM_AMOUNT_COLUMN, item.getItemAmount());

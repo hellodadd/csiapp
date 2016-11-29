@@ -30,6 +30,7 @@ import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.HandWriteActivity;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
+import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.WitnessItem;
 import com.android.csiapp.R;
 
@@ -182,6 +183,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         mWitnessItem.setWitnessName(mName.getText());
         mWitnessItem.setWitnessNumber(mNumber.getText());
         mWitnessItem.setWitnessAddress(mAddress.getText());
+        mWitnessItem.setUuid(CrimeProvider.getUUID());
     }
 
     @Override

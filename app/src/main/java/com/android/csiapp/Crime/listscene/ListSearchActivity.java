@@ -57,7 +57,11 @@ public class ListSearchActivity extends AppCompatActivity {
                 case R.id.action_delete:
                     msg += "Delete";
                     for (int i = 0; i < items_list.size(); i++) {
-                        mCrimeProvider.delete(items_list.get(i).getId());
+                        if(!items_list.get(i).getComplete().equalsIgnoreCase("2")) {
+                            mCrimeProvider.delete(items_list.get(i).getId());
+                        }else{
+                            Toast.makeText(ListSearchActivity.this, "已上报数据无法删除", Toast.LENGTH_SHORT).show();
+                        }
                     }
                     Intent result = getIntent();
                     setResult(Activity.RESULT_OK, result);

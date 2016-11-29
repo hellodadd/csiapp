@@ -119,7 +119,7 @@ public class DataInitial {
         CrimeItem crimeItem = mCrimeProvider.createBaseMsgXml(id);
 
         if(crimeItem==null) return false;
-        if(crimeItem.getComplete().equalsIgnoreCase("0")) return false;
+        if(!crimeItem.getComplete().equalsIgnoreCase("1")) return false;
 
         String catchPath = Environment.getExternalStorageDirectory()+"/BaseMsg/";
         File cacheDir = new File(catchPath);
