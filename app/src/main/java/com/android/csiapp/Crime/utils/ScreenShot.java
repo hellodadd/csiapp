@@ -43,7 +43,8 @@ public class ScreenShot {
         int height = activity.getWindowManager().getDefaultDisplay().getHeight();
         //去掉標題列
         //Bitmap b = Bitmap.createBitmap(b1, 0, 25, 320, 455);
-        Bitmap b = Bitmap.createBitmap(b1, 0, removeHeight, width, height - removeHeight);
+        Log.d("Anita","b1 width = "+b1.getWidth()+", height = "+b1.getHeight());
+        Bitmap b = Bitmap.createBitmap(b1, 0, removeHeight, b1.getWidth(), b1.getHeight()-removeHeight);
         view.destroyDrawingCache();
         return b;
     }
