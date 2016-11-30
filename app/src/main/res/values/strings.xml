@@ -90,6 +90,8 @@
 
     <string name="step_5">痕迹物证</string>
     <string name="scene_evidence">现场痕迹</string>
+    <string name="monitoring_screen">监控画面</string>
+    <string name="camera_position">摄像头位置</string>
     <string name="title_activity_new_evidence">现场痕迹</string>
     <string name="category">类型</string>
     <string name="evidence_hand">手印痕迹</string>

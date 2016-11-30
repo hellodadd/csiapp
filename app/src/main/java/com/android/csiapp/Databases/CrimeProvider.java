@@ -51,6 +51,9 @@ public class CrimeProvider {
     public static final String EVIDENCE_ITEM_NUMBER_COLUMN = "evidence_item_number";
     public static final String WITNESS_ITEM_NUMBER_COLUMN = "witness_item_number";
 
+    public static final String MONITORINGPHOTO_ITEM_NUMBER_COLUMN = "monitoringphoto_item_number";
+    public static final String CAMERAPHOTO_ITEM_COLUMN = "cameraphoto_item_number";
+
     // 使用上面宣告的變數建立表格的SQL指令
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
@@ -74,7 +77,9 @@ public class CrimeProvider {
                     OVERVIEWPHOTO_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
                     IMPORTANTPHOTO_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
                     EVIDENCE_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    WITNESS_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL)";
+                    WITNESS_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
+                    MONITORINGPHOTO_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
+                    CAMERAPHOTO_ITEM_COLUMN + " INTEGER NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;
@@ -89,6 +94,8 @@ public class CrimeProvider {
     private OverviewPhotoProvider mOverviewPhotoProvider;
     private ImportantPhotoProvider mImportantPhotoProvider;
     private EvidenceProvider mEvidenceProvider;
+    private MonitoringPhotoProvider mMonitoringPhotoProvider;
+    private CameraPhotoProvider mCameraPhotoProvider;
     private WitnessProvider mWitnessProvider;
 
     private Context mContext;
@@ -108,6 +115,8 @@ public class CrimeProvider {
         mOverviewPhotoProvider = new OverviewPhotoProvider(context);
         mImportantPhotoProvider = new ImportantPhotoProvider(context);
         mEvidenceProvider = new EvidenceProvider(context);
+        mMonitoringPhotoProvider = new MonitoringPhotoProvider(context);
+        mCameraPhotoProvider = new CameraPhotoProvider(context);
         mWitnessProvider = new WitnessProvider(context);
     }
 
@@ -176,6 +185,12 @@ public class CrimeProvider {
 
         String witness_id = mWitnessProvider.inserts(item.getWitness());
         cv.put(WITNESS_ITEM_NUMBER_COLUMN, witness_id);
+
+        String monitoring_id = mMonitoringPhotoProvider.inserts(item.getMonitoringPhoto());
+        cv.put(MONITORINGPHOTO_ITEM_NUMBER_COLUMN, monitoring_id);
+
+        String camera_id = mCameraPhotoProvider.inserts(item.getCameraPhoto());
+        cv.put(CAMERAPHOTO_ITEM_COLUMN, camera_id);
         // 新增一筆資料並取得編號
         // 第一個參數是表格名稱
         // 第二個參數是沒有指定欄位值的預設值
@@ -200,7 +215,7 @@ public class CrimeProvider {
         Cursor cursor = db.query(
                 TABLE_NAME, null, where, null, null, null, null, null);
 
-        String RelatedPeople_id="", Lost_id="", CrimeTool_id="", Position_id="", PositionPhoto_id="", OverviewPhoto_id="", ImportantPhoto_id="", Evidence_id="", Witness_id="";
+        String RelatedPeople_id="", Lost_id="", CrimeTool_id="", Position_id="", PositionPhoto_id="", OverviewPhoto_id="", ImportantPhoto_id="", Evidence_id="", Monitoring_id="", Camera_id="",Witness_id="";
 
         if(cursor.moveToFirst()) {
             // 執行修改資料並回傳修改的資料數量是否成功
@@ -216,6 +231,8 @@ public class CrimeProvider {
             ImportantPhoto_id = mImportantPhotoProvider.updates(cursor.getString(18),item.getImportantPhoto());
             Evidence_id = mEvidenceProvider.updates(cursor.getString(19),item.getEvidenceItem());
             Witness_id = mWitnessProvider.updates(cursor.getString(20),item.getWitness());
+            Monitoring_id = mMonitoringPhotoProvider.updates(cursor.getString(21),item.getMonitoringPhoto());
+            Camera_id = mCameraPhotoProvider.updates(cursor.getString(22),item.getCameraPhoto());
             //return db.update(TABLE_NAME, cv, where, null) > 0;
         }
         cursor.close();
@@ -241,6 +258,8 @@ public class CrimeProvider {
         cv.put(IMPORTANTPHOTO_ITEM_NUMBER_COLUMN, ImportantPhoto_id);
         cv.put(EVIDENCE_ITEM_NUMBER_COLUMN, Evidence_id);
         cv.put(WITNESS_ITEM_NUMBER_COLUMN, Witness_id);
+        cv.put(MONITORINGPHOTO_ITEM_NUMBER_COLUMN, Monitoring_id);
+        cv.put(CAMERAPHOTO_ITEM_COLUMN, Camera_id);
 
         return db.update(TABLE_NAME, cv, where, null) > 0;
     }
@@ -267,6 +286,8 @@ public class CrimeProvider {
             result = mImportantPhotoProvider.deletes(cursor.getString(18));
             result = mEvidenceProvider.deletes(cursor.getString(19));
             result = mWitnessProvider.deletes(cursor.getString(20));
+            result = mMonitoringPhotoProvider.deletes(cursor.getString(21));
+            result = mCameraPhotoProvider.deletes(cursor.getString(22));
             //return db.delete(TABLE_NAME, where, null) > 0;
             cursor.close();
             result = db.delete(TABLE_NAME, where , null) > 0;
@@ -329,6 +350,8 @@ public class CrimeProvider {
         db.execSQL("DROP TABLE IF EXISTS " + ImportantPhotoProvider.TABLE_NAME);
         //Page 5
         db.execSQL("DROP TABLE IF EXISTS " + EvidenceProvider.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + MonitoringPhotoProvider.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CameraPhotoProvider.TABLE_NAME);
         //Page 6
         db.execSQL("DROP TABLE IF EXISTS " + OverviewProvider.TABLE_NAME);
         //Page 7
@@ -358,6 +381,8 @@ public class CrimeProvider {
         db.execSQL(ImportantPhotoProvider.CREATE_TABLE);
         //Page 5
         db.execSQL(EvidenceProvider.CREATE_TABLE);
+        db.execSQL(MonitoringPhotoProvider.CREATE_TABLE);
+        db.execSQL(CameraPhotoProvider.CREATE_TABLE);
         //Page 6
         db.execSQL(OverviewProvider.CREATE_TABLE);
         //Page 7
@@ -498,6 +523,12 @@ public class CrimeProvider {
 
             List<WitnessItem> Witness_items = mWitnessProvider.querys(cursor.getString(20));
             result.setWitness(Witness_items);
+
+            List<PhotoItem> Monitoring_items = mMonitoringPhotoProvider.querys(cursor.getString(21));
+            result.setMonitoringPhoto(Monitoring_items);
+
+            List<PhotoItem> Camera_items = mCameraPhotoProvider.querys(cursor.getString(22));
+            result.setCameraPhoto(Camera_items);
         }
 
         // 回傳結果
@@ -615,6 +646,12 @@ public class CrimeProvider {
 
             List<WitnessItem> Witness_items = mWitnessProvider.querys(cursor.getString(20));
             result.setWitness(Witness_items);
+
+            List<PhotoItem> Monitoring_items = mMonitoringPhotoProvider.querys(cursor.getString(21));
+            result.setMonitoringPhoto(Monitoring_items);
+
+            List<PhotoItem> Camera_items = mCameraPhotoProvider.querys(cursor.getString(22));
+            result.setCameraPhoto(Camera_items);
 
             return result;
         }
@@ -856,6 +893,8 @@ public class CrimeProvider {
                 List<PhotoItem> mPositionPhoto = item.getPositionPhoto();
                 List<PhotoItem> mOverviewPhoto = item.getOverviewPhoto();
                 List<PhotoItem> mImportantPhoto = item.getImportantPhoto();
+                List<PhotoItem> mMonitoringPhoto = item.getMonitoringPhoto();
+                List<PhotoItem> mCameraPhoto = item.getCameraPhoto();
                 for(int iP=0;iP<mPosition.size();iP++){
                     HashMap<String, String> mAttachInfo = new LinkedHashMap<String, String>();
                     mAttachInfo.put("type","方位示意图");
@@ -904,7 +943,30 @@ public class CrimeProvider {
                     }
                     mAttachInfoList.add(mAttachInfo);
                 }
-
+                for(int iM=0;iM<mMonitoringPhoto.size();iM++){
+                    HashMap<String, String> mAttachInfo = new LinkedHashMap<String, String>();
+                    mAttachInfo.put("type","监控画面");
+                    mAttachInfo.put("id",mMonitoringPhoto.get(iM).getUuid());
+                    mAttachInfo.put("caseid",item.getSceneId());
+                    if(mMonitoringPhoto.get(iM).getPhotoPath().isEmpty()){
+                        mAttachInfo.put("filename","");
+                    }else {
+                        mAttachInfo.put("filename",mMonitoringPhoto.get(iM).getPhotoPath().substring(mMonitoringPhoto.get(iM).getPhotoPath().lastIndexOf("/")));
+                    }
+                    mAttachInfoList.add(mAttachInfo);
+                }
+                for(int iI=0;iI<mCameraPhoto.size();iI++){
+                    HashMap<String, String> mAttachInfo = new LinkedHashMap<String, String>();
+                    mAttachInfo.put("type","摄像头位置");
+                    mAttachInfo.put("id",mCameraPhoto.get(iI).getUuid());
+                    mAttachInfo.put("caseid",item.getSceneId());
+                    if(mCameraPhoto.get(iI).getPhotoPath().isEmpty()){
+                        mAttachInfo.put("filename","");
+                    }else {
+                        mAttachInfo.put("filename",mCameraPhoto.get(iI).getPhotoPath().substring(mCameraPhoto.get(iI).getPhotoPath().lastIndexOf("/")));
+                    }
+                    mAttachInfoList.add(mAttachInfo);
+                }
             }
         }
 

@@ -71,6 +71,12 @@ public class CrimeItem implements Serializable {
     //Page 5 (Evidence)
     private List<EvidenceItem> mEvidenceItem;
 
+    //Page 5 (Monitoring)
+    private List<PhotoItem> mMonitoringPhotoItem;
+
+    //Page 5 (Camera)
+    private List<PhotoItem> mCameraPhotoItem;
+
     //Page 6 (Overview)
     private String mOverview;
 
@@ -141,6 +147,8 @@ public class CrimeItem implements Serializable {
         this.mImportantPhotoItem = new ArrayList<PhotoItem>();
 
         this.mEvidenceItem = new ArrayList<EvidenceItem>();
+        this.mMonitoringPhotoItem = new ArrayList<PhotoItem>();
+        this.mCameraPhotoItem = new ArrayList<PhotoItem>();
 
         this.mOverview = "";
 
@@ -487,6 +495,16 @@ public class CrimeItem implements Serializable {
     public List<EvidenceItem>  getEvidenceItem() {return mEvidenceItem; }
 
     public void setEvidenceItem(List<EvidenceItem>  evidenceItem) {this.mEvidenceItem = evidenceItem; }
+
+    //Page 5 (Evidence)
+    public List<PhotoItem>  getMonitoringPhoto() {return mMonitoringPhotoItem; }
+
+    public void setMonitoringPhoto(List<PhotoItem>  monitoringPhotoItem) {this.mMonitoringPhotoItem = monitoringPhotoItem; }
+
+    //Page 5 (Evidence)
+    public List<PhotoItem>  getCameraPhoto() {return mCameraPhotoItem; }
+
+    public void setCameraPhoto(List<PhotoItem>  cameraPhotoItem) {this.mCameraPhotoItem = cameraPhotoItem; }
 
     //Page 6
     public String getOverview() {return mOverview; }
