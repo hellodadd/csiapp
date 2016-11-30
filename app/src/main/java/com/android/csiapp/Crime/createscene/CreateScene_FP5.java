@@ -71,6 +71,7 @@ public class CreateScene_FP5 extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getActivity(), CreateScene_FP5_NewEvidenceActivity.class);
+                it.putExtra("com.android.csiapp.Databases.Item", mItem);
                 it.putExtra("com.android.csiapp.Databases.EvidenceItem", mEvidenceItem);
                 it.putExtra("Event",1);
                 startActivityForResult(it, 0);
@@ -86,6 +87,7 @@ public class CreateScene_FP5 extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent it = new Intent(getActivity(), CreateScene_FP5_NewEvidenceActivity.class);
                 mEvidenceItem = mEvidenceList.get(position);
+                it.putExtra("com.android.csiapp.Databases.Item", mItem);
                 it.putExtra("com.android.csiapp.Databases.EvidenceItem", mEvidenceItem);
                 it.putExtra("Event",2);
                 it.putExtra("Position", position);

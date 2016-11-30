@@ -17,6 +17,7 @@ import android.widget.Button;
 import com.android.csiapp.Crime.listscene.ListActivity;
 import com.android.csiapp.Crime.setting.SettingActivity;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
+import com.android.csiapp.Crime.utils.UserInfo;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.CrimeItem;
 
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Initial Device Dictionary
         DictionaryInfo.getInitialDictionary(context);
+        UserInfo.getInitialUser(context);
 
         mCreate = (Button) findViewById(R.id.imageButton_create);
         mCreate.setOnClickListener(new OnClickListener() {

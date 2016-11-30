@@ -283,6 +283,11 @@ public class LoginActivity extends AppCompatActivity {
                 editor2.putString("code", UnitCode);
                 editor2.commit();
 
+                String UserName = identifyProvider.getUserName(mUser);
+                SharedPreferences.Editor editor3 = context.getSharedPreferences("UserName", 0).edit();
+                editor3.putString("user", UserName);
+                editor3.commit();
+
                 Intent it = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(it);
                 finish();

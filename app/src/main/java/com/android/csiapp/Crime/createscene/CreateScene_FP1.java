@@ -2,6 +2,7 @@ package com.android.csiapp.Crime.createscene;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
+import com.android.csiapp.Crime.utils.UserInfo;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.R;
@@ -125,6 +127,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
     private void initView(View view){
         DictionaryInfo info = new DictionaryInfo(context);
+        UserInfo user = new UserInfo(context);
 
         mCasetype = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.casetype)));
         mCasetype_spinner = (Spinner) view.findViewById(R.id.casetype_spinner);
@@ -287,7 +290,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mProductPeopleDuties = (ClearableEditText) view.findViewById(R.id.productPeople_duties);
         mSafeguard = (ClearableEditText) view.findViewById(R.id.safeguard);
 
-        mSceneConductor = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.sceneConductor)));
+        mSceneConductor = user.getArray();
         mSceneConductor_spinner = (Spinner) view.findViewById(R.id.sceneConductor_spinner);
         mSceneConductor_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mSceneConductor);
         mSceneConductor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -302,7 +305,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             }
         });
 
-        mAccessInspectors = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.accessInspectors)));
+        mAccessInspectors = user.getArray();
         mAccessInspectors_spinner = (Spinner) view.findViewById(R.id.accessInspectors_spinner);
         mAccessInspectors_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mAccessInspectors);
         mAccessInspectors_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -342,17 +345,25 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             CrimeItem lastItem = getLastRecord();
             if(lastItem!=null){
                 mUnitsAssigned.setText(lastItem.getUnitsAssigned());
-                mAccessPolicemen.setText(lastItem.getAccessPolicemen());
                 mWeatherCondition_spinner.setSelection(getWeatherCondition(lastItem.getWeatherCondition()));
                 mWindDirection_spinner.setSelection(getWindDirection(lastItem.getWindDirection()));
                 mTemperature.setText(lastItem.getTemperature());
                 mHumidity.setText(lastItem.getHumidity());
-                mProductPeopleName.setText(lastItem.getProductPeopleName());
+                mSceneCondition_spinner.setSelection(getSceneCondition(lastItem.getSceneCondition()));
+                mChangeReason.setText(lastItem.getChangeReason());
+                mIlluminationCondition_spinner.setSelection(getIlluminationCondition(lastItem.getIlluminationCondition()));
                 mProductPeopleUnit.setText(lastItem.getProductPeopleUnit());
                 mProductPeopleDuties.setText(lastItem.getProductPeopleDuties());
-                mSafeguard.setText(lastItem.getSafeguard());
-                saveData();
             }
+
+            SharedPreferences prefs = context.getSharedPreferences("UserName", 0);
+            String UserName = prefs.getString("user", "");
+            mProductPeopleName.setText(UserName);
+            mSafeguard.setText("专人看护现场，防止他人进入");
+            mSceneConductor_spinner.setSelection(getSceneConductor(UserName));
+            mAccessInspectors_spinner.setSelection(getAccessInspectors(UserName));
+
+            saveData();
         }
     }
 

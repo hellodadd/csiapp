@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.android.csiapp.XmlHandler.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by user on 2016/9/29.
  */
@@ -141,6 +144,20 @@ public class IdentifyProvider {
         return result;
     }
 
+    public String getUserName(String name) {
+        String result ="";
+        String[] projection = new String[] {LOGINNAME_COLUMN, USERNAME_COLUMN};
+        String where = LOGINNAME_COLUMN + " = '" + name + "'";
+        Cursor cursor = db.query(TABLE_NAME, projection, where, null, null, null, null, null);
+
+        while (cursor!=null && cursor.moveToNext()) {
+            result = cursor.getString(1);
+        }
+
+        cursor.close();
+        return result;
+    }
+
     // 刪除所有記事資料
     public void deleteAll(){
         // 刪除原有的表格
@@ -178,6 +195,22 @@ public class IdentifyProvider {
 
         cursor.close();
         return false;
+    }
+
+    public List<String> queryToGetList(){
+        List<String> list = new ArrayList<>();
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
+        if(cursor==null) {
+            return null;
+        }
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.add(cursor.getString(3));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
     }
 
     // 建立範例資料

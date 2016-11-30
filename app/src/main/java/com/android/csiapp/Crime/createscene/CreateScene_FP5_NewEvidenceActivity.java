@@ -35,6 +35,8 @@ import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
+import com.android.csiapp.Crime.utils.UserInfo;
+import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.DictionaryProvider;
 import com.android.csiapp.Databases.EvidenceItem;
@@ -51,6 +53,7 @@ import java.util.Locale;
 
 public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity implements View.OnClickListener {
     private Context context = null;
+    private CrimeItem mItem;
     private EvidenceItem mEvidenceItem;
     private int mEvent;
     private int mPosition;
@@ -168,6 +171,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
 
     private void initView(){
         DictionaryInfo info = new DictionaryInfo(context);
+        UserInfo user = new UserInfo(context);
 
         mNew_evidence = (ImageView) findViewById(R.id.new_evidence);
 
@@ -244,7 +248,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         mTime_button = (Button) findViewById(R.id.time_button);
         mTime_button.setOnClickListener(this);
 
-        mGetPeople = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.get_people)));
+        mGetPeople = user.getArray();
         mGetPeople_spinner = (Spinner) findViewById(R.id.getPeople_spinner);
         mGetPeople_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mGetPeople);
         mGetPeople_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -263,6 +267,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private void initData(){
         if(mEvent == 1) {
             mEvidenceItem = new EvidenceItem();
+            mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.Item");
+            mEvidenceItem.setPeople(mItem.getAccessInspectors());
         }else{
             mEvidenceItem = (EvidenceItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.EvidenceItem");
         }
