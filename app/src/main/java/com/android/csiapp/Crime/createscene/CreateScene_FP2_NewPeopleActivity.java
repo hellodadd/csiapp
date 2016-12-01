@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
+import com.android.csiapp.Crime.utils.IdCardVerify;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.RelatedPeopleItem;
@@ -56,12 +57,18 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
             String msg = "";
             switch (menuItem.getItemId()) {
                 case R.id.action_click:
-                    msg += "Save";
+                    //msg += "Save";
                     saveData();
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.Databases.RelatedPeopleItem", mRelatedPeopleItem);
                     result.putExtra("Event", mEvent);
                     result.putExtra("Posiotion", mPosition);
+
+                    if(IdCardVerify.getValidateValue(mRelatedPeopleItem.getPeopleId())!=1){
+                        msg = "身分证号格式错误";
+                        Toast.makeText(CreateScene_FP2_NewPeopleActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+
                     if(mRelatedPeopleItem.checkInformation()){
                         setResult(Activity.RESULT_OK, result);
                         finish();
@@ -156,7 +163,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         mNumber = (ClearableEditText) findViewById(R.id.contact_number_editView);
         mAddress = (ClearableEditText) findViewById(R.id.address_editView);
         mId.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
-        mNumber.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+        mNumber.setKeyListener(DigitsKeyListener.getInstance("()-0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
 
         mId.addTextChangedListener(new TextWatcher(){
             @Override
@@ -203,13 +210,13 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         mRelatedPeopleItem.setUuid(CrimeProvider.getUUID());
     }
 
-
     private int getPeople(String category){
         for(int i=0; i<mReleationPeople.size(); i++){
             if(category.equalsIgnoreCase(mReleationPeople.get(i))) return i;
         }
         return 0;
     }
+
     private int getSex(String sex){
         for(int i=0; i<mSex.size(); i++){
             if(sex.equalsIgnoreCase(mSex.get(i))) return i;

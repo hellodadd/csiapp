@@ -151,7 +151,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         mBirthday_button.setOnClickListener(this);
 
         mNumber = (ClearableEditText) findViewById(R.id.contact_number_editView);
-        mNumber.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+        mNumber.setKeyListener(DigitsKeyListener.getInstance("()-0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
         mAddress = (ClearableEditText) findViewById(R.id.address_editView);
 
         mImage = (ImageView) findViewById(R.id.image);
