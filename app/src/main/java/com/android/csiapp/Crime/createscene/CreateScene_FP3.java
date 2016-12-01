@@ -3,6 +3,8 @@ package com.android.csiapp.Crime.createscene;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -15,14 +17,17 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.PhotoAdapter;
+import com.android.csiapp.Crime.utils.Priview_photo_Activity;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.FlatProvider;
 import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.Databases.PositionProvider;
 import com.android.csiapp.R;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -88,6 +93,16 @@ public class CreateScene_FP3 extends Fragment {
         mPosition_List=(ListView) view.findViewById(R.id.position_listview);
         mPosition_Adapter = new PhotoAdapter(context, mPositionList);
         mPosition_List.setAdapter(mPosition_Adapter);
+        mPosition_List.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
+            {
+                Intent it = new Intent(getActivity(), Priview_photo_Activity.class);
+                it.putExtra("Path",mPositionList.get(position).getPhotoPath());
+                startActivityForResult(it, 100);
+            }
+        });
         setListViewHeightBasedOnChildren(mPosition_List);
 
         mAdd_Flat = (ImageButton) view.findViewById(R.id.add_flat);
@@ -105,6 +120,16 @@ public class CreateScene_FP3 extends Fragment {
         mFlat_List=(ListView) view.findViewById(R.id.flat_listview);
         mFlat_Adapter = new PhotoAdapter(context, mFlatList);
         mFlat_List.setAdapter(mFlat_Adapter);
+        mFlat_List.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
+            {
+                Intent it = new Intent(getActivity(), Priview_photo_Activity.class);
+                it.putExtra("Path",mFlatList.get(position).getPhotoPath());
+                startActivityForResult(it, 100);
+            }
+        });
         setListViewHeightBasedOnChildren(mFlat_List);
 
         registerForContextMenu(mPosition_List);

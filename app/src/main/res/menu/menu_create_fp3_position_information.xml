@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <item
         android:id="@+id/action_camera"
-        android:icon="@drawable/camera"
+        android:icon="@drawable/edit"
         app:showAsAction="always"
         android:title="" />
     <item

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
@@ -24,6 +25,8 @@ import java.util.List;
 public class PhotoAdapter extends BaseAdapter {
     private LayoutInflater myInflater;
     private List<PhotoItem> items;
+    private Bitmap bp = null;
+    private ViewHolder holder =null;
 
     public PhotoAdapter(Context context, List<PhotoItem> items){
         myInflater = LayoutInflater.from(context);
@@ -47,7 +50,6 @@ public class PhotoAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
         if(convertView==null){
             convertView = myInflater.inflate(R.layout.photoadapterview, null);
             holder = new ViewHolder(
@@ -60,10 +62,10 @@ public class PhotoAdapter extends BaseAdapter {
         PhotoItem item = (PhotoItem)getItem(position);
         String path = item.getPhotoPath();
         if(!path.isEmpty()){
-            Bitmap bitmap = null;
-            bitmap = loadBitmapFromFile(new File(path));
-            if(bitmap!=null) holder.txtItemPhoto.setImageBitmap(bitmap);
+            bp = loadBitmapFromFile(new File(path));
+            if(bp!=null) holder.txtItemPhoto.setImageBitmap(bp);
         }
+
         return convertView;
     }
 

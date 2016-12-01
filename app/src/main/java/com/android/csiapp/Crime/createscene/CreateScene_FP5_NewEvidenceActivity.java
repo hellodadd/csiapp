@@ -34,6 +34,7 @@ import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
+import com.android.csiapp.Crime.utils.Priview_photo_Activity;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Crime.utils.UserInfo;
 import com.android.csiapp.Databases.CrimeItem;
@@ -174,6 +175,16 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         UserInfo user = new UserInfo(context);
 
         mNew_evidence = (ImageView) findViewById(R.id.new_evidence);
+        mNew_evidence.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, Priview_photo_Activity.class);
+                it.putExtra("Path",mEvidenceItem.getPhotoPath());
+                startActivityForResult(it, 100);
+            }
+        });
 
         mEvidence_category = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence_category)));
         mEvidence_category_spinner = (Spinner) findViewById(R.id.evidence_category_spinner);
@@ -340,12 +351,14 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String path = LocalFileUri.getPath();
-        if (path != null) {
-            mEvidenceItem.setPhotoPath(path);
-            setPhoto(path);
-        }else{
-            finish();
+        if(requestCode==PHOTO_TYPE_NEW_EVIDENCE) {
+            String path = LocalFileUri.getPath();
+            if (path != null) {
+                mEvidenceItem.setPhotoPath(path);
+                setPhoto(path);
+            } else {
+                finish();
+            }
         }
     }
 

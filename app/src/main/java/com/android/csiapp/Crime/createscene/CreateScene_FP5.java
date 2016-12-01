@@ -21,6 +21,7 @@ import android.widget.ListView;
 
 import com.android.csiapp.Crime.utils.EvidenceAdapter;
 import com.android.csiapp.Crime.utils.PhotoAdapter;
+import com.android.csiapp.Crime.utils.Priview_photo_Activity;
 import com.android.csiapp.Databases.CameraPhotoProvider;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
@@ -62,6 +63,7 @@ public class CreateScene_FP5 extends Fragment {
     private PhotoAdapter mCamera_Adapter;
     private ImageButton mAdd_Camera;
 
+    public static final int TYPE_EVIDENCE = 0;
     public static final int PHOTO_TYPE_MONITORING = 1;
     public static final int PHOTO_TYPE_CAMERA= 2;
 
@@ -105,7 +107,7 @@ public class CreateScene_FP5 extends Fragment {
                 it.putExtra("com.android.csiapp.Databases.Item", mItem);
                 it.putExtra("com.android.csiapp.Databases.EvidenceItem", mEvidenceItem);
                 it.putExtra("Event",1);
-                startActivityForResult(it, 0);
+                startActivityForResult(it, TYPE_EVIDENCE);
             }
         });
 
@@ -122,7 +124,7 @@ public class CreateScene_FP5 extends Fragment {
                 it.putExtra("com.android.csiapp.Databases.EvidenceItem", mEvidenceItem);
                 it.putExtra("Event",2);
                 it.putExtra("Position", position);
-                startActivityForResult(it, 0);
+                startActivityForResult(it, TYPE_EVIDENCE);
             }
         };
         mEvidence_List.setOnItemClickListener(itemListener1);
@@ -139,6 +141,16 @@ public class CreateScene_FP5 extends Fragment {
         mMonitoring_List=(ListView) view.findViewById(R.id.monitoring_photo_listview);
         mMonitoring_Adapter = new PhotoAdapter(context, mMonitoringList);
         mMonitoring_List.setAdapter(mMonitoring_Adapter);
+        mMonitoring_List.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
+            {
+                Intent it = new Intent(getActivity(), Priview_photo_Activity.class);
+                it.putExtra("Path",mMonitoringList.get(position).getPhotoPath());
+                startActivityForResult(it, 100);
+            }
+        });
         setListViewHeightBasedOnChildren(mMonitoring_List);
 
         mAdd_Camera = (ImageButton) view.findViewById(R.id.add_camera_position);
@@ -153,6 +165,16 @@ public class CreateScene_FP5 extends Fragment {
         mCamera_List=(ListView) view.findViewById(R.id.camera_photo_listview);
         mCamera_Adapter = new PhotoAdapter(context, mCameraList);
         mCamera_List.setAdapter(mCamera_Adapter);
+        mCamera_List.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
+            {
+                Intent it = new Intent(getActivity(), Priview_photo_Activity.class);
+                it.putExtra("Path",mCameraList.get(position).getPhotoPath());
+                startActivityForResult(it, 100);
+            }
+        });
         setListViewHeightBasedOnChildren(mCamera_List);
 
         registerForContextMenu(mEvidence_List);
@@ -234,7 +256,7 @@ public class CreateScene_FP5 extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("Photo","onActivityResult");
         if (resultCode == Activity.RESULT_OK) {
-            if(requestCode == 0) {
+            if(requestCode == TYPE_EVIDENCE) {
                 EvidenceItem evidenceItem = (EvidenceItem) data.getSerializableExtra("com.android.csiapp.Databases.EvidenceItem");
                 int event = (int) data.getIntExtra("Event", 1);
                 int position = (int) data.getIntExtra("Position", 0);

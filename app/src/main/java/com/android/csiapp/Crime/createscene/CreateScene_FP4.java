@@ -20,6 +20,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.android.csiapp.Crime.utils.PhotoAdapter;
+import com.android.csiapp.Crime.utils.Priview_photo_Activity;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.ImportantPhotoProvider;
@@ -105,6 +106,16 @@ public class CreateScene_FP4 extends Fragment {
         mPosition_List=(ListView) view.findViewById(R.id.Position_photo_listview);
         mPosition_Adapter = new PhotoAdapter(context, mPositionList);
         mPosition_List.setAdapter(mPosition_Adapter);
+        mPosition_List.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
+            {
+                Intent it = new Intent(getActivity(), Priview_photo_Activity.class);
+                it.putExtra("Path",mPositionList.get(position).getPhotoPath());
+                startActivityForResult(it, 100);
+            }
+        });
         setListViewHeightBasedOnChildren(mPosition_List);
 
         mAdd_Like = (ImageButton) view.findViewById(R.id.add_like_photo_imageButton);
@@ -119,6 +130,16 @@ public class CreateScene_FP4 extends Fragment {
         mLike_List=(ListView) view.findViewById(R.id.Like_photo_listview);
         mLike_Adapter = new PhotoAdapter(context, mLikeList);
         mLike_List.setAdapter(mLike_Adapter);
+        mLike_List.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
+            {
+                Intent it = new Intent(getActivity(), Priview_photo_Activity.class);
+                it.putExtra("Path",mLikeList.get(position).getPhotoPath());
+                startActivityForResult(it, 100);
+            }
+        });
         setListViewHeightBasedOnChildren(mLike_List);
 
         mAdd_Important = (ImageButton) view.findViewById(R.id.add_important_photo_imageButton);
@@ -133,6 +154,16 @@ public class CreateScene_FP4 extends Fragment {
         mImportant_List=(ListView) view.findViewById(R.id.Important_photo_listview);
         mImportant_Adapter = new PhotoAdapter(context, mImportantList);
         mImportant_List.setAdapter(mImportant_Adapter);
+        mImportant_List.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
+            {
+                Intent it = new Intent(getActivity(), Priview_photo_Activity.class);
+                it.putExtra("Path",mImportantList.get(position).getPhotoPath());
+                startActivityForResult(it, 100);
+            }
+        });
         setListViewHeightBasedOnChildren(mImportant_List);
 
         registerForContextMenu(mPosition_List);

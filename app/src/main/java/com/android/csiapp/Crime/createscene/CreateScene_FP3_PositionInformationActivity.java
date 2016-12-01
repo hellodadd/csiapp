@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.DateTimePicker;
+import com.android.csiapp.Crime.utils.Priview_photo_Activity;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Crime.utils.ScreenShot;
 import com.android.csiapp.Databases.CrimeItem;
@@ -45,8 +46,13 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
             switch (menuItem.getItemId()) {
                 case R.id.action_camera:
                     msg += "Camera";
-                    Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity_Amap.class);
-                    startActivityForResult(it, 0);
+                    if(mAdd.equalsIgnoreCase("Position")) {
+                        Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity_Amap.class);
+                        startActivityForResult(it, 0);
+                    }else if(mAdd.equalsIgnoreCase("Flat")){
+                        Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewFlatActivity.class);
+                        startActivityForResult(it, 0);
+                    }
                     break;
                 case R.id.action_click:
                     msg += "Save";
@@ -81,7 +87,10 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         mAdd = (String) getIntent().getStringExtra("Add");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(context.getResources().getString(R.string.title_activity_position_information));
+        String title = (mAdd.equalsIgnoreCase("Position"))
+                ?context.getResources().getString(R.string.title_activity_position_information)
+                :context.getResources().getString(R.string.title_activity_flat_information);
+        toolbar.setTitle(title);
         toolbar.setTitleTextColor(context.getResources().getColor(R.color.titleBar));
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.btn_back_mini);
@@ -115,6 +124,16 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
 
     private void initView(){
         mNew_Position = (ImageView) findViewById(R.id.new_position);
+        mNew_Position.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, Priview_photo_Activity.class);
+                it.putExtra("Path",mPositionItem.getPhotoPath());
+                startActivityForResult(it, 100);
+            }
+        });
         mInformationText = (TextView) findViewById(R.id.information);
         mInformationText.setText(getInformation());
     }
