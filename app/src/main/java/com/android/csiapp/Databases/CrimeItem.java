@@ -59,6 +59,9 @@ public class CrimeItem implements Serializable {
     //Page 3 (Position)
     private List<PhotoItem> mPositionItem;
 
+    //Page 3 (Flat)
+    private List<PhotoItem> mFlatItem;
+
     //Page 4 (PositionPhoto)
     private List<PhotoItem> mPositionPhotoItem;
 
@@ -141,6 +144,7 @@ public class CrimeItem implements Serializable {
         this.mCrimeToolItem = new ArrayList<CrimeToolItem>();
 
         this.mPositionItem = new ArrayList<PhotoItem>();
+        this.mFlatItem = new ArrayList<PhotoItem>();
 
         this.mPositionPhotoItem = new ArrayList<PhotoItem>();
         this.mOverviewPhotoItem = new ArrayList<PhotoItem>();
@@ -475,6 +479,11 @@ public class CrimeItem implements Serializable {
     public List<PhotoItem>  getPosition() {return mPositionItem; }
 
     public void setPosition(List<PhotoItem>  positionItem) {this.mPositionItem = positionItem; }
+
+    //Page 3 (Flat)
+    public List<PhotoItem>  getFlat() {return mFlatItem; }
+
+    public void setFlat(List<PhotoItem>  flatItem) {this.mFlatItem = flatItem; }
 
     //Page 4 (PositionPhoto)
     public List<PhotoItem>  getPositionPhoto() {return mPositionPhotoItem; }

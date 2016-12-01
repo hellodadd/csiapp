@@ -80,6 +80,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Crime.createscene.CreateScene_FP3_NewPositionActivity_Baidumap"
             android:screenOrientation="portrait" />
+        <activity android:name=".Crime.createscene.CreateScene_FP3_NewFlatActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".Crime.createscene.CreateScene_FP5_NewEvidenceActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:screenOrientation="portrait"/>

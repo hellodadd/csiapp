@@ -79,7 +79,9 @@
 
     <string name="step_3">现场图</string>
     <string name="position">方位示意图</string>
+    <string name="flat">平面示意图</string>
     <string name="title_activity_position_information">方位示意图</string>
+    <string name="title_activity_flat_information">平面示意图</string>
     <string name="title_activity_new_position">方位示意图</string>
     <string name="title_activity_offlinemap">下载离线地图</string>
     <string name="screen_shot">截取</string>

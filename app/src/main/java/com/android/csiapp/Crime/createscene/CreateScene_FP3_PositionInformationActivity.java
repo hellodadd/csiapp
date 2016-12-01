@@ -33,7 +33,7 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
     private CrimeItem mItem;
     private PhotoItem mPositionItem;
     private int mEvent;
-    private int mPosition;
+    private String mAdd;
     private ImageView mNew_Position;
     private TextView mInformationText;
     private String mFilepath;
@@ -56,7 +56,6 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.Databases.PhotoItem", mPositionItem);
                     result.putExtra("Event",mEvent);
-                    result.putExtra("Position",mPosition);
                     setResult(Activity.RESULT_OK, result);
                     finish();
                     break;
@@ -79,7 +78,7 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         context = this.getApplicationContext();
         mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.CrimeItem");
         mEvent = (int) getIntent().getIntExtra("Event", 1);
-        mPosition = (int) getIntent().getIntExtra("Position", 0);
+        mAdd = (String) getIntent().getStringExtra("Add");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(context.getResources().getString(R.string.title_activity_position_information));
@@ -99,11 +98,13 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
 
         if(mEvent == 1) {
             mPositionItem = new PhotoItem();
-            Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity_Amap.class);
-            startActivityForResult(it, 0);
-        }else{
-            mPositionItem = mItem.getPosition().get(mPosition);
-            setPhoto(mPositionItem.getPhotoPath());
+            if(mAdd.equalsIgnoreCase("Position")) {
+                Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity_Amap.class);
+                startActivityForResult(it, 0);
+            }else if(mAdd.equalsIgnoreCase("Flat")){
+                Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewFlatActivity.class);
+                startActivityForResult(it, 0);
+            }
         }
     }
 

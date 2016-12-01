@@ -18,6 +18,7 @@ import android.widget.ListView;
 
 import com.android.csiapp.Crime.utils.PhotoAdapter;
 import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Databases.FlatProvider;
 import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.Databases.PositionProvider;
 import com.android.csiapp.R;
@@ -39,9 +40,16 @@ public class CreateScene_FP3 extends Fragment {
     private PhotoAdapter mPosition_Adapter;
     private ImageButton mAdd_Position;
 
+    List<PhotoItem> mFlatList;
+    private ListView mFlat_List;
+    private PhotoAdapter mFlat_Adapter;
+    private ImageButton mAdd_Flat;
+
     final int POSITION_DELETE = 3;
+    final int FLAT_DELETE = 4;
 
     private PositionProvider mPositionProvider;
+    private FlatProvider mFlatProvider;
 
     public CreateScene_FP3() {
         // Required empty public constructor
@@ -59,6 +67,7 @@ public class CreateScene_FP3 extends Fragment {
         initView(view);
 
         mPositionProvider = new PositionProvider(context);
+        mFlatProvider = new FlatProvider(context);
 
         return view;
     }
@@ -70,6 +79,7 @@ public class CreateScene_FP3 extends Fragment {
             public void onClick(View view) {
                 Intent it = new Intent(getActivity(), CreateScene_FP3_PositionInformationActivity.class);
                 it.putExtra("com.android.csiapp.Databases.CrimeItem", mItem);
+                it.putExtra("Add","Position");
                 it.putExtra("Event",1);
                 startActivityForResult(it, 0);
             }
@@ -80,7 +90,25 @@ public class CreateScene_FP3 extends Fragment {
         mPosition_List.setAdapter(mPosition_Adapter);
         setListViewHeightBasedOnChildren(mPosition_List);
 
+        mAdd_Flat = (ImageButton) view.findViewById(R.id.add_flat);
+        mAdd_Flat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getActivity(), CreateScene_FP3_PositionInformationActivity.class);
+                it.putExtra("com.android.csiapp.Databases.CrimeItem", mItem);
+                it.putExtra("Add","Flat");
+                it.putExtra("Event",1);
+                startActivityForResult(it, 1);
+            }
+        });
+
+        mFlat_List=(ListView) view.findViewById(R.id.flat_listview);
+        mFlat_Adapter = new PhotoAdapter(context, mFlatList);
+        mFlat_List.setAdapter(mFlat_Adapter);
+        setListViewHeightBasedOnChildren(mFlat_List);
+
         registerForContextMenu(mPosition_List);
+        registerForContextMenu(mFlat_List);
     }
 
     @Override
@@ -89,6 +117,8 @@ public class CreateScene_FP3 extends Fragment {
         String delete = context.getResources().getString(R.string.list_delete);
         if (v.getId()==R.id.position_listview) {
             menu.add(0, POSITION_DELETE, 0, delete);
+        }else if(v.getId()==R.id.flat_listview){
+            menu.add(0, FLAT_DELETE, 0, delete);
         }
     }
 
@@ -102,6 +132,12 @@ public class CreateScene_FP3 extends Fragment {
                 setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
                 return true;
+            case FLAT_DELETE:
+                if(mEvent == 2) mFlatProvider.delete(mFlatList.get(info.position).getId());
+                mFlatList.remove(info.position);
+                setListViewHeightBasedOnChildren(mFlat_List);
+                mFlat_Adapter.notifyDataSetChanged();
+                return true;
             default:
                 return super.onContextItemSelected(item);
         }
@@ -109,17 +145,18 @@ public class CreateScene_FP3 extends Fragment {
 
     private void initData(){
         mPositionList = mItem.getPosition();
+        mFlatList = mItem.getFlat();
     }
 
     private void saveData(){
         mItem.setPosition(mPositionList);
+        mItem.setFlat(mFlatList);
     }
 
     @Override
     public void onResume(){
         super.onResume();
         initData();
-        mPosition_Adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -130,19 +167,36 @@ public class CreateScene_FP3 extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && requestCode == 0) {
-            // 新增記事資料到資料庫
-            PhotoItem positionItem = (PhotoItem) data.getSerializableExtra("com.android.csiapp.Databases.PhotoItem");
-            int event = (int) data.getIntExtra("Event", 1);
-            int position = (int) data.getIntExtra("Position",0);
-            if(mEvent == 2 && event ==1) positionItem.setId(mPositionProvider.insert(positionItem));
-            if(event == 1) {
-                mPositionList.add(positionItem);
-            }else{
-                mPositionList.set(position, positionItem);
+        if (resultCode == Activity.RESULT_OK) {
+            if(requestCode == 0) {
+                // 新增記事資料到資料庫
+                PhotoItem positionItem = (PhotoItem) data.getSerializableExtra("com.android.csiapp.Databases.PhotoItem");
+                int event = (int) data.getIntExtra("Event", 1);
+                int position = (int) data.getIntExtra("Position", 0);
+                if (mEvent == 2 && event == 1)
+                    positionItem.setId(mPositionProvider.insert(positionItem));
+                if (event == 1) {
+                    mPositionList.add(positionItem);
+                } else {
+                    mPositionList.set(position, positionItem);
+                }
+                setListViewHeightBasedOnChildren(mPosition_List);
+                mPosition_Adapter.notifyDataSetChanged();
+            }else if(requestCode == 1){
+                // 新增記事資料到資料庫
+                PhotoItem flatItem = (PhotoItem) data.getSerializableExtra("com.android.csiapp.Databases.PhotoItem");
+                int event = (int) data.getIntExtra("Event", 1);
+                int position = (int) data.getIntExtra("Position", 0);
+                if (mEvent == 2 && event == 1)
+                    flatItem.setId(mFlatProvider.insert(flatItem));
+                if (event == 1) {
+                    mFlatList.add(flatItem);
+                } else {
+                    mFlatList.set(position, flatItem);
+                }
+                setListViewHeightBasedOnChildren(mFlat_List);
+                mFlat_Adapter.notifyDataSetChanged();
             }
-            setListViewHeightBasedOnChildren(mPosition_List);
-            mPosition_Adapter.notifyDataSetChanged();
         }
     }
 

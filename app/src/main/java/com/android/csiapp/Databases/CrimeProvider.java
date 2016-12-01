@@ -53,6 +53,7 @@ public class CrimeProvider {
 
     public static final String MONITORINGPHOTO_ITEM_NUMBER_COLUMN = "monitoringphoto_item_number";
     public static final String CAMERAPHOTO_ITEM_COLUMN = "cameraphoto_item_number";
+    public static final String FLAT_ITEM_COLUMN = "flat_item_number";
 
     // 使用上面宣告的變數建立表格的SQL指令
     public static final String CREATE_TABLE =
@@ -79,7 +80,8 @@ public class CrimeProvider {
                     EVIDENCE_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
                     WITNESS_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
                     MONITORINGPHOTO_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    CAMERAPHOTO_ITEM_COLUMN + " INTEGER NOT NULL)";
+                    CAMERAPHOTO_ITEM_COLUMN + " INTEGER NOT NULL, " +
+                    FLAT_ITEM_COLUMN + " INTEGER NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;
@@ -96,6 +98,7 @@ public class CrimeProvider {
     private EvidenceProvider mEvidenceProvider;
     private MonitoringPhotoProvider mMonitoringPhotoProvider;
     private CameraPhotoProvider mCameraPhotoProvider;
+    private FlatProvider mFlatProvider;
     private WitnessProvider mWitnessProvider;
 
     private Context mContext;
@@ -117,6 +120,7 @@ public class CrimeProvider {
         mEvidenceProvider = new EvidenceProvider(context);
         mMonitoringPhotoProvider = new MonitoringPhotoProvider(context);
         mCameraPhotoProvider = new CameraPhotoProvider(context);
+        mFlatProvider = new FlatProvider(context);
         mWitnessProvider = new WitnessProvider(context);
     }
 
@@ -191,6 +195,10 @@ public class CrimeProvider {
 
         String camera_id = mCameraPhotoProvider.inserts(item.getCameraPhoto());
         cv.put(CAMERAPHOTO_ITEM_COLUMN, camera_id);
+
+        String flat_id = mFlatProvider.inserts(item.getFlat());
+        cv.put(FLAT_ITEM_COLUMN, flat_id);
+
         // 新增一筆資料並取得編號
         // 第一個參數是表格名稱
         // 第二個參數是沒有指定欄位值的預設值
@@ -215,7 +223,7 @@ public class CrimeProvider {
         Cursor cursor = db.query(
                 TABLE_NAME, null, where, null, null, null, null, null);
 
-        String RelatedPeople_id="", Lost_id="", CrimeTool_id="", Position_id="", PositionPhoto_id="", OverviewPhoto_id="", ImportantPhoto_id="", Evidence_id="", Monitoring_id="", Camera_id="",Witness_id="";
+        String RelatedPeople_id="", Lost_id="", CrimeTool_id="", Position_id="", Flat_id="", PositionPhoto_id="", OverviewPhoto_id="", ImportantPhoto_id="", Evidence_id="", Monitoring_id="", Camera_id="", Witness_id="";
 
         if(cursor.moveToFirst()) {
             // 執行修改資料並回傳修改的資料數量是否成功
@@ -233,6 +241,7 @@ public class CrimeProvider {
             Witness_id = mWitnessProvider.updates(cursor.getString(20),item.getWitness());
             Monitoring_id = mMonitoringPhotoProvider.updates(cursor.getString(21),item.getMonitoringPhoto());
             Camera_id = mCameraPhotoProvider.updates(cursor.getString(22),item.getCameraPhoto());
+            Flat_id = mFlatProvider.updates(cursor.getString(23),item.getFlat());
             //return db.update(TABLE_NAME, cv, where, null) > 0;
         }
         cursor.close();
@@ -260,6 +269,7 @@ public class CrimeProvider {
         cv.put(WITNESS_ITEM_NUMBER_COLUMN, Witness_id);
         cv.put(MONITORINGPHOTO_ITEM_NUMBER_COLUMN, Monitoring_id);
         cv.put(CAMERAPHOTO_ITEM_COLUMN, Camera_id);
+        cv.put(FLAT_ITEM_COLUMN, Flat_id);
 
         return db.update(TABLE_NAME, cv, where, null) > 0;
     }
@@ -288,6 +298,7 @@ public class CrimeProvider {
             result = mWitnessProvider.deletes(cursor.getString(20));
             result = mMonitoringPhotoProvider.deletes(cursor.getString(21));
             result = mCameraPhotoProvider.deletes(cursor.getString(22));
+            result = mFlatProvider.deletes(cursor.getString(23));
             //return db.delete(TABLE_NAME, where, null) > 0;
             cursor.close();
             result = db.delete(TABLE_NAME, where , null) > 0;
@@ -344,6 +355,7 @@ public class CrimeProvider {
         db.execSQL("DROP TABLE IF EXISTS " + CrimeToolProvider.TABLE_NAME);
         //Page 3
         db.execSQL("DROP TABLE IF EXISTS " + PositionProvider.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + FlatProvider.TABLE_NAME);
         //Page 4
         db.execSQL("DROP TABLE IF EXISTS " + PositionPhotoProvider.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + OverviewPhotoProvider.TABLE_NAME);
@@ -375,6 +387,7 @@ public class CrimeProvider {
         db.execSQL(CrimeToolProvider.CREATE_TABLE);
         //Page 3
         db.execSQL(PositionProvider.CREATE_TABLE);
+        db.execSQL(FlatProvider.CREATE_TABLE);
         //Page 4
         db.execSQL(PositionPhotoProvider.CREATE_TABLE);
         db.execSQL(OverviewPhotoProvider.CREATE_TABLE);
@@ -529,6 +542,9 @@ public class CrimeProvider {
 
             List<PhotoItem> Camera_items = mCameraPhotoProvider.querys(cursor.getString(22));
             result.setCameraPhoto(Camera_items);
+
+            List<PhotoItem> Flat_items = mFlatProvider.querys(cursor.getString(23));
+            result.setFlat(Flat_items);
         }
 
         // 回傳結果
@@ -653,6 +669,8 @@ public class CrimeProvider {
             List<PhotoItem> Camera_items = mCameraPhotoProvider.querys(cursor.getString(22));
             result.setCameraPhoto(Camera_items);
 
+            List<PhotoItem> Flat_items = mFlatProvider.querys(cursor.getString(23));
+            result.setFlat(Flat_items);
             return result;
         }
 

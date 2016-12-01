@@ -62,9 +62,9 @@ public class CreateScene_FP4 extends Fragment {
     public static final int PHOTO_TYPE_LIKE = 2;
     public static final int PHOTO_TYPE_IMPORTANT = 3;
 
-    final int POSITION_PHOTO_DELETE = 4;
-    final int LIKE_PHOTO_DELETE = 5;
-    final int IMPORTANT_PHOTO_DELETE = 6;
+    final int POSITION_PHOTO_DELETE = 5;
+    final int LIKE_PHOTO_DELETE = 6;
+    final int IMPORTANT_PHOTO_DELETE = 7;
 
     private PositionPhotoProvider mPositionPhotoProvider;
     private OverviewPhotoProvider mOverviewPhotoProvider;

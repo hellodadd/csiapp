@@ -62,12 +62,12 @@ public class CreateScene_FP5 extends Fragment {
     private PhotoAdapter mCamera_Adapter;
     private ImageButton mAdd_Camera;
 
-    public static final int PHOTO_TYPE_MONITORING = 4;
-    public static final int PHOTO_TYPE_CAMERA= 5;
+    public static final int PHOTO_TYPE_MONITORING = 1;
+    public static final int PHOTO_TYPE_CAMERA= 2;
 
-    final int EVIDENCE_DELETE = 7;
-    final int MONITORING_DELETE = 8;
-    final int CAMERA_DELETE = 9;
+    final int EVIDENCE_DELETE = 8;
+    final int MONITORING_DELETE = 9;
+    final int CAMERA_DELETE = 10;
 
     private EvidenceProvider mEvidenceProvider;
     private MonitoringPhotoProvider mMonitoringPhotoProvider;
