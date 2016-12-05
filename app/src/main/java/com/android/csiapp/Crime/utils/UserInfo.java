@@ -9,6 +9,10 @@ import com.android.csiapp.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by user on 2016/11/30.
@@ -16,6 +20,7 @@ import java.util.Arrays;
 public class UserInfo {
     private Context mContext;
     private static ArrayList<String> mUser = new ArrayList<String>();
+    private static HashMap<String,String> mUserHashMap  = new HashMap<String,String>();
 
     public UserInfo(Context context){
         this.mContext = context;
@@ -28,6 +33,7 @@ public class UserInfo {
 
         if(initstatus.equalsIgnoreCase("1")) {
             mUser = (ArrayList<String>) identifyProvider.queryToGetList();
+            mUserHashMap  = (HashMap<String,String>) identifyProvider.queryToGetHashMap();
         }
     }
 
@@ -35,5 +41,32 @@ public class UserInfo {
         ArrayList<String> result = new ArrayList<String>();
         result = (mUser.size()!=0)?mUser:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.sceneConductor)));
         return result;
+    }
+
+    public static String getUserName(String LoginName) {
+        String result = "";
+        if(mUserHashMap.size()!=0) result = mUserHashMap.get(LoginName);
+        return result;
+    }
+
+    public static String getLoginName(String UserName) {
+        String result = "";
+        if(mUserHashMap.size()!=0) result = (String) valueGetKey(mUserHashMap, UserName);
+        return result;
+    }
+
+    private static String valueGetKey(Map map, String value) {
+        Set set = map.entrySet();
+        ArrayList arr = new ArrayList<>();
+        Iterator it = set.iterator();
+        while(it.hasNext()) {
+            Map.Entry entry = (Map.Entry)it.next();
+            if(entry.getValue().equals(value)) {
+                String s = (String) entry.getKey();
+                arr.add(s);
+            }
+        }
+        if(arr.size()!=0) return (String) arr.get(0);
+        else return "";
     }
 }

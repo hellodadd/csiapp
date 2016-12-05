@@ -21,6 +21,7 @@ public class DictionaryInfo {
     private Context mContext;
     //private static HashMap<String,String> ParentData = new HashMap<>();
     //private static HashMap<String, HashMap<String,List<String>>> Data = new HashMap<>();
+    public final static String mCaseTypeKey = "AJLBDM";
     public final static String mAreaKey = "GXSDM";
     public final static String mSceneConditionKey = "XCTJDM";
     public final static String mWeatherConditionKey = "XCKYTQQKDM";
@@ -47,6 +48,7 @@ public class DictionaryInfo {
     public final static String mSelectLocationKey = "XZCSFLDM";
     public final static String mCrimePurposeKey = "ZADJMDDM";
 
+    private static ArrayList<String> mCaseType = new ArrayList<String>();
     private static ArrayList<String> mArea = new ArrayList<String>();
     private static ArrayList<String> mSceneCondition = new ArrayList<String>();
     private static ArrayList<String> mWeatherCondition = new ArrayList<String>();
@@ -73,6 +75,7 @@ public class DictionaryInfo {
     private static ArrayList<String> mSelectLocation = new ArrayList<String>();
     private static ArrayList<String> mCrimePurpose = new ArrayList<String>();
 
+    private static HashMap<String,String> mCaseTypeHashMap = new HashMap<String,String>();
     private static HashMap<String,String> mAreaHashMap = new HashMap<String,String>();
     private static HashMap<String,String> mSceneConditionHashMap  = new HashMap<String,String>();
     private static HashMap<String,String> mWeatherConditionHashMap  = new HashMap<String,String>();
@@ -109,6 +112,7 @@ public class DictionaryInfo {
         DictionaryProvider dictionaryProvider = new DictionaryProvider(context);
 
         if(initstatus.equalsIgnoreCase("1")) {
+            mCaseType = (ArrayList<String>) dictionaryProvider.queryToGetList(mCaseTypeKey);
             mArea = (ArrayList<String>) dictionaryProvider.queryToGetList(mAreaKey);
             mSceneCondition = (ArrayList<String>) dictionaryProvider.queryToGetList(mSceneConditionKey);
             mWeatherCondition = (ArrayList<String>) dictionaryProvider.queryToGetList(mWeatherConditionKey);
@@ -135,6 +139,7 @@ public class DictionaryInfo {
             mSelectLocation = (ArrayList<String>) dictionaryProvider.queryToGetList(mSelectLocationKey);
             mCrimePurpose = (ArrayList<String>) dictionaryProvider.queryToGetList(mCrimePurposeKey);
 
+            mCaseTypeHashMap  = (HashMap<String,String>) dictionaryProvider.queryToGetHashMap(mCaseTypeKey);
             mAreaHashMap  = (HashMap<String,String>) dictionaryProvider.queryToGetHashMap(mAreaKey);
             mSceneConditionHashMap  = (HashMap<String,String>) dictionaryProvider.queryToGetHashMap(mSceneConditionKey);
             mWeatherConditionHashMap  = (HashMap<String,String>) dictionaryProvider.queryToGetHashMap(mWeatherConditionKey);
@@ -166,6 +171,9 @@ public class DictionaryInfo {
     public ArrayList<String> getArray(String rootkey){
         ArrayList<String> result = new ArrayList<String>();
         switch (rootkey){
+            case mCaseTypeKey:
+                result = (mCaseType.size()!=0)?mCaseType:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.casetype)));
+                break;
             case mAreaKey:
                 result = (mArea.size()!=0)?mArea:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.area)));
                 break;
@@ -250,6 +258,9 @@ public class DictionaryInfo {
     public static String getDictValue(String rootkey, String DictKey){
         String result = "";
         switch (rootkey){
+            case mCaseTypeKey:
+                if(mCaseTypeHashMap.size()!=0) result = mCaseTypeHashMap.get(DictKey);
+                break;
             case mAreaKey:
                 if(mAreaHashMap.size()!=0) result = mAreaHashMap.get(DictKey);
                 break;
@@ -335,6 +346,9 @@ public class DictionaryInfo {
     public static String getDictKey(String rootkey, String DictValue){
         String result = "";
         switch (rootkey){
+            case mCaseTypeKey:
+                if(mCaseTypeHashMap.size()!=0) result = (String) valueGetKey(mCaseTypeHashMap, DictValue);
+                break;
             case mAreaKey:
                 if(mAreaHashMap.size()!=0) result = (String) valueGetKey(mAreaHashMap, DictValue);
                 break;

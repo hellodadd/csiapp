@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
+import com.android.csiapp.Crime.utils.UserInfo;
 import com.android.csiapp.XmlHandler.Dictionary;
 import com.android.csiapp.XmlHandler.XmlHandler;
 
@@ -443,7 +444,7 @@ public class CrimeProvider {
             result.setCaseId(cursor.getString(3));
             result.setLoginName(cursor.getString(4));
             result.setUnitCode(cursor.getString(5));
-            result.setCreateTime(cursor.getString(6));
+            result.setCreateTime(cursor.getLong(6));
             result.setComplete(cursor.getString(7));
             result.setDelete(cursor.getString(8));
 
@@ -452,7 +453,7 @@ public class CrimeProvider {
                     SceneProvider.TABLE_NAME, null, where1, null, null, null, null, null);
             if (cursor1.moveToFirst()) {
                 // 讀取包裝一筆資料的物件
-                result.setCasetype(cursor1.getString(1));
+                result.setCasetype(DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, cursor1.getString(1)));
                 result.setArea(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, cursor1.getString(2)));
                 result.setLocationa(cursor1.getString(3));
                 result.setOccurredStartTime(cursor1.getLong(4));
@@ -569,7 +570,7 @@ public class CrimeProvider {
             result.setCaseId(cursor.getString(3));
             result.setLoginName(cursor.getString(4));
             result.setUnitCode(cursor.getString(5));
-            result.setCreateTime(cursor.getString(6));
+            result.setCreateTime(cursor.getLong(6));
             result.setComplete(cursor.getString(7));
             result.setDelete(cursor.getString(8));
 
@@ -578,7 +579,7 @@ public class CrimeProvider {
                     SceneProvider.TABLE_NAME, null, where1, null, null, null, null, null);
             if (cursor1.moveToFirst()) {
                 // 讀取包裝一筆資料的物件
-                result.setCasetype(cursor1.getString(1));
+                result.setCasetype(DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, cursor1.getString(1)));
                 result.setArea(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, cursor1.getString(2)));
                 result.setLocationa(cursor1.getString(3));
                 result.setOccurredStartTime(cursor1.getLong(4));
@@ -721,17 +722,19 @@ public class CrimeProvider {
                 mBaseInfo.put("id", item.getSceneId());
                 mBaseInfo.put("inquestNo", item.getSceneNo());
                 mBaseInfo.put("complete", item.getComplete());
-                mBaseInfo.put("casetype", item.getCasetype());
+                mBaseInfo.put("casetype", DictionaryInfo.getDictKey(DictionaryInfo.mCaseTypeKey, item.getCasetype()));
                 mBaseInfo.put("regionalism", DictionaryInfo.getDictKey(DictionaryInfo.mAreaKey, item.getArea()));
                 mBaseInfo.put("sceneaddress", item.getLocation());
-                mBaseInfo.put("starttime", DateTimePicker.getCurrentDate(item.getOccurredStartTime()));
-                mBaseInfo.put("endtime", DateTimePicker.getCurrentDate(item.getOccurredEndTime()));
-                mBaseInfo.put("receivertime", DateTimePicker.getCurrentDate(item.getGetAccessTime()));
+                mBaseInfo.put("starttime", DateTimePicker.getCurrentDashTime(item.getOccurredStartTime()));
+                mBaseInfo.put("endtime", DateTimePicker.getCurrentDashTime(item.getOccurredEndTime()));
+                mBaseInfo.put("receivertime", DateTimePicker.getCurrentDashTime(item.getGetAccessTime()));
                 mBaseInfo.put("appointunit", item.getUnitsAssigned());
                 mBaseInfo.put("receivedperson", item.getAccessPolicemen());
-                mBaseInfo.put("inqueststarttime", DateTimePicker.getCurrentDate(item.getAccessStartTime()));
-                mBaseInfo.put("inquestendtime", DateTimePicker.getCurrentDate(item.getAccessEndTime()));
+                mBaseInfo.put("inqueststarttime", DateTimePicker.getCurrentDashTime(item.getAccessStartTime()));
+                mBaseInfo.put("inquestendtime", DateTimePicker.getCurrentDashTime(item.getAccessEndTime()));
                 mBaseInfo.put("inquestaddress", item.getAccessLocation());
+                mBaseInfo.put("discover", item.getCaseOccurProcess());
+                mBaseInfo.put("operator", item.getLoginName());
 
                 mBaseInfoList.add(mBaseInfo);
             }
@@ -775,18 +778,18 @@ public class CrimeProvider {
                 mBaseInfo.put("caseid", item.getCaseId());
                 mBaseInfo.put("createuser", item.getLoginName());
                 mBaseInfo.put("createunit", item.getUnitCode());
-                mBaseInfo.put("createtime", item.getCreateTime());
+                mBaseInfo.put("createtime", DateTimePicker.getCurrentDashTime(item.getCreateTime()));
                 mBaseInfo.put("complete", item.getComplete());
-                mBaseInfo.put("casetype", item.getCasetype());
+                mBaseInfo.put("casetype", DictionaryInfo.getDictKey(DictionaryInfo.mCaseTypeKey, item.getCasetype()));
                 mBaseInfo.put("regionalism", DictionaryInfo.getDictKey(DictionaryInfo.mAreaKey, item.getArea()));
                 mBaseInfo.put("address", item.getLocation());
-                mBaseInfo.put("starttime", DateTimePicker.getCurrentDate(item.getOccurredStartTime()));
-                mBaseInfo.put("endtime", DateTimePicker.getCurrentDate(item.getOccurredEndTime()));
-                mBaseInfo.put("receivertime", DateTimePicker.getCurrentDate(item.getGetAccessTime()));
+                mBaseInfo.put("starttime", DateTimePicker.getCurrentDashTime(item.getOccurredStartTime()));
+                mBaseInfo.put("endtime", DateTimePicker.getCurrentDashTime(item.getOccurredEndTime()));
+                mBaseInfo.put("receivertime", DateTimePicker.getCurrentDashTime(item.getGetAccessTime()));
                 mBaseInfo.put("appointunit", item.getUnitsAssigned());
                 mBaseInfo.put("receivedperson", item.getAccessPolicemen());
-                mBaseInfo.put("inqueststarttime", DateTimePicker.getCurrentDate(item.getAccessStartTime()));
-                mBaseInfo.put("inquestendtime", DateTimePicker.getCurrentDate(item.getAccessEndTime()));
+                mBaseInfo.put("inqueststarttime", DateTimePicker.getCurrentDashTime(item.getAccessStartTime()));
+                mBaseInfo.put("inquestendtime", DateTimePicker.getCurrentDashTime(item.getAccessEndTime()));
                 mBaseInfo.put("inquestaddress", item.getAccessLocation());
                 mBaseInfo.put("discover", item.getCaseOccurProcess());
                 mBaseInfo.put("scenesituation", DictionaryInfo.getDictKey(DictionaryInfo.mSceneConditionKey, item.getSceneCondition()));
@@ -801,8 +804,8 @@ public class CrimeProvider {
                 mBaseInfo.put("protectionorg", item.getProductPeopleUnit());
                 mBaseInfo.put("protectionpost", item.getProductPeopleDuties());
                 mBaseInfo.put("protectionmeasure", item.getSafeguard());
-                mBaseInfo.put("director", item.getSceneConductor());
-                mBaseInfo.put("investigators", item.getAccessInspectors());
+                mBaseInfo.put("director", UserInfo.getLoginName(item.getSceneConductor()));
+                mBaseInfo.put("investigators", UserInfo.getLoginName(item.getAccessInspectors()));
 
                 mBaseInfo.put("inqueststate", item.getOverview());
 
@@ -846,7 +849,7 @@ public class CrimeProvider {
                     mPeopleInfo.put("name",mWitnessItem.get(iW).getWitnessName());
                     mPeopleInfo.put("sex",DictionaryInfo.getDictKey(DictionaryInfo.mSexKey, mWitnessItem.get(iW).getWitnessSex()));
                     mPeopleInfo.put("idnum","");
-                    mPeopleInfo.put("birthday",DateTimePicker.getCurrentDate(mWitnessItem.get(iW).getWitnessBirthday()));
+                    mPeopleInfo.put("birthday",DateTimePicker.getCurrentDashDate(mWitnessItem.get(iW).getWitnessBirthday()));
                     mPeopleInfo.put("mobile",mWitnessItem.get(iW).getWitnessNumber());
                     mPeopleInfo.put("address",mWitnessItem.get(iW).getWitnessAddress());
                     if(mWitnessItem.get(iW).getPhotoPath().isEmpty()){
@@ -901,8 +904,8 @@ public class CrimeProvider {
                     mTraceInfo.put("basic_feature",mEvidenceItem.get(iE).getBasiceFeature());
                     mTraceInfo.put("tool_infer",mEvidenceItem.get(iE).getInfer());
                     mTraceInfo.put("extract_method",mEvidenceItem.get(iE).getMethod());
-                    mTraceInfo.put("extract_time",DateTimePicker.getCurrentDate(mEvidenceItem.get(iE).getTime()));
-                    mTraceInfo.put("extract_person",mEvidenceItem.get(iE).getPeople());
+                    mTraceInfo.put("extract_time",DateTimePicker.getCurrentDashTime(mEvidenceItem.get(iE).getTime()));
+                    mTraceInfo.put("extract_person",UserInfo.getLoginName(mEvidenceItem.get(iE).getPeople()));
                     mTraceInfoList.add(mTraceInfo);
                 }
 

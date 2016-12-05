@@ -102,7 +102,7 @@
     <string name="evidence_name">物证名称</string>
     <string name="legacy_site">遗留部位</string>
     <string name="basic_feature">基本特征</string>
-    <string name="infer">工具推斷</string>
+    <string name="infer">工具推断</string>
     <string name="extraction_method">提取方法</string>
     <string name="extraction_time">提取时间</string>
     <string name="extraction_people">提取人</string>

@@ -129,7 +129,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         DictionaryInfo info = new DictionaryInfo(context);
         UserInfo user = new UserInfo(context);
 
-        mCasetype = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.casetype)));
+        mCasetype = info.getArray(info.mCaseTypeKey);
         mCasetype_spinner = (Spinner) view.findViewById(R.id.casetype_spinner);
         mCasetype_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mCasetype);
         mCasetype_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

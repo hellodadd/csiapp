@@ -17,7 +17,7 @@ public class CrimeItem implements Serializable {
     private String mCaseId;
     private String mLoginName;
     private String mUnitCode;
-    private String mCreateTime;
+    private long mCreateTime;
     private String mComplete;
     private String mDelete;
     private String mCasetype;
@@ -109,7 +109,7 @@ public class CrimeItem implements Serializable {
         this.mCaseId = "";
         this.mLoginName = "";
         this.mUnitCode = "";
-        this.mCreateTime = "";
+        this.mCreateTime = time;
         this.mComplete = "0";
         this.mDelete = "0";
         this.mCasetype = "";
@@ -227,11 +227,11 @@ public class CrimeItem implements Serializable {
         this.mUnitCode = unitCode;
     }
 
-    public String getCreateTime() {
+    public long getCreateTime() {
         return mCreateTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(long createTime) {
         this.mCreateTime = createTime;
     }
 

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.android.csiapp.XmlHandler.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -207,6 +208,22 @@ public class IdentifyProvider {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             list.add(cursor.getString(3));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
+    }
+
+    public HashMap<String,String> queryToGetHashMap(){
+        HashMap<String,String> list = new HashMap<String,String>();
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
+        if(cursor==null) {
+            return null;
+        }
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.put(cursor.getString(1), cursor.getString(3));
             cursor.moveToNext();
         }
         cursor.close();

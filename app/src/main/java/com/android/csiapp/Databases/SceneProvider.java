@@ -101,7 +101,7 @@ public class SceneProvider {
 
         // 加入ContentValues物件包裝的新增資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
-        cv.put(CASETYPE_COLUMN, item.getCasetype());
+        cv.put(CASETYPE_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mCaseTypeKey, item.getCasetype()));
         cv.put(AREA_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mAreaKey, item.getArea()));
         cv.put(LOCATION_COLUMN, item.getLocation());
         cv.put(OCCURRED_START_TIME_COLUMN, item.getOccurredStartTime());
@@ -143,7 +143,7 @@ public class SceneProvider {
 
         // 加入ContentValues物件包裝的修改資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
-        cv.put(CASETYPE_COLUMN, item.getCasetype());
+        cv.put(CASETYPE_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mCaseTypeKey, item.getCasetype()));
         cv.put(AREA_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mAreaKey, item.getArea()));
         cv.put(LOCATION_COLUMN, item.getLocation());
         cv.put(OCCURRED_START_TIME_COLUMN, item.getOccurredStartTime());

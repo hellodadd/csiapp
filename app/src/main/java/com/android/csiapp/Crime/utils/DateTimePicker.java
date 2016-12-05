@@ -164,7 +164,7 @@ public class DateTimePicker extends RelativeLayout implements View.OnClickListen
 		sb.append("日");
 		if (a[3]<10) {sb.append(" 0" + (a[3]));}
 		else {sb.append("" + (a[3]));}
-		sb.append("時");
+		sb.append("时");
 		if (a[4]<10) {sb.append("0" + a[4]);}
 		else {sb.append("" + a[4]);}
 		sb.append("分");
@@ -192,6 +192,61 @@ public class DateTimePicker extends RelativeLayout implements View.OnClickListen
 		if (a[2]<10) {sb.append("0" + (a[2]));}
 		else {sb.append("" + (a[2]));}
 		sb.append("日");
+		return sb.toString();
+	}
+
+	public static String getCurrentDashTime(long time) { //輸出格式製作
+		Calendar c = Calendar.getInstance();
+		c.setTimeInMillis(time);
+		int[] a={c.get(Calendar.YEAR),
+				c.get(Calendar.MONTH),
+				c.get(Calendar.DAY_OF_MONTH),
+				c.get(Calendar.HOUR_OF_DAY),
+				c.get(Calendar.MINUTE),
+				c.get(Calendar.SECOND)
+		};
+		StringBuffer sb=new StringBuffer();
+		sb.append(a[0]);
+		sb.append("-");
+		if (a[1]<9) {sb.append("0" + (a[1] + 1));}   //加 1 才會得到實際月份
+		else {sb.append("" + (a[1] + 1));}
+		sb.append("-");
+		if (a[2]<10) {sb.append("0" + (a[2]));}
+		else {sb.append("" + (a[2]));}
+		sb.append(" ");
+		if (a[3]<10) {sb.append(" 0" + (a[3]));}
+		else {sb.append("" + (a[3]));}
+		sb.append(":");
+		if (a[4]<10) {sb.append("0" + a[4]);}
+		else {sb.append("" + a[4]);}
+		sb.append(":");
+		if (a[5]<10) {sb.append("0" + a[5]);}
+		else {sb.append("" + a[5]);}
+		//if (a[5]<10) {sb.append(":0" + a[5]);}
+		//selse {sb.append(":" + a[5]);}
+		return sb.toString();
+	}
+
+	public static String getCurrentDashDate(long time) { //輸出格式製作
+		Calendar c = Calendar.getInstance();
+		c.setTimeInMillis(time);
+		int[] a={c.get(Calendar.YEAR),
+				c.get(Calendar.MONTH),
+				c.get(Calendar.DAY_OF_MONTH),
+				c.get(Calendar.HOUR_OF_DAY),
+				c.get(Calendar.MINUTE),
+				c.get(Calendar.SECOND)
+		};
+		StringBuffer sb=new StringBuffer();
+		sb.append(a[0]);
+		sb.append("-");
+		if (a[1]<9) {sb.append("0" + (a[1] + 1));}   //加 1 才會得到實際月份
+		else {sb.append("" + (a[1] + 1));}
+		sb.append("-");
+		if (a[2]<10) {sb.append("0" + (a[2]));}
+		else {sb.append("" + (a[2]));}
+		//if (a[5]<10) {sb.append(":0" + a[5]);}
+		//selse {sb.append(":" + a[5]);}
 		return sb.toString();
 	}
 }
