@@ -159,7 +159,7 @@ public class CreateScene_FP3_NewPositionActivity_Baidumap extends AppCompatActiv
         mLocationClient.setLocOption(option);
 
         // 设置自定义图标
-        mCurrentMarker = BitmapDescriptorFactory.fromResource(R.drawable.map_marker);
+        mCurrentMarker = BitmapDescriptorFactory.fromResource(R.drawable.location);
 
         mConfig = new MyLocationConfiguration(
                 MyLocationConfiguration.LocationMode.FOLLOWING, true, mCurrentMarker);

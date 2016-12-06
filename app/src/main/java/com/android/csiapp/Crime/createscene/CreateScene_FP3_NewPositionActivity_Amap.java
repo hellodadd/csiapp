@@ -288,7 +288,7 @@ public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity 
                     aMap.addMarker(new MarkerOptions()
                             .anchor(0.5f, 0.5f)//设置锚点
                             .position(latLng)
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker)));
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.location)));
                     //获取定位信息
                     StringBuffer buffer = new StringBuffer();
                     buffer.append(aMapLocation.getCountry() + ""
