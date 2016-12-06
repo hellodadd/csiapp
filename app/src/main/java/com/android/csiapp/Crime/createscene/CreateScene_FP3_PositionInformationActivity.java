@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,8 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
     private int mEvent;
     private String mAdd;
     private ImageView mNew_Position;
-    private TextView mInformationText;
+    private TableLayout mTablePosition1, mTablePosition2, mTableFlat;
+    private TextView mIncidentTime, mIncidentLocation, mCreateUnit, mCreatePeople, mCreateTime;
     private String mFilepath;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
@@ -87,7 +89,7 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         mAdd = (String) getIntent().getStringExtra("Add");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        String title = (mAdd.equalsIgnoreCase("Position"))
+        String title = (IsPositionInformation())
                 ?context.getResources().getString(R.string.title_activity_position_information)
                 :context.getResources().getString(R.string.title_activity_flat_information);
         toolbar.setTitle(title);
@@ -107,10 +109,10 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
 
         if(mEvent == 1) {
             mPositionItem = new PhotoItem();
-            if(mAdd.equalsIgnoreCase("Position")) {
+            if(IsPositionInformation()) {
                 Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity_Amap.class);
                 startActivityForResult(it, 0);
-            }else if(mAdd.equalsIgnoreCase("Flat")){
+            }else if(!IsPositionInformation()){
                 Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewFlatActivity.class);
                 startActivityForResult(it, 0);
             }
@@ -134,8 +136,24 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
                 startActivityForResult(it, 100);
             }
         });
-        mInformationText = (TextView) findViewById(R.id.information);
-        mInformationText.setText(getInformation());
+
+        mTablePosition1 = (TableLayout) findViewById(R.id.table_position1);
+        mTablePosition2 = (TableLayout) findViewById(R.id.table_position2);
+        mTableFlat = (TableLayout) findViewById(R.id.table_flat);
+
+        if(IsPositionInformation()) {
+            mTablePosition1.setVisibility(View.VISIBLE);
+            mTablePosition2.setVisibility(View.VISIBLE);
+        }else if(!IsPositionInformation()) {
+            mTableFlat.setVisibility(View.VISIBLE);
+        }
+
+        mIncidentTime = (TextView) findViewById(R.id.incident_time);
+        mIncidentLocation = (TextView) findViewById(R.id.incident_location);
+        mCreateUnit = (TextView) findViewById(R.id.create_unit);
+        mCreatePeople = (TextView) findViewById(R.id.create_people);
+        mCreateTime = (TextView) findViewById(R.id.create_time);
+        getInformation();
     }
 
     private void setPhoto(String path){
@@ -144,25 +162,13 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         mNew_Position.setVisibility(View.VISIBLE);
     }
 
-    private String getInformation(){
-        StringBuffer text=new StringBuffer();
-        text.append("发案时间 : ");
+    private void getInformation(){
         long time = mItem.getOccurredStartTime();
-        text.append(DateTimePicker.getCurrentDate(time));
-        text.append("\n");
-        text.append("发案地点 : ");
-        text.append(mItem.getLocation());
-        text.append("\n");
-        text.append("制图单位 : ");
-        text.append(mItem.getArea());
-        text.append("\n");
-        text.append("制图人     : ");
-        text.append(mItem.getAccessPolicemen());
-        text.append("\n");
-        text.append("制图时间 : ");
-        text.append(DateTimePicker.getCurrentDate(Calendar.getInstance().getTimeInMillis()));
-        text.append("\n");
-        return text.toString();
+        mIncidentTime.setText(DateTimePicker.getCurrentDate(time));
+        mIncidentLocation.setText(mItem.getLocation());
+        mCreateUnit.setText(mItem.getArea());
+        mCreatePeople.setText(mItem.getAccessPolicemen());
+        mCreateTime.setText(DateTimePicker.getCurrentDate(Calendar.getInstance().getTimeInMillis()));
     }
 
     @Override
@@ -171,5 +177,9 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
             mPositionItem.setPhotoPath(data.getStringExtra("Map_ScreenShot"));
             setPhoto(mPositionItem.getPhotoPath());
         }
+    }
+
+    private boolean IsPositionInformation(){
+        return mAdd.equalsIgnoreCase("Position");
     }
 }
