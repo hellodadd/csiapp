@@ -2,8 +2,11 @@ package com.android.csiapp.Crime.createscene;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,7 +27,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.android.csiapp.Crime.utils.CellCollection;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
@@ -46,7 +48,8 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private int mEvent;
 
     private Button mCellCollection, mCellDetail;
-    private CellCollection cellCollection;
+    private String ACTION_RECEIVE_RESULT = "com.kuaikan.send_result";
+    private ArrayList<String> result = new ArrayList<String>();
 
     private Spinner mCasetype_spinner;
     private ArrayList<String> mCasetype = new ArrayList<String>();
@@ -144,22 +147,29 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         DictionaryInfo info = new DictionaryInfo(context);
         UserInfo user = new UserInfo(context);
 
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.kuaikan.send_result");
+        context.registerReceiver(mReceiver,filter);
+
         mCellCollection = (Button) view.findViewById(R.id.cell_collection);
         mCellCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cellCollection = new CellCollection(context);
+                startCollection();
+                /*Intent showRet = new Intent(ACTION_RECEIVE_RESULT);
+                showRet.putExtra("result", result);
+                context.sendBroadcast(showRet);*/
             }
         });
         mCellDetail = (Button) view.findViewById(R.id.cell_detail);
         mCellDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cellCollection!=null) {
-                    List<String> result = cellCollection.getInfo();
-                    //Intent it = new Intent(getActivity(), OneKeyActivityB.class);
-                    //it.putExtra(result);
-                    //startActivityForResult(it, 0);
+                if(result.size()!=0){
+                    Intent showRet = new Intent("android.intent.action.kuaikan.show_result");
+                    showRet.putStringArrayListExtra("result", result);
+                    showRet.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(showRet);
                 }
             }
         });
@@ -639,4 +649,42 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         if(items.size()>0) item = items.get(items.size()-1);
         return item;
     }
+
+    private void startCollection(){
+        Log.d("Anita", "startCollection");
+        Intent it=new Intent();
+        it.setAction("com.kuaikan.one_key");
+        it.setComponent(new ComponentName("com.kuaikan.app.scenecollection",
+                "com.kuaikan.app.scenecollection.OneKeyService"));
+        it.putExtra("request_type", 0);
+
+        context.startService(it);
+
+        /*IntentFilter filter = new IntentFilter();
+        filter.addAction("com.kuaikan.send_result");
+        context.registerReceiver(mReceiver,filter);*/
+    }
+
+    private void stopCollection(){
+        Log.d("Anita", "stopCollection");
+        Intent it=new Intent();
+        it.setAction("com.kuaikan.one_key");
+        it.setComponent(new ComponentName("com.kuaikan.app.scenecollection",
+                "com.kuaikan.app.scenecollection.OneKeyService"));
+        it.putExtra("request_type", 0);
+        context.stopService(it);
+    }
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if(ACTION_RECEIVE_RESULT.equals(action)){
+                Log.d("Anita", "Received cell result");
+                mCellDetail.setVisibility(View.VISIBLE);
+                result= (ArrayList<String>) intent.getStringArrayListExtra("result");
+                stopCollection();
+            }
+        }
+    };
 }
