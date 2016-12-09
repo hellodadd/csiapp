@@ -1,13 +1,16 @@
 package com.android.csiapp.Crime.createscene;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.method.DigitsKeyListener;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.csiapp.Crime.utils.CellCollection;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
@@ -30,7 +34,6 @@ import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -41,6 +44,9 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private Context context = null;
     private CrimeItem mItem;
     private int mEvent;
+
+    private Button mCellCollection, mCellDetail;
+    private CellCollection cellCollection;
 
     private Spinner mCasetype_spinner;
     private ArrayList<String> mCasetype = new ArrayList<String>();
@@ -125,9 +131,36 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == 0) {
+                mItem =(CrimeItem) data.getSerializableExtra("CrimeItem");
+            }
+        }
+    }
+
     private void initView(View view){
         DictionaryInfo info = new DictionaryInfo(context);
         UserInfo user = new UserInfo(context);
+
+        mCellCollection = (Button) view.findViewById(R.id.cell_collection);
+        mCellCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cellCollection = new CellCollection(context);
+            }
+        });
+        mCellDetail = (Button) view.findViewById(R.id.cell_detail);
+        mCellDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(cellCollection!=null) {
+                    //Intent it = new Intent(getActivity(), OneKeyActivityB.class);
+                    //startActivityForResult(it, 0);
+                }
+            }
+        });
 
         mCasetype = info.getArray(info.mCaseTypeKey);
         mCasetype_spinner = (Spinner) view.findViewById(R.id.casetype_spinner);
