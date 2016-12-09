@@ -156,7 +156,9 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 if(cellCollection!=null) {
+                    List<String> result = cellCollection.getInfo();
                     //Intent it = new Intent(getActivity(), OneKeyActivityB.class);
+                    //it.putExtra(result);
                     //startActivityForResult(it, 0);
                 }
             }

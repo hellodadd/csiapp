@@ -61,4 +61,8 @@ public class CellCollection{
             }
         }
     };
+
+    public List<String> getInfo(){
+        return result;
+    }
 }
