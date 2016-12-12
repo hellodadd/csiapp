@@ -652,6 +652,8 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
     private void startCollection(){
         Log.d("Anita", "startCollection");
+        mCellCollection.setClickable(false);
+
         Intent it=new Intent();
         it.setAction("com.kuaikan.one_key");
         it.setComponent(new ComponentName("com.kuaikan.app.scenecollection",
@@ -667,6 +669,8 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
     private void stopCollection(){
         Log.d("Anita", "stopCollection");
+        mCellCollection.setClickable(true);
+
         Intent it=new Intent();
         it.setAction("com.kuaikan.one_key");
         it.setComponent(new ComponentName("com.kuaikan.app.scenecollection",
