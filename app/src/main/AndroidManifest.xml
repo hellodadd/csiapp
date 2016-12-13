@@ -46,7 +46,8 @@
         </activity>
         <activity android:name=".Crime.createscene.CreateSceneActivity"
                android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-               android:screenOrientation="portrait" >
+               android:screenOrientation="portrait"
+               android:configChanges="mcc|mnc">
             <intent-filter>
                 <!-- 新增用的名稱 -->
                 <action android:name="com.android.csiapp.ADD_SCENE" />

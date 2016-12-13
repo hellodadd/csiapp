@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -83,8 +84,13 @@ public class CreateScene_FP5 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.create_scene_fp5, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
-        mItem = activity.getItem();
-        mEvent = activity.getEvent();
+        if(savedInstanceState == null){
+            mItem = activity.getItem();
+            mEvent = activity.getEvent();
+        }else{
+            mItem = (CrimeItem) savedInstanceState.getSerializable("CrimeItem");
+            mEvent = (int) savedInstanceState.getSerializable("Event");
+        }
         context = getActivity().getApplicationContext();
 
         initData();
@@ -95,6 +101,22 @@ public class CreateScene_FP5 extends Fragment {
         mCameraPhotoProvider = new CameraPhotoProvider(context);
 
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("CrimeItem",mItem);
+        outState.putSerializable("Event",mEvent);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState != null) {
+            savedInstanceState.putSerializable("CrimeItem", mItem);
+            savedInstanceState.putSerializable("Event", mEvent);
+        }
     }
 
     private void initView(View view){

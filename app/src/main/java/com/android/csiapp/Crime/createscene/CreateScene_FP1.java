@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.method.DigitsKeyListener;
@@ -35,6 +36,7 @@ import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +51,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
     private Button mCellCollection, mCellDetail;
     private String ACTION_RECEIVE_RESULT = "com.kuaikan.send_result";
-    private ArrayList<String> result = new ArrayList<String>();
 
     private Spinner mCasetype_spinner;
     private ArrayList<String> mCasetype = new ArrayList<String>();
@@ -123,15 +124,40 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.create_scene_fp1, container, false);
         CreateSceneActivity activity  = (CreateSceneActivity) getActivity();
-        mItem = activity.getItem();
-        mEvent = activity.getEvent();
+        if(savedInstanceState == null){
+            mItem = activity.getItem();
+            mEvent = activity.getEvent();
+        }else{
+            mItem = (CrimeItem) savedInstanceState.getSerializable("CrimeItem");
+            mEvent = (int) savedInstanceState.getSerializable("Event");
+        }
         context = getActivity().getApplicationContext();
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.kuaikan.send_result");
+        context.registerReceiver(mReceiver,filter);
 
         initView(view);
         initData();
         getLastData();
 
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("CrimeItem",mItem);
+        outState.putSerializable("Event",mEvent);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState != null) {
+            savedInstanceState.putSerializable("CrimeItem", mItem);
+            savedInstanceState.putSerializable("Event", mEvent);
+        }
     }
 
     @Override
@@ -147,11 +173,8 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         DictionaryInfo info = new DictionaryInfo(context);
         UserInfo user = new UserInfo(context);
 
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("com.kuaikan.send_result");
-        context.registerReceiver(mReceiver,filter);
-
         mCellCollection = (Button) view.findViewById(R.id.cell_collection);
+        if(mItem.IsCollecting()) mCellCollection.setText("采集中");
         mCellCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,12 +185,14 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             }
         });
         mCellDetail = (Button) view.findViewById(R.id.cell_detail);
+        if(!mItem.IsCollecting() && mItem.IsCollected()) mCellDetail.setVisibility(View.VISIBLE);
         mCellDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(result.size()!=0){
+                Log.d("Anita","result size = "+mItem.getCellResult().size());
+                if(mItem.getCellResult().size()!=0){
                     Intent showRet = new Intent("android.intent.action.kuaikan.show_result");
-                    showRet.putStringArrayListExtra("result", result);
+                    showRet.putStringArrayListExtra("result", mItem.getCellResult());
                     showRet.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(showRet);
                 }
@@ -653,6 +678,11 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private void startCollection(){
         Log.d("Anita", "startCollection");
         mCellCollection.setClickable(false);
+        mCellCollection.setText("采集中");
+        mItem.setCollecting(true);
+        mItem.setCollected(false);
+        mItem.setCellResult(new ArrayList<String>());
+        mCellDetail.setVisibility(View.GONE);
 
         Intent it=new Intent();
         it.setAction("com.kuaikan.one_key");
@@ -669,7 +699,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
     private void stopCollection(){
         Log.d("Anita", "stopCollection");
-        mCellCollection.setClickable(true);
 
         Intent it=new Intent();
         it.setAction("com.kuaikan.one_key");
@@ -683,11 +712,17 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if(ACTION_RECEIVE_RESULT.equals(action)){
+            if(ACTION_RECEIVE_RESULT.equals(action) && mItem.IsCollecting()){
                 Log.d("Anita", "Received cell result");
+                mCellCollection.setClickable(true);
+                mCellCollection.setText("开始采集");
+                mItem.setCollecting(false);
+                mItem.setCollected(true);
                 mCellDetail.setVisibility(View.VISIBLE);
-                result= (ArrayList<String>) intent.getStringArrayListExtra("result");
-                stopCollection();
+                ArrayList<String> result= (ArrayList<String>) intent.getStringArrayListExtra("result");
+                Log.d("Anita","received result size = "+result.size());
+                mItem.setCellResult(result);
+                //stopCollection();
             }
         }
     };

@@ -26,7 +26,6 @@ import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.FragmentAdapter;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Databases.CrimeItem;
-import com.android.csiapp.Databases.IdentifyProvider;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
@@ -57,6 +56,9 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
 
     private Drawable mSelect_background;
     private Drawable mBackground;
+
+    private List<Fragment> fragmentList;
+    private FragmentAdapter fragmentAdapter;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -170,7 +172,6 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         mPageButton1.setBackground(mSelect_background);
         mPageText1.setVisibility(View.VISIBLE);
 
-        mViewPager = (ViewPager) this.findViewById(R.id.viewPager);
         mMyFragmentPage1 = new CreateScene_FP1();
         mMyFragmentPage2 = new CreateScene_FP2();
         mMyFragmentPage3 = new CreateScene_FP3();
@@ -179,7 +180,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         mMyFragmentPage6 = new CreateScene_FP6();
         mMyFragmentPage7 = new CreateScene_FP7();
         mMyFragmentPage8 = new CreateScene_FP8();
-        List<Fragment> fragmentList = new ArrayList<Fragment>();
+        fragmentList = new ArrayList<Fragment>();
         fragmentList.add(mMyFragmentPage1);
         fragmentList.add(mMyFragmentPage2);
         fragmentList.add(mMyFragmentPage3);
@@ -188,7 +189,9 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         fragmentList.add(mMyFragmentPage6);
         fragmentList.add(mMyFragmentPage7);
         fragmentList.add(mMyFragmentPage8);
-        FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), fragmentList);
+        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), fragmentList);
+
+        mViewPager = (ViewPager) this.findViewById(R.id.viewPager);
         mViewPager.setAdapter(fragmentAdapter);
         mViewPager.setCurrentItem(0);
         mViewPager.setOnPageChangeListener((ViewPager.OnPageChangeListener) this);

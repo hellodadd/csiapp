@@ -186,7 +186,7 @@ public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity 
         //初始化定位参数
         mLocationOption = new AMapLocationClientOption();
         //设置定位模式为Hight_Accuracy高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Device_Sensors);
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         //设置是否返回地址信息（默认返回地址信息）
         mLocationOption.setNeedAddress(true);
         //设置是否只定位一次,默认为false

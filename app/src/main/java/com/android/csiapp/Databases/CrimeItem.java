@@ -20,6 +20,9 @@ public class CrimeItem implements Serializable {
     private long mCreateTime;
     private String mComplete;
     private String mDelete;
+    private Boolean mIsCollecting;
+    private Boolean mIsCollected;
+    private ArrayList<String> mCellResult;
     private String mCasetype;
     private String mArea;
     private String mLocation;
@@ -112,6 +115,9 @@ public class CrimeItem implements Serializable {
         this.mCreateTime = time;
         this.mComplete = "0";
         this.mDelete = "0";
+        this.mIsCollecting = false;
+        this.mIsCollected = false;
+        this.mCellResult = new ArrayList<String>();
         this.mCasetype = "";
         this.mArea = "";
         this.mLocation = "";
@@ -252,6 +258,30 @@ public class CrimeItem implements Serializable {
     }
 
     //Page 1
+    public ArrayList<String> getCellResult() {
+        return mCellResult;
+    }
+
+    public void setCellResult(ArrayList<String> cellResult) {
+        this.mCellResult = cellResult;
+    }
+
+    public Boolean IsCollecting() {
+        return mIsCollecting;
+    }
+
+    public void setCollecting(Boolean isCollecting) {
+        this.mIsCollecting = isCollecting;
+    }
+
+    public Boolean IsCollected() {
+        return mIsCollected;
+    }
+
+    public void setCollected(Boolean isCollected) {
+        this.mIsCollected = isCollected;
+    }
+
     public String getCasetype() {
         return mCasetype;
     }
