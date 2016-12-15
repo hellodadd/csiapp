@@ -28,8 +28,8 @@ public class PositionProvider {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    UUID_COLUMN + " INTEGER NOT NULL, " +
-                    PHOTO_PATH_COLUMN + " INTEGER NOT NULL)";
+                    UUID_COLUMN + " TEXT NOT NULL, " +
+                    PHOTO_PATH_COLUMN + " TEXT NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;

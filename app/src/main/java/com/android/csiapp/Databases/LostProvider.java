@@ -32,12 +32,12 @@ public class LostProvider {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    UUID_COLUMN + " INTEGER NOT NULL, " +
-                    ITEM_NAME_COLUMN + " INTEGER NOT NULL, " +
-                    ITEM_BRAND_COLUMN + " INTEGER NOT NULL, " +
-                    ITEM_AMOUNT_COLUMN + " INTEGER NOT NULL, " +
-                    ITEM_VALUE_COLUMN + " INTEGER NOT NULL, " +
-                    ITEM_FEATURE_COLUMN + " INTEGER NOT NULL)";
+                    UUID_COLUMN + " TEXT NOT NULL, " +
+                    ITEM_NAME_COLUMN + " TEXT NOT NULL, " +
+                    ITEM_BRAND_COLUMN + " TEXT NOT NULL, " +
+                    ITEM_AMOUNT_COLUMN + " TEXT NOT NULL, " +
+                    ITEM_VALUE_COLUMN + " TEXT NOT NULL, " +
+                    ITEM_FEATURE_COLUMN + " TEXT NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;

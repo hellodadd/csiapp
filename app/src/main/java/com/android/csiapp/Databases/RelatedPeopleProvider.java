@@ -35,13 +35,13 @@ public class RelatedPeopleProvider {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    UUID_COLUMN + " INTEGER NOT NULL, " +
-                    PEOPLE_RELATION_COLUMN + " INTEGER NOT NULL, " +
-                    PEOPLE_NAME_COLUMN + " INTEGER NOT NULL, " +
-                    PEOPLE_SEX_COLUMN + " INTEGER NOT NULL, " +
-                    PEOPLE_ID_COLUMN + " INTEGER NOT NULL, " +
-                    PEOPLE_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    PEOPLE_ADDRESS_COLUMN + " INTEGER NOT NULL)";
+                    UUID_COLUMN + " TEXT NOT NULL, " +
+                    PEOPLE_RELATION_COLUMN + " TEXT NOT NULL, " +
+                    PEOPLE_NAME_COLUMN + " TEXT NOT NULL, " +
+                    PEOPLE_SEX_COLUMN + " TEXT NOT NULL, " +
+                    PEOPLE_ID_COLUMN + " TEXT NOT NULL, " +
+                    PEOPLE_NUMBER_COLUMN + " TEXT NOT NULL, " +
+                    PEOPLE_ADDRESS_COLUMN + " TEXT NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;
@@ -81,7 +81,7 @@ public class RelatedPeopleProvider {
         cv.put(UUID_COLUMN, item.getUuid());
         cv.put(PEOPLE_RELATION_COLUMN, item.getPeopleRelation());
         cv.put(PEOPLE_NAME_COLUMN, item.getPeopleName());
-        cv.put(PEOPLE_SEX_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mSexKey, item.getPeopleSex()));
+        cv.put(PEOPLE_SEX_COLUMN, item.getPeopleSex());
         cv.put(PEOPLE_ID_COLUMN, item.getPeopleId());
         cv.put(PEOPLE_NUMBER_COLUMN, item.getPeopleNumber());
         cv.put(PEOPLE_ADDRESS_COLUMN, item.getPeopleAddress());
@@ -124,7 +124,7 @@ public class RelatedPeopleProvider {
         cv.put(UUID_COLUMN, item.getUuid());
         cv.put(PEOPLE_RELATION_COLUMN, item.getPeopleRelation());
         cv.put(PEOPLE_NAME_COLUMN, item.getPeopleName());
-        cv.put(PEOPLE_SEX_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mSexKey, item.getPeopleSex()));
+        cv.put(PEOPLE_SEX_COLUMN, item.getPeopleSex());
         cv.put(PEOPLE_ID_COLUMN, item.getPeopleId());
         cv.put(PEOPLE_NUMBER_COLUMN, item.getPeopleNumber());
         cv.put(PEOPLE_ADDRESS_COLUMN, item.getPeopleAddress());
@@ -184,7 +184,7 @@ public class RelatedPeopleProvider {
             item.setUuid(cursor.getString(1));
             item.setPeopleRelation(cursor.getString(2));
             item.setPeopleName(cursor.getString(3));
-            item.setPeopleSex(DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, cursor.getString(4)));
+            item.setPeopleSex(cursor.getString(4));
             item.setPeopleId(cursor.getString(5));
             item.setPeopleNumber(cursor.getString(6));
             item.setPeopleAddress(cursor.getString(7));

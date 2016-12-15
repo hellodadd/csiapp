@@ -23,6 +23,7 @@ public class CrimeItem implements Serializable {
     private Boolean mIsCollecting;
     private Boolean mIsCollected;
     private ArrayList<String> mCellResult;
+    private Boolean mGetLastData;
     private String mCasetype;
     private String mArea;
     private String mLocation;
@@ -36,6 +37,9 @@ public class CrimeItem implements Serializable {
     private String mAccessLocation;
     private String mCaseOccurProcess;
     private String mSceneCondition;
+    private boolean mInformantCk;
+    private boolean mVictimCk;
+    private boolean mOtherCk;
     private String mChangeReason;
     private String mWeatherCondition;
     private String mWindDirection;
@@ -118,6 +122,7 @@ public class CrimeItem implements Serializable {
         this.mIsCollecting = false;
         this.mIsCollected = false;
         this.mCellResult = new ArrayList<String>();
+        this.mGetLastData = false;
         this.mCasetype = "";
         this.mArea = "";
         this.mLocation = "";
@@ -131,6 +136,9 @@ public class CrimeItem implements Serializable {
         this.mAccessLocation = "";
         this.mCaseOccurProcess = "";
         this.mSceneCondition = "";
+        this.mInformantCk = false;
+        this.mVictimCk = false;
+        this.mOtherCk = false;
         this.mChangeReason = "";
         this.mWeatherCondition = "";
         this.mWindDirection = "";
@@ -282,6 +290,14 @@ public class CrimeItem implements Serializable {
         this.mIsCollected = isCollected;
     }
 
+    public Boolean IsGetLastData() {
+        return mGetLastData;
+    }
+
+    public void setGetLastData(Boolean getLastData) {
+        this.mGetLastData = getLastData;
+    }
+
     public String getCasetype() {
         return mCasetype;
     }
@@ -384,6 +400,30 @@ public class CrimeItem implements Serializable {
 
     public void setSceneCondition (String sceneCondition ) {
         this.mSceneCondition = sceneCondition ;
+    }
+
+    public Boolean isInformantCk () {
+        return mInformantCk;
+    }
+
+    public void setInformantCk (Boolean InformantCk ) {
+        this.mInformantCk = InformantCk ;
+    }
+
+    public Boolean isVictimCk () {
+        return mVictimCk;
+    }
+
+    public void setVictimCk (Boolean VictimCk ) {
+        this.mVictimCk = VictimCk ;
+    }
+
+    public Boolean isOtherCk () {
+        return mOtherCk;
+    }
+
+    public void setOtherCk (Boolean OtherCk ) {
+        this.mOtherCk = OtherCk ;
     }
 
     public String getChangeReason () {
@@ -607,30 +647,55 @@ public class CrimeItem implements Serializable {
     //Check Information
     public boolean checkInformation(){
         boolean result = false;
-        if(!mLocation.isEmpty()
+        if(!mCasetype.isEmpty()
+                &&!mArea.isEmpty()
+                &&!mLocation.isEmpty()
                 &&!mUnitsAssigned.isEmpty()
                 &&!mAccessPolicemen.isEmpty()
                 &&!mAccessLocation.isEmpty()
                 &&!mCaseOccurProcess.isEmpty()
+                &&!mSceneCondition.isEmpty()
+                &&!mWeatherCondition.isEmpty()
+                &&!mWindDirection.isEmpty()
                 &&!mTemperature.isEmpty()
                 &&!mHumidity.isEmpty()
                 &&!mAccessReason.isEmpty()
+                &&!mIlluminationCondition.isEmpty()
                 &&!mProductPeopleName.isEmpty()
                 &&!mProductPeopleUnit.isEmpty()
                 &&!mProductPeopleDuties.isEmpty()
                 &&!mSafeguard.isEmpty()
+                &&!mSceneConductor.isEmpty()
+                &&!mAccessInspectors.isEmpty()
+                &&!mCrimePeopleNumber.isEmpty()
                 &&!mCrimePeopleFeature.isEmpty())
             result = true;
         return result;
     }
 
     public String needToCheckInformation(String message){
+        if(mCasetype.isEmpty()) message = message + "案件类别\n";
+        if(mArea.isEmpty()) message = message + "发案区划\n";
         if(mLocation.isEmpty()) message = message + "发案地点\n";
+        if(mUnitsAssigned.isEmpty()) message = message + "指派单位\n";
+        if(mAccessPolicemen.isEmpty()) message = message + "接警人\n";
         if(mAccessLocation.isEmpty()) message = message + "勘验地点\n";
         if(mCaseOccurProcess.isEmpty()) message = message + "案件发现过程\n";
+        if(mSceneCondition.isEmpty()) message = message + "现场条件\n";
+        if(mWeatherCondition.isEmpty()) message = message + "天气状况\n";
+        if(mWindDirection.isEmpty()) message = message + "风向\n";
         if(mTemperature.isEmpty()) message = message + "温度\n";
         if(mHumidity.isEmpty()) message = message + "湿度\n";
         if(mAccessReason.isEmpty()) message = message + "勘验事由\n";
+        if(mIlluminationCondition.isEmpty()) message = message + "光照条件\n";
+        if(mProductPeopleName.isEmpty()) message = message + "保护人姓名\n";
+        if(mProductPeopleUnit.isEmpty()) message = message + "保护人单位\n";
+        if(mProductPeopleDuties.isEmpty()) message = message + "保护人职务\n";
+        if(mSafeguard.isEmpty()) message = message + "保护措施\n";
+        if(mSceneConductor.isEmpty()) message = message + "现场指挥人员\n";
+        if(mAccessInspectors.isEmpty()) message = message + "勘验检查人员\n";
+        if(mCrimePeopleNumber.isEmpty()) message = message + "作案人数\n";
+        if(mCrimePeopleFeature.isEmpty()) message = message + "作案人特点\n";
         if(mPositionItem.isEmpty()) message = message + "方位示意图\n";
         if(mOverview.isEmpty()) message = message + "勘验情况\n";
         if(mWitnessItem.isEmpty()) message = message + "见证人\n";

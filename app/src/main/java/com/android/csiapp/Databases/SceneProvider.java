@@ -36,6 +36,9 @@ public class SceneProvider {
     public static final String ACCESS_LOCATION_COLUMN = "access_location";
     public static final String CASE_OCCUR_PROCESS_COLUMN = "case_occur_process";
     public static final String SCENE_CONDITION_COLUMN = "scene_condition";
+    public static final String INFORMANT_REASON_COLUMN = "isInformantReason";
+    public static final String VICTIM_REASON_COLUMN = "isVictimReason";
+    public static final String OTHER_REASON_COLUMN = "isOtherReason";
     public static final String CHANGE_REASON_COLUMN = "change_reason";
     public static final String WEATHER_COLUMN = "weather";
     public static final String WIND_COLUMN = "wind";
@@ -54,32 +57,35 @@ public class SceneProvider {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    CASETYPE_COLUMN + " INTEGER NOT NULL, " +
-                    AREA_COLUMN + " INTEGER NOT NULL, " +
-                    LOCATION_COLUMN + " INTEGER NOT NULL, " +
-                    OCCURRED_START_TIME_COLUMN + " INTEGER NOT NULL, " +
-                    OCCURRED_END_TIME_COLUMN + " INTEGER NOT NULL, " +
-                    GET_ACCESS_TIME_COLUMN + " INTEGER NOT NULL, " +
-                    UNIT_COLUMN + " INTEGER NOT NULL, " +
-                    POLICEMAN_COLUMN + " INTEGER NOT NULL, " +
-                    ACCESS_START_TIME_COLUMN + " INTEGER NOT NULL, " +
-                    ACCESS_END_TIME_COLUMN + " INTEGER NOT NULL, " +
-                    ACCESS_LOCATION_COLUMN + " INTEGER NOT NULL, " +
-                    CASE_OCCUR_PROCESS_COLUMN + " INTEGER NOT NULL, " +
-                    SCENE_CONDITION_COLUMN + " INTEGER NOT NULL, " +
-                    CHANGE_REASON_COLUMN + " INTEGER NOT NULL, " +
-                    WEATHER_COLUMN + " INTEGER NOT NULL, " +
-                    WIND_COLUMN + " INTEGER NOT NULL, " +
-                    TEMPERATURE_COLUMN + " INTEGER NOT NULL, " +
-                    HUMIDITY_COLUMN + " INTEGER NOT NULL, " +
-                    ACCESS_REASON_COLUMN + " INTEGER NOT NULL, " +
-                    ILLUMINATION_CONDITION_COLUMN + " INTEGER NOT NULL, " +
-                    PRODUCT_PEOPLE_NAME_COLUMN + " INTEGER NOT NULL, " +
-                    PRODUCT_PEOPLE_UNIT_COLUMN + " INTEGER NOT NULL, " +
-                    PRODUCT_PEOPLE_DUTIES_COLUMN + " INTEGER NOT NULL, " +
-                    SAFEGUARD_COLUMN + " INTEGER NOT NULL, " +
-                    SCENE_CONDUCTOR_COLUMN + " INTEGER NOT NULL, " +
-                    ACCESS_INSPECTOR_COLUMN + " INTEGER NOT NULL)";
+                    CASETYPE_COLUMN + " TEXT NOT NULL, " +
+                    AREA_COLUMN + " TEXT NOT NULL, " +
+                    LOCATION_COLUMN + " TEXT NOT NULL, " +
+                    OCCURRED_START_TIME_COLUMN + " TEXT NOT NULL, " +
+                    OCCURRED_END_TIME_COLUMN + " TEXT NOT NULL, " +
+                    GET_ACCESS_TIME_COLUMN + " TEXT NOT NULL, " +
+                    UNIT_COLUMN + " TEXT NOT NULL, " +
+                    POLICEMAN_COLUMN + " TEXT NOT NULL, " +
+                    ACCESS_START_TIME_COLUMN + " TEXT NOT NULL, " +
+                    ACCESS_END_TIME_COLUMN + " TEXT NOT NULL, " +
+                    ACCESS_LOCATION_COLUMN + " TEXT NOT NULL, " +
+                    CASE_OCCUR_PROCESS_COLUMN + " TEXT NOT NULL, " +
+                    SCENE_CONDITION_COLUMN + " TEXT NOT NULL, " +
+                    INFORMANT_REASON_COLUMN + " TEXT NOT NULL, " +
+                    VICTIM_REASON_COLUMN + " TEXT NOT NULL, " +
+                    OTHER_REASON_COLUMN + " TEXT NOT NULL, " +
+                    CHANGE_REASON_COLUMN + " TEXT NOT NULL, " +
+                    WEATHER_COLUMN + " TEXT NOT NULL, " +
+                    WIND_COLUMN + " TEXT NOT NULL, " +
+                    TEMPERATURE_COLUMN + " TEXT NOT NULL, " +
+                    HUMIDITY_COLUMN + " TEXT NOT NULL, " +
+                    ACCESS_REASON_COLUMN + " TEXT NOT NULL, " +
+                    ILLUMINATION_CONDITION_COLUMN + " TEXT NOT NULL, " +
+                    PRODUCT_PEOPLE_NAME_COLUMN + " TEXT NOT NULL, " +
+                    PRODUCT_PEOPLE_UNIT_COLUMN + " TEXT NOT NULL, " +
+                    PRODUCT_PEOPLE_DUTIES_COLUMN + " TEXT NOT NULL, " +
+                    SAFEGUARD_COLUMN + " TEXT NOT NULL, " +
+                    SCENE_CONDUCTOR_COLUMN + " TEXT NOT NULL, " +
+                    ACCESS_INSPECTOR_COLUMN + " TEXT NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;
@@ -101,8 +107,8 @@ public class SceneProvider {
 
         // 加入ContentValues物件包裝的新增資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
-        cv.put(CASETYPE_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mCaseTypeKey, item.getCasetype()));
-        cv.put(AREA_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mAreaKey, item.getArea()));
+        cv.put(CASETYPE_COLUMN, item.getCasetype());
+        cv.put(AREA_COLUMN, item.getArea());
         cv.put(LOCATION_COLUMN, item.getLocation());
         cv.put(OCCURRED_START_TIME_COLUMN, item.getOccurredStartTime());
         cv.put(OCCURRED_END_TIME_COLUMN, item.getOccurredEndTime());
@@ -113,14 +119,18 @@ public class SceneProvider {
         cv.put(ACCESS_END_TIME_COLUMN, item.getAccessEndTime());
         cv.put(ACCESS_LOCATION_COLUMN, item.getAccessLocation());
         cv.put(CASE_OCCUR_PROCESS_COLUMN, item.getCaseOccurProcess());
-        cv.put(SCENE_CONDITION_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mSceneConditionKey, item.getSceneCondition()));
+        cv.put(SCENE_CONDITION_COLUMN, item.getSceneCondition());
+        Log.d("Anita","check 1= "+item.isInformantCk()+", check 2 ="+item.isVictimCk()+", check 3 ="+item.isOtherCk());
+        cv.put(INFORMANT_REASON_COLUMN, (item.isInformantCk()?"1":"0"));
+        cv.put(VICTIM_REASON_COLUMN, (item.isVictimCk()?"1":"0"));
+        cv.put(OTHER_REASON_COLUMN, (item.isOtherCk()?"1":"0"));
         cv.put(CHANGE_REASON_COLUMN, item.getChangeReason());
-        cv.put(WEATHER_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mWeatherConditionKey, item.getWeatherCondition()));
-        cv.put(WIND_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mWindDirectionKey, item.getWindDirection()));
+        cv.put(WEATHER_COLUMN, item.getWeatherCondition());
+        cv.put(WIND_COLUMN, item.getWindDirection());
         cv.put(TEMPERATURE_COLUMN, item.getTemperature());
         cv.put(HUMIDITY_COLUMN, item.getHumidity());
         cv.put(ACCESS_REASON_COLUMN, item.getAccessReason());
-        cv.put(ILLUMINATION_CONDITION_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mIlluminationConditionKey, item.getIlluminationCondition()));
+        cv.put(ILLUMINATION_CONDITION_COLUMN, item.getIlluminationCondition());
         cv.put(PRODUCT_PEOPLE_NAME_COLUMN, item.getProductPeopleName());
         cv.put(PRODUCT_PEOPLE_UNIT_COLUMN, item.getProductPeopleUnit());
         cv.put(PRODUCT_PEOPLE_DUTIES_COLUMN, item.getProductPeopleDuties());
@@ -143,8 +153,8 @@ public class SceneProvider {
 
         // 加入ContentValues物件包裝的修改資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
-        cv.put(CASETYPE_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mCaseTypeKey, item.getCasetype()));
-        cv.put(AREA_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mAreaKey, item.getArea()));
+        cv.put(CASETYPE_COLUMN,item.getCasetype());
+        cv.put(AREA_COLUMN, item.getArea());
         cv.put(LOCATION_COLUMN, item.getLocation());
         cv.put(OCCURRED_START_TIME_COLUMN, item.getOccurredStartTime());
         cv.put(OCCURRED_END_TIME_COLUMN, item.getOccurredEndTime());
@@ -155,14 +165,17 @@ public class SceneProvider {
         cv.put(ACCESS_END_TIME_COLUMN, item.getAccessEndTime());
         cv.put(ACCESS_LOCATION_COLUMN, item.getAccessLocation());
         cv.put(CASE_OCCUR_PROCESS_COLUMN, item.getCaseOccurProcess());
-        cv.put(SCENE_CONDITION_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mSceneConditionKey, item.getSceneCondition()));
+        cv.put(SCENE_CONDITION_COLUMN, item.getSceneCondition());
+        cv.put(INFORMANT_REASON_COLUMN, (item.isInformantCk()?"1":"0"));
+        cv.put(VICTIM_REASON_COLUMN, (item.isVictimCk()?"1":"0"));
+        cv.put(OTHER_REASON_COLUMN, (item.isOtherCk()?"1":"0"));
         cv.put(CHANGE_REASON_COLUMN, item.getChangeReason());
-        cv.put(WEATHER_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mWeatherConditionKey, item.getWeatherCondition()));
-        cv.put(WIND_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mWindDirectionKey, item.getWindDirection()));
+        cv.put(WEATHER_COLUMN, item.getWeatherCondition());
+        cv.put(WIND_COLUMN, item.getWindDirection());
         cv.put(TEMPERATURE_COLUMN, item.getTemperature());
         cv.put(HUMIDITY_COLUMN, item.getHumidity());
         cv.put(ACCESS_REASON_COLUMN, item.getAccessReason());
-        cv.put(ILLUMINATION_CONDITION_COLUMN,  DictionaryInfo.getDictKey(DictionaryInfo.mIlluminationConditionKey, item.getIlluminationCondition()));
+        cv.put(ILLUMINATION_CONDITION_COLUMN, item.getIlluminationCondition());
         cv.put(PRODUCT_PEOPLE_NAME_COLUMN, item.getProductPeopleName());
         cv.put(PRODUCT_PEOPLE_UNIT_COLUMN, item.getProductPeopleUnit());
         cv.put(PRODUCT_PEOPLE_DUTIES_COLUMN, item.getProductPeopleDuties());

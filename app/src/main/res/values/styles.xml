@@ -19,4 +19,9 @@
     <style name="ToolbarPopupTheme" parent="@style/ThemeOverlay.AppCompat">
         <item name="android:colorBackground">@color/colorPrimary</item>
     </style>
+
+    <style parent="@android:attr/listViewStyle" name="treeViewListStyle">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:divider">@drawable/divider</item>
+    </style>
 </resources>

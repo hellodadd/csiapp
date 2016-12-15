@@ -13,7 +13,7 @@ public class DatabasesHelper extends SQLiteOpenHelper {
     // 資料庫名稱
     public static final String DATABASE_NAME = "csi_databases.db";
     // 資料庫版本，資料結構改變的時候要更改這個數字，通常是加一
-    public static final int VERSION = 3;
+    public static final int VERSION = 1;
     // 資料庫物件，固定的欄位變數
     private static SQLiteDatabase database;
 
@@ -67,7 +67,7 @@ public class DatabasesHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        switch (oldVersion){
+        /*switch (oldVersion){
             case 1:
                 if(newVersion<=1){
                     return;
@@ -81,21 +81,8 @@ public class DatabasesHelper extends SQLiteOpenHelper {
                 } finally {
                     db.endTransaction();
                 }
-            case 2:
-                if(newVersion<=2){
-                    return;
-                }
-                try {
-                    upgradeDatabaseToVersion3(db);
-                    db.setTransactionSuccessful();
-                } catch (Throwable ex) {
-                    Log.e(TAG, ex.getMessage(), ex);
-                    break;
-                } finally {
-                    db.endTransaction();
-                }
             return;
-        }
+        }*/
         Log.e(TAG, "Destroying all old data.");
         // 刪除原有的表格
         dropAll(db);
@@ -104,15 +91,6 @@ public class DatabasesHelper extends SQLiteOpenHelper {
     }
 
     private void upgradeDatabaseToVersion2(SQLiteDatabase db){
-        db.execSQL("ALTER TABLE crime ADD COLUMN monitoringphoto_item_number INTEGER NOT NULL");
-        db.execSQL("ALTER TABLE crime ADD COLUMN cameraphoto_item_number INTEGER NOT NULL");
-        db.execSQL(MonitoringPhotoProvider.CREATE_TABLE);
-        db.execSQL(CameraPhotoProvider.CREATE_TABLE);
-    }
-
-    private void upgradeDatabaseToVersion3(SQLiteDatabase db){
-        db.execSQL("ALTER TABLE crime ADD COLUMN flat_item_number INTEGER NOT NULL");
-        db.execSQL(FlatProvider.CREATE_TABLE);
     }
 
     private void dropAll(SQLiteDatabase db){

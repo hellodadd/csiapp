@@ -21,7 +21,7 @@ public class OverviewProvider {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    OVERVIEW_COLUMN + " INTEGER NOT NULL)";
+                    OVERVIEW_COLUMN + " TEXT NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;

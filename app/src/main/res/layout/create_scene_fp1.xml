@@ -101,15 +101,20 @@
                     android:textSize="@dimen/create_vp1_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/casetype_spinner"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/casetype"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
 
             <LinearLayout
@@ -133,15 +138,20 @@
                     android:textSize="@dimen/create_vp1_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/area_spinner"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/area"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
 
             <LinearLayout
@@ -527,15 +537,20 @@
                     android:textSize="@dimen/create_vp1_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/sceneCondition_spinner"
-                    android:layout_gravity="center"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/sceneCondition"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/change_reason_linear"
@@ -623,15 +638,20 @@
                     android:textSize="@dimen/create_vp1_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/weatherCondition_spinner"
-                    android:layout_gravity="center"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/weatherCondition"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
 
             <LinearLayout
@@ -655,15 +675,20 @@
                     android:textSize="@dimen/create_vp1_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/windDirection_spinner"
-                    android:layout_gravity="center"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/windDirection"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
 
             <LinearLayout
@@ -791,15 +816,20 @@
                     android:textSize="@dimen/create_vp1_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/illuminationCondition_spinner"
-                    android:layout_gravity="center"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/illuminationCondition"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
 
             <LinearLayout
@@ -943,15 +973,20 @@
                     android:textSize="@dimen/create_vp1_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/sceneConductor_spinner"
-                    android:layout_gravity="center"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/sceneConductor"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
 
             <LinearLayout
@@ -975,15 +1010,20 @@
                     android:textSize="@dimen/create_vp1_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/accessInspectors_spinner"
-                    android:layout_gravity="center"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/accessInspectors"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

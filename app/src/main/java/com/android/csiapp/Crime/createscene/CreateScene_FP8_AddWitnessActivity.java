@@ -139,7 +139,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         mSex_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mWitnessItem.setWitnessSex(mSex.get(position));
+                mWitnessItem.setWitnessSex(DictionaryInfo.getDictKey(DictionaryInfo.mSexKey, mSex.get(position)));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -166,7 +166,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
 
     private void initData(){
         mName.setText(mWitnessItem.getWitnessName());
-        mSex_spinner.setSelection(getSex(mWitnessItem.getWitnessSex()));
+        mSex_spinner.setSelection(getSex(DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, mWitnessItem.getWitnessSex())));
         mBirthday.setText(DateTimePicker.getCurrentDate(mWitnessItem.getWitnessBirthday()));
         mNumber.setText(mWitnessItem.getWitnessNumber());
         mAddress.setText(mWitnessItem.getWitnessAddress());

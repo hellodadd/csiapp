@@ -1,10 +1,13 @@
 package com.android.csiapp.Crime.createscene;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +22,7 @@ import android.widget.TextView;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
+import com.android.csiapp.Crime.utils.tree.TreeViewListDemo;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
@@ -34,42 +38,31 @@ public class CreateScene_FP7 extends Fragment{
     private CrimeItem mItem;
     private int mEvent;
 
-    private Spinner mPeopleNumber_spinner;
-    private ArrayList<String> mPeopleNumber = new ArrayList<String>();
-    private ArrayAdapter<String> mPeopleNumber_adapter;
-    private Spinner mCrimeMeans_spinner;
-    private ArrayList<String> mCrimeMeans = new ArrayList<String>();
-    private ArrayAdapter<String> mCrimeMeans_adapter;
-    private Spinner mCrimeCharacter_spinner;
-    private ArrayList<String> mCrimeCharacter = new ArrayList<String>();
-    private ArrayAdapter<String> mCrimeCharacter_adapter;
-    private Spinner mCrimeEntrance_spinner;
-    private ArrayList<String> mCrimeEntrance = new ArrayList<String>();
-    private ArrayAdapter<String> mCrimeEntrance_adapter;
-    private Spinner mCrimeTiming_spinner;
-    private ArrayList<String> mCrimeTiming = new ArrayList<String>();
-    private ArrayAdapter<String> mCrimeTiming_adapter;
-    private Spinner mSelectObject_spinner;
-    private ArrayList<String> mSelectObject = new ArrayList<String>();
-    private ArrayAdapter<String> mSelectObject_adapter;
-    private Spinner mCrimeExport_spinner;
-    private ArrayList<String> mCrimeExport = new ArrayList<String>();
-    private ArrayAdapter<String> mCrimeExport_adapter;
+    private TextView mPeopleNumberText;
+    private int EVENT_PEOPLE_NUMBER_SELECT_ITEM = 1;
+    private TextView mCrimeMeansText;
+    private int EVENT_CRIME_MEANS_SELECT_ITEM = 2;
+    private TextView mCrimeCharacterText;
+    private int EVENT_CRIME_CHARACTER_SELECT_ITEM = 3;
+    private TextView mCrimeEntranceText;
+    private int EVENT_CRIME_ENTRANCE_SELECT_ITEM = 4;
+    private TextView mCrimeTimingText;
+    private int EVENT_CRIME_TIMING_SELECT_ITEM = 5;
+    private TextView mSelectObjectText;
+    private int EVENT_SELECT_OBJECT_SELECT_ITEM = 6;
+    private TextView mCrimeExportText;
+    private int EVENT_CRIME_EXPORT_SELECT_ITEM = 7;
 
     private ClearableEditText mPeopleFeature;
 
-    private Spinner mCrimeFeature_spinner;
-    private ArrayList<String> mCrimeFeature = new ArrayList<String>();
-    private ArrayAdapter<String> mCrimeFeature_adapter;
-    private Spinner mIntrusiveMethod_spinner;
-    private ArrayList<String> mIntrusiveMethod = new ArrayList<String>();
-    private ArrayAdapter<String> mIntrusiveMethod_adapter;
-    private Spinner mSelectLocation_spinner;
-    private ArrayList<String> mSelectLocation = new ArrayList<String>();
-    private ArrayAdapter<String> mSelectLocation_adapter;
-    private Spinner mCrimePurpose_spinner;
-    private ArrayList<String> mCrimePurpose = new ArrayList<String>();
-    private ArrayAdapter<String> mCrimePurpose_adapter;
+    private TextView mCrimeFeatureText;
+    private int EVENT_CRIME_FEATURE_SELECT_ITEM = 8;
+    private TextView mIntrusiveMethodText;
+    private int EVENT_INTRUSIVE_METHOD_SELECT_ITEM = 9;
+    private TextView mSelectLocationText;
+    private int EVENT_SELECT_LOCATION_SELECT_ITEM = 10;
+    private TextView mCrimePurposeText;
+    private int EVENT_CRIME_PURPOSE_SELECT_ITEM = 11;
 
     public CreateScene_FP7() {
         // Required empty public constructor
@@ -110,190 +103,199 @@ public class CreateScene_FP7 extends Fragment{
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String result = "";
+        if (resultCode == Activity.RESULT_OK) {
+            if(requestCode == EVENT_PEOPLE_NUMBER_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mItem.setCrimePeopleNumber(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mPeopleNumberKey, result);
+                mPeopleNumberText.setText(result);
+            }else if(requestCode == EVENT_CRIME_MEANS_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mItem.setCrimeMeans(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeMeansKey, result);
+                mCrimeMeansText.setText(result);
+            }else if(requestCode == EVENT_CRIME_CHARACTER_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mItem.setCrimeCharacter(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeCharacterKey, result);
+                mCrimeCharacterText.setText(result);
+            }else if(requestCode == EVENT_CRIME_ENTRANCE_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mItem.setCrimeEntrance(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeEntranceExportKey, result);
+                mCrimeEntranceText.setText(result);
+            }else if(requestCode == EVENT_CRIME_TIMING_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mItem.setCrimeTiming(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeTimingKey, result);
+                mCrimeTimingText.setText(result);
+            }else if(requestCode == EVENT_SELECT_OBJECT_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mItem.setSelectObject(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mSelectObjectKey, result);
+                mSelectObjectText.setText(result);
+            }else if(requestCode == EVENT_CRIME_EXPORT_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mItem.setCrimeExport(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeEntranceExportKey, result);
+                mCrimeExportText.setText(result);
+            }else if(requestCode == EVENT_CRIME_FEATURE_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mItem.setCrimeFeature(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeFeatureKey, result);
+                mCrimeFeatureText.setText(result);
+            }else if(requestCode == EVENT_INTRUSIVE_METHOD_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mItem.setIntrusiveMethod(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mIntrusiveMethodKey, result);
+                mIntrusiveMethodText.setText(result);
+            }else if(requestCode == EVENT_SELECT_LOCATION_SELECT_ITEM) {
+                result = (String) data.getStringExtra("Select");
+                mItem.setSelectLocation(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mSelectLocationKey, result);
+                mSelectLocationText.setText(result);
+            }else if(requestCode == EVENT_CRIME_PURPOSE_SELECT_ITEM) {
+                result = (String) data.getStringExtra("Select");
+                mItem.setCrimePurpose(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimePurposeKey, result);
+                mCrimePurposeText.setText(result);
+            }
+        }
+        Log.d("Anita","result = "+result);
+    }
+
     private void initView(View view){
         DictionaryInfo info = new DictionaryInfo(context);
 
-        mPeopleNumber  = info.getArray(info.mPeopleNumberKey);
-        mPeopleNumber_spinner = (Spinner) view.findViewById(R.id.peopleNumber_spinner);
-        mPeopleNumber_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mPeopleNumber);
-        mPeopleNumber_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mPeopleNumber_spinner.setAdapter(mPeopleNumber_adapter);
-        mPeopleNumber_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setCrimePeopleNumber(mPeopleNumber.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mPeopleNumberText = (TextView) view.findViewById(R.id.peopleNumber);
+        mPeopleNumberText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mPeopleNumberKey);
+                it.putExtra("Selected", mItem.getCrimePeopleNumber());
+                startActivityForResult(it, EVENT_PEOPLE_NUMBER_SELECT_ITEM);
             }
         });
 
-        mCrimeMeans  = info.getArray(info.mCrimeMeansKey);
-        mCrimeMeans_spinner = (Spinner) view.findViewById(R.id.crimeMeans_spinner);
-        mCrimeMeans_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mCrimeMeans);
-        mCrimeMeans_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mCrimeMeans_spinner.setAdapter(mCrimeMeans_adapter);
-        mCrimeMeans_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setCrimeMeans(mCrimeMeans.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mCrimeMeansText = (TextView) view.findViewById(R.id.crimeMeans);
+        mCrimeMeansText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mCrimeMeansKey);
+                it.putExtra("Selected", mItem.getCrimeMeans());
+                startActivityForResult(it, EVENT_CRIME_MEANS_SELECT_ITEM);
             }
         });
 
-        mCrimeCharacter  = info.getArray(info.mCrimeCharacterKey);
-        mCrimeCharacter_spinner = (Spinner) view.findViewById(R.id.crimeCharacter_spinner);
-        mCrimeCharacter_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mCrimeCharacter);
-        mCrimeCharacter_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mCrimeCharacter_spinner.setAdapter(mCrimeCharacter_adapter);
-        mCrimeCharacter_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setCrimeCharacter(mCrimeCharacter.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mCrimeCharacterText = (TextView) view.findViewById(R.id.crimeCharacter);
+        mCrimeCharacterText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mCrimeCharacterKey);
+                it.putExtra("Selected", mItem.getCrimeCharacter());
+                startActivityForResult(it, EVENT_CRIME_CHARACTER_SELECT_ITEM);
             }
         });
 
-        mCrimeEntrance  = info.getArray(info.mCrimeEntranceExportKey);
-        mCrimeEntrance_spinner = (Spinner) view.findViewById(R.id.crimeEntrance_spinner);
-        mCrimeEntrance_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mCrimeEntrance);
-        mCrimeEntrance_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mCrimeEntrance_spinner.setAdapter(mCrimeEntrance_adapter);
-        mCrimeEntrance_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setCrimeEntrance(mCrimeEntrance.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mCrimeEntranceText = (TextView) view.findViewById(R.id.crimeEntrance);
+        mCrimeEntranceText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mCrimeEntranceExportKey);
+                it.putExtra("Selected", mItem.getCrimeEntrance());
+                startActivityForResult(it, EVENT_CRIME_ENTRANCE_SELECT_ITEM);
             }
         });
 
-        mCrimeTiming  = info.getArray(info.mCrimeTimingKey);
-        mCrimeTiming_spinner = (Spinner) view.findViewById(R.id.crimeTiming_spinner);
-        mCrimeTiming_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mCrimeTiming);
-        mCrimeTiming_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mCrimeTiming_spinner.setAdapter(mCrimeTiming_adapter);
-        mCrimeTiming_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setCrimeTiming(mCrimeTiming.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mCrimeTimingText = (TextView) view.findViewById(R.id.crimeTiming);
+        mCrimeTimingText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mCrimeTimingKey);
+                it.putExtra("Selected", mItem.getCrimeTiming());
+                startActivityForResult(it, EVENT_CRIME_TIMING_SELECT_ITEM);
             }
         });
 
-        mSelectObject  = info.getArray(info.mSelectObjectKey);
-        mSelectObject_spinner = (Spinner) view.findViewById(R.id.selectObject_spinner);
-        mSelectObject_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mSelectObject);
-        mSelectObject_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSelectObject_spinner.setAdapter(mSelectObject_adapter);
-        mSelectObject_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setSelectObject(mSelectObject.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mSelectObjectText = (TextView) view.findViewById(R.id.selectObject);
+        mSelectObjectText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mSelectObjectKey);
+                it.putExtra("Selected", mItem.getSelectObject());
+                startActivityForResult(it, EVENT_SELECT_OBJECT_SELECT_ITEM);
             }
         });
 
-        mCrimeExport  = info.getArray(info.mCrimeEntranceExportKey);
-        mCrimeExport_spinner = (Spinner) view.findViewById(R.id.crimeExport_spinner);
-        mCrimeExport_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mCrimeExport);
-        mCrimeExport_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mCrimeExport_spinner.setAdapter(mCrimeExport_adapter);
-        mCrimeExport_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setCrimeExport(mCrimeExport.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mCrimeExportText = (TextView) view.findViewById(R.id.crimeExport);
+        mCrimeExportText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mCrimeEntranceExportKey);
+                it.putExtra("Selected", mItem.getCrimeExport());
+                startActivityForResult(it, EVENT_CRIME_EXPORT_SELECT_ITEM);
             }
         });
 
         mPeopleFeature = (ClearableEditText) view.findViewById(R.id.peopleFeature);
 
-        mCrimeFeature  = info.getArray(info.mCrimeFeatureKey);
-        mCrimeFeature_spinner = (Spinner) view.findViewById(R.id.crimeFeature_spinner);
-        mCrimeFeature_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mCrimeFeature);
-        mCrimeFeature_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mCrimeFeature_spinner.setAdapter(mCrimeFeature_adapter);
-        mCrimeFeature_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setCrimeFeature(mCrimeFeature.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mCrimeFeatureText = (TextView) view.findViewById(R.id.crimeFeature);
+        mCrimeFeatureText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mCrimeFeatureKey);
+                it.putExtra("Selected", mItem.getCrimeFeature());
+                startActivityForResult(it, EVENT_CRIME_FEATURE_SELECT_ITEM);
             }
         });
 
-        mIntrusiveMethod  = info.getArray(info.mIntrusiveMethodKey);
-        mIntrusiveMethod_spinner = (Spinner) view.findViewById(R.id.intrusiveMethod_spinner);
-        mIntrusiveMethod_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mIntrusiveMethod);
-        mIntrusiveMethod_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mIntrusiveMethod_spinner.setAdapter(mIntrusiveMethod_adapter);
-        mIntrusiveMethod_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setIntrusiveMethod(mIntrusiveMethod.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mIntrusiveMethodText = (TextView) view.findViewById(R.id.intrusiveMethod);
+        mIntrusiveMethodText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mIntrusiveMethodKey);
+                it.putExtra("Selected", mItem.getIntrusiveMethod());
+                startActivityForResult(it, EVENT_INTRUSIVE_METHOD_SELECT_ITEM);
             }
         });
 
-        mSelectLocation  = info.getArray(info.mSelectLocationKey);
-        mSelectLocation_spinner = (Spinner) view.findViewById(R.id.selectLocation_spinner);
-        mSelectLocation_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mSelectLocation);
-        mSelectLocation_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSelectLocation_spinner.setAdapter(mSelectLocation_adapter);
-        mSelectLocation_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setSelectLocation(mSelectLocation.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mSelectLocationText = (TextView) view.findViewById(R.id.selectLocation);
+        mSelectLocationText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mSelectLocationKey);
+                it.putExtra("Selected", mItem.getSelectLocation());
+                startActivityForResult(it, EVENT_SELECT_LOCATION_SELECT_ITEM);
             }
         });
 
-        mCrimePurpose  = info.getArray(info.mCrimePurposeKey);
-        mCrimePurpose_spinner = (Spinner) view.findViewById(R.id.crimePurpose_spinner);
-        mCrimePurpose_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mCrimePurpose);
-        mCrimePurpose_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mCrimePurpose_spinner.setAdapter(mCrimePurpose_adapter);
-        mCrimePurpose_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setCrimePurpose(mCrimePurpose.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mCrimePurposeText = (TextView) view.findViewById(R.id.crimePurpose);
+        mCrimePurposeText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mCrimePurposeKey);
+                it.putExtra("Selected", mItem.getCrimePurpose());
+                startActivityForResult(it, EVENT_CRIME_PURPOSE_SELECT_ITEM);
             }
         });
     }
 
     private void initData(){
-        mPeopleNumber_spinner.setSelection(getPeopleNumber(mItem.getCrimePeopleNumber()));
-        mCrimeMeans_spinner.setSelection(getCrimeMeans(mItem.getCrimeMeans()));
-        mCrimeCharacter_spinner.setSelection(getCrimeCharacter(mItem.getCrimeCharacter()));
-        mCrimeEntrance_spinner.setSelection(getCrimeEntrance(mItem.getCrimeEntrance()));
-        mCrimeTiming_spinner.setSelection(getCrimeTiming(mItem.getCrimeTiming()));
-        mSelectObject_spinner.setSelection(getSelectObject(mItem.getSelectObject()));
-        mCrimeExport_spinner.setSelection(getCrimeExport(mItem.getCrimeExport()));
+        mPeopleNumberText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mPeopleNumberKey, mItem.getCrimePeopleNumber()));
+        mCrimeMeansText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeMeansKey, mItem.getCrimeMeans()));
+        mCrimeCharacterText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeCharacterKey, mItem.getCrimeCharacter()));
+        mCrimeEntranceText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeEntranceExportKey, mItem.getCrimeEntrance()));
+        mCrimeTimingText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeTimingKey, mItem.getCrimeTiming()));
+        mSelectObjectText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSelectObjectKey, mItem.getSelectObject()));
+        mCrimeExportText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeEntranceExportKey, mItem.getCrimeExport()));
         mPeopleFeature.setText(mItem.getCrimePeopleFeature());
-        mCrimeFeature_spinner.setSelection(getCrimeFeature(mItem.getCrimeFeature()));
-        mIntrusiveMethod_spinner.setSelection(getIntrusiveMethod(mItem.getIntrusiveMethod()));
-        mSelectLocation_spinner.setSelection(getSelectLocation(mItem.getSelectLocation()));
-        mCrimePurpose_spinner.setSelection(getCrimePurpose(mItem.getCrimePurpose()));
+        mCrimeFeatureText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeFeatureKey, mItem.getCrimeFeature()));
+        mIntrusiveMethodText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mIntrusiveMethodKey, mItem.getIntrusiveMethod()));
+        mSelectLocationText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSelectLocationKey, mItem.getSelectLocation()));
+        mCrimePurposeText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimePurposeKey, mItem.getCrimePurpose()));
     }
 
     public void saveData(){
@@ -310,82 +312,5 @@ public class CreateScene_FP7 extends Fragment{
     public void onPause(){
         super.onPause();
         saveData();
-    }
-
-    private int getPeopleNumber(String peopleNumber){
-        for(int i=0; i<mPeopleNumber.size(); i++){
-            if(peopleNumber.equalsIgnoreCase(mPeopleNumber.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getCrimeMeans(String crimeMeans){
-        for(int i=0; i<mCrimeMeans.size(); i++){
-            if(crimeMeans.equalsIgnoreCase(mCrimeMeans.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getCrimeCharacter(String crimeCharacter){
-        for(int i=0; i<mCrimeCharacter.size(); i++){
-            if(crimeCharacter.equalsIgnoreCase(mCrimeCharacter.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getCrimeEntrance(String crimeEntrance){
-        for(int i=0; i<mCrimeEntrance.size(); i++){
-            if(crimeEntrance.equalsIgnoreCase(mCrimeEntrance.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getCrimeTiming(String crimeTiming){
-        for(int i=0; i<mCrimeTiming.size(); i++){
-            if(crimeTiming.equalsIgnoreCase(mCrimeTiming.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getSelectObject(String selectObject){
-        for(int i=0; i<mSelectObject.size(); i++){
-            if(selectObject.equalsIgnoreCase(mSelectObject.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getCrimeExport(String crimeExport){
-        for(int i=0; i<mCrimeExport.size(); i++){
-            if(crimeExport.equalsIgnoreCase(mCrimeExport.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getCrimeFeature(String crimeFeature){
-        for(int i=0; i<mCrimeFeature.size(); i++){
-            if(crimeFeature.equalsIgnoreCase(mCrimeFeature.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getIntrusiveMethod(String intrusiveMethod){
-        for(int i=0; i<mIntrusiveMethod.size(); i++){
-            if(intrusiveMethod.equalsIgnoreCase(mIntrusiveMethod.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getSelectLocation(String selectLocation){
-        for(int i=0; i<mSelectLocation.size(); i++){
-            if(selectLocation.equalsIgnoreCase(mSelectLocation.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getCrimePurpose(String crimePurpose){
-        for(int i=0; i<mCrimePurpose.size(); i++){
-            if(crimePurpose.equalsIgnoreCase(mCrimePurpose.get(i))) return i;
-        }
-        return 0;
     }
 }

@@ -337,11 +337,11 @@ public class CreateScene_FP4 extends Fragment {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         File mediaFile;
         if (type == PHOTO_TYPE_POSITION){
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "POSITION_"+ timeStamp + ".jpg");
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "POSITION_PHOTO_"+ timeStamp + ".jpg");
         } else if(type == PHOTO_TYPE_LIKE) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "LIKE_"+ timeStamp + ".jpg");
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "OVERVIEW_PHOTO_"+ timeStamp + ".jpg");
         } else if (type == PHOTO_TYPE_IMPORTANT) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMPORTANT_"+ timeStamp + ".jpg");
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMPORTANT_PHOTO_"+ timeStamp + ".jpg");
         } else {
             return null;
         }

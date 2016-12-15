@@ -32,6 +32,7 @@ import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.UserInfo;
+import com.android.csiapp.Crime.utils.tree.TreeViewListDemo;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.R;
@@ -51,13 +52,13 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
     private Button mCellCollection, mCellDetail;
     private String ACTION_RECEIVE_RESULT = "com.kuaikan.send_result";
+    private int EVENT_CELL_COLLECTION = 0;
 
-    private Spinner mCasetype_spinner;
-    private ArrayList<String> mCasetype = new ArrayList<String>();
-    private ArrayAdapter<String> mCasetype_adapter;
-    private Spinner mArea_spinner;
-    private ArrayList<String> mArea = new ArrayList<String>();
-    private ArrayAdapter<String> mArea_adapter;
+    private TextView mCasetypeText;
+    private int EVENT_CASETYPE_SELECT_ITEM = 1;
+
+    private TextView mAreaText;
+    private int EVENT_AREA_SELECT_ITEM = 2;
 
     private ClearableEditText mLocation;
 
@@ -80,41 +81,36 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private ClearableEditText mCaseOccurProcess;
     private Button mCaseOccurProcessBtn;
 
-    private Spinner mSceneCondition_spinner;
-    private ArrayList<String> mSceneCondition = new ArrayList<String>();;
-    private ArrayAdapter<String> mSceneCondition_adapter;
+    private TextView mSceneConditionText;
+    private int EVENT_SCENE_CONDITION_SELECT_ITEM = 3;
     private LinearLayout mChangeReasonLinearLayout;
     private ClearableEditText mChangeReason;
     private CheckBox mInformantCkBx, mVictimCkBx, mOtherCkBx;
 
-    private Spinner mWeatherCondition_spinner;
-    private ArrayList<String> mWeatherCondition = new ArrayList<String>();;
-    private ArrayAdapter<String> mWeatherCondition_adapter;
+    private TextView mWeatherConditionText;
+    private int EVENT_WEATHER_SELECT_ITEM = 4;
 
-    private Spinner mWindDirection_spinner;
-    private ArrayList<String> mWindDirection = new ArrayList<String>();;
-    private ArrayAdapter<String> mWindDirection_adapter;
+    private TextView mWindDirectionText;
+    private int EVENT_WIND_SELECT_ITEM = 5;
 
     private ClearableEditText mTemperature;
     private ClearableEditText mHumidity;
     private ClearableEditText mAccessReason;
     private Button mAccessReasonBtn;
 
-    private Spinner mIlluminationCondition_spinner;
-    private ArrayList<String> mIlluminationCondition = new ArrayList<String>();;
-    private ArrayAdapter<String> mIlluminationCondition_adapter;
+    private TextView mIlluminationConditionText;
+    private int EVENT_ILLUMINATION_SELECT_ITEM = 6;
 
     private ClearableEditText mProductPeopleName;
     private ClearableEditText mProductPeopleUnit;
     private ClearableEditText mProductPeopleDuties;
     private ClearableEditText mSafeguard;
 
-    private Spinner mSceneConductor_spinner;
-    private ArrayList<String> mSceneConductor = new ArrayList<String>();;
-    private ArrayAdapter<String> mSceneConductor_adapter;
-    private Spinner mAccessInspectors_spinner;
-    private ArrayList<String> mAccessInspectors = new ArrayList<String>();;
-    private ArrayAdapter<String> mAccessInspectors_adapter;
+    private TextView mSceneConductorText;
+    private int EVENT_SCENE_CONDUCTOR_SLELECT_ITEM = 7;
+
+    private TextView mAccessInspectorsText;
+    private int EVENT_ACCESS_INSPECTORS_SLELECT_ITEM = 8;
 
     public CreateScene_FP1() {
         // Required empty public constructor
@@ -162,11 +158,53 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String result = "";
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == 0) {
-                mItem =(CrimeItem) data.getSerializableExtra("CrimeItem");
+            if (requestCode == EVENT_CELL_COLLECTION) {
+            }else if(requestCode == EVENT_CASETYPE_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mItem.setCasetype(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, result);
+                mCasetypeText.setText(result);
+            }else if(requestCode == EVENT_AREA_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mItem.setArea(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, result);
+                mAreaText.setText(result);
+            }else if(requestCode == EVENT_SCENE_CONDITION_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mItem.setSceneCondition(result);
+                enableChangeReason(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mSceneConditionKey, result);
+                mSceneConditionText.setText(result);
+            }else if(requestCode == EVENT_WEATHER_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mItem.setWeatherCondition(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mWeatherConditionKey, result);
+                mWeatherConditionText.setText(result);
+            }else if(requestCode == EVENT_WIND_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mItem.setWindDirection(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mWindDirectionKey, result);
+                mWindDirectionText.setText(result);
+            }else if(requestCode == EVENT_ILLUMINATION_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mItem.setIlluminationCondition(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mIlluminationConditionKey, result);
+                mIlluminationConditionText.setText(result);
+            }else if(requestCode == EVENT_SCENE_CONDUCTOR_SLELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mItem.setSceneConductor(result);
+                result = UserInfo.getUserName(result);
+                mSceneConductorText.setText(result);
+            }else if(requestCode == EVENT_ACCESS_INSPECTORS_SLELECT_ITEM) {
+                result = (String) data.getStringExtra("Select");
+                mItem.setAccessInspectors(result);
+                result = UserInfo.getUserName(result);
+                mAccessInspectorsText.setText(result);
             }
         }
+        Log.d("Anita","result = "+result);
     }
 
     private void initView(View view){
@@ -179,9 +217,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 startCollection();
-                /*Intent showRet = new Intent(ACTION_RECEIVE_RESULT);
-                showRet.putExtra("result", result);
-                context.sendBroadcast(showRet);*/
             }
         });
         mCellDetail = (Button) view.findViewById(R.id.cell_detail);
@@ -199,33 +234,23 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             }
         });
 
-        mCasetype = info.getArray(info.mCaseTypeKey);
-        mCasetype_spinner = (Spinner) view.findViewById(R.id.casetype_spinner);
-        mCasetype_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mCasetype);
-        mCasetype_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mCasetype_spinner.setAdapter(mCasetype_adapter);
-        mCasetype_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setCasetype(mCasetype.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mCasetypeText = (TextView) view.findViewById(R.id.casetype);
+        mCasetypeText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mCaseTypeKey);
+                it.putExtra("Selected", mItem.getCasetype());
+                startActivityForResult(it, EVENT_CASETYPE_SELECT_ITEM);
             }
         });
 
-        mArea = info.getArray(info.mAreaKey);
-        mArea_spinner = (Spinner) view.findViewById(R.id.area_spinner);
-        mArea_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mArea);
-        mArea_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mArea_spinner.setAdapter(mArea_adapter);
-        mArea_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setArea(mArea.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mAreaText = (TextView) view.findViewById(R.id.area);
+        mAreaText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mAreaKey);
+                it.putExtra("Selected", mItem.getArea());
+                startActivityForResult(it, EVENT_AREA_SELECT_ITEM);
             }
         });
 
@@ -257,78 +282,53 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mCaseOccurProcessBtn.setOnClickListener(this);
 
         mChangeReasonLinearLayout = (LinearLayout) view.findViewById(R.id.change_reason_linear);
-        mSceneCondition = info.getArray(info.mSceneConditionKey);
-        mSceneCondition_spinner = (Spinner) view.findViewById(R.id.sceneCondition_spinner);
-        mSceneCondition_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mSceneCondition);
-        mSceneCondition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSceneCondition_spinner.setAdapter(mSceneCondition_adapter);
-        mSceneCondition_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setSceneCondition(mSceneCondition.get(position));
-                if(position==0){
-                    mChangeReasonLinearLayout.setVisibility(View.GONE);
-                }else{
-                    mChangeReasonLinearLayout.setVisibility(View.VISIBLE);
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+
+        mSceneConditionText = (TextView) view.findViewById(R.id.sceneCondition);
+        mSceneConditionText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mSceneConditionKey);
+                it.putExtra("Selected", mItem.getSceneCondition());
+                startActivityForResult(it, EVENT_SCENE_CONDITION_SELECT_ITEM);
             }
         });
+
         mChangeReason = (ClearableEditText) view.findViewById(R.id.change_reason);
         mInformantCkBx = (CheckBox) view.findViewById(R.id.InformantCkBx);
         mInformantCkBx.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mChangeReason.setText("报案人进入");
-                mVictimCkBx.setChecked(false);
-                mOtherCkBx.setChecked(false);
+                mItem.setInformantCk(true);
             }
         });
         mVictimCkBx = (CheckBox) view.findViewById(R.id.VictimCkBx);
         mVictimCkBx.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mChangeReason.setText("事主进入");
-                mInformantCkBx.setChecked(false);
-                mOtherCkBx.setChecked(false);
+                mItem.setVictimCk(true);
             }
         });
         mOtherCkBx = (CheckBox) view.findViewById(R.id.OtherCkBx);
         mOtherCkBx.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mChangeReason.setText("其他");
-                mInformantCkBx.setChecked(false);
-                mVictimCkBx.setChecked(false);
+                mItem.setOtherCk(true);
             }
         });
 
-        mWeatherCondition = info.getArray(info.mWeatherConditionKey);
-        mWeatherCondition_spinner = (Spinner) view.findViewById(R.id.weatherCondition_spinner);
-        mWeatherCondition_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mWeatherCondition);
-        mWeatherCondition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mWeatherCondition_spinner.setAdapter(mWeatherCondition_adapter);
-        mWeatherCondition_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setWeatherCondition(mWeatherCondition.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mWeatherConditionText = (TextView) view.findViewById(R.id.weatherCondition);
+        mWeatherConditionText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mWeatherConditionKey);
+                it.putExtra("Selected", mItem.getWeatherCondition());
+                startActivityForResult(it, EVENT_WEATHER_SELECT_ITEM);
             }
         });
-
-        mWindDirection = info.getArray(info.mWindDirectionKey);
-        mWindDirection_spinner = (Spinner) view.findViewById(R.id.windDirection_spinner);
-        mWindDirection_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mWindDirection);
-        mWindDirection_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mWindDirection_spinner.setAdapter(mWindDirection_adapter);
-        mWindDirection_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setWindDirection(mWindDirection.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mWindDirectionText = (TextView) view.findViewById(R.id.windDirection);
+        mWindDirectionText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mWindDirectionKey);
+                it.putExtra("Selected", mItem.getWindDirection());
+                startActivityForResult(it, EVENT_WIND_SELECT_ITEM);
             }
         });
 
@@ -340,18 +340,13 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mAccessReasonBtn = (Button) view.findViewById(R.id.accessReason_button);
         mAccessReasonBtn.setOnClickListener(this);
 
-        mIlluminationCondition = info.getArray(info.mIlluminationConditionKey);
-        mIlluminationCondition_spinner = (Spinner) view.findViewById(R.id.illuminationCondition_spinner);
-        mIlluminationCondition_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mIlluminationCondition);
-        mIlluminationCondition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mIlluminationCondition_spinner.setAdapter(mIlluminationCondition_adapter);
-        mIlluminationCondition_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setIlluminationCondition(mIlluminationCondition.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mIlluminationConditionText = (TextView) view.findViewById(R.id.illuminationCondition);
+        mIlluminationConditionText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mIlluminationConditionKey);
+                it.putExtra("Selected", mItem.getIlluminationCondition());
+                startActivityForResult(it, EVENT_ILLUMINATION_SELECT_ITEM);
             }
         });
 
@@ -360,33 +355,25 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mProductPeopleDuties = (ClearableEditText) view.findViewById(R.id.productPeople_duties);
         mSafeguard = (ClearableEditText) view.findViewById(R.id.safeguard);
 
-        mSceneConductor = user.getArray();
-        mSceneConductor_spinner = (Spinner) view.findViewById(R.id.sceneConductor_spinner);
-        mSceneConductor_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mSceneConductor);
-        mSceneConductor_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSceneConductor_spinner.setAdapter(mSceneConductor_adapter);
-        mSceneConductor_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setSceneConductor(mSceneConductor.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mSceneConductorText = (TextView) view.findViewById(R.id.sceneConductor);
+        mSceneConductorText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",UserInfo.mSceneConductor);
+                it.putExtra("Selected", mItem.getSceneConductor());
+                it.putExtra("DataInfo", "UserInfo");
+                startActivityForResult(it, EVENT_SCENE_CONDUCTOR_SLELECT_ITEM);
             }
         });
 
-        mAccessInspectors = user.getArray();
-        mAccessInspectors_spinner = (Spinner) view.findViewById(R.id.accessInspectors_spinner);
-        mAccessInspectors_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnerview, mAccessInspectors);
-        mAccessInspectors_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mAccessInspectors_spinner.setAdapter(mAccessInspectors_adapter);
-        mAccessInspectors_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mItem.setAccessInspectors(mAccessInspectors.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mAccessInspectorsText = (TextView) view.findViewById(R.id.accessInspectors);
+        mAccessInspectorsText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                it.putExtra("Key",UserInfo.mAccessInspectors);
+                it.putExtra("Selected", mItem.getAccessInspectors());
+                it.putExtra("DataInfo", "UserInfo");
+                startActivityForResult(it, EVENT_ACCESS_INSPECTORS_SLELECT_ITEM);
             }
         });
 
@@ -411,59 +398,79 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     }
 
     private void getLastData(){
-        if(mEvent == 1){
-            CrimeItem lastItem = getLastRecord();
-            if(lastItem!=null){
-                mUnitsAssigned.setText(lastItem.getUnitsAssigned());
-                mWeatherCondition_spinner.setSelection(getWeatherCondition(lastItem.getWeatherCondition()));
-                mWindDirection_spinner.setSelection(getWindDirection(lastItem.getWindDirection()));
-                mTemperature.setText(lastItem.getTemperature());
-                mHumidity.setText(lastItem.getHumidity());
-                mSceneCondition_spinner.setSelection(getSceneCondition(lastItem.getSceneCondition()));
-                mChangeReason.setText(lastItem.getChangeReason());
-                mIlluminationCondition_spinner.setSelection(getIlluminationCondition(lastItem.getIlluminationCondition()));
-                mProductPeopleUnit.setText(lastItem.getProductPeopleUnit());
-                mProductPeopleDuties.setText(lastItem.getProductPeopleDuties());
-            }
-
+        if(mEvent == 1 && !mItem.IsGetLastData()){
+            Log.d("Anita","getLastData");
+            mItem.setGetLastData(true);
             SharedPreferences prefs = context.getSharedPreferences("UserName", 0);
             String UserName = prefs.getString("user", "");
             mProductPeopleName.setText(UserName);
             mSafeguard.setText("专人看护现场，防止他人进入");
-            mSceneConductor_spinner.setSelection(getSceneConductor(UserName));
-            mAccessInspectors_spinner.setSelection(getAccessInspectors(UserName));
+            mSceneConductorText.setText(UserName.trim());
+            mAccessInspectorsText.setText(UserName.trim());
 
+            CrimeItem lastItem = getLastRecord();
+            if(lastItem!=null){
+                Log.d("Anita","lastItem : "+lastItem.getSceneCondition()+", "+lastItem.getAccessInspectors());
+                mUnitsAssigned.setText(lastItem.getUnitsAssigned());
+                mWeatherConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mWeatherConditionKey, lastItem.getWeatherCondition()));
+                mWindDirectionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mWindDirectionKey, lastItem.getWindDirection()));
+                mTemperature.setText(lastItem.getTemperature());
+                mHumidity.setText(lastItem.getHumidity());
+                mSceneConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSceneConditionKey, lastItem.getSceneCondition()));
+                mInformantCkBx.setChecked(lastItem.isInformantCk());
+                mVictimCkBx.setChecked(lastItem.isVictimCk());
+                mOtherCkBx.setChecked(lastItem.isOtherCk());
+                mChangeReason.setText(lastItem.getChangeReason());
+                mIlluminationConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mIlluminationConditionKey, lastItem.getIlluminationCondition()));
+                mProductPeopleUnit.setText(lastItem.getProductPeopleUnit());
+                mProductPeopleDuties.setText(lastItem.getProductPeopleDuties());
+                if(lastItem.getSceneConductor()!=null) mSceneConductorText.setText(UserInfo.getUserName(lastItem.getSceneConductor()));
+                if(lastItem.getAccessInspectors()!=null)mAccessInspectorsText.setText(UserInfo.getUserName(lastItem.getAccessInspectors()));
+
+                mItem.setWeatherCondition(lastItem.getWeatherCondition());
+                mItem.setWindDirection(lastItem.getWindDirection());
+                mItem.setSceneCondition(lastItem.getSceneCondition());
+                mItem.setInformantCk(lastItem.isInformantCk());
+                mItem.setVictimCk(lastItem.isVictimCk());
+                mItem.setOtherCk(lastItem.isOtherCk());
+                mItem.setIlluminationCondition(lastItem.getIlluminationCondition());
+            }
+            mItem.setSceneConductor(UserInfo.getLoginName((String) mSceneConductorText.getText()));
+            mItem.setAccessInspectors(UserInfo.getLoginName((String) mAccessInspectorsText.getText()));
             saveData();
         }
     }
 
     private void initData(){
-        mCasetype_spinner.setSelection(getCategory(mItem.getCasetype()));
-        mArea_spinner.setSelection(getArea(mItem.getArea()));
+        Log.d("Anita","initData");
+        mCasetypeText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, mItem.getCasetype()));
+        mAreaText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, mItem.getArea()));
+        mSceneConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSceneConditionKey, mItem.getSceneCondition()));
+        enableChangeReason(mItem.getSceneCondition());
+        mWeatherConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mWeatherConditionKey, mItem.getWeatherCondition()));
+        mWindDirectionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mWindDirectionKey, mItem.getWindDirection()));
+        mIlluminationConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mIlluminationConditionKey, mItem.getIlluminationCondition()));
+
         mLocation.setText(mItem.getLocation());
         mUnitsAssigned.setText(mItem.getUnitsAssigned());
         mAccessPolicemen.setText(mItem.getAccessPolicemen());
         mAccessLocation.setText(mItem.getAccessLocation());
         mCaseOccurProcess.setText(mItem.getCaseOccurProcess());
-        mSceneCondition_spinner.setSelection(getSceneCondition(mItem.getSceneCondition()));
 
-        if(mItem.getChangeReason().equalsIgnoreCase("报案人进入")) mInformantCkBx.setChecked(true);
-        else if(mItem.getChangeReason().equalsIgnoreCase("事主进入")) mVictimCkBx.setChecked(true);
-        else if(!mItem.getChangeReason().isEmpty()) mOtherCkBx.setChecked(true);
+        mInformantCkBx.setChecked(mItem.isInformantCk());
+        mVictimCkBx.setChecked(mItem.isVictimCk());
+        mOtherCkBx.setChecked(mItem.isOtherCk());
         mChangeReason.setText(mItem.getChangeReason());
 
-        mWeatherCondition_spinner.setSelection(getWeatherCondition(mItem.getWeatherCondition()));
-        mWindDirection_spinner.setSelection(getWindDirection(mItem.getWindDirection()));
         mTemperature.setText(mItem.getTemperature());
         mHumidity.setText(mItem.getHumidity());
         mAccessReason.setText(mItem.getAccessReason());
-        mIlluminationCondition_spinner.setSelection(getIlluminationCondition(mItem.getIlluminationCondition()));
         mProductPeopleName.setText(mItem.getProductPeopleName());
         mProductPeopleUnit.setText(mItem.getProductPeopleUnit());
         mProductPeopleDuties.setText(mItem.getProductPeopleDuties());
         mSafeguard.setText(mItem.getSafeguard());
-        mSceneConductor_spinner.setSelection(getSceneConductor(mItem.getSceneConductor()));
-        mAccessInspectors_spinner.setSelection(getAccessInspectors(mItem.getAccessInspectors()));
+        mSceneConductorText.setText(UserInfo.getUserName(mItem.getSceneConductor()));
+        mAccessInspectorsText.setText(UserInfo.getUserName(mItem.getAccessInspectors()));
 
         mOccurred_start_time.setText(DateTimePicker.getCurrentTime(mItem.getOccurredStartTime()));
         mOccurred_end_time.setText(DateTimePicker.getCurrentTime(mItem.getOccurredEndTime()));
@@ -473,16 +480,13 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     }
 
     public void saveData(){
+        Log.d("Anita","saveData");
         mItem.setLocationa(mLocation.getText());
         mItem.setUnitsAssigned(mUnitsAssigned.getText());
         mItem.setAccessPolicemen(mAccessPolicemen.getText());
         mItem.setAccessLocation(mAccessLocation.getText());
         mItem.setCaseOccurProcess(mCaseOccurProcess.getText());
-
-        if(mInformantCkBx.isChecked()) mItem.setChangeReason("报案人进入");
-        else if(mVictimCkBx.isChecked()) mItem.setChangeReason("事主进入");
-        else mItem.setChangeReason(mChangeReason.getText());
-
+        mItem.setChangeReason(mChangeReason.getText());
         mItem.setTemperature(mTemperature.getText());
         mItem.setHumidity(mHumidity.getText());
         mItem.setAccessReason(mAccessReason.getText());
@@ -534,56 +538,16 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         }
     }
 
-    private int getCategory(String category){
-        for(int i=0; i<mCasetype.size(); i++){
-            if(category.equalsIgnoreCase(mCasetype.get(i))) return i;
+    private void enableChangeReason(String sceneCondition){
+        if(sceneCondition.equalsIgnoreCase("1")){
+            mChangeReasonLinearLayout.setVisibility(View.GONE);
+            mItem.setInformantCk(false);
+            mItem.setVictimCk(false);
+            mItem.setOtherCk(false);
+            mItem.setChangeReason("");
+        }else if(sceneCondition.equalsIgnoreCase("2")){
+            mChangeReasonLinearLayout.setVisibility(View.VISIBLE);
         }
-        return 0;
-    }
-    private int getArea(String category){
-        for(int i=0; i<mArea.size(); i++){
-            if(category.equalsIgnoreCase(mArea.get(i))) return i;
-        }
-        return 0;
-    }
-    private int getSceneCondition(String category){
-        for(int i=0; i<mSceneCondition.size(); i++){
-            if(category.equalsIgnoreCase(mSceneCondition.get(i))) return i;
-        }
-        return 0;
-    }
-    private int getWeatherCondition(String category){
-        for(int i=0; i<mWeatherCondition.size(); i++){
-            if(category.equalsIgnoreCase(mWeatherCondition.get(i))) return i;
-        }
-        return 0;
-    }
-    private int getWindDirection(String category){
-        for(int i=0; i<mWindDirection.size(); i++){
-            if(category.equalsIgnoreCase(mWindDirection.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getIlluminationCondition(String illuminationCondition){
-        for(int i=0; i<mIlluminationCondition.size(); i++){
-            if(illuminationCondition.equalsIgnoreCase(mIlluminationCondition.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getSceneConductor(String sceneConductor){
-        for(int i=0; i<mSceneConductor.size(); i++){
-            if(sceneConductor.equalsIgnoreCase(mSceneConductor.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getAccessInspectors(String accessInspectors){
-        for(int i=0; i<mAccessInspectors.size(); i++){
-            if(accessInspectors.equalsIgnoreCase(mAccessInspectors.get(i))) return i;
-        }
-        return 0;
     }
 
     private String getCaseOccurProcess(){
@@ -601,7 +565,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
         result = result + "报称:"+ DateTimePicker.getCurrentTime(mItem.getOccurredStartTime())
                         + "，在" + mItem.getLocation()
-                        + "，该处发现一起" + mItem.getCasetype()
+                        + "，该处发现一起" + DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, mItem.getCasetype())
                         + "，后拨打电话报警。";
 
         return result;
@@ -610,9 +574,9 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private String getAccessReason(){
         saveData();
         //Example : "<发案区划><接警人>接到<指派单位>的指派: 在该所管界内<发案地点>发生一起<案件类别>，请速派人员勘查现场"
-        String result = mItem.getArea() + mItem.getAccessPolicemen() + "接到"
+        String result = DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey,mItem.getArea()) + mItem.getAccessPolicemen() + "接到"
                         + mItem.getUnitsAssigned() + "的指派: 在该所管界内"
-                        + mItem.getLocation() + "发生一起" + mItem.getCasetype()
+                        + mItem.getLocation() + "发生一起" + DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, mItem.getCasetype())
                         + "，请速派人员勘查现场。";
         return result;
     }
@@ -691,10 +655,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         it.putExtra("request_type", 0);
 
         context.startService(it);
-
-        /*IntentFilter filter = new IntentFilter();
-        filter.addAction("com.kuaikan.send_result");
-        context.registerReceiver(mReceiver,filter);*/
     }
 
     private void stopCollection(){

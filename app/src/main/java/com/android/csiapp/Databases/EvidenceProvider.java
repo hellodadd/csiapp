@@ -37,17 +37,17 @@ public class EvidenceProvider {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    UUID_COLUMN + " INTEGER NOT NULL, " +
-                    PHOTO_PATH_COLUMN + " INTEGER NOT NULL, " +
-                    EVIDENCE_CATEGORY_COLUMN + " INTEGER NOT NULL, " +
-                    EVIDENCE_COLUMN + " INTEGER NOT NULL, " +
-                    EVIDENCE_NAME_COLUMN + " INTEGER NOT NULL, " +
-                    LEGACY_SITE_COLUMN + " INTEGER NOT NULL, " +
-                    BASIC_FEATURE_COLUMN + " INTEGER NOT NULL, " +
-                    INFER_COLUMN + " INTEGER NOT NULL, " +
-                    METHOD_COLUMN + " INTEGER NOT NULL, " +
-                    TIME_COLUMN + " INTEGER NOT NULL, " +
-                    PEOPLE_COLUMN + " INTEGER NOT NULL)";
+                    UUID_COLUMN + " TEXT NOT NULL, " +
+                    PHOTO_PATH_COLUMN + " TEXT NOT NULL, " +
+                    EVIDENCE_CATEGORY_COLUMN + " TEXT NOT NULL, " +
+                    EVIDENCE_COLUMN + " TEXT NOT NULL, " +
+                    EVIDENCE_NAME_COLUMN + " TEXT NOT NULL, " +
+                    LEGACY_SITE_COLUMN + " TEXT NOT NULL, " +
+                    BASIC_FEATURE_COLUMN + " TEXT NOT NULL, " +
+                    INFER_COLUMN + " TEXT NOT NULL, " +
+                    METHOD_COLUMN + " TEXT NOT NULL, " +
+                    TIME_COLUMN + " TEXT NOT NULL, " +
+                    PEOPLE_COLUMN + " TEXT NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;

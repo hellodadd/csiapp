@@ -121,7 +121,7 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
         mTool_category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mCrimeToolItem.setToolCategory(mTool_category.get(position));
+                mCrimeToolItem.setToolCategory(DictionaryInfo.getDictKey(DictionaryInfo.mToolCategoryKey, mTool_category.get(position)));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -136,7 +136,7 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
         mTool_source_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mCrimeToolItem.setToolSource(mTool_source.get(position));
+                mCrimeToolItem.setToolSource(DictionaryInfo.getDictKey(DictionaryInfo.mToolSourceKey, mTool_source.get(position)));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -146,8 +146,8 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
 
     private void initData(){
         mName.setText(mCrimeToolItem.getToolName());
-        mTool_category_spinner.setSelection(getCategory(mCrimeToolItem.getToolCategory()));
-        mTool_source_spinner.setSelection(getSource(mCrimeToolItem.getToolSource()));
+        mTool_category_spinner.setSelection(getCategory(DictionaryInfo.getDictValue(DictionaryInfo.mToolCategoryKey, mCrimeToolItem.getToolCategory())));
+        mTool_source_spinner.setSelection(getSource(DictionaryInfo.getDictValue(DictionaryInfo.mToolSourceKey, mCrimeToolItem.getToolSource())));
     }
 
     private void saveData(){

@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.DateTimePicker;
+import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.Priview_photo_Activity;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Crime.utils.ScreenShot;
@@ -166,7 +167,7 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         long time = mItem.getOccurredStartTime();
         mIncidentTime.setText(DateTimePicker.getCurrentDate(time));
         mIncidentLocation.setText(mItem.getLocation());
-        mCreateUnit.setText(mItem.getArea());
+        mCreateUnit.setText(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey,mItem.getArea()));
         mCreatePeople.setText(mItem.getAccessPolicemen());
         mCreateTime.setText(DateTimePicker.getCurrentDate(Calendar.getInstance().getTimeInMillis()));
     }

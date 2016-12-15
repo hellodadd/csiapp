@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.DateTimePicker;
+import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.R;
@@ -166,6 +167,7 @@ public class ListSearchActivity extends AppCompatActivity {
         mAreaLL = (LinearLayout) findViewById(R.id.AreaLL);
         mTimeLL = (LinearLayout) findViewById(R.id.TimeLL);
 
+        //Todo : Use tree adapter
         mItem_Category = Arrays.asList(getResources().getStringArray(R.array.casetype));
         mList_Catetype = (ListView)findViewById(R.id.category_listView);
         isSelected_Category = new HashMap<Integer,Boolean>();

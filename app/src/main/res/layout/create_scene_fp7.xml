@@ -48,15 +48,20 @@
                     android:textSize="@dimen/create_vp7_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/peopleNumber_spinner"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/peopleNumber"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
 
             <LinearLayout
@@ -80,15 +85,20 @@
                     android:textSize="@dimen/create_vp7_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/crimeMeans_spinner"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/crimeMeans"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
 
             <LinearLayout
@@ -112,15 +122,20 @@
                     android:textSize="@dimen/create_vp7_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/crimeCharacter_spinner"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/crimeCharacter"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
 
             <LinearLayout
@@ -144,15 +159,20 @@
                     android:textSize="@dimen/create_vp7_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/crimeEntrance_spinner"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/crimeEntrance"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
 
             <LinearLayout
@@ -176,15 +196,20 @@
                     android:textSize="@dimen/create_vp7_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/crimeTiming_spinner"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/crimeTiming"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
 
             <LinearLayout
@@ -208,15 +233,20 @@
                     android:textSize="@dimen/create_vp7_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/selectObject_spinner"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/selectObject"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
 
             <LinearLayout
@@ -240,15 +270,20 @@
                     android:textSize="@dimen/create_vp7_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/crimeExport_spinner"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/crimeExport"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
 
             <LinearLayout
@@ -302,15 +337,20 @@
                     android:textSize="@dimen/create_vp7_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/crimeFeature_spinner"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/crimeFeature"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
 
             <LinearLayout
@@ -334,15 +374,20 @@
                     android:textSize="@dimen/create_vp7_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/intrusiveMethod_spinner"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/intrusiveMethod"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
 
             <LinearLayout
@@ -366,15 +411,20 @@
                     android:textSize="@dimen/create_vp7_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/selectLocation_spinner"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/selectLocation"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
 
             <LinearLayout
@@ -398,15 +448,20 @@
                     android:textSize="@dimen/create_vp7_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/crimePurpose_spinner"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
+                    android:gravity="left|center"
+                    android:id="@+id/crimePurpose"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="8dp"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/dropdown"
+                    android:background="@drawable/select_shape"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

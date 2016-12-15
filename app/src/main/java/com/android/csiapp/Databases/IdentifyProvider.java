@@ -198,7 +198,7 @@ public class IdentifyProvider {
         return false;
     }
 
-    public List<String> queryToGetList(){
+    public List<String> queryToGetUser(){
         List<String> list = new ArrayList<>();
         Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
         if(cursor==null) {
@@ -208,6 +208,22 @@ public class IdentifyProvider {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             list.add(cursor.getString(3));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
+    }
+
+    public List<String> queryToGetLogin(){
+        List<String> list = new ArrayList<>();
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
+        if(cursor==null) {
+            return null;
+        }
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.add(cursor.getString(1));
             cursor.moveToNext();
         }
         cursor.close();

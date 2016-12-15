@@ -2,6 +2,7 @@ package com.android.csiapp.Crime.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.android.csiapp.Databases.DictionaryProvider;
 import com.android.csiapp.Databases.IdentifyProvider;
@@ -19,8 +20,16 @@ import java.util.Set;
  */
 public class UserInfo {
     private Context mContext;
+
+    public static final String mSceneConductor = "SceneConductor";
+    public static final String mAccessInspectors = "AccessInspectors";
+    public static final String mExtractionPeople = "ExtractionPeople";
+
     private static ArrayList<String> mUser = new ArrayList<String>();
     private static HashMap<String,String> mUserHashMap  = new HashMap<String,String>();
+    private static HashMap<String,String> mUserParentHashMap = new HashMap<String,String>();
+    public static ArrayList<String> mLogin = new ArrayList<String>();
+    public static ArrayList<Integer> mUserNodes = new ArrayList<Integer>();
 
     public UserInfo(Context context){
         this.mContext = context;
@@ -32,9 +41,53 @@ public class UserInfo {
         IdentifyProvider identifyProvider = new IdentifyProvider(context);
 
         if(initstatus.equalsIgnoreCase("1")) {
-            mUser = (ArrayList<String>) identifyProvider.queryToGetList();
+            mUser = (ArrayList<String>) identifyProvider.queryToGetUser();
             mUserHashMap  = (HashMap<String,String>) identifyProvider.queryToGetHashMap();
+            mLogin = (ArrayList<String>) identifyProvider.queryToGetLogin();
+            mUserNodes = getTreeNodes(mLogin);
         }
+    }
+
+    private static ArrayList<Integer> getTreeNodes(ArrayList<String> mDicitonary){
+        //Anita test
+        ArrayList<Integer> DEMO_NODES = new ArrayList<Integer>();
+        for(int z = 0; z<mDicitonary.size(); z++){
+            int level=0;
+            DEMO_NODES.add(level);
+        }
+        return DEMO_NODES;
+        //Anita test
+    }
+
+    public String getTitle(String rootkey) {
+        String title = "";
+        switch (rootkey) {
+            case mSceneConductor:
+                title = mContext.getResources().getString(R.string.scene_conductor);
+                break;
+            case mAccessInspectors:
+                title = mContext.getResources().getString(R.string.access_inspectors);
+                break;
+            case mExtractionPeople:
+                title = mContext.getResources().getString(R.string.extraction_people);
+                break;
+            default:
+                break;
+        }
+        return title;
+    }
+
+    public String getMethod(String rootkey){
+        String method = "Multiple";
+        return method;
+    }
+
+    public static ArrayList<Integer> getNodes(String rootkey) {
+        return mUserNodes;
+    }
+
+    public static ArrayList<String> getLoginNameList(String rootkey) {
+        return mLogin;
     }
 
     public ArrayList<String> getArray() {
@@ -43,15 +96,39 @@ public class UserInfo {
         return result;
     }
 
-    public static String getUserName(String LoginName) {
+    public static String getLoginName(String UserName) {
         String result = "";
-        if(mUserHashMap.size()!=0) result = mUserHashMap.get(LoginName);
+
+        if(UserName.equalsIgnoreCase("")) return result;
+
+        String[] item =  UserName.split(",");
+        boolean isFirst = true;
+        for(int i = 0;i<item.length;i++){
+            if(isFirst) {
+                isFirst = false;
+            }else {
+                result = result+",";
+            }
+            if(mUserHashMap.size()!=0) result = result+valueGetKey(mUserHashMap, item[i].trim());
+        }
         return result;
     }
 
-    public static String getLoginName(String UserName) {
+    public static String getUserName(String LoginName) {
         String result = "";
-        if(mUserHashMap.size()!=0) result = (String) valueGetKey(mUserHashMap, UserName);
+
+        if(LoginName.equalsIgnoreCase("")) return result;
+
+        String[] item =  LoginName.split(",");
+        boolean isFirst = true;
+        for(int i = 0;i<item.length;i++){
+            if(isFirst) {
+                isFirst = false;
+            }else {
+                result = result+",";
+            }
+            if(mUserHashMap.size()!=0) result = result+mUserHashMap.get(item[i].trim());
+        }
         return result;
     }
 

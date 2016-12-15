@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.csiapp.Crime.utils.DateTimePicker;
+import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.PhotoAdapter;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.PhotoItem;
@@ -83,8 +84,8 @@ public class ListAdapter extends BaseAdapter {
         }else{
             holder.imgPhoto.setImageDrawable(mContext.getResources().getDrawable(R.drawable.no_completed));
         }
-        holder.txtCasetype.setText(((CrimeItem) getItem(position)).getCasetype());
-        holder.txtArea.setText(((CrimeItem) getItem(position)).getArea());
+        holder.txtCasetype.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, ((CrimeItem) getItem(position)).getCasetype()));
+        holder.txtArea.setText(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, ((CrimeItem) getItem(position)).getArea()));
         holder.txtTime.setText(DateTimePicker.getCurrentTime(((CrimeItem) getItem(position)).getOccurredStartTime()));
         return convertView;
     }

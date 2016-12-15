@@ -60,29 +60,29 @@ public class CrimeProvider {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    SCENE_ID_COLUMN + " INTEGER NOT NULL, " +
-                    SCENE_NO_COLUMN + " INTEGER NOT NULL, " +
-                    CASE_ID_COLUMN + " INTEGER NOT NULL, " +
-                    CREATE_USER_COLUMN + " INTEGER NOT NULL, " +
-                    CREATE_UNIT_COLUMN + " INTEGER NOT NULL, " +
-                    CREATE_TIME_COLUMN + " INTEGER NOT NULL, " +
-                    COMPLETE_COLUMN + " INTEGER NOT NULL, " +
-                    DELETE_COLUMN + " INTEGER NOT NULL, " +
-                    SCENE_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    ANALYSIS_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    OVERVIEW_COLUMN + " INTEGER NOT NULL, " +
-                    RELATEDPEOPLE_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    LOST_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    CRIMETOOL_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    POSITION_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    POSITIONPHOTO_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    OVERVIEWPHOTO_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    IMPORTANTPHOTO_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    EVIDENCE_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    WITNESS_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    MONITORINGPHOTO_ITEM_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    CAMERAPHOTO_ITEM_COLUMN + " INTEGER NOT NULL, " +
-                    FLAT_ITEM_COLUMN + " INTEGER NOT NULL)";
+                    SCENE_ID_COLUMN + " TEXT NOT NULL, " +
+                    SCENE_NO_COLUMN + " TEXT NOT NULL, " +
+                    CASE_ID_COLUMN + " TEXT NOT NULL, " +
+                    CREATE_USER_COLUMN + " TEXT NOT NULL, " +
+                    CREATE_UNIT_COLUMN + " TEXT NOT NULL, " +
+                    CREATE_TIME_COLUMN + " TEXT NOT NULL, " +
+                    COMPLETE_COLUMN + " TEXT NOT NULL, " +
+                    DELETE_COLUMN + " TEXT NOT NULL, " +
+                    SCENE_ITEM_NUMBER_COLUMN + " TEXT NOT NULL, " +
+                    ANALYSIS_ITEM_NUMBER_COLUMN + " TEXT NOT NULL, " +
+                    OVERVIEW_COLUMN + " TEXT NOT NULL, " +
+                    RELATEDPEOPLE_ITEM_NUMBER_COLUMN + " TEXT NOT NULL, " +
+                    LOST_ITEM_NUMBER_COLUMN + " TEXT NOT NULL, " +
+                    CRIMETOOL_ITEM_NUMBER_COLUMN + " TEXT NOT NULL, " +
+                    POSITION_ITEM_NUMBER_COLUMN + " TEXT NOT NULL, " +
+                    POSITIONPHOTO_ITEM_NUMBER_COLUMN + " TEXT NOT NULL, " +
+                    OVERVIEWPHOTO_ITEM_NUMBER_COLUMN + " TEXT NOT NULL, " +
+                    IMPORTANTPHOTO_ITEM_NUMBER_COLUMN + " TEXT NOT NULL, " +
+                    EVIDENCE_ITEM_NUMBER_COLUMN + " TEXT NOT NULL, " +
+                    WITNESS_ITEM_NUMBER_COLUMN + " TEXT NOT NULL, " +
+                    MONITORINGPHOTO_ITEM_NUMBER_COLUMN + " TEXT NOT NULL, " +
+                    CAMERAPHOTO_ITEM_COLUMN + " TEXT NOT NULL, " +
+                    FLAT_ITEM_COLUMN + " TEXT NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;
@@ -275,7 +275,6 @@ public class CrimeProvider {
         return db.update(TABLE_NAME, cv, where, null) > 0;
     }
 
-    //Todo
     // 刪除參數指定編號的資料
     public boolean delete(long id){
         // 設定條件為編號，格式為「欄位名稱=資料」
@@ -453,8 +452,8 @@ public class CrimeProvider {
                     SceneProvider.TABLE_NAME, null, where1, null, null, null, null, null);
             if (cursor1.moveToFirst()) {
                 // 讀取包裝一筆資料的物件
-                result.setCasetype(DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, cursor1.getString(1)));
-                result.setArea(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, cursor1.getString(2)));
+                result.setCasetype(cursor1.getString(1));
+                result.setArea(cursor1.getString(2));
                 result.setLocationa(cursor1.getString(3));
                 result.setOccurredStartTime(cursor1.getLong(4));
                 result.setOccurredEndTime(cursor1.getLong(5));
@@ -465,20 +464,23 @@ public class CrimeProvider {
                 result.setAccessEndTime(cursor1.getLong(10));
                 result.setAccessLocation(cursor1.getString(11));
                 result.setCaseOccurProcess(cursor1.getString(12));
-                result.setSceneCondition(DictionaryInfo.getDictValue(DictionaryInfo.mSceneConditionKey, cursor1.getString(13)));
-                result.setChangeReason(cursor1.getString(14));
-                result.setWeatherCondition(DictionaryInfo.getDictValue(DictionaryInfo.mWeatherConditionKey, cursor1.getString(15)));
-                result.setWindDirection(DictionaryInfo.getDictValue(DictionaryInfo.mWindDirectionKey, cursor1.getString(16)));
-                result.setTemperature(cursor1.getString(17));
-                result.setHumidity(cursor1.getString(18));
-                result.setAccessReason(cursor1.getString(19));
-                result.setIlluminationCondition(DictionaryInfo.getDictValue(DictionaryInfo.mIlluminationConditionKey, cursor1.getString(20)));
-                result.setProductPeopleName(cursor1.getString(21));
-                result.setProductPeopleUnit(cursor1.getString(22));
-                result.setProductPeopleDuties(cursor1.getString(23));
-                result.setSafeguard(cursor1.getString(24));
-                result.setSceneConductor(cursor1.getString(25));
-                result.setAccessInspectors(cursor1.getString(26));
+                result.setSceneCondition(cursor1.getString(13));
+                result.setInformantCk(cursor1.getString(14).equalsIgnoreCase("1")?true:false);
+                result.setVictimCk(cursor1.getString(15).equalsIgnoreCase("1")?true:false);
+                result.setOtherCk(cursor1.getString(16).equalsIgnoreCase("1")?true:false);
+                result.setChangeReason(cursor1.getString(17));
+                result.setWeatherCondition(cursor1.getString(18));
+                result.setWindDirection(cursor1.getString(19));
+                result.setTemperature(cursor1.getString(20));
+                result.setHumidity(cursor1.getString(21));
+                result.setAccessReason(cursor1.getString(22));
+                result.setIlluminationCondition(cursor1.getString(23));
+                result.setProductPeopleName(cursor1.getString(24));
+                result.setProductPeopleUnit(cursor1.getString(25));
+                result.setProductPeopleDuties(cursor1.getString(26));
+                result.setSafeguard(cursor1.getString(27));
+                result.setSceneConductor(cursor1.getString(28));
+                result.setAccessInspectors(cursor1.getString(29));
             }
             cursor1.close();
 
@@ -487,18 +489,18 @@ public class CrimeProvider {
                     AnalysisProvider.TABLE_NAME, null, where2, null, null, null, null, null);
             if (cursor2.moveToFirst()) {
                 // 讀取包裝一筆資料的物件
-                result.setCrimePeopleNumber(DictionaryInfo.getDictValue(DictionaryInfo.mPeopleNumberKey, cursor2.getString(1)));
-                result.setCrimeMeans(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeMeansKey, cursor2.getString(2)));
-                result.setCrimeCharacter(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeCharacterKey, cursor2.getString(3)));
-                result.setCrimeEntrance(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeEntranceExportKey, cursor2.getString(4)));
-                result.setCrimeTiming(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeTimingKey, cursor2.getString(5)));
-                result.setSelectObject(DictionaryInfo.getDictValue(DictionaryInfo.mSelectObjectKey, cursor2.getString(6)));
-                result.setCrimeExport(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeEntranceExportKey, cursor2.getString(7)));
+                result.setCrimePeopleNumber(cursor2.getString(1));
+                result.setCrimeMeans(cursor2.getString(2));
+                result.setCrimeCharacter(cursor2.getString(3));
+                result.setCrimeEntrance(cursor2.getString(4));
+                result.setCrimeTiming(cursor2.getString(5));
+                result.setSelectObject(cursor2.getString(6));
+                result.setCrimeExport(cursor2.getString(7));
                 result.setCrimePeopleFeature(cursor2.getString(8));
-                result.setCrimeFeature(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeFeatureKey, cursor2.getString(9)));
-                result.setIntrusiveMethod(DictionaryInfo.getDictValue(DictionaryInfo.mIntrusiveMethodKey, cursor2.getString(10)));
-                result.setSelectLocation(DictionaryInfo.getDictValue(DictionaryInfo.mSelectLocationKey, cursor2.getString(11)));
-                result.setCrimePurpose(DictionaryInfo.getDictValue(DictionaryInfo.mCrimePurposeKey, cursor2.getString(12)));
+                result.setCrimeFeature(cursor2.getString(9));
+                result.setIntrusiveMethod(cursor2.getString(10));
+                result.setSelectLocation(cursor2.getString(11));
+                result.setCrimePurpose(cursor2.getString(12));
             }
             cursor2.close();
 
@@ -579,8 +581,8 @@ public class CrimeProvider {
                     SceneProvider.TABLE_NAME, null, where1, null, null, null, null, null);
             if (cursor1.moveToFirst()) {
                 // 讀取包裝一筆資料的物件
-                result.setCasetype(DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, cursor1.getString(1)));
-                result.setArea(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, cursor1.getString(2)));
+                result.setCasetype(cursor1.getString(1));
+                result.setArea(cursor1.getString(2));
                 result.setLocationa(cursor1.getString(3));
                 result.setOccurredStartTime(cursor1.getLong(4));
                 result.setOccurredEndTime(cursor1.getLong(5));
@@ -591,20 +593,23 @@ public class CrimeProvider {
                 result.setAccessEndTime(cursor1.getLong(10));
                 result.setAccessLocation(cursor1.getString(11));
                 result.setCaseOccurProcess(cursor1.getString(12));
-                result.setSceneCondition(DictionaryInfo.getDictValue(DictionaryInfo.mSceneConditionKey, cursor1.getString(13)));
-                result.setChangeReason(cursor1.getString(14));
-                result.setWeatherCondition(DictionaryInfo.getDictValue(DictionaryInfo.mWeatherConditionKey, cursor1.getString(15)));
-                result.setWindDirection(DictionaryInfo.getDictValue(DictionaryInfo.mWindDirectionKey, cursor1.getString(16)));
-                result.setTemperature(cursor1.getString(17));
-                result.setHumidity(cursor1.getString(18));
-                result.setAccessReason(cursor1.getString(19));
-                result.setIlluminationCondition(DictionaryInfo.getDictValue(DictionaryInfo.mIlluminationConditionKey, cursor1.getString(20)));
-                result.setProductPeopleName(cursor1.getString(21));
-                result.setProductPeopleUnit(cursor1.getString(22));
-                result.setProductPeopleDuties(cursor1.getString(23));
-                result.setSafeguard(cursor1.getString(24));
-                result.setSceneConductor(cursor1.getString(25));
-                result.setAccessInspectors(cursor1.getString(26));
+                result.setSceneCondition(cursor1.getString(13));
+                result.setInformantCk(cursor1.getString(14).equalsIgnoreCase("1")?true:false);
+                result.setVictimCk(cursor1.getString(15).equalsIgnoreCase("1")?true:false);
+                result.setOtherCk(cursor1.getString(16).equalsIgnoreCase("1")?true:false);
+                result.setChangeReason(cursor1.getString(17));
+                result.setWeatherCondition(cursor1.getString(18));
+                result.setWindDirection(cursor1.getString(19));
+                result.setTemperature(cursor1.getString(20));
+                result.setHumidity(cursor1.getString(21));
+                result.setAccessReason(cursor1.getString(22));
+                result.setIlluminationCondition(cursor1.getString(23));
+                result.setProductPeopleName(cursor1.getString(24));
+                result.setProductPeopleUnit(cursor1.getString(25));
+                result.setProductPeopleDuties(cursor1.getString(26));
+                result.setSafeguard(cursor1.getString(27));
+                result.setSceneConductor(cursor1.getString(28));
+                result.setAccessInspectors(cursor1.getString(29));
             }
             cursor1.close();
 
@@ -613,18 +618,18 @@ public class CrimeProvider {
                     AnalysisProvider.TABLE_NAME, null, where2, null, null, null, null, null);
             if (cursor2.moveToFirst()) {
                 // 讀取包裝一筆資料的物件
-                result.setCrimePeopleNumber(DictionaryInfo.getDictValue(DictionaryInfo.mPeopleNumberKey, cursor2.getString(1)));
-                result.setCrimeMeans(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeMeansKey, cursor2.getString(2)));
-                result.setCrimeCharacter(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeCharacterKey, cursor2.getString(3)));
-                result.setCrimeEntrance(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeEntranceExportKey, cursor2.getString(4)));
-                result.setCrimeTiming(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeTimingKey, cursor2.getString(5)));
-                result.setSelectObject(DictionaryInfo.getDictValue(DictionaryInfo.mSelectObjectKey, cursor2.getString(6)));
-                result.setCrimeExport(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeEntranceExportKey, cursor2.getString(7)));
+                result.setCrimePeopleNumber(cursor2.getString(1));
+                result.setCrimeMeans(cursor2.getString(2));
+                result.setCrimeCharacter(cursor2.getString(3));
+                result.setCrimeEntrance(cursor2.getString(4));
+                result.setCrimeTiming(cursor2.getString(5));
+                result.setSelectObject(cursor2.getString(6));
+                result.setCrimeExport(cursor2.getString(7));
                 result.setCrimePeopleFeature(cursor2.getString(8));
-                result.setCrimeFeature(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeFeatureKey, cursor2.getString(9)));
-                result.setIntrusiveMethod(DictionaryInfo.getDictValue(DictionaryInfo.mIntrusiveMethodKey, cursor2.getString(10)));
-                result.setSelectLocation(DictionaryInfo.getDictValue(DictionaryInfo.mSelectLocationKey, cursor2.getString(11)));
-                result.setCrimePurpose(DictionaryInfo.getDictValue(DictionaryInfo.mCrimePurposeKey, cursor2.getString(12)));
+                result.setCrimeFeature(cursor2.getString(9));
+                result.setIntrusiveMethod(cursor2.getString(10));
+                result.setSelectLocation(cursor2.getString(11));
+                result.setCrimePurpose(cursor2.getString(12));
             }
             cursor2.close();
 
@@ -722,8 +727,8 @@ public class CrimeProvider {
                 mBaseInfo.put("id", item.getSceneId());
                 mBaseInfo.put("inquestNo", item.getSceneNo());
                 mBaseInfo.put("complete", item.getComplete());
-                mBaseInfo.put("casetype", DictionaryInfo.getDictKey(DictionaryInfo.mCaseTypeKey, item.getCasetype()));
-                mBaseInfo.put("regionalism", DictionaryInfo.getDictKey(DictionaryInfo.mAreaKey, item.getArea()));
+                mBaseInfo.put("casetype", item.getCasetype());
+                mBaseInfo.put("regionalism", item.getArea());
                 mBaseInfo.put("sceneaddress", item.getLocation());
                 mBaseInfo.put("starttime", DateTimePicker.getCurrentDashTime(item.getOccurredStartTime()));
                 mBaseInfo.put("endtime", DateTimePicker.getCurrentDashTime(item.getOccurredEndTime()));
@@ -780,8 +785,8 @@ public class CrimeProvider {
                 mBaseInfo.put("createunit", item.getUnitCode());
                 mBaseInfo.put("createtime", DateTimePicker.getCurrentDashTime(item.getCreateTime()));
                 mBaseInfo.put("complete", item.getComplete());
-                mBaseInfo.put("casetype", DictionaryInfo.getDictKey(DictionaryInfo.mCaseTypeKey, item.getCasetype()));
-                mBaseInfo.put("regionalism", DictionaryInfo.getDictKey(DictionaryInfo.mAreaKey, item.getArea()));
+                mBaseInfo.put("casetype", item.getCasetype());
+                mBaseInfo.put("regionalism", item.getArea());
                 mBaseInfo.put("address", item.getLocation());
                 mBaseInfo.put("starttime", DateTimePicker.getCurrentDashTime(item.getOccurredStartTime()));
                 mBaseInfo.put("endtime", DateTimePicker.getCurrentDashTime(item.getOccurredEndTime()));
@@ -792,35 +797,35 @@ public class CrimeProvider {
                 mBaseInfo.put("inquestendtime", DateTimePicker.getCurrentDashTime(item.getAccessEndTime()));
                 mBaseInfo.put("inquestaddress", item.getAccessLocation());
                 mBaseInfo.put("discover", item.getCaseOccurProcess());
-                mBaseInfo.put("scenesituation", DictionaryInfo.getDictKey(DictionaryInfo.mSceneConditionKey, item.getSceneCondition()));
+                mBaseInfo.put("scenesituation", item.getSceneCondition());
                 mBaseInfo.put("changeresason", item.getChangeReason());
-                mBaseInfo.put("weather", DictionaryInfo.getDictKey(DictionaryInfo.mWeatherConditionKey, item.getWeatherCondition()));
-                mBaseInfo.put("wind", DictionaryInfo.getDictKey(DictionaryInfo.mWindDirectionKey, item.getWindDirection()));
+                mBaseInfo.put("weather", item.getWeatherCondition());
+                mBaseInfo.put("wind", item.getWindDirection());
                 mBaseInfo.put("temperature", item.getTemperature());
                 mBaseInfo.put("humidity", item.getHumidity());
                 mBaseInfo.put("investigatecause", item.getAccessReason());
-                mBaseInfo.put("beamsituation", DictionaryInfo.getDictKey(DictionaryInfo.mIlluminationConditionKey, item.getIlluminationCondition()));
+                mBaseInfo.put("beamsituation", item.getIlluminationCondition());
                 mBaseInfo.put("protectionname", item.getProductPeopleName());
                 mBaseInfo.put("protectionorg", item.getProductPeopleUnit());
                 mBaseInfo.put("protectionpost", item.getProductPeopleDuties());
                 mBaseInfo.put("protectionmeasure", item.getSafeguard());
-                mBaseInfo.put("director", UserInfo.getLoginName(item.getSceneConductor()));
-                mBaseInfo.put("investigators", UserInfo.getLoginName(item.getAccessInspectors()));
+                mBaseInfo.put("director", item.getSceneConductor());
+                mBaseInfo.put("investigators", item.getAccessInspectors());
 
                 mBaseInfo.put("inqueststate", item.getOverview());
 
-                mBaseInfo.put("crimersnum", DictionaryInfo.getDictKey(DictionaryInfo.mPeopleNumberKey, item.getCrimePeopleNumber()));
-                mBaseInfo.put("crimersmethod", DictionaryInfo.getDictKey(DictionaryInfo.mCrimeMeansKey, item.getCrimeMeans()));
-                mBaseInfo.put("crimersnature", DictionaryInfo.getDictKey(DictionaryInfo.mCrimeCharacterKey, item.getCrimeCharacter()));
-                mBaseInfo.put("crimersenter", DictionaryInfo.getDictKey(DictionaryInfo.mCrimeEntranceExportKey, item.getCrimeEntrance()));
-                mBaseInfo.put("crimerstime", DictionaryInfo.getDictKey(DictionaryInfo.mCrimeTimingKey, item.getCrimeTiming()));
-                mBaseInfo.put("crimersobject", DictionaryInfo.getDictKey(DictionaryInfo.mSelectObjectKey, item.getSelectObject()));
-                mBaseInfo.put("crimersexit", DictionaryInfo.getDictKey(DictionaryInfo.mCrimeEntranceExportKey, item.getCrimeExport()));
+                mBaseInfo.put("crimersnum", item.getCrimePeopleNumber());
+                mBaseInfo.put("crimersmethod", item.getCrimeMeans());
+                mBaseInfo.put("crimersnature", item.getCrimeCharacter());
+                mBaseInfo.put("crimersenter", item.getCrimeEntrance());
+                mBaseInfo.put("crimerstime", item.getCrimeTiming());
+                mBaseInfo.put("crimersobject", item.getSelectObject());
+                mBaseInfo.put("crimersexit", item.getCrimeExport());
                 mBaseInfo.put("crimerfeature", item.getCrimePeopleFeature());
-                mBaseInfo.put("crimerskeypoint", DictionaryInfo.getDictKey(DictionaryInfo.mCrimeFeatureKey, item.getCrimeFeature()));
-                mBaseInfo.put("crimersentermethod", DictionaryInfo.getDictKey(DictionaryInfo.mIntrusiveMethodKey, item.getIntrusiveMethod()));
-                mBaseInfo.put("crimershouse", DictionaryInfo.getDictKey(DictionaryInfo.mSelectLocationKey, item.getSelectLocation()));
-                mBaseInfo.put("crimersmotive", DictionaryInfo.getDictKey(DictionaryInfo.mCrimePurposeKey, item.getCrimePurpose()));
+                mBaseInfo.put("crimerskeypoint", item.getCrimeFeature());
+                mBaseInfo.put("crimersentermethod", item.getIntrusiveMethod());
+                mBaseInfo.put("crimershouse", item.getSelectLocation());
+                mBaseInfo.put("crimersmotive", item.getCrimePurpose());
 
                 mBaseInfoList.add(mBaseInfo);
 
@@ -833,7 +838,7 @@ public class CrimeProvider {
                     mPeopleInfo.put("caseid",item.getSceneId());
                     mPeopleInfo.put("type",mRelatedPeopleItem.get(iP).getPeopleRelation());
                     mPeopleInfo.put("name",mRelatedPeopleItem.get(iP).getPeopleName());
-                    mPeopleInfo.put("sex",DictionaryInfo.getDictKey(DictionaryInfo.mSexKey, mRelatedPeopleItem.get(iP).getPeopleSex()));
+                    mPeopleInfo.put("sex",mRelatedPeopleItem.get(iP).getPeopleSex());
                     mPeopleInfo.put("idnum",mRelatedPeopleItem.get(iP).getPeopleId());
                     mPeopleInfo.put("birthday","");
                     mPeopleInfo.put("mobile",mRelatedPeopleItem.get(iP).getPeopleNumber());
@@ -847,7 +852,7 @@ public class CrimeProvider {
                     mPeopleInfo.put("caseid",item.getSceneId());
                     mPeopleInfo.put("type","见证人");
                     mPeopleInfo.put("name",mWitnessItem.get(iW).getWitnessName());
-                    mPeopleInfo.put("sex",DictionaryInfo.getDictKey(DictionaryInfo.mSexKey, mWitnessItem.get(iW).getWitnessSex()));
+                    mPeopleInfo.put("sex",mWitnessItem.get(iW).getWitnessSex());
                     mPeopleInfo.put("idnum","");
                     mPeopleInfo.put("birthday",DateTimePicker.getCurrentDashDate(mWitnessItem.get(iW).getWitnessBirthday()));
                     mPeopleInfo.put("mobile",mWitnessItem.get(iW).getWitnessNumber());
@@ -881,8 +886,8 @@ public class CrimeProvider {
                     mGoodsInfo.put("caseid",item.getSceneId());
                     mGoodsInfo.put("type","作案工具");
                     mGoodsInfo.put("name",mCrimeToolItem.get(iC).getToolName());
-                    mGoodsInfo.put("sort",DictionaryInfo.getDictKey(DictionaryInfo.mToolCategoryKey, mCrimeToolItem.get(iC).getToolCategory()));
-                    mGoodsInfo.put("source",DictionaryInfo.getDictKey(DictionaryInfo.mToolSourceKey, mCrimeToolItem.get(iC).getToolSource()));
+                    mGoodsInfo.put("sort",mCrimeToolItem.get(iC).getToolCategory());
+                    mGoodsInfo.put("source",mCrimeToolItem.get(iC).getToolSource());
                     mGoodsInfoList.add(mGoodsInfo);
                 }
 
@@ -905,12 +910,13 @@ public class CrimeProvider {
                     mTraceInfo.put("tool_infer",mEvidenceItem.get(iE).getInfer());
                     mTraceInfo.put("extract_method",mEvidenceItem.get(iE).getMethod());
                     mTraceInfo.put("extract_time",DateTimePicker.getCurrentDashTime(mEvidenceItem.get(iE).getTime()));
-                    mTraceInfo.put("extract_person",UserInfo.getLoginName(mEvidenceItem.get(iE).getPeople()));
+                    mTraceInfo.put("extract_person",mEvidenceItem.get(iE).getPeople());
                     mTraceInfoList.add(mTraceInfo);
                 }
 
                 //AttachInfo
                 List<PhotoItem> mPosition = item.getPosition();
+                List<PhotoItem> mFlat = item.getFlat();
                 List<PhotoItem> mPositionPhoto = item.getPositionPhoto();
                 List<PhotoItem> mOverviewPhoto = item.getOverviewPhoto();
                 List<PhotoItem> mImportantPhoto = item.getImportantPhoto();
@@ -925,6 +931,18 @@ public class CrimeProvider {
                         mAttachInfo.put("filename", "");
                     }else {
                         mAttachInfo.put("filename",mPosition.get(iP).getPhotoPath().substring(mPosition.get(iP).getPhotoPath().lastIndexOf("/")));
+                    }
+                    mAttachInfoList.add(mAttachInfo);
+                }
+                for(int iF=0;iF<mPosition.size();iF++){
+                    HashMap<String, String> mAttachInfo = new LinkedHashMap<String, String>();
+                    mAttachInfo.put("type","平面示意图");
+                    mAttachInfo.put("id",mFlat.get(iF).getUuid());
+                    mAttachInfo.put("caseid",item.getSceneId());
+                    if(mFlat.get(iF).getPhotoPath().isEmpty()){
+                        mAttachInfo.put("filename", "");
+                    }else {
+                        mAttachInfo.put("filename",mFlat.get(iF).getPhotoPath().substring(mFlat.get(iF).getPhotoPath().lastIndexOf("/")));
                     }
                     mAttachInfoList.add(mAttachInfo);
                 }

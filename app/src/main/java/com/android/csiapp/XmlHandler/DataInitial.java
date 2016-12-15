@@ -139,6 +139,13 @@ public class DataInitial {
                 BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
             }
         }
+        if(crimeItem.getFlat().size()!=0){
+            for(int i=0;i<crimeItem.getFlat().size();i++){
+                String path = crimeItem.getFlat().get(i).getPhotoPath();
+                String[] filename = path.split("/");
+                BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
+            }
+        }
         if(crimeItem.getPositionPhoto().size()!=0){
             for(int i=0;i<crimeItem.getPositionPhoto().size();i++){
                 String path = crimeItem.getPositionPhoto().get(i).getPhotoPath();
@@ -156,6 +163,20 @@ public class DataInitial {
         if(crimeItem.getImportantPhoto().size()!=0){
             for(int i=0;i<crimeItem.getImportantPhoto().size();i++){
                 String path = crimeItem.getImportantPhoto().get(i).getPhotoPath();
+                String[] filename = path.split("/");
+                BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
+            }
+        }
+        if(crimeItem.getMonitoringPhoto().size()!=0){
+            for(int i=0;i<crimeItem.getMonitoringPhoto().size();i++){
+                String path = crimeItem.getMonitoringPhoto().get(i).getPhotoPath();
+                String[] filename = path.split("/");
+                BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
+            }
+        }
+        if(crimeItem.getCameraPhoto().size()!=0){
+            for(int i=0;i<crimeItem.getCameraPhoto().size();i++){
+                String path = crimeItem.getCameraPhoto().get(i).getPhotoPath();
                 String[] filename = path.split("/");
                 BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
             }

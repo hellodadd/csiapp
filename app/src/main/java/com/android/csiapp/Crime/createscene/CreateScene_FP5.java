@@ -358,9 +358,9 @@ public class CreateScene_FP5 extends Fragment {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         File mediaFile;
         if (type == PHOTO_TYPE_MONITORING){
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "MONITORING"+ timeStamp + ".jpg");
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "MONITORING_PHOTO_"+ timeStamp + ".jpg");
         } else if(type == PHOTO_TYPE_CAMERA) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "CAMERA"+ timeStamp + ".jpg");
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "CAMERA_PHOTO_"+ timeStamp + ".jpg");
         } else {
             return null;
         }

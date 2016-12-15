@@ -35,13 +35,13 @@ public class WitnessProvider {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    UUID_COLUMN + " INTEGER NOT NULL, " +
-                    WITNESS_NAME_COLUMN + " INTEGER NOT NULL, " +
-                    WITNESS_SEX_COLUMN + " INTEGER NOT NULL, " +
-                    WITNESS_BIRTHDAY_COLUMN + " INTEGER NOT NULL, " +
-                    WITNESS_NUMBER_COLUMN + " INTEGER NOT NULL, " +
-                    WITNESS_ADDRESS_COLUMN + " INTEGER NOT NULL, " +
-                    WITNESS_PHOTO_PATH_COLUMN + " INTEGER NOT NULL)";
+                    UUID_COLUMN + " TEXT NOT NULL, " +
+                    WITNESS_NAME_COLUMN + " TEXT NOT NULL, " +
+                    WITNESS_SEX_COLUMN + " TEXT NOT NULL, " +
+                    WITNESS_BIRTHDAY_COLUMN + " TEXT NOT NULL, " +
+                    WITNESS_NUMBER_COLUMN + " TEXT NOT NULL, " +
+                    WITNESS_ADDRESS_COLUMN + " TEXT NOT NULL, " +
+                    WITNESS_PHOTO_PATH_COLUMN + " TEXT NOT NULL)";
 
     // 資料庫物件
     private SQLiteDatabase db;
@@ -80,7 +80,7 @@ public class WitnessProvider {
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
         cv.put(UUID_COLUMN, item.getUuid());
         cv.put(WITNESS_NAME_COLUMN, item.getWitnessName());
-        cv.put(WITNESS_SEX_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mSexKey, item.getWitnessSex()));
+        cv.put(WITNESS_SEX_COLUMN, item.getWitnessSex());
         cv.put(WITNESS_BIRTHDAY_COLUMN, item.getWitnessBirthday());
         cv.put(WITNESS_NUMBER_COLUMN, item.getWitnessNumber());
         cv.put(WITNESS_ADDRESS_COLUMN, item.getWitnessAddress());
@@ -123,7 +123,7 @@ public class WitnessProvider {
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
         cv.put(UUID_COLUMN, item.getUuid());
         cv.put(WITNESS_NAME_COLUMN, item.getWitnessName());
-        cv.put(WITNESS_SEX_COLUMN, DictionaryInfo.getDictKey(DictionaryInfo.mSexKey, item.getWitnessSex()));
+        cv.put(WITNESS_SEX_COLUMN, item.getWitnessSex());
         cv.put(WITNESS_BIRTHDAY_COLUMN, item.getWitnessBirthday());
         cv.put(WITNESS_NUMBER_COLUMN, item.getWitnessNumber());
         cv.put(WITNESS_ADDRESS_COLUMN, item.getWitnessAddress());
@@ -183,7 +183,7 @@ public class WitnessProvider {
             item.setId(id);
             item.setUuid(cursor.getString(1));
             item.setWitnessName(cursor.getString(2));
-            item.setWitnessSex(DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, cursor.getString(3)));
+            item.setWitnessSex(cursor.getString(3));
             item.setWitnessBirthday(cursor.getLong(4));
             item.setWitnessNumber(cursor.getString(5));
             item.setWitnessAddress(cursor.getString(6));

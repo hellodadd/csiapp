@@ -34,7 +34,7 @@ public class DictionaryProvider {
     public static final String IDENTIFY_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    DICTKEY_COLUMN + " INTEGER NOT NULL, " +
+                    DICTKEY_COLUMN + " TEXT NOT NULL, " +
                     PARENTKEY_COLUMN + " TEXT NOT NULL, " +
                     ROOTKEY_COLUMN + " TEXT NOT NULL, " +
                     DICTVALUE_COLUMN + " TEXT NOT NULL, " +
@@ -94,6 +94,42 @@ public class DictionaryProvider {
         }
 
         return result;
+    }
+
+    public List<String> queryToGetDictKey(String rootkey){
+        List<String> list = new ArrayList<>();
+        String[] projection = new String[] {DICTKEY_COLUMN, PARENTKEY_COLUMN, DICTVALUE_COLUMN};
+        String where = ROOTKEY_COLUMN + " = '" + rootkey +"'";
+        Cursor cursor = db.query(TABLE_NAME, projection, where, null, null, null, DICTKEY_COLUMN, null);
+        if(cursor==null) {
+            return null;
+        }
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
+    }
+
+    public HashMap<String,String> queryToGetParentHashMap(String rootkey){
+        HashMap<String,String> list = new HashMap<String,String>();
+        String[] projection = new String[] {DICTKEY_COLUMN, PARENTKEY_COLUMN, DICTVALUE_COLUMN};
+        String where = ROOTKEY_COLUMN + " = '" + rootkey +"'";
+        Cursor cursor = db.query(TABLE_NAME, projection, where, null, null, null, DICTKEY_COLUMN, null);
+        if(cursor==null) {
+            return null;
+        }
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.put(cursor.getString(0), cursor.getString(1));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
     }
 
     public List<String> queryToGetList(String rootkey){
