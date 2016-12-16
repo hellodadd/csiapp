@@ -19,13 +19,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.csiapp.Crime.utils.ClearableEditText;
@@ -37,7 +34,6 @@ import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -399,7 +395,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
     private void getLastData(){
         if(mEvent == 1 && !mItem.IsGetLastData()){
-            Log.d("Anita","getLastData");
             mItem.setGetLastData(true);
             SharedPreferences prefs = context.getSharedPreferences("UserName", 0);
             String UserName = prefs.getString("user", "");
@@ -410,7 +405,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
             CrimeItem lastItem = getLastRecord();
             if(lastItem!=null){
-                Log.d("Anita","lastItem : "+lastItem.getSceneCondition()+", "+lastItem.getAccessInspectors());
                 mUnitsAssigned.setText(lastItem.getUnitsAssigned());
                 mWeatherConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mWeatherConditionKey, lastItem.getWeatherCondition()));
                 mWindDirectionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mWindDirectionKey, lastItem.getWindDirection()));
@@ -442,7 +436,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     }
 
     private void initData(){
-        Log.d("Anita","initData");
         mCasetypeText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, mItem.getCasetype()));
         mAreaText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, mItem.getArea()));
         mSceneConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSceneConditionKey, mItem.getSceneCondition()));
@@ -480,7 +473,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     }
 
     public void saveData(){
-        Log.d("Anita","saveData");
         mItem.setLocationa(mLocation.getText());
         mItem.setUnitsAssigned(mUnitsAssigned.getText());
         mItem.setAccessPolicemen(mAccessPolicemen.getText());

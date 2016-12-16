@@ -28,9 +28,7 @@ import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.EvidenceItem;
 import com.android.csiapp.Databases.EvidenceProvider;
-import com.android.csiapp.Databases.ImportantPhotoProvider;
 import com.android.csiapp.Databases.MonitoringPhotoProvider;
-import com.android.csiapp.Databases.OverviewPhotoProvider;
 import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
 

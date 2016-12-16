@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -15,7 +14,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,9 +39,7 @@ import com.android.csiapp.Crime.utils.UserInfo;
 import com.android.csiapp.Crime.utils.tree.TreeViewListDemo;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
-import com.android.csiapp.Databases.DictionaryProvider;
 import com.android.csiapp.Databases.EvidenceItem;
-import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
 
 import java.io.File;
@@ -175,7 +171,6 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     }
 
     private void initView(){
-        Log.d("Anita","initView");
         DictionaryInfo info = new DictionaryInfo(context);
         UserInfo user = new UserInfo(context);
 
@@ -279,7 +274,6 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     }
 
     private void initData(){
-        Log.d("Anita","initData");
         if(mEvent == 1) {
             mEvidenceItem = new EvidenceItem();
             mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.Item");

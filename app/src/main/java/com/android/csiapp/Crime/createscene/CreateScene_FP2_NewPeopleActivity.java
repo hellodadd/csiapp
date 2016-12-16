@@ -67,6 +67,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
                     if(IdCardVerify.getValidateValue(mRelatedPeopleItem.getPeopleId())!=1){
                         msg = "身分证号格式错误";
                         Toast.makeText(CreateScene_FP2_NewPeopleActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        break;
                     }
 
                     if(mRelatedPeopleItem.checkInformation()){

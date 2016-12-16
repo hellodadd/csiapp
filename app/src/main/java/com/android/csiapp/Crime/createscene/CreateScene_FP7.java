@@ -1,7 +1,6 @@
 package com.android.csiapp.Crime.createscene;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,23 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.csiapp.Crime.utils.ClearableEditText;
-import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.tree.TreeViewListDemo;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.

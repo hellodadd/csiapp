@@ -126,13 +126,13 @@ public class CrimeItem implements Serializable {
         this.mCasetype = "";
         this.mArea = "";
         this.mLocation = "";
-        this.mOccurred_start_time = time;
-        this.mOccurred_end_time = time;
+        this.mOccurred_start_time = time-1000*60*60*2;
+        this.mOccurred_end_time = time-1000*60*60;
         this.mGet_access_time = time;
         this.mUnitsAssigned = "";
         this.mAccessPolicemen = "";
-        this.mAccess_start_time = time;
-        this.mAccess_end_time = time;
+        this.mAccess_start_time = time+1000*60*60;
+        this.mAccess_end_time = time+1000*60*60*2;
         this.mAccessLocation = "";
         this.mCaseOccurProcess = "";
         this.mSceneCondition = "";
