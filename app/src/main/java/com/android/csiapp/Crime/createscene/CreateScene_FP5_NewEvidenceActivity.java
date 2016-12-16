@@ -67,6 +67,10 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private Spinner mEvidence_category_spinner;
     private ArrayList<String> mEvidence_category = new ArrayList<String>();
     private ArrayAdapter<String> mEvidence_category_adapter;
+
+    private Boolean isDoubleRefresh = false;
+    private Boolean isDoubleEdit = false;
+
     private Spinner mEvidence_spinner;
     private ArrayList<String> mEvidence = new ArrayList<String>();
     private ArrayAdapter<String> mEvidence_adapter;
@@ -195,7 +199,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         mEvidence_category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                refeshEvidenceItem(position);
+                if(!isDoubleRefresh) refeshEvidenceItem(position);
+                else isDoubleRefresh = false;
                 mEvidenceItem.setEvidenceCategory(mEvidence_category.get(position));
             }
             @Override
@@ -212,7 +217,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 mEvidenceItem.setEvidence(DictionaryInfo.getDictKey(DictionaryInfo.mEvidenceHandKey, mEvidence.get(position)));
-                mEvidenceName.setText(mEvidence.get(position));
+                if(!isDoubleEdit) mEvidenceName.setText(mEvidence.get(position));
+                else isDoubleEdit = false;
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -282,7 +288,12 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mEvidenceItem = (EvidenceItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.EvidenceItem");
         }
         if(!mEvidenceItem.getPhotoPath().isEmpty()) setPhoto(mEvidenceItem.getPhotoPath());
+
+        isDoubleRefresh = true;
         mEvidence_category_spinner.setSelection(getCategory(mEvidenceItem.getEvidenceCategory()));
+        refeshEvidenceItem(getCategory(mEvidenceItem.getEvidenceCategory()));
+
+        isDoubleEdit = true;
         if(getCategory(mEvidenceItem.getEvidenceCategory())==0) {
             mEvidence_spinner.setSelection(getEvidence(DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceHandKey, mEvidenceItem.getEvidence())));
             mMethod_spinner.setSelection(getMethod(DictionaryInfo.getDictValue(DictionaryInfo.mMethodHandKey, mEvidenceItem.getMethod())));
@@ -294,6 +305,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mMethod_spinner.setSelection(getMethod(DictionaryInfo.getDictValue(DictionaryInfo.mMethodToolKey, mEvidenceItem.getMethod())));
         }
         mEvidenceName.setText(mEvidenceItem.getEvidenceName());
+
         mLegacySite.setText(mEvidenceItem.getLegacySite());
         mBasiceFeature.setText(mEvidenceItem.getBasiceFeature());
         mInfer_spinner.setSelection(getInfer(DictionaryInfo.getDictValue(DictionaryInfo.mToolInferKey, mEvidenceItem.getInfer())));
@@ -386,9 +398,9 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mEvidence_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
                 @Override
                 public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                    Log.d("Anita","mEvidence_spinner setOnItemSelectedListener = "+position);
                     mEvidenceItem.setEvidence(DictionaryInfo.getDictKey(DictionaryInfo.mEvidenceHandKey, mEvidence.get(position)));
-                    mEvidenceName.setText(mEvidence.get(position));
+                    if(!isDoubleEdit) mEvidenceName.setText(mEvidence.get(position));
+                    else isDoubleEdit = false;
                 }
                 @Override
                 public void onNothingSelected(AdapterView<?> arg0) {
@@ -401,7 +413,6 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mMethod_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
                 @Override
                 public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                    Log.d("Anita","mMethod_spinner setOnItemSelectedListener = "+position);
                     mEvidenceItem.setMethod(DictionaryInfo.getDictKey(DictionaryInfo.mMethodHandKey, mMethod.get(position)));
                 }
                 @Override
@@ -424,7 +435,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                 @Override
                 public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
                     mEvidenceItem.setEvidence(DictionaryInfo.getDictKey(DictionaryInfo.mEvidenceFootKey, mEvidence.get(position)));
-                    mEvidenceName.setText(mEvidence.get(position));
+                    if(!isDoubleEdit) mEvidenceName.setText(mEvidence.get(position));
+                    else isDoubleEdit = false;
                 }
                 @Override
                 public void onNothingSelected(AdapterView<?> arg0) {
@@ -458,7 +470,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                 @Override
                 public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
                     mEvidenceItem.setEvidence(DictionaryInfo.getDictKey(DictionaryInfo.mEvidenceToolKey, mEvidence.get(position)));
-                    mEvidenceName.setText(mEvidence.get(position));
+                    if(!isDoubleEdit) mEvidenceName.setText(mEvidence.get(position));
+                    else isDoubleEdit = false;
                 }
                 @Override
                 public void onNothingSelected(AdapterView<?> arg0) {
