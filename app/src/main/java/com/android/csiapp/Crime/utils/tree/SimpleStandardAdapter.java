@@ -21,16 +21,12 @@ import com.android.csiapp.R;
 class SimpleStandardAdapter extends AbstractTreeViewAdapter<String> {
 
     private final Set<String> selected;
-    //private TreeStateManager<String> treeStateManager;
-    //private String lastId = "-1";
 
     private final OnCheckedChangeListener onCheckedChange = new OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
             final String id = (String) buttonView.getTag();
             changeSelected(isChecked, id);
-            //if(!lastId.equalsIgnoreCase("-1") && treeStateManager!=null) updateLastClickView();
-            //lastId = id;
         }
     };
 
@@ -50,8 +46,6 @@ class SimpleStandardAdapter extends AbstractTreeViewAdapter<String> {
             final int numberOfLevels) {
         super(treeViewListDemo, treeStateManager, numberOfLevels);
         this.selected = selected;
-        //this.treeStateManager = treeStateManager;
-        //if(selected.size()!=0) lastId = selected.iterator().next();
     }
 
     /*public View updateLastClickView() {
@@ -97,6 +91,8 @@ class SimpleStandardAdapter extends AbstractTreeViewAdapter<String> {
             final CheckBox cb = (CheckBox) vg.findViewById(R.id.demo_list_radiobutton);
             cb.performClick();
         }
+        //Single Select item need to refresh UI
+        refresh();
     }
 
     @Override

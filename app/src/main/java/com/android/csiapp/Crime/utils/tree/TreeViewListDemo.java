@@ -81,7 +81,7 @@ public class TreeViewListDemo extends AppCompatActivity {
                         selected = selected + it.next();
                     }
                     Log.d("Anita","selected = "+selected);
-                    if(!selected.contains(",") && Method.equalsIgnoreCase("Multiple")){
+                    if(!selected.contains(",") && !Method.equalsIgnoreCase("Single")){
                         Toast.makeText(TreeViewListDemo.this, "需要选择两个以上的人员", Toast.LENGTH_SHORT).show();
                         break;
                     }
@@ -181,7 +181,7 @@ public class TreeViewListDemo extends AppCompatActivity {
             }
             newCollapsible = savedInstanceState.getBoolean("collapsible");
         }
-        listView = (ListView) findViewById(R.id.mainListView);
+
         treeView = (TreeViewList) findViewById(R.id.mainTreeView);
         fancyAdapter = new FancyColouredVariousSizesAdapter(this, selected, manager, LEVEL_NUMBER);
         simpleAdapter = new SimpleStandardAdapter(this, selected, manager, LEVEL_NUMBER);
