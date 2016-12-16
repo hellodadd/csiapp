@@ -1,9 +1,7 @@
 package com.android.csiapp.Crime.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +13,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.csiapp.Crime.utils.paint.PaintView;
+import com.android.csiapp.Crime.utils.paint.PaintViewCallBack;
 import com.android.csiapp.R;
 
 import java.io.File;
@@ -30,7 +30,7 @@ public class HandWriteActivity extends AppCompatActivity {
 
     private Context context = null;
     @Bind(R.id.view)
-    LinePathView mPathView;
+    PaintView mPathView;
     @Bind(R.id.clear1)
     Button mClear;
     @Bind(R.id.ll)
@@ -56,7 +56,7 @@ public class HandWriteActivity extends AppCompatActivity {
                             }
                             // Create a media file name
                             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-                            mPathView.save(mediaStorageDir.getPath() + File.separator + "SIGN_"+ timeStamp + ".jpg", true, 10);
+                            mPathView.save(mediaStorageDir.getPath() + File.separator + "SIGN_"+ timeStamp + ".jpg", 10);
                             String path = mediaStorageDir.getPath() + File.separator + "SIGN_"+ timeStamp + ".jpg";
                             Intent result = getIntent().putExtra("SIGN", path);
                             setResult(100, result);
@@ -91,7 +91,7 @@ public class HandWriteActivity extends AppCompatActivity {
         mClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPathView.clear();
+                mPathView.clearAll(true);
             }
         });
 
@@ -110,6 +110,22 @@ public class HandWriteActivity extends AppCompatActivity {
             }
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
+
+        initCallBack();
+    }
+
+    private void initCallBack() {
+        mPathView.setCallBack(new PaintViewCallBack() {
+            // 当画了之后对Button进行更新
+            @Override
+            public void onHasDraw() {
+            }
+
+            // 当点击之后让各个弹出的窗口都消失
+            @Override
+            public void onTouchDown() {
+            }
+        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

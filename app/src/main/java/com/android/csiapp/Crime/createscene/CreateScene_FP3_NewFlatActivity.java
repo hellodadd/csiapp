@@ -15,7 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
-import com.android.csiapp.Crime.utils.LinePathView;
+import com.android.csiapp.Crime.utils.paint.PaintView;
+import com.android.csiapp.Crime.utils.paint.PaintViewCallBack;
 import com.android.csiapp.R;
 
 import java.io.File;
@@ -34,11 +35,11 @@ public class CreateScene_FP3_NewFlatActivity extends AppCompatActivity {
 
     private Context context = null;
     @Bind(R.id.view)
-    LinePathView mPathView;
-    @Bind(R.id.left)
-    Button mLeft;
-    @Bind(R.id.right)
-    Button mRight;
+    PaintView mPathView;
+    @Bind(R.id.undo)
+    Button mUndo;
+    @Bind(R.id.redo)
+    Button mRedo;
     @Bind(R.id.clear)
     Button mClear;
     @Bind(R.id.ll)
@@ -64,7 +65,7 @@ public class CreateScene_FP3_NewFlatActivity extends AppCompatActivity {
                             }
                             // Create a media file name
                             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-                            mPathView.save(mediaStorageDir.getPath() + File.separator + "FLAT_"+ timeStamp + ".jpg", true, 10);
+                            mPathView.save(mediaStorageDir.getPath() + File.separator + "FLAT_"+ timeStamp + ".jpg",10);
                             String path = mediaStorageDir.getPath() + File.separator + "FLAT_"+ timeStamp + ".jpg";
                             Intent result = getIntent().putExtra("Map_ScreenShot", path);
                             setResult(Activity.RESULT_OK, result);
@@ -99,19 +100,24 @@ public class CreateScene_FP3_NewFlatActivity extends AppCompatActivity {
         mClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPathView.clear();
+                mPathView.clearAll(true);
+                upDateUndoRedo();
             }
         });
-        mLeft.setOnClickListener(new View.OnClickListener() {
+        mUndo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPathView.clear();
+                //setAllLayoutInvisable();
+                mPathView.undo();
+                upDateUndoRedo();
             }
         });
-        mRight.setOnClickListener(new View.OnClickListener() {
+        mRedo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPathView.clear();
+                //setAllLayoutInvisable();
+                mPathView.redo();
+                upDateUndoRedo();
             }
         });
 
@@ -130,11 +136,58 @@ public class CreateScene_FP3_NewFlatActivity extends AppCompatActivity {
             }
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
+
+        initCallBack();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_create_fp3_subactivity, menu);
         return true;
+    }
+
+    private void initCallBack() {
+        mPathView.setCallBack(new PaintViewCallBack() {
+            // 当画了之后对Button进行更新
+            @Override
+            public void onHasDraw() {
+                enableUndoButton();
+                disableRedoButton();
+            }
+
+            // 当点击之后让各个弹出的窗口都消失
+            @Override
+            public void onTouchDown() {
+            }
+        });
+    }
+
+    private void upDateUndoRedo() {
+        if (mPathView.canUndo()) {
+            enableUndoButton();
+        } else {
+            disableUndoButton();
+        }
+        if (mPathView.canRedo()) {
+            enableRedoButton();
+        } else {
+            disableRedoButton();
+        }
+    }
+
+    private void enableRedoButton() {
+        mRedo.setVisibility(View.VISIBLE);
+    }
+
+    private void disableRedoButton() {
+        mRedo.setVisibility(View.GONE);
+    }
+
+    private void enableUndoButton() {
+        mUndo.setVisibility(View.VISIBLE);
+    }
+
+    private void disableUndoButton() {
+        mUndo.setVisibility(View.GONE);
     }
 
     @Override

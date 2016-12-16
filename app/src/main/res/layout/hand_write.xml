@@ -30,7 +30,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="@dimen/create_item_margin_bottom"/>
 
-    <com.android.csiapp.Crime.utils.LinePathView
+    <com.android.csiapp.Crime.utils.paint.PaintView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/view"
