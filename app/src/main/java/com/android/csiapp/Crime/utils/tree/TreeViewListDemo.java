@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.UserInfo;
@@ -80,6 +81,10 @@ public class TreeViewListDemo extends AppCompatActivity {
                         selected = selected + it.next();
                     }
                     Log.d("Anita","selected = "+selected);
+                    if(!selected.contains(",") && Method.equalsIgnoreCase("Multiple")){
+                        Toast.makeText(TreeViewListDemo.this, "需要选择两个以上的人员", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
                     result.putExtra("Select",selected);
                     setResult(Activity.RESULT_OK, result);
                     finish();

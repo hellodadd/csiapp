@@ -79,6 +79,19 @@ public class UserInfo {
 
     public String getMethod(String rootkey){
         String method = "Multiple";
+        switch (rootkey) {
+            case mSceneConductor:
+                method = "Single";
+                break;
+            case mAccessInspectors:
+                method = "Multiple";
+                break;
+            case mExtractionPeople:
+                method = "Multiple";
+                break;
+            default:
+                break;
+        }
         return method;
     }
 
