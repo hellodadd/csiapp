@@ -55,6 +55,7 @@ public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity 
     private LatLng mLocalLatlng;
     private OfflineMapManager amapManager = null;
     private boolean isFirstLoc = true;
+    private boolean isFirstFail = true;
 
     public Handler mHandler = new Handler() {
         @Override
@@ -196,7 +197,9 @@ public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity 
         //设置是否允许模拟位置,默认为false，不允许模拟位置
         mLocationOption.setMockEnable(false);
         //设置定位间隔,单位毫秒,默认为2000ms
-        mLocationOption.setInterval(1000);
+        mLocationOption.setInterval(2000);
+        //单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒。
+        mLocationOption.setHttpTimeOut(8000);
         //给定位客户端对象设置定位参数
         mLocationClient.setLocationOption(mLocationOption);
         //启动定位
@@ -241,6 +244,8 @@ public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity 
     //激活定位
     @Override
     public void activate(OnLocationChangedListener onLocationChangedListener) {
+        Toast.makeText(CreateScene_FP3_NewPositionActivity_Amap.this, "再次定位...", Toast.LENGTH_SHORT).show();
+        isFirstFail = true;
         mListener = onLocationChangedListener;
     }
 
@@ -300,13 +305,18 @@ public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity 
                             + aMapLocation.getStreetNum());
                     Toast.makeText(getApplicationContext(), buffer.toString(), Toast.LENGTH_LONG).show();
                     isFirstLoc = false;
+                    Toast.makeText(CreateScene_FP3_NewPositionActivity_Amap.this,"定位成功", Toast.LENGTH_SHORT).show();
+                    isFirstFail = true;
                 }
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
                 Log.e("AmapError", "location Error, ErrCode:"
                         + aMapLocation.getErrorCode() + ", errInfo:"
                         + aMapLocation.getErrorInfo());
-                Toast.makeText(getApplicationContext(), "定位失败", Toast.LENGTH_LONG).show();
+                if(isFirstFail) {
+                    Toast.makeText(CreateScene_FP3_NewPositionActivity_Amap.this, "定位失败", Toast.LENGTH_SHORT).show();
+                    isFirstFail = false;
+                }
             }
         }
     }
