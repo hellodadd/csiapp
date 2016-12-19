@@ -110,6 +110,7 @@
         <item>手印</item>
         <item>足迹</item>
         <item>工痕</item>
+        <item>其他</item>
     </string-array>
     <string-array name="evidence_hand">
         <item>指纹</item>

@@ -106,6 +106,16 @@
                     android:popupBackground="#FFFFFF"
                     android:layout_weight="1"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
+
+                <com.android.csiapp.Crime.utils.ClearableEditText
+                    android:id="@+id/other_evidence"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:hint="@string/name"
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <LinearLayout
@@ -242,6 +252,7 @@
                 android:background="#FFFFFF">
 
                 <ImageView
+                    android:id="@+id/methodLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/green_60dp"
@@ -264,6 +275,16 @@
                     android:popupBackground="#FFFFFF"
                     android:layout_weight="1"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
+
+                <com.android.csiapp.Crime.utils.ClearableEditText
+                    android:id="@+id/other_method"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:hint="@string/name"
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <LinearLayout

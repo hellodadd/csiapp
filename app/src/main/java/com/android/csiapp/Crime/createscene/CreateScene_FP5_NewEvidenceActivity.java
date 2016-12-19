@@ -63,6 +63,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private Spinner mEvidence_category_spinner;
     private ArrayList<String> mEvidence_category = new ArrayList<String>();
     private ArrayAdapter<String> mEvidence_category_adapter;
+    private TextView mEvidenceTextLabel;
+    private ClearableEditText mOtherEvidence;
 
     private Boolean isDoubleRefresh = false;
     private Boolean isDoubleEdit = false;
@@ -75,7 +77,6 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private ClearableEditText mLegacySite;
     private ClearableEditText mBasiceFeature;
 
-    private TextView mEvidenceTextLabel;
     private ImageView mBasiceFeatureLabel;
     private LinearLayout mInferLL;
     private Spinner mInfer_spinner;
@@ -85,6 +86,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private Spinner mMethod_spinner;
     private ArrayList<String> mMethod = new ArrayList<String>();
     private ArrayAdapter<String> mMethod_adapter;
+    private ImageView mMethodLabel;
+    private ClearableEditText mOtherMethod;
 
     private TextView mTime;
     private Button mTime_button;
@@ -219,12 +222,13 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
+        mEvidenceTextLabel = (TextView) findViewById(R.id.evidenceTextLabel);
+        mOtherEvidence = (ClearableEditText) findViewById(R.id.other_evidence);
 
         mEvidenceName = (ClearableEditText) findViewById(R.id.evidence_name);
         mLegacySite = (ClearableEditText) findViewById(R.id.legacy_site);
         mBasiceFeature = (ClearableEditText) findViewById(R.id.basice_feature);
 
-        mEvidenceTextLabel = (TextView) findViewById(R.id.evidenceTextLabel);
         mBasiceFeatureLabel = (ImageView) findViewById(R.id.basicFeatureLabel);
         mInferLL = (LinearLayout) findViewById(R.id.inferLL);
         mInfer = info.getArray(info.mToolInferKey);
@@ -256,6 +260,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
+        mMethodLabel = (ImageView) findViewById(R.id.methodLabel);
+        mOtherMethod = (ClearableEditText) findViewById(R.id.other_method);
 
         mTime = (TextView) findViewById(R.id.time);
         mTime_button = (Button) findViewById(R.id.time_button);
@@ -284,10 +290,10 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         if(!mEvidenceItem.getPhotoPath().isEmpty()) setPhoto(mEvidenceItem.getPhotoPath());
 
         isDoubleRefresh = true;
+        isDoubleEdit = true;
         mEvidence_category_spinner.setSelection(getCategory(mEvidenceItem.getEvidenceCategory()));
         refeshEvidenceItem(getCategory(mEvidenceItem.getEvidenceCategory()));
 
-        isDoubleEdit = true;
         if(getCategory(mEvidenceItem.getEvidenceCategory())==0) {
             mEvidence_spinner.setSelection(getEvidence(DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceHandKey, mEvidenceItem.getEvidence())));
             mMethod_spinner.setSelection(getMethod(DictionaryInfo.getDictValue(DictionaryInfo.mMethodHandKey, mEvidenceItem.getMethod())));
@@ -297,6 +303,13 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         }else if(getCategory(mEvidenceItem.getEvidenceCategory())==2){
             mEvidence_spinner.setSelection(getEvidence(DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceToolKey, mEvidenceItem.getEvidence())));
             mMethod_spinner.setSelection(getMethod(DictionaryInfo.getDictValue(DictionaryInfo.mMethodToolKey, mEvidenceItem.getMethod())));
+        }else if(getCategory(mEvidenceItem.getEvidenceCategory())==3){
+            mEvidence_spinner.setVisibility(View.GONE);
+            mMethod_spinner.setVisibility(View.GONE);
+            mOtherEvidence.setVisibility(View.VISIBLE);
+            mOtherMethod.setVisibility(View.VISIBLE);
+            mOtherEvidence.setText(mEvidenceItem.getEvidence());
+            mOtherMethod.setText(mEvidenceItem.getMethod());
         }
         mEvidenceName.setText(mEvidenceItem.getEvidenceName());
 
@@ -311,6 +324,11 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         mEvidenceItem.setEvidenceName(mEvidenceName.getText());
         mEvidenceItem.setLegacySite(mLegacySite.getText());
         mEvidenceItem.setBasiceFeature(mBasiceFeature.getText());
+
+        if(getCategory(mEvidenceItem.getEvidenceCategory())==3){
+            mEvidenceItem.setEvidence(mOtherEvidence.getText());
+            mEvidenceItem.setMethod(mOtherMethod.getText());
+        }
     }
 
     private int getCategory(String category){
@@ -383,8 +401,14 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mMethod = info.getArray(info.mMethodHandKey);
             mEvidenceTextLabel.setText(getResources().getString(R.string.evidence_hand));
             mBasiceFeatureLabel.setBackground(getResources().getDrawable(R.drawable.green_60dp));
+            mMethodLabel.setBackground(getResources().getDrawable(R.drawable.green_60dp));
             mInferLL.setVisibility(View.GONE);
             mEvidenceItem.setInfer("");
+
+            mEvidence_spinner.setVisibility(View.VISIBLE);
+            mMethod_spinner.setVisibility(View.VISIBLE);
+            mOtherEvidence.setVisibility(View.GONE);
+            mOtherMethod.setVisibility(View.GONE);
 
             mEvidence_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mEvidence);
             mEvidence_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -419,8 +443,14 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mMethod = info.getArray(info.mMethodFootKey);
             mEvidenceTextLabel.setText(getResources().getString(R.string.evidence_foot));
             mBasiceFeatureLabel.setBackground(getResources().getDrawable(R.drawable.green_60dp));
+            mMethodLabel.setBackground(getResources().getDrawable(R.drawable.green_60dp));
             mInferLL.setVisibility(View.GONE);
             mEvidenceItem.setInfer("");
+
+            mEvidence_spinner.setVisibility(View.VISIBLE);
+            mMethod_spinner.setVisibility(View.VISIBLE);
+            mOtherEvidence.setVisibility(View.GONE);
+            mOtherMethod.setVisibility(View.GONE);
 
             mEvidence_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mEvidence);
             mEvidence_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -455,7 +485,13 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mMethod = info.getArray(info.mMethodToolKey);
             mEvidenceTextLabel.setText(getResources().getString(R.string.evidence_tool));
             mBasiceFeatureLabel.setBackground(getResources().getDrawable(R.drawable.red_60dp));
+            mMethodLabel.setBackground(getResources().getDrawable(R.drawable.green_60dp));
             mInferLL.setVisibility(View.VISIBLE);
+
+            mEvidence_spinner.setVisibility(View.VISIBLE);
+            mMethod_spinner.setVisibility(View.VISIBLE);
+            mOtherEvidence.setVisibility(View.GONE);
+            mOtherMethod.setVisibility(View.GONE);
 
             mEvidence_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mEvidence);
             mEvidence_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -484,6 +520,20 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                 public void onNothingSelected(AdapterView<?> arg0) {
                 }
             });
+        }else if(category==3){
+            //其他
+            mEvidenceTextLabel.setText(getResources().getString(R.string.evidence_other));
+            mBasiceFeatureLabel.setBackground(getResources().getDrawable(R.drawable.red_60dp));
+            mMethodLabel.setBackground(getResources().getDrawable(R.drawable.red_60dp));
+            mInferLL.setVisibility(View.GONE);
+
+            mEvidence_spinner.setVisibility(View.GONE);
+            mMethod_spinner.setVisibility(View.GONE);
+            mOtherEvidence.setVisibility(View.VISIBLE);
+            mOtherMethod.setVisibility(View.VISIBLE);
+
+            if(!isDoubleEdit) mEvidenceName.setText(getResources().getString(R.string.evidence_name_other));
+            else isDoubleEdit = false;
         }
     }
 

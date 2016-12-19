@@ -99,7 +99,9 @@
     <string name="evidence_hand">手印痕迹</string>
     <string name="evidence_foot">足印痕迹</string>
     <string name="evidence_tool">工具痕迹</string>
+    <string name="evidence_other">其他痕迹</string>
     <string name="evidence_name">物证名称</string>
+    <string name="evidence_name_other">其他物证</string>
     <string name="legacy_site">遗留部位</string>
     <string name="basic_feature">基本特征</string>
     <string name="infer">工具推断</string>
