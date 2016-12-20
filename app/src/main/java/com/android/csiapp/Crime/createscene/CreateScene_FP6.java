@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
+import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
@@ -99,7 +100,7 @@ public class CreateScene_FP6 extends Fragment {
 
     private void auto_generated(){
         String[] category = getResources().getStringArray(R.array.casetype);
-        String type = mItem.getCasetype();
+        String type = DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, mItem.getCasetype());
         if(type.isEmpty()){
             Toast.makeText(getActivity(), "请先选择案件类别", Toast.LENGTH_SHORT).show();
             return;
