@@ -201,6 +201,8 @@ public class CreateScene_FP3 extends Fragment {
     public void onResume(){
         super.onResume();
         initData();
+        mPosition_Adapter.notifyDataSetChanged();
+        mFlat_Adapter.notifyDataSetChanged();
     }
 
     @Override

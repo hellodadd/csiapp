@@ -258,6 +258,9 @@ public class CreateScene_FP5 extends Fragment {
     public void onResume(){
         super.onResume();
         initData();
+        mEvidence_Adapter.notifyDataSetChanged();
+        mMonitoring_Adapter.notifyDataSetChanged();
+        mCamera_Adapter.notifyDataSetChanged();
     }
 
     @Override
