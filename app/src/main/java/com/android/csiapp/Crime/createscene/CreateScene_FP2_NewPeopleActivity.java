@@ -64,7 +64,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
                     result.putExtra("Event", mEvent);
                     result.putExtra("Posiotion", mPosition);
 
-                    if(!mRelatedPeopleItem.getPeopleId().isEmpty() && IdCardVerify.getValidateValue(mRelatedPeopleItem.getPeopleId())!=1){
+                    if(mRelatedPeopleItem.getPeopleId().isEmpty() && IdCardVerify.validateIdCard(mRelatedPeopleItem.getPeopleId())){
                         msg = "身分证号格式错误";
                         Toast.makeText(CreateScene_FP2_NewPeopleActivity.this, msg, Toast.LENGTH_SHORT).show();
                         break;
@@ -163,8 +163,8 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         mId = (ClearableEditText) findViewById(R.id.identity_number_editView);
         mNumber = (ClearableEditText) findViewById(R.id.contact_number_editView);
         mAddress = (ClearableEditText) findViewById(R.id.address_editView);
-        mId.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
-        mNumber.setKeyListener(DigitsKeyListener.getInstance("()-0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+        mId.setKeyListener(DigitsKeyListener.getInstance("abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"));
+        mNumber.setKeyListener(DigitsKeyListener.getInstance("()-0123456789"));
 
         mId.addTextChangedListener(new TextWatcher(){
             @Override

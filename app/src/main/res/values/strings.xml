@@ -62,7 +62,7 @@
     <string name="type">案件人关系</string>
     <string name="name">姓名</string>
     <string name="sex">性别</string>
-    <string name="identity_number">身分证号</string>
+    <string name="identity_number">身份证号</string>
     <string name="contact_number">联系电话</string>
     <string name="living_address">现居地址</string>
     <string name="title_activity_lostitem">损失物品</string>
@@ -75,7 +75,7 @@
     <string name="tool_name">工具名称</string>
     <string name="tool_category">工具类目</string>
     <string name="tool_source">工具来源</string>
-    <string name="login_only_can_input">qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM</string>
+    <string name="login_only_can_input">qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM0123456789</string>
 
     <string name="step_3">现场图</string>
     <string name="position">方位示意图</string>
