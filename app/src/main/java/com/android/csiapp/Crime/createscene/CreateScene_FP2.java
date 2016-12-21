@@ -17,9 +17,9 @@ import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.android.csiapp.Crime.utils.CrimeItemAdapter;
-import com.android.csiapp.Crime.utils.LostItemAdapter;
-import com.android.csiapp.Crime.utils.RelatedPeoeplAdapter;
+import com.android.csiapp.Crime.utils.adapter.CrimeItemAdapter;
+import com.android.csiapp.Crime.utils.adapter.LostItemAdapter;
+import com.android.csiapp.Crime.utils.adapter.RelatedPeoeplAdapter;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeToolItem;
 import com.android.csiapp.Databases.CrimeToolProvider;

@@ -20,8 +20,8 @@ import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.android.csiapp.Crime.utils.PhotoAdapter;
-import com.android.csiapp.Crime.utils.Priview_photo_Activity;
+import com.android.csiapp.Crime.utils.adapter.PhotoAdapter;
+import com.android.csiapp.Crime.utils.PriviewPhotoActivity;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.ImportantPhotoProvider;
@@ -133,7 +133,7 @@ public class CreateScene_FP4 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
             {
-                Intent it = new Intent(getActivity(), Priview_photo_Activity.class);
+                Intent it = new Intent(getActivity(), PriviewPhotoActivity.class);
                 it.putExtra("Path",mPositionList.get(position).getPhotoPath());
                 startActivityForResult(it, 100);
             }
@@ -157,7 +157,7 @@ public class CreateScene_FP4 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
             {
-                Intent it = new Intent(getActivity(), Priview_photo_Activity.class);
+                Intent it = new Intent(getActivity(), PriviewPhotoActivity.class);
                 it.putExtra("Path",mLikeList.get(position).getPhotoPath());
                 startActivityForResult(it, 100);
             }
@@ -181,7 +181,7 @@ public class CreateScene_FP4 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
             {
-                Intent it = new Intent(getActivity(), Priview_photo_Activity.class);
+                Intent it = new Intent(getActivity(), PriviewPhotoActivity.class);
                 it.putExtra("Path",mImportantList.get(position).getPhotoPath());
                 startActivityForResult(it, 100);
             }

@@ -16,7 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.android.csiapp.Crime.utils.WitnessListAdapter;
+import com.android.csiapp.Crime.utils.adapter.WitnessListAdapter;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.WitnessItem;
 import com.android.csiapp.Databases.WitnessProvider;

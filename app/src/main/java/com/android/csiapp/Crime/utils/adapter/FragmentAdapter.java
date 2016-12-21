@@ -1,4 +1,4 @@
-package com.android.csiapp.Crime.utils;
+package com.android.csiapp.Crime.utils.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

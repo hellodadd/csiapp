@@ -1,4 +1,4 @@
-package com.android.csiapp.Crime.utils;
+package com.android.csiapp.Crime.utils.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,8 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.android.csiapp.Databases.EvidenceItem;
+import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
 
 import java.io.File;
@@ -19,13 +20,15 @@ import java.io.FileInputStream;
 import java.util.List;
 
 /**
- * Created by user on 2016/10/11.
+ * Created by user on 2016/10/7.
  */
-public class EvidenceAdapter extends BaseAdapter {
+public class PhotoAdapter extends BaseAdapter {
     private LayoutInflater myInflater;
-    private List<EvidenceItem> items;
+    private List<PhotoItem> items;
+    private Bitmap bp = null;
+    private ViewHolder holder =null;
 
-    public EvidenceAdapter(Context context, List<EvidenceItem> items){
+    public PhotoAdapter(Context context, List<PhotoItem> items){
         myInflater = LayoutInflater.from(context);
         this.items = items;
     }
@@ -47,7 +50,6 @@ public class EvidenceAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
         if(convertView==null){
             convertView = myInflater.inflate(R.layout.photoadapterview, null);
             holder = new ViewHolder(
@@ -57,12 +59,13 @@ public class EvidenceAdapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        EvidenceItem item = (EvidenceItem)getItem(position);
+        PhotoItem item = (PhotoItem)getItem(position);
         String path = item.getPhotoPath();
         if(!path.isEmpty()){
-            Bitmap bitmap = loadBitmapFromFile(new File(path));
-            if(bitmap!=null) holder.txtItemPhoto.setImageBitmap(bitmap);
+            bp = loadBitmapFromFile(new File(path));
+            if(bp!=null) holder.txtItemPhoto.setImageBitmap(bp);
         }
+
         return convertView;
     }
 
@@ -73,7 +76,7 @@ public class EvidenceAdapter extends BaseAdapter {
         }
     }
 
-    private Bitmap loadBitmapFromFile(File f) {
+    public static Bitmap loadBitmapFromFile(File f) {
         Bitmap b = null;
         BitmapFactory.Options option = new BitmapFactory.Options();
         // Bitmap sampling factor, size = (Original Size)/(inSampleSize)

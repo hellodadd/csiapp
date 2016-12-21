@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import com.android.csiapp.R;
 
-public class Priview_photo_Activity extends AppCompatActivity {
+public class PriviewPhotoActivity extends AppCompatActivity {
 
     private ImageView priview;
     private ImageButton back;
@@ -19,7 +19,7 @@ public class Priview_photo_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_priview_photo);
+        setContentView(R.layout.priview_photo);
 
         String path = getIntent().getStringExtra("Path");
 

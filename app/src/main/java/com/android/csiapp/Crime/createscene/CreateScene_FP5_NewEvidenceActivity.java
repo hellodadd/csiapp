@@ -33,7 +33,7 @@ import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
-import com.android.csiapp.Crime.utils.Priview_photo_Activity;
+import com.android.csiapp.Crime.utils.PriviewPhotoActivity;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Crime.utils.UserInfo;
 import com.android.csiapp.Crime.utils.tree.TreeViewListDemo;
@@ -177,7 +177,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             @Override
             public void onClick(View view)
             {
-                Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, Priview_photo_Activity.class);
+                Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, PriviewPhotoActivity.class);
                 it.putExtra("Path",mEvidenceItem.getPhotoPath());
                 startActivityForResult(it, 100);
             }

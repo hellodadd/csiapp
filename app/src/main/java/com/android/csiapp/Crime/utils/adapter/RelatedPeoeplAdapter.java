@@ -1,4 +1,4 @@
-package com.android.csiapp.Crime.utils;
+package com.android.csiapp.Crime.utils.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,21 +7,20 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.android.csiapp.Databases.CrimeItem;
-import com.android.csiapp.Databases.WitnessItem;
+import com.android.csiapp.Databases.RelatedPeopleItem;
 import com.android.csiapp.R;
 
 import java.util.List;
 
 /**
- * Created by user on 2016/9/27.
+ * Created by user on 2016/10/4.
  */
-public class WitnessListAdapter extends BaseAdapter {
+public class RelatedPeoeplAdapter extends BaseAdapter {
 
     private LayoutInflater myInflater;
-    private List<WitnessItem> items;
+    private List<RelatedPeopleItem> items;
 
-    public WitnessListAdapter(Context context, List<WitnessItem> items){
+    public RelatedPeoeplAdapter(Context context, List<RelatedPeopleItem> items){
         myInflater = LayoutInflater.from(context);
         this.items = items;
     }
@@ -54,9 +53,9 @@ public class WitnessListAdapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        WitnessItem item = (WitnessItem)getItem(position);
-        holder.txtItemName.setText("见证人");
-        holder.txtItemContent.setText(((WitnessItem) getItem(position)).getWitnessName());
+        RelatedPeopleItem item = (RelatedPeopleItem)getItem(position);
+        holder.txtItemName.setText(((RelatedPeopleItem) getItem(position)).getPeopleRelation());
+        holder.txtItemContent.setText(((RelatedPeopleItem) getItem(position)).getPeopleName());
         return convertView;
     }
 

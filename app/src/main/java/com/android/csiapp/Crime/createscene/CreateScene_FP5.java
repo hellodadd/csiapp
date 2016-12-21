@@ -20,9 +20,9 @@ import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.android.csiapp.Crime.utils.EvidenceAdapter;
-import com.android.csiapp.Crime.utils.PhotoAdapter;
-import com.android.csiapp.Crime.utils.Priview_photo_Activity;
+import com.android.csiapp.Crime.utils.adapter.EvidenceAdapter;
+import com.android.csiapp.Crime.utils.adapter.PhotoAdapter;
+import com.android.csiapp.Crime.utils.PriviewPhotoActivity;
 import com.android.csiapp.Databases.CameraPhotoProvider;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
@@ -166,7 +166,7 @@ public class CreateScene_FP5 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
             {
-                Intent it = new Intent(getActivity(), Priview_photo_Activity.class);
+                Intent it = new Intent(getActivity(), PriviewPhotoActivity.class);
                 it.putExtra("Path",mMonitoringList.get(position).getPhotoPath());
                 startActivityForResult(it, 100);
             }
@@ -190,7 +190,7 @@ public class CreateScene_FP5 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
             {
-                Intent it = new Intent(getActivity(), Priview_photo_Activity.class);
+                Intent it = new Intent(getActivity(), PriviewPhotoActivity.class);
                 it.putExtra("Path",mCameraList.get(position).getPhotoPath());
                 startActivityForResult(it, 100);
             }

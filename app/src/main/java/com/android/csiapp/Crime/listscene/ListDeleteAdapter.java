@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
-import com.android.csiapp.Crime.utils.PhotoAdapter;
+import com.android.csiapp.Crime.utils.adapter.PhotoAdapter;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;

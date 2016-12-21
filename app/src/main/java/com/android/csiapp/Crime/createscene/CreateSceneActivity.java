@@ -23,7 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
-import com.android.csiapp.Crime.utils.FragmentAdapter;
+import com.android.csiapp.Crime.utils.adapter.FragmentAdapter;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;

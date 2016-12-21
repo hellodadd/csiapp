@@ -30,7 +30,7 @@ import android.widget.TextView;
 
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
-import com.android.csiapp.Crime.utils.Priview_photo_Activity;
+import com.android.csiapp.Crime.utils.PriviewPhotoActivity;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.PhotoItem;
@@ -410,7 +410,7 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
             @Override
             public void onClick(View view)
             {
-                Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, Priview_photo_Activity.class);
+                Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, PriviewPhotoActivity.class);
                 it.putExtra("Path",mPositionItem.getPhotoPath());
                 startActivityForResult(it, 100);
             }

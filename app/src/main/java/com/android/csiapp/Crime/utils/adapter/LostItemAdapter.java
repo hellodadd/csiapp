@@ -1,4 +1,4 @@
-package com.android.csiapp.Crime.utils;
+package com.android.csiapp.Crime.utils.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.android.csiapp.Databases.RelatedPeopleItem;
+import com.android.csiapp.Databases.LostItem;
 import com.android.csiapp.R;
 
 import java.util.List;
@@ -15,12 +15,12 @@ import java.util.List;
 /**
  * Created by user on 2016/10/4.
  */
-public class RelatedPeoeplAdapter extends BaseAdapter {
+public class LostItemAdapter extends BaseAdapter {
 
     private LayoutInflater myInflater;
-    private List<RelatedPeopleItem> items;
+    private List<LostItem> items;
 
-    public RelatedPeoeplAdapter(Context context, List<RelatedPeopleItem> items){
+    public LostItemAdapter(Context context, List<LostItem> items){
         myInflater = LayoutInflater.from(context);
         this.items = items;
     }
@@ -53,9 +53,9 @@ public class RelatedPeoeplAdapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        RelatedPeopleItem item = (RelatedPeopleItem)getItem(position);
-        holder.txtItemName.setText(((RelatedPeopleItem) getItem(position)).getPeopleRelation());
-        holder.txtItemContent.setText(((RelatedPeopleItem) getItem(position)).getPeopleName());
+        LostItem item = (LostItem)getItem(position);
+        holder.txtItemName.setText("物品");
+        holder.txtItemContent.setText(((LostItem) getItem(position)).getItemName());
         return convertView;
     }
 

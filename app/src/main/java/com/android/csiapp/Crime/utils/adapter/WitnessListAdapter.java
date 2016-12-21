@@ -1,4 +1,4 @@
-package com.android.csiapp.Crime.utils;
+package com.android.csiapp.Crime.utils.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,20 +7,21 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.android.csiapp.Databases.CrimeToolItem;
+import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Databases.WitnessItem;
 import com.android.csiapp.R;
 
 import java.util.List;
 
 /**
- * Created by user on 2016/10/4.
+ * Created by user on 2016/9/27.
  */
-public class CrimeItemAdapter extends BaseAdapter {
+public class WitnessListAdapter extends BaseAdapter {
 
     private LayoutInflater myInflater;
-    private List<CrimeToolItem> items;
+    private List<WitnessItem> items;
 
-    public CrimeItemAdapter(Context context, List<CrimeToolItem> items){
+    public WitnessListAdapter(Context context, List<WitnessItem> items){
         myInflater = LayoutInflater.from(context);
         this.items = items;
     }
@@ -53,9 +54,9 @@ public class CrimeItemAdapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        CrimeToolItem item = (CrimeToolItem)getItem(position);
-        holder.txtItemName.setText("工具");
-        holder.txtItemContent.setText(((CrimeToolItem) getItem(position)).getToolName());
+        WitnessItem item = (WitnessItem)getItem(position);
+        holder.txtItemName.setText("见证人");
+        holder.txtItemContent.setText(((WitnessItem) getItem(position)).getWitnessName());
         return convertView;
     }
 
