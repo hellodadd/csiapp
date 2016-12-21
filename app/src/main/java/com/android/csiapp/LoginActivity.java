@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         SharedPreferences prefs = context.getSharedPreferences("LoginName", 0);
-        mUserView.setText(prefs.getString("name", ""));
+        mUserView.setText(prefs.getString("loginname", ""));
     }
 
     /**
