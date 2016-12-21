@@ -274,19 +274,25 @@ public class LoginActivity extends AppCompatActivity {
 
             if (success && mIdentify.checkPasswordFromName(mUser, mPassword) && initstatus.equalsIgnoreCase("1")) {
                 SharedPreferences.Editor editor1 = context.getSharedPreferences("LoginName", 0).edit();
-                editor1.putString("name", mUser);
+                editor1.putString("loginname", mUser);
                 editor1.commit();
 
                 IdentifyProvider identifyProvider = new IdentifyProvider(context);
+
                 String UnitCode = identifyProvider.getUnitCode(mUser);
                 SharedPreferences.Editor editor2 = context.getSharedPreferences("UnitCode", 0).edit();
-                editor2.putString("code", UnitCode);
+                editor2.putString("unitcode", UnitCode);
                 editor2.commit();
 
                 String UserName = identifyProvider.getUserName(mUser);
                 SharedPreferences.Editor editor3 = context.getSharedPreferences("UserName", 0).edit();
-                editor3.putString("user", UserName);
+                editor3.putString("username", UserName);
                 editor3.commit();
+
+                String UnitName = identifyProvider.getUnitName(mUser);
+                SharedPreferences.Editor editor4 = context.getSharedPreferences("UnitName", 0).edit();
+                editor4.putString("unitname", UnitName);
+                editor4.commit();
 
                 Intent it = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(it);

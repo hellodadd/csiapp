@@ -396,16 +396,27 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private void getLastData(){
         if(mEvent == 1 && !mItem.IsGetLastData()){
             mItem.setGetLastData(true);
-            SharedPreferences prefs = context.getSharedPreferences("UserName", 0);
-            String UserName = prefs.getString("user", "");
+            SharedPreferences prefs1 = context.getSharedPreferences("LoginName", 0);
+            String LoginName = prefs1.getString("loginname", "");
+            SharedPreferences prefs2 = context.getSharedPreferences("UserName", 0);
+            String UserName = prefs2.getString("username", "");
+            SharedPreferences prefs3 = context.getSharedPreferences("UnitName", 0);
+            String UnitName = prefs3.getString("unitname", "");
+            SharedPreferences prefs4 = context.getSharedPreferences("UnitCode", 0);
+            String UnitCode= prefs4.getString("unitcode", "");
             mProductPeopleName.setText(UserName);
+            mAreaText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, UnitCode));
+            mProductPeopleUnit.setText(UnitName);
+            mUnitsAssigned.setText("110指挥中心");
+            mIlluminationConditionText.setText("自然光");
             mSafeguard.setText("专人看护现场，防止他人进入");
-            mSceneConductorText.setText(UserName.trim());
-            mAccessInspectorsText.setText(UserName.trim());
+            mProductPeopleDuties.setText("民警");
+            mSceneConductorText.setText(UserInfo.getUserName(LoginName));
+            mAccessInspectorsText.setText(UserInfo.getUserName(LoginName));
 
             CrimeItem lastItem = getLastRecord();
             if(lastItem!=null){
-                mUnitsAssigned.setText(lastItem.getUnitsAssigned());
+                mAccessPolicemen.setText(lastItem.getAccessPolicemen());
                 mWeatherConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mWeatherConditionKey, lastItem.getWeatherCondition()));
                 mWindDirectionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mWindDirectionKey, lastItem.getWindDirection()));
                 mTemperature.setText(lastItem.getTemperature());
@@ -415,9 +426,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 mVictimCkBx.setChecked(lastItem.isVictimCk());
                 mOtherCkBx.setChecked(lastItem.isOtherCk());
                 mChangeReason.setText(lastItem.getChangeReason());
-                mIlluminationConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mIlluminationConditionKey, lastItem.getIlluminationCondition()));
-                mProductPeopleUnit.setText(lastItem.getProductPeopleUnit());
-                mProductPeopleDuties.setText(lastItem.getProductPeopleDuties());
                 if(lastItem.getSceneConductor()!=null) mSceneConductorText.setText(UserInfo.getUserName(lastItem.getSceneConductor()));
                 if(lastItem.getAccessInspectors()!=null)mAccessInspectorsText.setText(UserInfo.getUserName(lastItem.getAccessInspectors()));
 
@@ -427,10 +435,11 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 mItem.setInformantCk(lastItem.isInformantCk());
                 mItem.setVictimCk(lastItem.isVictimCk());
                 mItem.setOtherCk(lastItem.isOtherCk());
-                mItem.setIlluminationCondition(lastItem.getIlluminationCondition());
             }
-            mItem.setSceneConductor(UserInfo.getLoginName((String) mSceneConductorText.getText()));
-            mItem.setAccessInspectors(UserInfo.getLoginName((String) mAccessInspectorsText.getText()));
+            mItem.setArea(UnitCode);
+            mItem.setIlluminationCondition(DictionaryInfo.getDictKey(DictionaryInfo.mIlluminationConditionKey, (String) mIlluminationConditionText.getText()));
+            mItem.setSceneConductor(LoginName);
+            mItem.setAccessInspectors(LoginName);
             saveData();
         }
     }

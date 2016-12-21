@@ -90,6 +90,8 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 SocketService.ioThreadFlag=false;
                                 break;
                             case 2: //设备初始化命令
+                                File Initfile = new File(mInitDevicePath);
+                                if(Initfile.exists()) deleteFiles(Initfile);
                                 filebytes = receiveDataFromSocketByte(in, currcmdinfo);
                                 if(dataInitial.InitialDevice()){
                                     concatCmdline(out, currcmdinfo, 1);
@@ -121,6 +123,8 @@ public class ThreadReadWriterIOSocket implements Runnable {
 
                                 break;
                             case 11: //获取现场列表命令
+                                File getfile = new File(mSceneListPath);
+                                if(getfile.exists()) deleteFiles(getfile);
                                 filebytes = receiveDataFromSocketByte(in, currcmdinfo);
                                 //組成BaseMsg.xml
                                 result = dataInitial.CreateBaseMsg();
@@ -159,6 +163,8 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 //SocketService.ioThreadFlag=false;
                                 break;
                             case 13: //回写现勘编号命令
+                                File writefile = new File(mWriteSceneIdPath);
+                                if(writefile.exists()) deleteFiles(writefile);
                                 filebytes = receiveDataFromSocketByte(in, currcmdinfo);
 
                                 if(dataInitial.WriteSceneNo()){
@@ -174,6 +180,8 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                 SocketService.ioThreadFlag=false;
                                 break;
                             case 14: //删除现场信息命令
+                                File deletefile = new File(mDeleteSceneInfoPath);
+                                if(deletefile.exists()) deleteFiles(deletefile);
                                 filebytes = receiveDataFromSocketByte(in, currcmdinfo);
                                 result = dataInitial.deleteSceneInfo();
                                 //获取BaseMsg.xml

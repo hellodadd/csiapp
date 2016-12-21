@@ -127,7 +127,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
             mItem = new CrimeItem();
             mEvent = 1;
             SharedPreferences prefs1 = context.getSharedPreferences("LoginName", 0);
-            String login_name = prefs1.getString("name", "");
+            String login_name = prefs1.getString("loginname", "");
             mItem.setLoginName(login_name);
             SharedPreferences prefs2 = context.getSharedPreferences("UnitCode", 0);
             String unit_code = prefs2.getString("code", "");

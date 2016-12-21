@@ -145,6 +145,20 @@ public class IdentifyProvider {
         return result;
     }
 
+    public String getUnitName(String name) {
+        String result ="";
+        String[] projection = new String[] {LOGINNAME_COLUMN, UNITNAME_COLUMN};
+        String where = LOGINNAME_COLUMN + " = '" + name + "'";
+        Cursor cursor = db.query(TABLE_NAME, projection, where, null, null, null, null, null);
+
+        while (cursor!=null && cursor.moveToNext()) {
+            result = cursor.getString(1);
+        }
+
+        cursor.close();
+        return result;
+    }
+
     public String getUserName(String name) {
         String result ="";
         String[] projection = new String[] {LOGINNAME_COLUMN, USERNAME_COLUMN};

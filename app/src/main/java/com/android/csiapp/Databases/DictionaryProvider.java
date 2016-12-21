@@ -101,8 +101,8 @@ public class DictionaryProvider {
         String[] projection = new String[] {DICTKEY_COLUMN, PARENTKEY_COLUMN, DICTVALUE_COLUMN};
         String where = ROOTKEY_COLUMN + " = '" + rootkey +"'";
         Cursor cursor = db.query(TABLE_NAME, projection, where, null, null, null, DICTKEY_COLUMN, null);
-        if(cursor==null) {
-            return null;
+        if(cursor==null || cursor.getCount()==0) {
+            return new ArrayList<String>();
         }
 
         cursor.moveToFirst();
@@ -119,8 +119,8 @@ public class DictionaryProvider {
         String[] projection = new String[] {DICTKEY_COLUMN, PARENTKEY_COLUMN, DICTVALUE_COLUMN};
         String where = ROOTKEY_COLUMN + " = '" + rootkey +"'";
         Cursor cursor = db.query(TABLE_NAME, projection, where, null, null, null, DICTKEY_COLUMN, null);
-        if(cursor==null) {
-            return null;
+        if(cursor==null || cursor.getCount()==0) {
+            return new HashMap<String, String>();
         }
 
         cursor.moveToFirst();
@@ -137,8 +137,8 @@ public class DictionaryProvider {
         String[] projection = new String[] {DICTKEY_COLUMN, PARENTKEY_COLUMN, DICTVALUE_COLUMN};
         String where = ROOTKEY_COLUMN + " = '" + rootkey +"'";
         Cursor cursor = db.query(TABLE_NAME, projection, where, null, null, null, DICTKEY_COLUMN, null);
-        if(cursor==null) {
-            return null;
+        if(cursor==null || cursor.getCount()==0) {
+            return new ArrayList<String>();
         }
 
         cursor.moveToFirst();
@@ -155,8 +155,8 @@ public class DictionaryProvider {
         String[] projection = new String[] {DICTKEY_COLUMN, PARENTKEY_COLUMN, DICTVALUE_COLUMN};
         String where = ROOTKEY_COLUMN + " = '" + rootkey +"'";
         Cursor cursor = db.query(TABLE_NAME, projection, where, null, null, null, DICTKEY_COLUMN, null);
-        if(cursor==null) {
-            return null;
+        if(cursor==null || cursor.getCount()==0) {
+            return new HashMap<String, String>();
         }
 
         cursor.moveToFirst();
@@ -166,5 +166,19 @@ public class DictionaryProvider {
         }
         cursor.close();
         return list;
+    }
+
+    public String queryUnitArea(String rootkey, String unitCode){
+        String result = "";
+        String[] projection = new String[] {DICTVALUE_COLUMN};
+        String where = ROOTKEY_COLUMN + " = '" + rootkey +"' AND " + DICTKEY_COLUMN + " = '" + unitCode +"'";
+        Cursor cursor = db.query(TABLE_NAME, projection, where, null, null, null, DICTVALUE_COLUMN, null);
+        if(cursor==null || cursor.getCount()==0) {
+            return "";
+        }
+        cursor.moveToFirst();
+        result = cursor.getString(0);
+        cursor.close();
+        return result;
     }
 }

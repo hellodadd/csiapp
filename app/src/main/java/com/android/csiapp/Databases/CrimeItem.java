@@ -126,13 +126,13 @@ public class CrimeItem implements Serializable {
         this.mCasetype = "";
         this.mArea = "";
         this.mLocation = "";
-        this.mOccurred_start_time = time-1000*60*60*2;
-        this.mOccurred_end_time = time-1000*60*60;
+        this.mOccurred_start_time = time-1000*60*30*3;
+        this.mOccurred_end_time = time-1000*60*30;
         this.mGet_access_time = time;
         this.mUnitsAssigned = "";
         this.mAccessPolicemen = "";
-        this.mAccess_start_time = time+1000*60*60;
-        this.mAccess_end_time = time+1000*60*60*2;
+        this.mAccess_start_time = time+1000*60*30;
+        this.mAccess_end_time = time+1000*60*30*3;
         this.mAccessLocation = "";
         this.mCaseOccurProcess = "";
         this.mSceneCondition = "";
@@ -647,28 +647,17 @@ public class CrimeItem implements Serializable {
     //Check Information
     public boolean checkInformation(){
         boolean result = false;
-        if(!mCasetype.isEmpty()
-                &&!mArea.isEmpty()
-                &&!mLocation.isEmpty()
-                &&!mUnitsAssigned.isEmpty()
-                &&!mAccessPolicemen.isEmpty()
-                &&!mAccessLocation.isEmpty()
-                &&!mCaseOccurProcess.isEmpty()
-                &&!mSceneCondition.isEmpty()
-                &&!mWeatherCondition.isEmpty()
-                &&!mWindDirection.isEmpty()
-                &&!mTemperature.isEmpty()
-                &&!mHumidity.isEmpty()
-                &&!mAccessReason.isEmpty()
-                &&!mIlluminationCondition.isEmpty()
-                &&!mProductPeopleName.isEmpty()
-                &&!mProductPeopleUnit.isEmpty()
-                &&!mProductPeopleDuties.isEmpty()
-                &&!mSafeguard.isEmpty()
-                &&!mSceneConductor.isEmpty()
-                &&!mAccessInspectors.isEmpty()
-                &&!mCrimePeopleNumber.isEmpty()
-                &&!mCrimePeopleFeature.isEmpty())
+        if(!mCasetype.isEmpty() &&!mArea.isEmpty() &&!mLocation.isEmpty() &&!mUnitsAssigned.isEmpty()
+                &&!mAccessPolicemen.isEmpty() &&!mAccessLocation.isEmpty()
+                &&!mCaseOccurProcess.isEmpty() &&!mSceneCondition.isEmpty()
+                &&!mWeatherCondition.isEmpty() &&!mWindDirection.isEmpty()
+                &&!mTemperature.isEmpty() &&!mHumidity.isEmpty()
+                &&!mAccessReason.isEmpty() &&!mIlluminationCondition.isEmpty()
+                &&!mProductPeopleName.isEmpty() &&!mProductPeopleUnit.isEmpty() &&!mProductPeopleDuties.isEmpty()
+                &&!mSafeguard.isEmpty() &&!mSceneConductor.isEmpty() &&!mAccessInspectors.isEmpty()
+                &&!mCrimePeopleNumber.isEmpty() &&!mCrimePeopleFeature.isEmpty() && !mOverview.isEmpty()
+                && !mPositionItem.isEmpty() && !mWitnessItem.isEmpty()
+                && !mPositionPhotoItem.isEmpty() && !mOverviewPhotoItem.isEmpty() && !mImportantPhotoItem.isEmpty())
             result = true;
         return result;
     }
@@ -696,9 +685,12 @@ public class CrimeItem implements Serializable {
         if(mAccessInspectors.isEmpty()) message = message + "勘验检查人员\n";
         if(mCrimePeopleNumber.isEmpty()) message = message + "作案人数\n";
         if(mCrimePeopleFeature.isEmpty()) message = message + "作案人特点\n";
-        if(mPositionItem.isEmpty()) message = message + "方位示意图\n";
         if(mOverview.isEmpty()) message = message + "勘验情况\n";
+        if(mPositionItem.isEmpty()) message = message + "方位示意图\n";
         if(mWitnessItem.isEmpty()) message = message + "见证人\n";
+        if(mPositionPhotoItem.isEmpty()) message = message + "方位照片\n";
+        if(mOverviewPhotoItem.isEmpty()) message = message + "概貌照片\n";
+        if(mImportantPhotoItem.isEmpty()) message = message + "重点部位\n";
         return message;
     }
 }
