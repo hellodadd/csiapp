@@ -10,12 +10,14 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
@@ -23,6 +25,7 @@ import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.IdCardVerify;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
+import com.android.csiapp.Crime.utils.tree.TreeViewListDemo;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.RelatedPeopleItem;
 import com.android.csiapp.R;
@@ -43,9 +46,8 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
 
     private ClearableEditText mName;
 
-    private Spinner mSex_spinner;
-    private ArrayList<String> mSex = new ArrayList<String>();
-    private ArrayAdapter<String> mSex_adapter;
+    private TextView mSexText;
+    private int EVENT_SEX_SELECT_ITEM = 1;
 
     private ClearableEditText mId;
     private ClearableEditText mNumber;
@@ -125,9 +127,21 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         return true;
     }
 
-    private void initView(){
-        DictionaryInfo info = new DictionaryInfo(context);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String result = "";
+        if (resultCode == Activity.RESULT_OK) {
+             if(requestCode == EVENT_SEX_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mRelatedPeopleItem.setPeopleSex(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, result);
+                mSexText.setText(result);
+            }
+        }
+        Log.d("Anita","result = "+result);
+    }
 
+    private void initView(){
         mReleationPeople = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.releation_people)));
         mReleationPeople_spinner = (Spinner) findViewById(R.id.releationPeople_spinner);
         mReleationPeople_adapter = new ArrayAdapter<String>(CreateScene_FP2_NewPeopleActivity.this, R.layout.spinnerview, mReleationPeople);
@@ -145,18 +159,13 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
 
         mName = (ClearableEditText) findViewById(R.id.name_editView);
 
-        mSex = info.getArray(info.mSexKey);
-        mSex_spinner = (Spinner) findViewById(R.id.sex_spinner);
-        mSex_adapter = new ArrayAdapter<String>(CreateScene_FP2_NewPeopleActivity.this, R.layout.spinnerview, mSex);
-        mSex_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSex_spinner.setAdapter(mSex_adapter);
-        mSex_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mRelatedPeopleItem.setPeopleSex(DictionaryInfo.getDictKey(DictionaryInfo.mSexKey, mSex.get(position)));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mSexText = (TextView) findViewById(R.id.sex);
+        mSexText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(CreateScene_FP2_NewPeopleActivity.this, TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mSexKey);
+                it.putExtra("Selected", mRelatedPeopleItem.getPeopleSex());
+                startActivityForResult(it, EVENT_SEX_SELECT_ITEM);
             }
         });
 
@@ -197,7 +206,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
     private void initData(){
         mReleationPeople_spinner.setSelection(getPeople(mRelatedPeopleItem.getPeopleRelation()));
         mName.setText(mRelatedPeopleItem.getPeopleName());
-        mSex_spinner.setSelection(getSex(DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, mRelatedPeopleItem.getPeopleSex())));
+        mSexText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, mRelatedPeopleItem.getPeopleSex()));
         mId.setText(mRelatedPeopleItem.getPeopleId());
         mNumber.setText(mRelatedPeopleItem.getPeopleNumber());
         mAddress.setText(mRelatedPeopleItem.getPeopleAddress());
@@ -214,13 +223,6 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
     private int getPeople(String category){
         for(int i=0; i<mReleationPeople.size(); i++){
             if(category.equalsIgnoreCase(mReleationPeople.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getSex(String sex){
-        for(int i=0; i<mSex.size(); i++){
-            if(sex.equalsIgnoreCase(mSex.get(i))) return i;
         }
         return 0;
     }

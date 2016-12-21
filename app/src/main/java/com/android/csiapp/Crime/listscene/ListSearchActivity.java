@@ -17,22 +17,27 @@ import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
+import com.android.csiapp.Crime.utils.tree.InMemoryTreeStateManager;
+import com.android.csiapp.Crime.utils.tree.MultipleStandardAdapter;
+import com.android.csiapp.Crime.utils.tree.TreeBuilder;
+import com.android.csiapp.Crime.utils.tree.TreeStateManager;
+import com.android.csiapp.Crime.utils.tree.TreeViewList;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by user on 2016/10/14.
  */
 public class ListSearchActivity extends AppCompatActivity {
-
     private Context context = null;
     private CrimeProvider mCrimeProvider;
     private List<CrimeItem> items_list;
@@ -41,14 +46,21 @@ public class ListSearchActivity extends AppCompatActivity {
 
     private Button mCategory, mArea, mTime, mCategory_Search, mArea_Search, mTime_Search;
     private LinearLayout mCategoryLL, mAreaLL, mTimeLL;
-    private List<String> mItem_Category, mItem_Area;
-    private ListView mList_Catetype, mList_Area;
-    private ListSearchAdapter mAdapter_Category, mAdapter_Area;
-    private HashMap<Integer, Boolean> isSelected_Category, isSelected_Area;
     private DateTimePicker mStartTime, mEndTime;
     private long mStartTimeMills, mEndTimeMills;
 
     final int LIST_DELETE = 0;
+
+    ArrayList<Integer> CAREGORY_DEMO_NODES, AREA_DEMO_NODES;
+    ArrayList<String> mCategoryDicitonary, mAreaDicitonary;
+    private TreeViewList mCategoryTreeView, mAreaTreeView;
+    private static final int LEVEL_NUMBER = 4;
+    private TreeStateManager<String> mCategoryManager, mAreaManager = null;
+    private MultipleStandardAdapter mCategoryMultipleAdapter, mAreaMultipleAdapter;
+    private Set<String> mCategorySelected = new HashSet<String>();
+    private Set<String> mAreaSelected = new HashSet<String>();
+    private String mCaseTypeKey = DictionaryInfo.mCaseTypeKey;
+    private String mAreaKey = DictionaryInfo.mAreaKey;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -115,6 +127,8 @@ public class ListSearchActivity extends AppCompatActivity {
         mAdapter = new ListAdapter(ListSearchActivity.this,items_list);
         mListV.setAdapter(mAdapter);
 
+        initTree();
+
         mCategory = (Button) findViewById(R.id.categoryBtn);
         mCategory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,23 +181,14 @@ public class ListSearchActivity extends AppCompatActivity {
         mAreaLL = (LinearLayout) findViewById(R.id.AreaLL);
         mTimeLL = (LinearLayout) findViewById(R.id.TimeLL);
 
-        //Todo : Use tree adapter
-        mItem_Category = Arrays.asList(getResources().getStringArray(R.array.casetype));
-        mList_Catetype = (ListView)findViewById(R.id.category_listView);
-        isSelected_Category = new HashMap<Integer,Boolean>();
-        mAdapter_Category = new ListSearchAdapter(ListSearchActivity.this, mItem_Category, isSelected_Category);
-        mList_Catetype.setAdapter(mAdapter_Category);
-
         mCategory_Search = (Button) findViewById(R.id.clickCategoryBtn);
         mCategory_Search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isSelected_Category = mAdapter_Category.getIsSelected();
+                mCategorySelected = mCategoryMultipleAdapter.getSelected();
                 mAdapter.clearItem();
-                for (int i = 0; i < isSelected_Category.size(); i++) {
-                    if (isSelected_Category.get(i).equals(true)) {
-                        mAdapter.filter(1,mItem_Category.get(i),0,0);
-                    }
+                for(Iterator it = mCategorySelected.iterator(); it.hasNext();){
+                    mAdapter.filter(1,(String) it.next(),0,0);
                 }
 
                 mListV.setVisibility(View.VISIBLE);
@@ -191,22 +196,14 @@ public class ListSearchActivity extends AppCompatActivity {
             }
         });
 
-        mItem_Area = Arrays.asList(getResources().getStringArray(R.array.area));
-        mList_Area = (ListView)findViewById(R.id.area_listView);
-        isSelected_Area = new HashMap<Integer,Boolean>();
-        mAdapter_Area = new ListSearchAdapter(ListSearchActivity.this,mItem_Area, isSelected_Area);
-        mList_Area.setAdapter(mAdapter_Area);
-
         mArea_Search = (Button) findViewById(R.id.clickAreaBtn);
         mArea_Search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isSelected_Area= mAdapter_Area.getIsSelected();
+                mAreaSelected = mAreaMultipleAdapter.getSelected();
                 mAdapter.clearItem();
-                for (int i = 0; i < isSelected_Area.size(); i++) {
-                    if (isSelected_Area.get(i).equals(true)) {
-                        mAdapter.filter(2,mItem_Area.get(i),0,0);
-                    }
+                for(Iterator it = mAreaSelected.iterator(); it.hasNext();){
+                    mAdapter.filter(2,(String) it.next(),0,0);
                 }
 
                 mListV.setVisibility(View.VISIBLE);
@@ -230,6 +227,32 @@ public class ListSearchActivity extends AppCompatActivity {
                 mTimeLL.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void initTree(){
+        mCategoryDicitonary = DictionaryInfo.getDictKeyList(mCaseTypeKey);
+        CAREGORY_DEMO_NODES = DictionaryInfo.getNodes(mCaseTypeKey);
+        mCategoryTreeView = (TreeViewList) findViewById(R.id.category_TreeView);
+        mCategoryManager = new InMemoryTreeStateManager<String>();
+        final TreeBuilder<String> CategoryTreeBuilder = new TreeBuilder<String>(mCategoryManager);
+        for (int i = 0; i < CAREGORY_DEMO_NODES.size(); i++) {
+            CategoryTreeBuilder.sequentiallyAddNextNode(mCategoryDicitonary.get(i), CAREGORY_DEMO_NODES.get(i), DictionaryInfo.getDictValue(mCaseTypeKey, mCategoryDicitonary.get(i)));
+        }
+        mCategoryMultipleAdapter = new MultipleStandardAdapter(ListSearchActivity.this, mCategorySelected, mCategoryManager, LEVEL_NUMBER);
+        mCategoryTreeView.setAdapter(mCategoryMultipleAdapter);
+        mCategoryManager.collapseChildren(null); // 先摺疊所有item
+
+        mAreaDicitonary = DictionaryInfo.getDictKeyList(mAreaKey);
+        AREA_DEMO_NODES = DictionaryInfo.getNodes(mAreaKey);
+        mAreaTreeView = (TreeViewList) findViewById(R.id.area_TreeView);
+        mAreaManager = new InMemoryTreeStateManager<String>();
+        final TreeBuilder<String> AreaTreeBuilder = new TreeBuilder<String>(mAreaManager);
+        for (int i = 0; i < AREA_DEMO_NODES.size(); i++) {
+            AreaTreeBuilder.sequentiallyAddNextNode(mAreaDicitonary.get(i), AREA_DEMO_NODES.get(i), DictionaryInfo.getDictValue(mAreaKey, mAreaDicitonary.get(i)));
+        }
+        mAreaMultipleAdapter = new MultipleStandardAdapter(ListSearchActivity.this, mAreaSelected, mAreaManager, LEVEL_NUMBER);
+        mAreaTreeView.setAdapter(mAreaMultipleAdapter);
+        mAreaManager.collapseChildren(null); // 先摺疊所有item
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

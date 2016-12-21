@@ -57,7 +57,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private int mEvent;
     private int mPosition;
     private Uri LocalFileUri = null;
-    public static final int PHOTO_TYPE_NEW_EVIDENCE = 1;
+    public static final int PHOTO_TYPE_NEW_EVIDENCE = 0;
 
     private ImageView mNew_evidence;
     private Spinner mEvidence_category_spinner;
@@ -66,12 +66,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private TextView mEvidenceTextLabel;
     private ClearableEditText mOtherEvidence;
 
-    private Boolean isDoubleRefresh = false;
-    private Boolean isDoubleEdit = false;
-
-    private Spinner mEvidence_spinner;
-    private ArrayList<String> mEvidence = new ArrayList<String>();
-    private ArrayAdapter<String> mEvidence_adapter;
+    private TextView mEvidenceText;
+    private int EVENT_EVIDENCE_SELECT_ITEM = 1;
 
     private ClearableEditText mEvidenceName;
     private ClearableEditText mLegacySite;
@@ -79,13 +75,11 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
 
     private ImageView mBasiceFeatureLabel;
     private LinearLayout mInferLL;
-    private Spinner mInfer_spinner;
-    private ArrayList<String> mInfer = new ArrayList<String>();
-    private ArrayAdapter<String> mInfer_adapter;
+    private TextView mInferText;
+    private int EVENT_INFER_SELECT_ITEM = 2;
 
-    private Spinner mMethod_spinner;
-    private ArrayList<String> mMethod = new ArrayList<String>();
-    private ArrayAdapter<String> mMethod_adapter;
+    private TextView mMethodText;
+    private int EVENT_METHOD_SELECT_ITEM = 3;
     private ImageView mMethodLabel;
     private ClearableEditText mOtherMethod;
 
@@ -93,7 +87,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private Button mTime_button;
 
     private TextView mGetPeopleText;
-    private int EVENT_GET_PEOPLE_SLELECT_ITEM = 2;
+    private int EVENT_GET_PEOPLE_SLELECT_ITEM = 4;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -197,8 +191,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         mEvidence_category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                if(!isDoubleRefresh) refeshEvidenceItem(position);
-                else isDoubleRefresh = false;
+                refreshEvidenceItem(position);
                 mEvidenceItem.setEvidenceCategory(mEvidence_category.get(position));
             }
             @Override
@@ -206,20 +199,13 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             }
         });
 
-        mEvidence = info.getArray(info.mEvidenceHandKey);
-        mEvidence_spinner = (Spinner) findViewById(R.id.evidence_spinner);
-        mEvidence_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mEvidence);
-        mEvidence_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mEvidence_spinner.setAdapter(mEvidence_adapter);
-        mEvidence_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mEvidenceItem.setEvidence(DictionaryInfo.getDictKey(DictionaryInfo.mEvidenceHandKey, mEvidence.get(position)));
-                if(!isDoubleEdit) mEvidenceName.setText(mEvidence.get(position));
-                else isDoubleEdit = false;
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mEvidenceText = (TextView) findViewById(R.id.evidence);
+        mEvidenceText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mEvidenceHandKey);
+                it.putExtra("Selected", mEvidenceItem.getEvidence());
+                startActivityForResult(it, EVENT_EVIDENCE_SELECT_ITEM);
             }
         });
         mEvidenceTextLabel = (TextView) findViewById(R.id.evidenceTextLabel);
@@ -231,33 +217,23 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
 
         mBasiceFeatureLabel = (ImageView) findViewById(R.id.basicFeatureLabel);
         mInferLL = (LinearLayout) findViewById(R.id.inferLL);
-        mInfer = info.getArray(info.mToolInferKey);
-        mInfer_spinner = (Spinner) findViewById(R.id.infer_spinner);
-        mInfer_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mInfer);
-        mInfer_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mInfer_spinner.setAdapter(mInfer_adapter);
-        mInfer_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mEvidenceItem.setInfer(DictionaryInfo.getDictKey(DictionaryInfo.mToolInferKey, mInfer.get(position)));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mInferText = (TextView) findViewById(R.id.infer);
+        mInferText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mToolInferKey);
+                it.putExtra("Selected", mEvidenceItem.getInfer());
+                startActivityForResult(it, EVENT_INFER_SELECT_ITEM);
             }
         });
 
-        mMethod = info.getArray(info.mMethodHandKey);
-        mMethod_spinner = (Spinner) findViewById(R.id.method_spinner);
-        mMethod_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mMethod);
-        mMethod_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mMethod_spinner.setAdapter(mMethod_adapter);
-        mMethod_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mEvidenceItem.setMethod(DictionaryInfo.getDictKey(DictionaryInfo.mMethodHandKey, mMethod.get(position)));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mMethodText = (TextView) findViewById(R.id.method);
+        mMethodText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mMethodHandKey);
+                it.putExtra("Selected", mEvidenceItem.getMethod());
+                startActivityForResult(it, EVENT_METHOD_SELECT_ITEM);
             }
         });
         mMethodLabel = (ImageView) findViewById(R.id.methodLabel);
@@ -289,23 +265,21 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         }
         if(!mEvidenceItem.getPhotoPath().isEmpty()) setPhoto(mEvidenceItem.getPhotoPath());
 
-        isDoubleRefresh = true;
-        isDoubleEdit = true;
         mEvidence_category_spinner.setSelection(getCategory(mEvidenceItem.getEvidenceCategory()));
-        refeshEvidenceItem(getCategory(mEvidenceItem.getEvidenceCategory()));
 
-        if(getCategory(mEvidenceItem.getEvidenceCategory())==0) {
-            mEvidence_spinner.setSelection(getEvidence(DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceHandKey, mEvidenceItem.getEvidence())));
-            mMethod_spinner.setSelection(getMethod(DictionaryInfo.getDictValue(DictionaryInfo.mMethodHandKey, mEvidenceItem.getMethod())));
-        }else if(getCategory(mEvidenceItem.getEvidenceCategory())==1){
-            mEvidence_spinner.setSelection(getEvidence(DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceFootKey, mEvidenceItem.getEvidence())));
-            mMethod_spinner.setSelection(getMethod(DictionaryInfo.getDictValue(DictionaryInfo.mMethodFootKey, mEvidenceItem.getMethod())));
-        }else if(getCategory(mEvidenceItem.getEvidenceCategory())==2){
-            mEvidence_spinner.setSelection(getEvidence(DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceToolKey, mEvidenceItem.getEvidence())));
-            mMethod_spinner.setSelection(getMethod(DictionaryInfo.getDictValue(DictionaryInfo.mMethodToolKey, mEvidenceItem.getMethod())));
-        }else if(getCategory(mEvidenceItem.getEvidenceCategory())==3){
-            mEvidence_spinner.setVisibility(View.GONE);
-            mMethod_spinner.setVisibility(View.GONE);
+        int category = getCategory(mEvidenceItem.getEvidenceCategory());
+        if(category == 0 ) {
+            mEvidenceText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceHandKey, mEvidenceItem.getEvidence()));
+            mMethodText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mMethodHandKey, mEvidenceItem.getMethod()));
+        }else if(category == 1 ){
+                mEvidenceText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceFootKey, mEvidenceItem.getEvidence()));
+                mMethodText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mMethodFootKey, mEvidenceItem.getMethod()));
+        }else if(category == 2 ){
+            mEvidenceText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceToolKey, mEvidenceItem.getEvidence()));
+            mMethodText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mMethodToolKey, mEvidenceItem.getMethod()));
+        }else if(category == 3 ){
+            mEvidenceText.setVisibility(View.GONE);
+            mMethodText.setVisibility(View.GONE);
             mOtherEvidence.setVisibility(View.VISIBLE);
             mOtherMethod.setVisibility(View.VISIBLE);
             mOtherEvidence.setText(mEvidenceItem.getEvidence());
@@ -315,7 +289,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
 
         mLegacySite.setText(mEvidenceItem.getLegacySite());
         mBasiceFeature.setText(mEvidenceItem.getBasiceFeature());
-        mInfer_spinner.setSelection(getInfer(DictionaryInfo.getDictValue(DictionaryInfo.mToolInferKey, mEvidenceItem.getInfer())));
+        mInferText.setText(mEvidenceItem.getInfer());
         mTime.setText(DateTimePicker.getCurrentTime(mEvidenceItem.getTime()));
         mGetPeopleText.setText(UserInfo.getUserName(mEvidenceItem.getPeople()));
     }
@@ -338,27 +312,6 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         return 0;
     }
 
-    private int getEvidence(String evidence){
-        for(int i=0; i<mEvidence.size(); i++){
-            if(evidence.equalsIgnoreCase(mEvidence.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getInfer(String infer){
-        for(int i=0; i<mInfer.size(); i++){
-            if(infer.equalsIgnoreCase(mInfer.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getMethod(String method){
-        for(int i=0; i<mMethod.size(); i++){
-            if(method.equalsIgnoreCase(mMethod.get(i))) return i;
-        }
-        return 0;
-    }
-
     @Override
     public void onClick(View v) {
         // TODO Auto-generated method stub
@@ -375,6 +328,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         String result = "";
+        int category = getCategory(mEvidenceItem.getEvidenceCategory());
         if(requestCode==PHOTO_TYPE_NEW_EVIDENCE) {
             String path = LocalFileUri.getPath();
             if (path != null) {
@@ -383,6 +337,29 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             } else {
                 finish();
             }
+        }else if(requestCode == EVENT_EVIDENCE_SELECT_ITEM){
+            if(data!=null) result = (String) data.getStringExtra("Select");
+            else result = mEvidenceItem.getEvidence();
+            mEvidenceItem.setEvidence(result);
+            if(category==0) result = DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceHandKey, result);
+            else if(category==1) result = DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceFootKey, result);
+            else if(category==2) result = DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceToolKey, result);
+            mEvidenceText.setText(result);
+            mEvidenceName.setText(result);
+        }else if(requestCode == EVENT_INFER_SELECT_ITEM){
+            if(data!=null) result = (String) data.getStringExtra("Select");
+            else result = mEvidenceItem.getInfer();
+            mEvidenceItem.setInfer(result);
+            result = DictionaryInfo.getDictValue(DictionaryInfo.mToolInferKey, result);
+            mInferText.setText(result);
+        }else if(requestCode == EVENT_METHOD_SELECT_ITEM){
+            if(data!=null) result = (String) data.getStringExtra("Select");
+            else result = mEvidenceItem.getMethod();
+            mEvidenceItem.setMethod(result);
+            if(category==0) result = DictionaryInfo.getDictValue(DictionaryInfo.mMethodHandKey, result);
+            else if(category==1) result = DictionaryInfo.getDictValue(DictionaryInfo.mMethodFootKey, result);
+            else if(category==2) result = DictionaryInfo.getDictValue(DictionaryInfo.mMethodToolKey, result);
+            mMethodText.setText(result);
         }else if(requestCode == EVENT_GET_PEOPLE_SLELECT_ITEM){
             if(data!=null) result = (String) data.getStringExtra("Select");
             else result = mEvidenceItem.getPeople();
@@ -392,132 +369,106 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         }
     }
 
-    private void refeshEvidenceItem(int category){
-        DictionaryInfo info = new DictionaryInfo(context);
+    private void refreshEvidenceItem(int category){
+        mEvidenceText.setText("");
+        mMethodText.setText("");
+        mEvidenceName.setText("");
+        mEvidenceItem.setEvidence("");
+        mEvidenceItem.setMethod("");
 
         if(category==0){
             //手印
-            mEvidence = info.getArray(info.mEvidenceHandKey);
-            mMethod = info.getArray(info.mMethodHandKey);
             mEvidenceTextLabel.setText(getResources().getString(R.string.evidence_hand));
             mBasiceFeatureLabel.setBackground(getResources().getDrawable(R.drawable.green_60dp));
             mMethodLabel.setBackground(getResources().getDrawable(R.drawable.green_60dp));
             mInferLL.setVisibility(View.GONE);
             mEvidenceItem.setInfer("");
 
-            mEvidence_spinner.setVisibility(View.VISIBLE);
-            mMethod_spinner.setVisibility(View.VISIBLE);
+            mEvidenceText.setVisibility(View.VISIBLE);
+            mMethodText.setVisibility(View.VISIBLE);
             mOtherEvidence.setVisibility(View.GONE);
             mOtherMethod.setVisibility(View.GONE);
 
-            mEvidence_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mEvidence);
-            mEvidence_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            mEvidence_spinner.setAdapter(mEvidence_adapter);
-            mEvidence_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-                @Override
-                public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                    mEvidenceItem.setEvidence(DictionaryInfo.getDictKey(DictionaryInfo.mEvidenceHandKey, mEvidence.get(position)));
-                    if(!isDoubleEdit) mEvidenceName.setText(mEvidence.get(position));
-                    else isDoubleEdit = false;
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
+            mEvidenceText = (TextView) findViewById(R.id.evidence);
+            mEvidenceText.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v) {
+                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                    it.putExtra("Key",DictionaryInfo.mEvidenceHandKey);
+                    it.putExtra("Selected", mEvidenceItem.getEvidence());
+                    startActivityForResult(it, EVENT_EVIDENCE_SELECT_ITEM);
                 }
             });
 
-            mMethod_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mMethod);
-            mMethod_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            mMethod_spinner.setAdapter(mMethod_adapter);
-            mMethod_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-                @Override
-                public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                    mEvidenceItem.setMethod(DictionaryInfo.getDictKey(DictionaryInfo.mMethodHandKey, mMethod.get(position)));
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
+            mMethodText = (TextView) findViewById(R.id.method);
+            mMethodText.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v) {
+                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                    it.putExtra("Key",DictionaryInfo.mMethodHandKey);
+                    it.putExtra("Selected", mEvidenceItem.getMethod());
+                    startActivityForResult(it, EVENT_METHOD_SELECT_ITEM);
                 }
             });
         }else if(category==1){
             //足跡
-            mEvidence = info.getArray(info.mEvidenceFootKey);
-            mMethod = info.getArray(info.mMethodFootKey);
             mEvidenceTextLabel.setText(getResources().getString(R.string.evidence_foot));
             mBasiceFeatureLabel.setBackground(getResources().getDrawable(R.drawable.green_60dp));
             mMethodLabel.setBackground(getResources().getDrawable(R.drawable.green_60dp));
             mInferLL.setVisibility(View.GONE);
             mEvidenceItem.setInfer("");
 
-            mEvidence_spinner.setVisibility(View.VISIBLE);
-            mMethod_spinner.setVisibility(View.VISIBLE);
+            mEvidenceText.setVisibility(View.VISIBLE);
+            mMethodText.setVisibility(View.VISIBLE);
             mOtherEvidence.setVisibility(View.GONE);
             mOtherMethod.setVisibility(View.GONE);
 
-            mEvidence_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mEvidence);
-            mEvidence_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            mEvidence_spinner.setAdapter(mEvidence_adapter);
-            mEvidence_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-                @Override
-                public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                    mEvidenceItem.setEvidence(DictionaryInfo.getDictKey(DictionaryInfo.mEvidenceFootKey, mEvidence.get(position)));
-                    if(!isDoubleEdit) mEvidenceName.setText(mEvidence.get(position));
-                    else isDoubleEdit = false;
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
+            mEvidenceText = (TextView) findViewById(R.id.evidence);
+            mEvidenceText.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v) {
+                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                    it.putExtra("Key",DictionaryInfo.mEvidenceFootKey);
+                    it.putExtra("Selected", mEvidenceItem.getEvidence());
+                    startActivityForResult(it, EVENT_EVIDENCE_SELECT_ITEM);
                 }
             });
 
-            mMethod_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mMethod);
-            mMethod_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            mMethod_spinner.setAdapter(mMethod_adapter);
-            mMethod_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-                @Override
-                public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                    mEvidenceItem.setMethod(DictionaryInfo.getDictKey(DictionaryInfo.mMethodFootKey, mMethod.get(position)));
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
+            mMethodText = (TextView) findViewById(R.id.method);
+            mMethodText.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v) {
+                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                    it.putExtra("Key",DictionaryInfo.mMethodFootKey);
+                    it.putExtra("Selected", mEvidenceItem.getMethod());
+                    startActivityForResult(it, EVENT_METHOD_SELECT_ITEM);
                 }
             });
         }else if(category==2){
             //工痕
-            mEvidence = info.getArray(info.mEvidenceToolKey);
-            mMethod = info.getArray(info.mMethodToolKey);
             mEvidenceTextLabel.setText(getResources().getString(R.string.evidence_tool));
             mBasiceFeatureLabel.setBackground(getResources().getDrawable(R.drawable.red_60dp));
             mMethodLabel.setBackground(getResources().getDrawable(R.drawable.green_60dp));
             mInferLL.setVisibility(View.VISIBLE);
 
-            mEvidence_spinner.setVisibility(View.VISIBLE);
-            mMethod_spinner.setVisibility(View.VISIBLE);
+            mEvidenceText.setVisibility(View.VISIBLE);
+            mMethodText.setVisibility(View.VISIBLE);
             mOtherEvidence.setVisibility(View.GONE);
             mOtherMethod.setVisibility(View.GONE);
 
-            mEvidence_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mEvidence);
-            mEvidence_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            mEvidence_spinner.setAdapter(mEvidence_adapter);
-            mEvidence_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-                @Override
-                public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                    mEvidenceItem.setEvidence(DictionaryInfo.getDictKey(DictionaryInfo.mEvidenceToolKey, mEvidence.get(position)));
-                    if(!isDoubleEdit) mEvidenceName.setText(mEvidence.get(position));
-                    else isDoubleEdit = false;
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
+            mEvidenceText = (TextView) findViewById(R.id.evidence);
+            mEvidenceText.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v) {
+                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                    it.putExtra("Key",DictionaryInfo.mEvidenceToolKey);
+                    it.putExtra("Selected", mEvidenceItem.getEvidence());
+                    startActivityForResult(it, EVENT_EVIDENCE_SELECT_ITEM);
                 }
             });
 
-            mMethod_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mMethod);
-            mMethod_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            mMethod_spinner.setAdapter(mMethod_adapter);
-            mMethod_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-                @Override
-                public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                    mEvidenceItem.setMethod(DictionaryInfo.getDictKey(DictionaryInfo.mMethodToolKey, mMethod.get(position)));
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
+            mMethodText = (TextView) findViewById(R.id.method);
+            mMethodText.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v) {
+                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                    it.putExtra("Key",DictionaryInfo.mMethodToolKey);
+                    it.putExtra("Selected", mEvidenceItem.getMethod());
+                    startActivityForResult(it, EVENT_METHOD_SELECT_ITEM);
                 }
             });
         }else if(category==3){
@@ -527,13 +478,12 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mMethodLabel.setBackground(getResources().getDrawable(R.drawable.red_60dp));
             mInferLL.setVisibility(View.GONE);
 
-            mEvidence_spinner.setVisibility(View.GONE);
-            mMethod_spinner.setVisibility(View.GONE);
+            mEvidenceText.setVisibility(View.GONE);
+            mMethodText.setVisibility(View.GONE);
             mOtherEvidence.setVisibility(View.VISIBLE);
             mOtherMethod.setVisibility(View.VISIBLE);
 
-            if(!isDoubleEdit) mEvidenceName.setText(getResources().getString(R.string.evidence_name_other));
-            else isDoubleEdit = false;
+            mEvidenceName.setText(getResources().getString(R.string.evidence_name_other));
         }
     }
 

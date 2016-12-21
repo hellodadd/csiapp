@@ -2,6 +2,7 @@ package com.android.csiapp.Crime.utils.tree;
 
 import java.util.Set;
 
+import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import com.android.csiapp.R;
  * checkboxes and simple item description.
  *
  */
-class MultipleStandardAdapter extends AbstractTreeViewAdapter<String> {
+public class MultipleStandardAdapter extends AbstractTreeViewAdapter<String> {
 
     private final Set<String> selected;
 
@@ -39,7 +40,7 @@ class MultipleStandardAdapter extends AbstractTreeViewAdapter<String> {
         Log.d("Anita","select size = "+selected.size());
     }
 
-    public MultipleStandardAdapter(final TreeViewListDemo treeViewListDemo,
+    public MultipleStandardAdapter(final Activity treeViewListDemo,
                                  final Set<String> selected,
                                  final TreeStateManager<String> treeStateManager,
                                  final int numberOfLevels) {
@@ -91,7 +92,7 @@ class MultipleStandardAdapter extends AbstractTreeViewAdapter<String> {
 
     @Override
     public long getItemId(final int position) {
-        return Long.valueOf(getTreeId(position));
+        return position;
     }
 
     public Set<String> getSelected(){

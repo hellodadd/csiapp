@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:treeView="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -19,6 +19,7 @@
             android:layout_gravity="center"
             android:id="@+id/toolbar_title" />
     </android.support.v7.widget.Toolbar>
+
     <LinearLayout
         android:id="@+id/linearlayout"
         android:orientation="horizontal"
@@ -47,6 +48,7 @@
             android:background="#FF888888"
             android:layout_weight="1"/>
     </LinearLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/CategoryLL"
@@ -60,12 +62,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/list_search" />
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/category_listView">
-        </ListView>
+        <com.android.csiapp.Crime.utils.tree.TreeViewList
+            android:id="@+id/category_TreeView" android:layout_width="fill_parent"
+            android:layout_height="fill_parent" treeView:indicator_gravity="right|center_vertical"
+            android:layout_marginLeft="16dp" android:layout_marginRight="16dp"
+            android:scrollbars="vertical" android:smoothScrollbar="true"/>
     </LinearLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/AreaLL"
@@ -79,12 +82,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/list_search" />
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/area_listView">
-        </ListView>
+        <com.android.csiapp.Crime.utils.tree.TreeViewList
+            android:id="@+id/area_TreeView" android:layout_width="fill_parent"
+            android:layout_height="fill_parent" treeView:indicator_gravity="right|center_vertical"
+            android:layout_marginLeft="16dp" android:layout_marginRight="16dp"
+            android:scrollbars="vertical" android:smoothScrollbar="true"/>
     </LinearLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/TimeLL"
@@ -123,6 +127,7 @@
             android:layout_height="180dp"
             android:id="@+id/endTime" />
     </LinearLayout>
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -6,18 +6,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
+import com.android.csiapp.Crime.utils.tree.TreeViewListDemo;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.CrimeToolItem;
 import com.android.csiapp.R;
@@ -33,13 +33,11 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
 
     private ClearableEditText mName;
 
-    private Spinner mTool_category_spinner;
-    private ArrayList<String> mTool_category = new ArrayList<String>();
-    private ArrayAdapter<String> mTool_category_adapter;
+    private TextView mToolCategoryText;
+    private int EVENT_TOOL_CATEGORY_SELECT_ITEM = 1;
 
-    private Spinner mTool_source_spinner;
-    private ArrayList<String> mTool_source = new ArrayList<String>();
-    private ArrayAdapter<String> mTool_source_adapter;
+    private TextView mToolSourceText;
+    private int EVENT_TOOL_SOURCE_SELECT_ITEM = 2;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -108,64 +106,57 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
         return true;
     }
 
-    private void initView(){
-        DictionaryInfo info = new DictionaryInfo(context);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String result = "";
+        if (resultCode == Activity.RESULT_OK) {
+            if(requestCode == EVENT_TOOL_CATEGORY_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mCrimeToolItem.setToolCategory(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mToolCategoryKey, result);
+                mToolCategoryText.setText(result);
+            }else if(requestCode == EVENT_TOOL_SOURCE_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mCrimeToolItem.setToolSource(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mToolSourceKey, result);
+                mToolSourceText.setText(result);
+            }
+        }
+        Log.d("Anita","result = "+result);
+    }
 
+    private void initView(){
         mName = (ClearableEditText) findViewById(R.id.tool_name_editView);
 
-        mTool_category = info.getArray(info.mToolCategoryKey);
-        mTool_category_spinner= (Spinner) findViewById(R.id.tool_category_spinner);
-        mTool_category_adapter = new ArrayAdapter<String>(CreateScene_FP2_NewToolActivity.this, R.layout.spinnerview, mTool_category);
-        mTool_category_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mTool_category_spinner.setAdapter(mTool_category_adapter);
-        mTool_category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mCrimeToolItem.setToolCategory(DictionaryInfo.getDictKey(DictionaryInfo.mToolCategoryKey, mTool_category.get(position)));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mToolCategoryText = (TextView) findViewById(R.id.toolCategory);
+        mToolCategoryText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(CreateScene_FP2_NewToolActivity.this, TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mToolCategoryKey);
+                it.putExtra("Selected", mCrimeToolItem.getToolCategory());
+                startActivityForResult(it, EVENT_TOOL_CATEGORY_SELECT_ITEM);
             }
         });
 
-        mTool_source = info.getArray(info.mToolSourceKey);
-        mTool_source_spinner = (Spinner) findViewById(R.id.tool_source_spinner);
-        mTool_source_adapter = new ArrayAdapter<String>(CreateScene_FP2_NewToolActivity.this, R.layout.spinnerview, mTool_source);
-        mTool_source_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mTool_source_spinner.setAdapter(mTool_source_adapter);
-        mTool_source_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mCrimeToolItem.setToolSource(DictionaryInfo.getDictKey(DictionaryInfo.mToolSourceKey, mTool_source.get(position)));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mToolSourceText = (TextView) findViewById(R.id.toolSource);
+        mToolSourceText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(CreateScene_FP2_NewToolActivity.this, TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mToolSourceKey);
+                it.putExtra("Selected", mCrimeToolItem.getToolSource());
+                startActivityForResult(it, EVENT_TOOL_SOURCE_SELECT_ITEM);
             }
         });
     }
 
     private void initData(){
         mName.setText(mCrimeToolItem.getToolName());
-        mTool_category_spinner.setSelection(getCategory(DictionaryInfo.getDictValue(DictionaryInfo.mToolCategoryKey, mCrimeToolItem.getToolCategory())));
-        mTool_source_spinner.setSelection(getSource(DictionaryInfo.getDictValue(DictionaryInfo.mToolSourceKey, mCrimeToolItem.getToolSource())));
+        mToolCategoryText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mToolCategoryKey, mCrimeToolItem.getToolCategory()));
+        mToolSourceText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mToolSourceKey, mCrimeToolItem.getToolSource()));
     }
 
     private void saveData(){
         mCrimeToolItem.setToolName(mName.getText());
         mCrimeToolItem.setUuid(CrimeProvider.getUUID());
-    }
-
-    private int getCategory(String category){
-        for(int i=0; i<mTool_category.size(); i++){
-            if(category.equalsIgnoreCase(mTool_category.get(i))) return i;
-        }
-        return 0;
-    }
-
-    private int getSource(String source){
-        for(int i=0; i<mTool_source.size(); i++){
-            if(source.equalsIgnoreCase(mTool_source.get(i))) return i;
-        }
-        return 0;
     }
 }

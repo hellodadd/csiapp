@@ -92,8 +92,6 @@
         <activity android:name=".Crime.utils.HandWriteActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Crime.utils.SelectAlertDialog"
-            android:screenOrientation="portrait"/>
         <activity android:name=".Crime.createscene.OfflineMapActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:screenOrientation="portrait"/>

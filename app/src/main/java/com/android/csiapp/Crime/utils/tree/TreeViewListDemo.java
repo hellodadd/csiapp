@@ -43,8 +43,6 @@ public class TreeViewListDemo extends AppCompatActivity {
     ArrayList<String> mDicitonary;
 
     private static final String TAG = TreeViewListDemo.class.getSimpleName();
-    private ListView listView;
-    private int mLastCorrectPosition = -1;
     private TreeViewList treeView;
     //private static final int[] DEMO_NODES = new int[] { 0, 0, 1, 1, 1, 2, 2, 1,
     //        1, 2, 1, 0, 0, 0, 1, 2, 3, 2, 0, 0, 1, 2, 0, 1, 2, 0, 1 };
@@ -123,7 +121,7 @@ public class TreeViewListDemo extends AppCompatActivity {
             Method = info.getMethod(Key);
             DEMO_NODES = DictionaryInfo.getNodes(Key);
             mDicitonary = DictionaryInfo.getDictKeyList(Key);
-        }else{
+        }else if(Datainfo.equalsIgnoreCase("UserInfo")){
             Title = userinfo.getTitle(Key);
             Method = userinfo.getMethod(Key);
             DEMO_NODES = UserInfo.getNodes(Key);

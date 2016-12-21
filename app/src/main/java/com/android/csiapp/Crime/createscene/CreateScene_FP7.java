@@ -157,8 +157,6 @@ public class CreateScene_FP7 extends Fragment{
     }
 
     private void initView(View view){
-        DictionaryInfo info = new DictionaryInfo(context);
-
         mPeopleNumberText = (TextView) view.findViewById(R.id.peopleNumber);
         mPeopleNumberText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {

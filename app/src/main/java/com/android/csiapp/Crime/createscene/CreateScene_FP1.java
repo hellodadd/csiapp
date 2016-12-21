@@ -204,9 +204,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     }
 
     private void initView(View view){
-        DictionaryInfo info = new DictionaryInfo(context);
-        UserInfo user = new UserInfo(context);
-
         mCellCollection = (Button) view.findViewById(R.id.cell_collection);
         if(mItem.IsCollecting()) mCellCollection.setText("采集中");
         mCellCollection.setOnClickListener(new View.OnClickListener() {

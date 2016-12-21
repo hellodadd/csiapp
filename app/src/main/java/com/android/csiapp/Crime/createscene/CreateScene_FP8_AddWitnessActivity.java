@@ -10,17 +10,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.DigitsKeyListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +28,7 @@ import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.HandWriteActivity;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
+import com.android.csiapp.Crime.utils.tree.TreeViewListDemo;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.WitnessItem;
 import com.android.csiapp.R;
@@ -46,9 +45,8 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
 
     private ClearableEditText mName;
 
-    private Spinner mSex_spinner;
-    private ArrayList<String> mSex = new ArrayList<String>();
-    private ArrayAdapter<String> mSex_adapter;
+    private TextView mSexText;
+    private int EVENT_SEX_SELECT_ITEM = 1;
 
     private TextView mBirthday;
     private Button mBirthday_button;
@@ -127,24 +125,18 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
     }
 
     private void initView(){
-        DictionaryInfo info = new DictionaryInfo(context);
-
         mName = (ClearableEditText) findViewById(R.id.name_editView);
 
-        mSex = info.getArray(info.mSexKey);
-        mSex_spinner = (Spinner) findViewById(R.id.sex_spinner);
-        mSex_adapter = new ArrayAdapter<String>(CreateScene_FP8_AddWitnessActivity.this, R.layout.spinnerview, mSex);
-        mSex_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSex_spinner.setAdapter(mSex_adapter);
-        mSex_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mWitnessItem.setWitnessSex(DictionaryInfo.getDictKey(DictionaryInfo.mSexKey, mSex.get(position)));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+        mSexText = (TextView) findViewById(R.id.sex);
+        mSexText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(CreateScene_FP8_AddWitnessActivity.this, TreeViewListDemo.class);
+                it.putExtra("Key",DictionaryInfo.mSexKey);
+                it.putExtra("Selected", mWitnessItem.getWitnessSex());
+                startActivityForResult(it, EVENT_SEX_SELECT_ITEM);
             }
         });
+
 
         mBirthday = (TextView) findViewById(R.id.birthday_date);
         mBirthday_button = (Button) findViewById(R.id.birthday_date_button);
@@ -166,7 +158,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
 
     private void initData(){
         mName.setText(mWitnessItem.getWitnessName());
-        mSex_spinner.setSelection(getSex(DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, mWitnessItem.getWitnessSex())));
+        mSexText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, mWitnessItem.getWitnessSex()));
         mBirthday.setText(DateTimePicker.getCurrentDate(mWitnessItem.getWitnessBirthday()));
         mNumber.setText(mWitnessItem.getWitnessNumber());
         mAddress.setText(mWitnessItem.getWitnessAddress());
@@ -210,13 +202,17 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
             mImage.setVisibility(View.VISIBLE);
             mWitnessItem.setPhotoPath(path);
         }
-    }
 
-    private int getSex(String sex){
-        for(int i=0; i<mSex.size(); i++){
-            if(sex.equalsIgnoreCase(mSex.get(i))) return i;
+        String result = "";
+        if (resultCode == Activity.RESULT_OK) {
+            if(requestCode == EVENT_SEX_SELECT_ITEM){
+                result = (String) data.getStringExtra("Select");
+                mWitnessItem.setWitnessSex(result);
+                result = DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, result);
+                mSexText.setText(result);
+            }
         }
-        return 0;
+        Log.d("Anita","result = "+result);
     }
 
     private void showDateTimeDialog(final TextView textView) {
