@@ -40,6 +40,7 @@ public class DatabasesHelper extends SQLiteOpenHelper {
         //Whole key
         db.execSQL(CrimeProvider.CREATE_TABLE);
         //Page 1
+        db.execSQL(CellProvider.CREATE_TABLE);
         db.execSQL(SceneProvider.CREATE_TABLE);
         //Page 2
         db.execSQL(RelatedPeopleProvider.CREATE_TABLE);
@@ -99,6 +100,7 @@ public class DatabasesHelper extends SQLiteOpenHelper {
         //Whole key
         db.execSQL("DROP TABLE IF EXISTS " + CrimeProvider.TABLE_NAME);
         //Page 1
+        db.execSQL("DROP TABLE IF EXISTS " + CellProvider.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + SceneProvider.TABLE_NAME);
         //Page 2
         db.execSQL("DROP TABLE IF EXISTS " + RelatedPeopleProvider.TABLE_NAME);

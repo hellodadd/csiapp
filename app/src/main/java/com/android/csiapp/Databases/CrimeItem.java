@@ -54,6 +54,9 @@ public class CrimeItem implements Serializable {
     private String mSceneConductor;
     private String mAccessInspectors;
 
+    //Page 1 (Cell result)
+    private List<PhotoItem> mCellResultItem;
+
     //Page 2 (New people)
     private List<RelatedPeopleItem> mReleatedPeopleItem;
 
@@ -152,6 +155,8 @@ public class CrimeItem implements Serializable {
         this.mSafeguard = "";
         this.mSceneConductor = "";
         this.mAccessInspectors = "";
+
+        this.mCellResultItem = new ArrayList<PhotoItem>();
 
         this.mReleatedPeopleItem = new ArrayList<RelatedPeopleItem>();
         this.mLostItem = new ArrayList<LostItem>();
@@ -529,6 +534,11 @@ public class CrimeItem implements Serializable {
     public void setAccessInspectors  (String accessInspectors  ) {
         this.mAccessInspectors  = accessInspectors ;
     }
+
+    //Page 1 (Cell Result)
+    public List<PhotoItem> getCellResultItem() {return mCellResultItem; }
+
+    public void setCellResultItem(List<PhotoItem> cellResultItem) {this.mCellResultItem = cellResultItem; }
 
     //Page 2 (New People)
     public List<RelatedPeopleItem> getReleatedPeople() {return mReleatedPeopleItem; }

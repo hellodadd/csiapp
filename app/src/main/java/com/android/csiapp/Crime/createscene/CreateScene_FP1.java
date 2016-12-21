@@ -32,6 +32,7 @@ import com.android.csiapp.Crime.utils.UserInfo;
 import com.android.csiapp.Crime.utils.tree.TreeViewListDemo;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
+import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private int mEvent;
 
     private Button mCellCollection, mCellDetail;
+    List<PhotoItem> mCellResultItems;
     private String ACTION_RECEIVE_RESULT = "com.kuaikan.send_result";
     private int EVENT_CELL_COLLECTION = 0;
 
@@ -442,6 +444,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     }
 
     private void initData(){
+        mCellResultItems = mItem.getCellResultItem();
         mCasetypeText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, mItem.getCasetype()));
         mAreaText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, mItem.getArea()));
         mSceneConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSceneConditionKey, mItem.getSceneCondition()));
@@ -479,6 +482,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     }
 
     public void saveData(){
+        mItem.setCellResultItem(mCellResultItems);
         mItem.setLocationa(mLocation.getText());
         mItem.setUnitsAssigned(mUnitsAssigned.getText());
         mItem.setAccessPolicemen(mAccessPolicemen.getText());
@@ -678,6 +682,15 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 mItem.setCollected(true);
                 mCellDetail.setVisibility(View.VISIBLE);
                 ArrayList<String> result= (ArrayList<String>) intent.getStringArrayListExtra("result");
+
+                //Todo : check path and uuid
+                String path = (String) intent.getStringExtra("path");
+                String uuid = (String) intent.getStringExtra("uuid");
+                PhotoItem CellResult = new PhotoItem();
+                CellResult.setPhotoPath(path);
+                CellResult.setUuid(uuid);
+
+                mCellResultItems.add(CellResult);
                 Log.d("Anita","received result size = "+result.size());
                 mItem.setCellResult(result);
                 //stopCollection();
