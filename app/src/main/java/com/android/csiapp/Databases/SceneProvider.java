@@ -36,9 +36,7 @@ public class SceneProvider {
     public static final String ACCESS_LOCATION_COLUMN = "access_location";
     public static final String CASE_OCCUR_PROCESS_COLUMN = "case_occur_process";
     public static final String SCENE_CONDITION_COLUMN = "scene_condition";
-    public static final String INFORMANT_REASON_COLUMN = "isInformantReason";
-    public static final String VICTIM_REASON_COLUMN = "isVictimReason";
-    public static final String OTHER_REASON_COLUMN = "isOtherReason";
+    public static final String CHANGE_OPTION_COLUMN = "change_option";
     public static final String CHANGE_REASON_COLUMN = "change_reason";
     public static final String WEATHER_COLUMN = "weather";
     public static final String WIND_COLUMN = "wind";
@@ -70,9 +68,7 @@ public class SceneProvider {
                     ACCESS_LOCATION_COLUMN + " TEXT NOT NULL, " +
                     CASE_OCCUR_PROCESS_COLUMN + " TEXT NOT NULL, " +
                     SCENE_CONDITION_COLUMN + " TEXT NOT NULL, " +
-                    INFORMANT_REASON_COLUMN + " TEXT NOT NULL, " +
-                    VICTIM_REASON_COLUMN + " TEXT NOT NULL, " +
-                    OTHER_REASON_COLUMN + " TEXT NOT NULL, " +
+                    CHANGE_OPTION_COLUMN + " TEXT NOT NULL, " +
                     CHANGE_REASON_COLUMN + " TEXT NOT NULL, " +
                     WEATHER_COLUMN + " TEXT NOT NULL, " +
                     WIND_COLUMN + " TEXT NOT NULL, " +
@@ -120,10 +116,7 @@ public class SceneProvider {
         cv.put(ACCESS_LOCATION_COLUMN, item.getAccessLocation());
         cv.put(CASE_OCCUR_PROCESS_COLUMN, item.getCaseOccurProcess());
         cv.put(SCENE_CONDITION_COLUMN, item.getSceneCondition());
-        Log.d("Anita","check 1= "+item.isInformantCk()+", check 2 ="+item.isVictimCk()+", check 3 ="+item.isOtherCk());
-        cv.put(INFORMANT_REASON_COLUMN, (item.isInformantCk()?"1":"0"));
-        cv.put(VICTIM_REASON_COLUMN, (item.isVictimCk()?"1":"0"));
-        cv.put(OTHER_REASON_COLUMN, (item.isOtherCk()?"1":"0"));
+        cv.put(CHANGE_OPTION_COLUMN, item.getChangeOption());
         cv.put(CHANGE_REASON_COLUMN, item.getChangeReason());
         cv.put(WEATHER_COLUMN, item.getWeatherCondition());
         cv.put(WIND_COLUMN, item.getWindDirection());
@@ -166,9 +159,7 @@ public class SceneProvider {
         cv.put(ACCESS_LOCATION_COLUMN, item.getAccessLocation());
         cv.put(CASE_OCCUR_PROCESS_COLUMN, item.getCaseOccurProcess());
         cv.put(SCENE_CONDITION_COLUMN, item.getSceneCondition());
-        cv.put(INFORMANT_REASON_COLUMN, (item.isInformantCk()?"1":"0"));
-        cv.put(VICTIM_REASON_COLUMN, (item.isVictimCk()?"1":"0"));
-        cv.put(OTHER_REASON_COLUMN, (item.isOtherCk()?"1":"0"));
+        cv.put(CHANGE_OPTION_COLUMN, item.getChangeOption());
         cv.put(CHANGE_REASON_COLUMN, item.getChangeReason());
         cv.put(WEATHER_COLUMN, item.getWeatherCondition());
         cv.put(WIND_COLUMN, item.getWindDirection());

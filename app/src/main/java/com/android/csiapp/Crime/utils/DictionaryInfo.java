@@ -143,7 +143,6 @@ public class DictionaryInfo {
     public static ArrayList<Integer> mIlluminationConditionNodes = new ArrayList<Integer>();
     public static ArrayList<String> mSexDictKey = new ArrayList<String>();
     public static ArrayList<Integer> mSexNodes = new ArrayList<Integer>();
-
     private static ArrayList<String> mToolCategoryDictKey = new ArrayList<String>();
     private static ArrayList<Integer> mToolCategoryNodes = new ArrayList<Integer>();
     private static ArrayList<String> mToolSourceDictKey = new ArrayList<String>();
@@ -162,7 +161,6 @@ public class DictionaryInfo {
     private static ArrayList<Integer> mToolInferNodes = new ArrayList<Integer>();
     private static ArrayList<String> mMethodToolDictKey = new ArrayList<String>();
     private static ArrayList<Integer> mMethodToolNodes = new ArrayList<Integer>();
-
     public static ArrayList<String> mPeopleNumberDictKey = new ArrayList<String>();
     public static ArrayList<Integer> mPeopleNumberNodes = new ArrayList<Integer>();
     public static ArrayList<String> mCrimeMeansDictKey = new ArrayList<String>();
@@ -183,6 +181,10 @@ public class DictionaryInfo {
     public static ArrayList<Integer> mSelectLocationNodes = new ArrayList<Integer>();
     public static ArrayList<String> mCrimePurposeDictKey = new ArrayList<String>();
     public static ArrayList<Integer> mCrimePurposeNodes = new ArrayList<Integer>();
+
+    public final static String mChangeOptionKey = "BDYYDM";
+    public static ArrayList<String> mChangeOptionDictKey = new ArrayList<String>();
+    private static HashMap<String,String> mChangeOptionHashMap  = new HashMap<String,String>();
 
     public DictionaryInfo(Context context){
         this.mContext = context;
@@ -330,6 +332,9 @@ public class DictionaryInfo {
             mSelectLocationNodes = getTreeNodes(mSelectLocationDictKey, mSelectLocationParentHashMap);
             mCrimePurposeDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mCrimePurposeKey);
             mCrimePurposeNodes = getTreeNodes(mCrimePurposeDictKey, mCrimePurposeParentHashMap);
+
+            mChangeOptionDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mChangeOptionKey);;
+            mChangeOptionHashMap = (HashMap<String,String>) dictionaryProvider.queryToGetHashMap(mChangeOptionKey);
         }
     }
 
@@ -711,6 +716,9 @@ public class DictionaryInfo {
             case mCrimePurposeKey:
                 result = DictionaryInfo.mCrimePurposeDictKey;
                 break;
+            case  mChangeOptionKey:
+                result = DictionaryInfo.mChangeOptionDictKey;
+                break;
             default:
                 break;
         }
@@ -799,6 +807,9 @@ public class DictionaryInfo {
             case mCrimePurposeKey:
                 if(mCrimePurposeHashMap.size()!=0) result = mCrimePurposeHashMap.get(DictKey);
                 break;
+            case mChangeOptionKey:
+                if(mChangeOptionHashMap.size()!=0) result = mChangeOptionHashMap.get(DictKey);
+                break;
             default:
                 break;
         }
@@ -886,6 +897,9 @@ public class DictionaryInfo {
                 break;
             case mCrimePurposeKey:
                 if(mCrimePurposeHashMap.size()!=0) result = (String) valueGetKey(mCrimePurposeHashMap, DictValue);
+                break;
+            case mChangeOptionKey:
+                if(mChangeOptionHashMap.size()!=0) result = (String) valueGetKey(mChangeOptionHashMap, DictValue);
                 break;
             default:
                 break;

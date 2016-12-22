@@ -479,22 +479,20 @@ public class CrimeProvider {
                 result.setAccessLocation(cursor1.getString(11));
                 result.setCaseOccurProcess(cursor1.getString(12));
                 result.setSceneCondition(cursor1.getString(13));
-                result.setInformantCk(cursor1.getString(14).equalsIgnoreCase("1")?true:false);
-                result.setVictimCk(cursor1.getString(15).equalsIgnoreCase("1")?true:false);
-                result.setOtherCk(cursor1.getString(16).equalsIgnoreCase("1")?true:false);
-                result.setChangeReason(cursor1.getString(17));
-                result.setWeatherCondition(cursor1.getString(18));
-                result.setWindDirection(cursor1.getString(19));
-                result.setTemperature(cursor1.getString(20));
-                result.setHumidity(cursor1.getString(21));
-                result.setAccessReason(cursor1.getString(22));
-                result.setIlluminationCondition(cursor1.getString(23));
-                result.setProductPeopleName(cursor1.getString(24));
-                result.setProductPeopleUnit(cursor1.getString(25));
-                result.setProductPeopleDuties(cursor1.getString(26));
-                result.setSafeguard(cursor1.getString(27));
-                result.setSceneConductor(cursor1.getString(28));
-                result.setAccessInspectors(cursor1.getString(29));
+                result.setChangeOption(cursor1.getString(14));
+                result.setChangeReason(cursor1.getString(15));
+                result.setWeatherCondition(cursor1.getString(16));
+                result.setWindDirection(cursor1.getString(17));
+                result.setTemperature(cursor1.getString(18));
+                result.setHumidity(cursor1.getString(19));
+                result.setAccessReason(cursor1.getString(20));
+                result.setIlluminationCondition(cursor1.getString(21));
+                result.setProductPeopleName(cursor1.getString(22));
+                result.setProductPeopleUnit(cursor1.getString(23));
+                result.setProductPeopleDuties(cursor1.getString(24));
+                result.setSafeguard(cursor1.getString(25));
+                result.setSceneConductor(cursor1.getString(26));
+                result.setAccessInspectors(cursor1.getString(27));
             }
             cursor1.close();
 
@@ -611,22 +609,20 @@ public class CrimeProvider {
                 result.setAccessLocation(cursor1.getString(11));
                 result.setCaseOccurProcess(cursor1.getString(12));
                 result.setSceneCondition(cursor1.getString(13));
-                result.setInformantCk(cursor1.getString(14).equalsIgnoreCase("1")?true:false);
-                result.setVictimCk(cursor1.getString(15).equalsIgnoreCase("1")?true:false);
-                result.setOtherCk(cursor1.getString(16).equalsIgnoreCase("1")?true:false);
-                result.setChangeReason(cursor1.getString(17));
-                result.setWeatherCondition(cursor1.getString(18));
-                result.setWindDirection(cursor1.getString(19));
-                result.setTemperature(cursor1.getString(20));
-                result.setHumidity(cursor1.getString(21));
-                result.setAccessReason(cursor1.getString(22));
-                result.setIlluminationCondition(cursor1.getString(23));
-                result.setProductPeopleName(cursor1.getString(24));
-                result.setProductPeopleUnit(cursor1.getString(25));
-                result.setProductPeopleDuties(cursor1.getString(26));
-                result.setSafeguard(cursor1.getString(27));
-                result.setSceneConductor(cursor1.getString(28));
-                result.setAccessInspectors(cursor1.getString(29));
+                result.setChangeOption(cursor1.getString(14));
+                result.setChangeReason(cursor1.getString(15));
+                result.setWeatherCondition(cursor1.getString(16));
+                result.setWindDirection(cursor1.getString(17));
+                result.setTemperature(cursor1.getString(18));
+                result.setHumidity(cursor1.getString(19));
+                result.setAccessReason(cursor1.getString(20));
+                result.setIlluminationCondition(cursor1.getString(21));
+                result.setProductPeopleName(cursor1.getString(22));
+                result.setProductPeopleUnit(cursor1.getString(23));
+                result.setProductPeopleDuties(cursor1.getString(24));
+                result.setSafeguard(cursor1.getString(25));
+                result.setSceneConductor(cursor1.getString(26));
+                result.setAccessInspectors(cursor1.getString(27));
             }
             cursor1.close();
 
@@ -802,6 +798,8 @@ public class CrimeProvider {
                 mBaseInfo.put("createuser", item.getLoginName());
                 mBaseInfo.put("createunit", item.getUnitCode());
                 mBaseInfo.put("createtime", DateTimePicker.getCurrentDashTime(item.getCreateTime()));
+                mBaseInfo.put("gpslat","");//Todo
+                mBaseInfo.put("gpslon","");//Todo
                 mBaseInfo.put("complete", item.getComplete());
                 mBaseInfo.put("casetype", item.getCasetype());
                 mBaseInfo.put("regionalism", item.getArea());
@@ -816,6 +814,7 @@ public class CrimeProvider {
                 mBaseInfo.put("inquestaddress", item.getAccessLocation());
                 mBaseInfo.put("discover", item.getCaseOccurProcess());
                 mBaseInfo.put("scenesituation", item.getSceneCondition());
+                mBaseInfo.put("changeoption",item.getChangeOption());
                 mBaseInfo.put("changeresason", item.getChangeReason());
                 mBaseInfo.put("weather", item.getWeatherCondition());
                 mBaseInfo.put("wind", item.getWindDirection());

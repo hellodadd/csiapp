@@ -292,22 +292,76 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         });
 
         mChangeReason = (ClearableEditText) view.findViewById(R.id.change_reason);
+
         mInformantCkBx = (CheckBox) view.findViewById(R.id.InformantCkBx);
+        mVictimCkBx = (CheckBox) view.findViewById(R.id.VictimCkBx);
+        mOtherCkBx = (CheckBox) view.findViewById(R.id.OtherCkBx);
+
+        ArrayList<String> ChangeOption = DictionaryInfo.getDictKeyList(DictionaryInfo.mChangeOptionKey);
+        if(ChangeOption.size()>=3) {
+            mInformantCkBx.setText(DictionaryInfo.getDictValue(DictionaryInfo.mChangeOptionKey, ChangeOption.get(0)));
+            mVictimCkBx.setText(DictionaryInfo.getDictValue(DictionaryInfo.mChangeOptionKey, ChangeOption.get(1)));
+            mOtherCkBx.setText(DictionaryInfo.getDictValue(DictionaryInfo.mChangeOptionKey, ChangeOption.get(2)));
+        }
+
         mInformantCkBx.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mItem.setInformantCk(true);
+                String changeOption = mItem.getChangeOption();
+                if(mInformantCkBx.isChecked()) {
+                    if(!changeOption.equalsIgnoreCase("")) changeOption = changeOption +",";
+                    changeOption = changeOption + DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mInformantCkBx.getText().toString());
+                }else {
+                    String[] array = changeOption.split(",");
+                    changeOption = "";
+                    String remove = DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mInformantCkBx.getText().toString());
+                    for(int i = 0;i<array.length;i++){
+                        if(!array[i].equalsIgnoreCase(remove)){
+                            if(!changeOption.equalsIgnoreCase("")) changeOption = changeOption +",";
+                            changeOption = changeOption + array[i];
+                        }
+                    }
+                }
+                mItem.setChangeOption(changeOption);
             }
         });
-        mVictimCkBx = (CheckBox) view.findViewById(R.id.VictimCkBx);
         mVictimCkBx.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mItem.setVictimCk(true);
+                String changeOption = mItem.getChangeOption();
+                if(mVictimCkBx.isChecked()) {
+                    if(!changeOption.equalsIgnoreCase("")) changeOption = changeOption +",";
+                    changeOption = changeOption + DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mVictimCkBx.getText().toString());
+                }else {
+                    String[] array = changeOption.split(",");
+                    changeOption = "";
+                    String remove = DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mVictimCkBx.getText().toString());
+                    for(int i = 0;i<array.length;i++){
+                        if(!array[i].equalsIgnoreCase(remove)){
+                            if(!changeOption.equalsIgnoreCase("")) changeOption = changeOption +",";
+                            changeOption = changeOption + array[i];
+                        }
+                    }
+                }
+                mItem.setChangeOption(changeOption);
             }
         });
-        mOtherCkBx = (CheckBox) view.findViewById(R.id.OtherCkBx);
         mOtherCkBx.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mItem.setOtherCk(true);
+                String changeOption = mItem.getChangeOption();
+                if(mOtherCkBx.isChecked()) {
+                    if(!changeOption.equalsIgnoreCase("")) changeOption = changeOption +",";
+                    changeOption = changeOption + DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mOtherCkBx.getText().toString());
+                }else {
+                    String[] array = changeOption.split(",");
+                    changeOption = "";
+                    String remove = DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mOtherCkBx.getText().toString());
+                    for(int i = 0;i<array.length;i++){
+                        if(!array[i].equalsIgnoreCase(remove)){
+                            if(!changeOption.equalsIgnoreCase("")) changeOption = changeOption +",";
+                            changeOption = changeOption + array[i];
+                        }
+                    }
+                }
+                mItem.setChangeOption(changeOption);
             }
         });
 
@@ -424,9 +478,13 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 mTemperature.setText(lastItem.getTemperature());
                 mHumidity.setText(lastItem.getHumidity());
                 mSceneConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSceneConditionKey, lastItem.getSceneCondition()));
-                mInformantCkBx.setChecked(lastItem.isInformantCk());
-                mVictimCkBx.setChecked(lastItem.isVictimCk());
-                mOtherCkBx.setChecked(lastItem.isOtherCk());
+                mInformantCkBx.setChecked(lastItem.getChangeOption().contains(
+                        DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mInformantCkBx.getText().toString())));
+                mVictimCkBx.setChecked(lastItem.getChangeOption().contains(
+                        DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mVictimCkBx.getText().toString())));
+                mOtherCkBx.setChecked(lastItem.getChangeOption().contains(
+                        DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mOtherCkBx.getText().toString())));
+                mChangeReason.setText(mItem.getChangeReason());
                 mChangeReason.setText(lastItem.getChangeReason());
                 if(lastItem.getSceneConductor()!=null) mSceneConductorText.setText(UserInfo.getUserName(lastItem.getSceneConductor()));
                 if(lastItem.getAccessInspectors()!=null)mAccessInspectorsText.setText(UserInfo.getUserName(lastItem.getAccessInspectors()));
@@ -434,9 +492,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 mItem.setWeatherCondition(lastItem.getWeatherCondition());
                 mItem.setWindDirection(lastItem.getWindDirection());
                 mItem.setSceneCondition(lastItem.getSceneCondition());
-                mItem.setInformantCk(lastItem.isInformantCk());
-                mItem.setVictimCk(lastItem.isVictimCk());
-                mItem.setOtherCk(lastItem.isOtherCk());
+                mItem.setChangeOption(lastItem.getChangeOption());
             }
             mItem.setArea(UnitCode);
             mItem.setIlluminationCondition(DictionaryInfo.getDictKey(DictionaryInfo.mIlluminationConditionKey, (String) mIlluminationConditionText.getText()));
@@ -462,9 +518,12 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mAccessLocation.setText(mItem.getAccessLocation());
         mCaseOccurProcess.setText(mItem.getCaseOccurProcess());
 
-        mInformantCkBx.setChecked(mItem.isInformantCk());
-        mVictimCkBx.setChecked(mItem.isVictimCk());
-        mOtherCkBx.setChecked(mItem.isOtherCk());
+        mInformantCkBx.setChecked(mItem.getChangeOption().contains(
+                DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mInformantCkBx.getText().toString())));
+        mVictimCkBx.setChecked(mItem.getChangeOption().contains(
+                DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mVictimCkBx.getText().toString())));
+        mOtherCkBx.setChecked(mItem.getChangeOption().contains(
+                DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mOtherCkBx.getText().toString())));
         mChangeReason.setText(mItem.getChangeReason());
 
         mTemperature.setText(mItem.getTemperature());
@@ -546,9 +605,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private void enableChangeReason(String sceneCondition){
         if(sceneCondition.equalsIgnoreCase("1")){
             mChangeReasonLinearLayout.setVisibility(View.GONE);
-            mItem.setInformantCk(false);
-            mItem.setVictimCk(false);
-            mItem.setOtherCk(false);
+            mItem.setChangeOption("");
             mItem.setChangeReason("");
         }else if(sceneCondition.equalsIgnoreCase("2")){
             mChangeReasonLinearLayout.setVisibility(View.VISIBLE);

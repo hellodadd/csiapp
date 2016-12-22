@@ -37,9 +37,7 @@ public class CrimeItem implements Serializable {
     private String mAccessLocation;
     private String mCaseOccurProcess;
     private String mSceneCondition;
-    private boolean mInformantCk;
-    private boolean mVictimCk;
-    private boolean mOtherCk;
+    private String mChangeOption;
     private String mChangeReason;
     private String mWeatherCondition;
     private String mWindDirection;
@@ -139,9 +137,7 @@ public class CrimeItem implements Serializable {
         this.mAccessLocation = "";
         this.mCaseOccurProcess = "";
         this.mSceneCondition = "";
-        this.mInformantCk = false;
-        this.mVictimCk = false;
-        this.mOtherCk = false;
+        this.mChangeOption = "";
         this.mChangeReason = "";
         this.mWeatherCondition = "";
         this.mWindDirection = "";
@@ -407,28 +403,12 @@ public class CrimeItem implements Serializable {
         this.mSceneCondition = sceneCondition ;
     }
 
-    public Boolean isInformantCk () {
-        return mInformantCk;
+    public String getChangeOption() {
+        return mChangeOption;
     }
 
-    public void setInformantCk (Boolean InformantCk ) {
-        this.mInformantCk = InformantCk ;
-    }
-
-    public Boolean isVictimCk () {
-        return mVictimCk;
-    }
-
-    public void setVictimCk (Boolean VictimCk ) {
-        this.mVictimCk = VictimCk ;
-    }
-
-    public Boolean isOtherCk () {
-        return mOtherCk;
-    }
-
-    public void setOtherCk (Boolean OtherCk ) {
-        this.mOtherCk = OtherCk ;
+    public void setChangeOption (String changeOption ) {
+        this.mChangeOption = changeOption ;
     }
 
     public String getChangeReason () {
