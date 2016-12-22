@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
+import com.android.csiapp.Crime.utils.EditAlertDialog;
 import com.android.csiapp.Crime.utils.adapter.FragmentAdapter;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Databases.CrimeItem;
@@ -137,6 +138,12 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
             title.setText(context.getResources().getString(R.string.title_activity_editscene));
             mItem = (CrimeItem) intent.getSerializableExtra("CrimeItem");
             mEvent = 2;
+            if(mItem.getComplete().equalsIgnoreCase("0")) {
+                //Show need to edit
+                EditAlertDialog dialog = new EditAlertDialog(CreateSceneActivity.this);
+                dialog.onCreateDialog(true, mItem);
+                dialog.setOwnerActivity(CreateSceneActivity.this);
+            }
         }else{
             mItem = new CrimeItem();
         }
