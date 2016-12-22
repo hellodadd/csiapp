@@ -132,6 +132,13 @@ public class DataInitial {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if(crimeItem.getCellResultItem().size()!=0){
+            for(int i=0;i<crimeItem.getCellResultItem().size();i++){
+                String path = crimeItem.getCellResultItem().get(i).getPhotoPath();
+                String[] filename = path.split("/");
+                BackupRestore.copyFile(path, catchPath+filename[filename.length-1]);
+            }
+        }
         if(crimeItem.getPosition().size()!=0){
             for(int i=0;i<crimeItem.getPosition().size();i++){
                 String path = crimeItem.getPosition().get(i).getPhotoPath();

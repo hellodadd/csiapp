@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -25,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.csiapp.Crime.setting.BackupRestore;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
@@ -35,6 +37,7 @@ import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -684,11 +687,14 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 ArrayList<String> result= (ArrayList<String>) intent.getStringArrayListExtra("result");
 
                 //Todo : check path and uuid
-                String path = (String) intent.getStringExtra("path");
+                String file_path = (String) intent.getStringExtra("file_path");
                 String uuid = (String) intent.getStringExtra("uuid");
+                String path = getNewPath(file_path);
                 PhotoItem CellResult = new PhotoItem();
                 CellResult.setPhotoPath(path);
                 CellResult.setUuid(uuid);
+                Log.d("Anita","uuid = "+uuid);
+                Log.d("Anita","file_path = "+path);
 
                 mCellResultItems.add(CellResult);
                 Log.d("Anita","received result size = "+result.size());
@@ -697,4 +703,20 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             }
         }
     };
+
+    private String getNewPath(String OldPath){
+        String NewPath = "";
+        File mediaStorageDir = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Report");
+        if (!mediaStorageDir.exists()){
+            if (!mediaStorageDir.mkdirs()){
+                return NewPath;
+            }
+        }
+        String[] filename = OldPath.split("/");
+        NewPath = new File(mediaStorageDir.getPath() + File.separator + filename[filename.length-1]).toString();
+        Log.d("Anita", "new path = "+NewPath);
+        BackupRestore.copyFile(OldPath, NewPath);
+        BackupRestore.deleteFiles(new File(OldPath));
+        return NewPath;
+    }
 }
