@@ -29,12 +29,14 @@ import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.HandWriteActivity;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Crime.utils.tree.TreeViewListDemo;
+import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.WitnessItem;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -117,6 +119,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
 
         initView();
         initData();
+        getLastData();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -169,6 +172,34 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
             mImage.setImageBitmap(bm);
             mImage.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void getLastData(){
+        if(mEvent == 1){
+            WitnessItem witnessItem = getLastRecord();
+            if(witnessItem!=null) {
+                mName.setText(witnessItem.getWitnessName());
+                mSexText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, witnessItem.getWitnessSex()));
+                mBirthday.setText(DateTimePicker.getCurrentDate(witnessItem.getWitnessBirthday()));
+                mNumber.setText(witnessItem.getWitnessNumber());
+                mAddress.setText(witnessItem.getWitnessAddress());
+            }
+        }
+    }
+
+    private WitnessItem getLastRecord(){
+        //Todo check : set last record if this new crime item has witness item
+        CrimeProvider crimeProvider = new CrimeProvider(context);
+        List<CrimeItem> items = crimeProvider.getAll();
+        CrimeItem item = null;
+        WitnessItem witnessItem = null;
+        if(items.size()>0) {
+            item = items.get(items.size()-1);
+            if(item.getWitness().size()>0) {
+                witnessItem = item.getWitness().get(item.getWitness().size() - 1);
+            }
+        }
+        return witnessItem;
     }
 
     private void saveData(){
