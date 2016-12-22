@@ -16,25 +16,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/white"
         android:gravity="center"
         android:orientation="horizontal">
         <Button
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/left"
+            android:background="@drawable/ic_fanh"
             android:id="@+id/undo"
             android:layout_marginRight="50dp"/>
         <Button
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/right"
+            android:background="@drawable/ic_fanh1"
             android:id="@+id/redo"
             android:layout_marginRight="50dp"/>
         <Button
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/trash"
+            android:background="@drawable/delete"
             android:id="@+id/clear"/>
     </LinearLayout>
 
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/view"
-        android:background="@drawable/select_shape"
+        android:background="@drawable/delete"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/create_item_margin_bottom"/>
 </LinearLayout>

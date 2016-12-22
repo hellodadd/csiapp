@@ -16,7 +16,7 @@
     <Button
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/btn_sign_nor"
+        android:background="@drawable/signature"
         android:id="@+id/clear1"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/create_item_margin_bottom"
