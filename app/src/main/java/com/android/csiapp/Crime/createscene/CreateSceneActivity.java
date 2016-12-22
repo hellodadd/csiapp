@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -195,6 +196,19 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         mViewPager.setAdapter(fragmentAdapter);
         mViewPager.setCurrentItem(0);
         mViewPager.setOnPageChangeListener((ViewPager.OnPageChangeListener) this);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK )
+        {
+            //What to do on back clicked
+            BackAlertDialog dialog = new BackAlertDialog(CreateSceneActivity.this);
+            dialog.onCreateDialog(true,mItem);
+            dialog.setOwnerActivity(CreateSceneActivity.this);
+        }
+        return false;
     }
 
     /**
