@@ -55,6 +55,10 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
     private ImageView mNew_Position;
     private TableLayout mTablePosition1, mTablePosition2, mTableFlat;
     private TextView mIncidentTime, mIncidentLocation, mCreateUnit, mCreatePeople, mCreateTime;
+    private static final int REQUEST_POSITION = 0;
+    private static final int REQUEST_FLAT = 1;
+
+    private String gpsLat = "", gpsLon = "";
 
     private String path;
     private int mResultCode;
@@ -74,7 +78,7 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
     private ImageReader mImageReader;
     private Image mImage;
     private MediaProjectionManager mMediaProjectionManager;
-    private static final int REQUEST_MEDIA_PROJECTION = 1;
+    private static final int REQUEST_MEDIA_PROJECTION = 2;
 
     public Handler mHandler = new Handler() {
         @Override
@@ -93,10 +97,10 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
                     msg += "Camera";
                     if(mAdd.equalsIgnoreCase("Position")) {
                         Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity_Amap.class);
-                        startActivityForResult(it, 0);
+                        startActivityForResult(it, REQUEST_POSITION);
                     }else if(mAdd.equalsIgnoreCase("Flat")){
                         Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewFlatActivity.class);
-                        startActivityForResult(it, 0);
+                        startActivityForResult(it, REQUEST_FLAT);
                     }
                     break;
                 case R.id.action_click:
@@ -352,6 +356,8 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         Intent result = getIntent();
         result.putExtra("com.android.csiapp.Databases.PhotoItem", mPositionItem);
         result.putExtra("Event",mEvent);
+        result.putExtra("gpsLat", gpsLat);
+        result.putExtra("gpsLon", gpsLon);
         setResult(Activity.RESULT_OK, result);
         //Log.d("Anita","onSave");
         finish();
@@ -390,10 +396,10 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
             mPositionItem = new PhotoItem();
             if(IsPositionInformation()) {
                 Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity_Amap.class);
-                startActivityForResult(it, 0);
+                startActivityForResult(it, REQUEST_POSITION);
             }else if(!IsPositionInformation()){
                 Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewFlatActivity.class);
-                startActivityForResult(it, 0);
+                startActivityForResult(it, REQUEST_FLAT);
             }
         }
     }
@@ -453,7 +459,14 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == Activity.RESULT_OK) {
-            if (requestCode == 0) {
+            if (requestCode == REQUEST_POSITION) {
+                //Add lat and lon
+                gpsLat = (String) data.getStringExtra("gpsLat");
+                gpsLon = (String) data.getStringExtra("gpsLon");
+
+                mPositionItem.setPhotoPath(data.getStringExtra("Map_ScreenShot"));
+                setPhoto(mPositionItem.getPhotoPath());
+            } else if(requestCode == REQUEST_FLAT) {
                 mPositionItem.setPhotoPath(data.getStringExtra("Map_ScreenShot"));
                 setPhoto(mPositionItem.getPhotoPath());
             } else if (requestCode == REQUEST_MEDIA_PROJECTION) {

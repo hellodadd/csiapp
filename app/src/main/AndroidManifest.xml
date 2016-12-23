@@ -96,7 +96,7 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Crime.utils.Priview_photo_Activity"
+            android:name=".Crime.utils.PriviewPhotoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity

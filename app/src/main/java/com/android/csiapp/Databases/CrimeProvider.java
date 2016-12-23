@@ -38,6 +38,8 @@ public class CrimeProvider {
     public static final String CREATE_TIME_COLUMN = "create_time";
     public static final String COMPLETE_COLUMN = "is_complete";
     public static final String DELETE_COLUMN = "is_delete";
+    public static final String GPS_LAT_COLUMN = "gps_lat";
+    public static final String GPS_LON_COLUMN = "gps_lon";
 
     public static final String CELL_ITEM_NUMBER_COLUMN = "cell_item_number";
     public static final String SCENE_ITEM_NUMBER_COLUMN = "scene_item_number";
@@ -68,6 +70,8 @@ public class CrimeProvider {
                     CREATE_TIME_COLUMN + " TEXT NOT NULL, " +
                     COMPLETE_COLUMN + " TEXT NOT NULL, " +
                     DELETE_COLUMN + " TEXT NOT NULL, " +
+                    GPS_LAT_COLUMN + " TEXT NOT NULL, " +
+                    GPS_LON_COLUMN + " TEXT NOT NULL, " +
                     CELL_ITEM_NUMBER_COLUMN + " TEXT NOT NULL, " +
                     SCENE_ITEM_NUMBER_COLUMN + " TEXT NOT NULL, " +
                     ANALYSIS_ITEM_NUMBER_COLUMN + " TEXT NOT NULL, " +
@@ -159,6 +163,10 @@ public class CrimeProvider {
         cv.put(COMPLETE_COLUMN, item.getComplete());
 
         cv.put(DELETE_COLUMN, item.getDelete());
+
+        cv.put(GPS_LAT_COLUMN, item.getGpsLat());
+
+        cv.put(GPS_LON_COLUMN, item.getGpsLon());
 
         String cell_id = mCellProvider.inserts(item.getCellResultItem());
         cv.put(CELL_ITEM_NUMBER_COLUMN, cell_id);
@@ -263,6 +271,8 @@ public class CrimeProvider {
         cv.put(CREATE_TIME_COLUMN, item.getCreateTime());
         cv.put(COMPLETE_COLUMN, item.getComplete());
         cv.put(DELETE_COLUMN, item.getDelete());
+        cv.put(GPS_LAT_COLUMN, item.getGpsLat());
+        cv.put(GPS_LON_COLUMN, item.getGpsLon());
         cv.put(CELL_ITEM_NUMBER_COLUMN, Cell_id);
         cv.put(SCENE_ITEM_NUMBER_COLUMN, item.getId());
         cv.put(ANALYSIS_ITEM_NUMBER_COLUMN, item.getId());
@@ -457,11 +467,13 @@ public class CrimeProvider {
             result.setCreateTime(cursor.getLong(6));
             result.setComplete(cursor.getString(7));
             result.setDelete(cursor.getString(8));
+            result.setGpsLat(cursor.getString(9));
+            result.setGpsLon(cursor.getString(10));
 
-            List<PhotoItem> CellResult_items = mCellProvider.querys(cursor.getString(9));
+            List<PhotoItem> CellResult_items = mCellProvider.querys(cursor.getString(11));
             result.setCellResultItem(CellResult_items);
 
-            String where1 = KEY_ID + "=" + cursor.getLong(10);
+            String where1 = KEY_ID + "=" + cursor.getLong(12);
             Cursor cursor1 = db.query(
                     SceneProvider.TABLE_NAME, null, where1, null, null, null, null, null);
             if (cursor1.moveToFirst()) {
@@ -496,7 +508,7 @@ public class CrimeProvider {
             }
             cursor1.close();
 
-            String where2 = KEY_ID + "=" + cursor.getLong(11);
+            String where2 = KEY_ID + "=" + cursor.getLong(13);
             Cursor cursor2 = db.query(
                     AnalysisProvider.TABLE_NAME, null, where2, null, null, null, null, null);
             if (cursor2.moveToFirst()) {
@@ -516,7 +528,7 @@ public class CrimeProvider {
             }
             cursor2.close();
 
-            String where3 = KEY_ID + "=" + cursor.getLong(12);
+            String where3 = KEY_ID + "=" + cursor.getLong(14);
             Cursor cursor3 = db.query(
                     OverviewProvider.TABLE_NAME, null, where3, null, null, null, null, null);
             if (cursor3.moveToFirst()) {
@@ -525,40 +537,40 @@ public class CrimeProvider {
             }
             cursor3.close();
 
-            List<RelatedPeopleItem> RelatedPeople_items = mRelatedPeopleProvider.querys(cursor.getString(13));
+            List<RelatedPeopleItem> RelatedPeople_items = mRelatedPeopleProvider.querys(cursor.getString(15));
             result.setReleatedPeople(RelatedPeople_items);
 
-            List<LostItem> Lost_items = mLostProvider.querys(cursor.getString(14));
+            List<LostItem> Lost_items = mLostProvider.querys(cursor.getString(16));
             result.setLostItem(Lost_items);
 
-            List<CrimeToolItem> CrimeTool_items = mCrimeToolProvider.querys(cursor.getString(15));
+            List<CrimeToolItem> CrimeTool_items = mCrimeToolProvider.querys(cursor.getString(17));
             result.setCrimeTool(CrimeTool_items);
 
-            List<PhotoItem> Position_items = mPositionProvider.querys(cursor.getString(16));
+            List<PhotoItem> Position_items = mPositionProvider.querys(cursor.getString(18));
             result.setPosition(Position_items);
 
-            List<PhotoItem> Flat_items = mFlatProvider.querys(cursor.getString(17));
+            List<PhotoItem> Flat_items = mFlatProvider.querys(cursor.getString(19));
             result.setFlat(Flat_items);
 
-            List<PhotoItem> PositionPhoto_items = mPositionPhotoProvider.querys(cursor.getString(18));
+            List<PhotoItem> PositionPhoto_items = mPositionPhotoProvider.querys(cursor.getString(20));
             result.setPositionPhoto(PositionPhoto_items);
 
-            List<PhotoItem> OverviewPhoto_items = mOverviewPhotoProvider.querys(cursor.getString(19));
+            List<PhotoItem> OverviewPhoto_items = mOverviewPhotoProvider.querys(cursor.getString(21));
             result.setOverviewPhoto(OverviewPhoto_items);
 
-            List<PhotoItem> ImportantPhoto_items = mImportantPhotoProvider.querys(cursor.getString(20));
+            List<PhotoItem> ImportantPhoto_items = mImportantPhotoProvider.querys(cursor.getString(22));
             result.setImportantPhoto(ImportantPhoto_items);
 
-            List<EvidenceItem> Evidence_items = mEvidenceProvider.querys(cursor.getString(21));
+            List<EvidenceItem> Evidence_items = mEvidenceProvider.querys(cursor.getString(23));
             result.setEvidenceItem(Evidence_items);
 
-            List<PhotoItem> Monitoring_items = mMonitoringPhotoProvider.querys(cursor.getString(22));
+            List<PhotoItem> Monitoring_items = mMonitoringPhotoProvider.querys(cursor.getString(24));
             result.setMonitoringPhoto(Monitoring_items);
 
-            List<PhotoItem> Camera_items = mCameraPhotoProvider.querys(cursor.getString(23));
+            List<PhotoItem> Camera_items = mCameraPhotoProvider.querys(cursor.getString(25));
             result.setCameraPhoto(Camera_items);
 
-            List<WitnessItem> Witness_items = mWitnessProvider.querys(cursor.getString(24));
+            List<WitnessItem> Witness_items = mWitnessProvider.querys(cursor.getString(26));
             result.setWitness(Witness_items);
         }
 
@@ -587,11 +599,13 @@ public class CrimeProvider {
             result.setCreateTime(cursor.getLong(6));
             result.setComplete(cursor.getString(7));
             result.setDelete(cursor.getString(8));
+            result.setGpsLat(cursor.getString(9));
+            result.setGpsLon(cursor.getString(10));
 
-            List<PhotoItem> CellResult_items = mCellProvider.querys(cursor.getString(9));
+            List<PhotoItem> CellResult_items = mCellProvider.querys(cursor.getString(11));
             result.setCellResultItem(CellResult_items);
 
-            String where1 = KEY_ID + "=" + cursor.getLong(10);
+            String where1 = KEY_ID + "=" + cursor.getLong(12);
             Cursor cursor1 = db.query(
                     SceneProvider.TABLE_NAME, null, where1, null, null, null, null, null);
             if (cursor1.moveToFirst()) {
@@ -626,7 +640,7 @@ public class CrimeProvider {
             }
             cursor1.close();
 
-            String where2 = KEY_ID + "=" + cursor.getLong(11);
+            String where2 = KEY_ID + "=" + cursor.getLong(13);
             Cursor cursor2 = db.query(
                     AnalysisProvider.TABLE_NAME, null, where2, null, null, null, null, null);
             if (cursor2.moveToFirst()) {
@@ -646,7 +660,7 @@ public class CrimeProvider {
             }
             cursor2.close();
 
-            String where3 = KEY_ID + "=" + cursor.getLong(12);
+            String where3 = KEY_ID + "=" + cursor.getLong(14);
             Cursor cursor3 = db.query(
                     OverviewProvider.TABLE_NAME, null, where3, null, null, null, null, null);
             if (cursor3.moveToFirst()) {
@@ -655,40 +669,40 @@ public class CrimeProvider {
             }
             cursor3.close();
 
-            List<RelatedPeopleItem> RelatedPeople_items = mRelatedPeopleProvider.querys(cursor.getString(13));
+            List<RelatedPeopleItem> RelatedPeople_items = mRelatedPeopleProvider.querys(cursor.getString(15));
             result.setReleatedPeople(RelatedPeople_items);
 
-            List<LostItem> Lost_items = mLostProvider.querys(cursor.getString(14));
+            List<LostItem> Lost_items = mLostProvider.querys(cursor.getString(16));
             result.setLostItem(Lost_items);
 
-            List<CrimeToolItem> CrimeTool_items = mCrimeToolProvider.querys(cursor.getString(15));
+            List<CrimeToolItem> CrimeTool_items = mCrimeToolProvider.querys(cursor.getString(17));
             result.setCrimeTool(CrimeTool_items);
 
-            List<PhotoItem> Position_items = mPositionProvider.querys(cursor.getString(16));
+            List<PhotoItem> Position_items = mPositionProvider.querys(cursor.getString(18));
             result.setPosition(Position_items);
 
-            List<PhotoItem> Flat_items = mFlatProvider.querys(cursor.getString(17));
+            List<PhotoItem> Flat_items = mFlatProvider.querys(cursor.getString(19));
             result.setFlat(Flat_items);
 
-            List<PhotoItem> PositionPhoto_items = mPositionPhotoProvider.querys(cursor.getString(18));
+            List<PhotoItem> PositionPhoto_items = mPositionPhotoProvider.querys(cursor.getString(20));
             result.setPositionPhoto(PositionPhoto_items);
 
-            List<PhotoItem> OverviewPhoto_items = mOverviewPhotoProvider.querys(cursor.getString(19));
+            List<PhotoItem> OverviewPhoto_items = mOverviewPhotoProvider.querys(cursor.getString(21));
             result.setOverviewPhoto(OverviewPhoto_items);
 
-            List<PhotoItem> ImportantPhoto_items = mImportantPhotoProvider.querys(cursor.getString(20));
+            List<PhotoItem> ImportantPhoto_items = mImportantPhotoProvider.querys(cursor.getString(22));
             result.setImportantPhoto(ImportantPhoto_items);
 
-            List<EvidenceItem> Evidence_items = mEvidenceProvider.querys(cursor.getString(21));
+            List<EvidenceItem> Evidence_items = mEvidenceProvider.querys(cursor.getString(23));
             result.setEvidenceItem(Evidence_items);
 
-            List<PhotoItem> Monitoring_items = mMonitoringPhotoProvider.querys(cursor.getString(22));
+            List<PhotoItem> Monitoring_items = mMonitoringPhotoProvider.querys(cursor.getString(24));
             result.setMonitoringPhoto(Monitoring_items);
 
-            List<PhotoItem> Camera_items = mCameraPhotoProvider.querys(cursor.getString(23));
+            List<PhotoItem> Camera_items = mCameraPhotoProvider.querys(cursor.getString(25));
             result.setCameraPhoto(Camera_items);
 
-            List<WitnessItem> Witness_items = mWitnessProvider.querys(cursor.getString(24));
+            List<WitnessItem> Witness_items = mWitnessProvider.querys(cursor.getString(26));
             result.setWitness(Witness_items);
 
             return result;
@@ -798,8 +812,8 @@ public class CrimeProvider {
                 mBaseInfo.put("createuser", item.getLoginName());
                 mBaseInfo.put("createunit", item.getUnitCode());
                 mBaseInfo.put("createtime", DateTimePicker.getCurrentDashTime(item.getCreateTime()));
-                mBaseInfo.put("gpslat","");//Todo
-                mBaseInfo.put("gpslon","");//Todo
+                mBaseInfo.put("gpslat", item.getGpsLat());
+                mBaseInfo.put("gpslon", item.getGpsLon());
                 mBaseInfo.put("complete", item.getComplete());
                 mBaseInfo.put("casetype", item.getCasetype());
                 mBaseInfo.put("regionalism", item.getArea());

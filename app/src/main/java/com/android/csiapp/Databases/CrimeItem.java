@@ -23,6 +23,8 @@ public class CrimeItem implements Serializable {
     private Boolean mIsCollecting;
     private Boolean mIsCollected;
     private ArrayList<String> mCellResult;
+    private String mGpsLat;
+    private String mGpsLon;
     private Boolean mGetLastData;
     private String mCasetype;
     private String mArea;
@@ -123,6 +125,8 @@ public class CrimeItem implements Serializable {
         this.mIsCollecting = false;
         this.mIsCollected = false;
         this.mCellResult = new ArrayList<String>();
+        this.mGpsLat = "";
+        this.mGpsLon = "";
         this.mGetLastData = false;
         this.mCasetype = "";
         this.mArea = "";
@@ -289,6 +293,22 @@ public class CrimeItem implements Serializable {
 
     public void setCollected(Boolean isCollected) {
         this.mIsCollected = isCollected;
+    }
+
+    public String getGpsLat() {
+        return mGpsLat;
+    }
+
+    public void setGpsLat(String gpsLat) {
+        this.mGpsLat = gpsLat;
+    }
+
+    public String getGpsLon() {
+        return mGpsLon;
+    }
+
+    public void setGpsLon(String gpsLon) {
+        this.mGpsLon = gpsLon;
     }
 
     public Boolean IsGetLastData() {

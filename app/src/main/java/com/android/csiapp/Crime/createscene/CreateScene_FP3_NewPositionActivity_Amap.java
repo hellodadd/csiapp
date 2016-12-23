@@ -45,6 +45,8 @@ import java.util.Locale;
 public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity implements OfflineMapDownloadListener, LocationSource, AMapLocationListener {
     private Context context = null;
 
+    private double gpsLat = 0, gpsLon = 0;
+
     private File mediaStorageDir;
     private String mFilepath;
     private MapView mMapView;
@@ -64,6 +66,8 @@ public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity 
                 case 1:
                     Log.d("aMap","filepath3: " + msg.obj.toString());
                     Intent result = getIntent().putExtra("Map_ScreenShot", msg.obj.toString());
+                    result.putExtra("gpsLat", String.valueOf(gpsLat));
+                    result.putExtra("gpsLon", String.valueOf(gpsLon));
                     setResult(Activity.RESULT_OK, result);
                     finish();
                     break;
@@ -264,8 +268,8 @@ public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity 
             if (aMapLocation.getErrorCode() == 0) {
                 //定位成功回调信息，设置相关消息
                 aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见官方定位类型表
-                aMapLocation.getLatitude();//获取纬度
-                aMapLocation.getLongitude();//获取经度
+                gpsLat = aMapLocation.getLatitude();//获取纬度
+                gpsLon = aMapLocation.getLongitude();//获取经度
                 aMapLocation.getAccuracy();//获取精度信息
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date date = new Date(aMapLocation.getTime());

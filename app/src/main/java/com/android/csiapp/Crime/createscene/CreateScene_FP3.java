@@ -219,6 +219,13 @@ public class CreateScene_FP3 extends Fragment {
                 PhotoItem positionItem = (PhotoItem) data.getSerializableExtra("com.android.csiapp.Databases.PhotoItem");
                 int event = (int) data.getIntExtra("Event", 1);
                 int position = (int) data.getIntExtra("Position", 0);
+
+                //Add lat on lon
+                String gpsLat = (String) data.getStringExtra("gpsLat");
+                String gpsLon = (String) data.getStringExtra("gpsLon");
+                if(!gpsLat.isEmpty()) mItem.setGpsLat(gpsLat);
+                if(!gpsLon.isEmpty()) mItem.setGpsLon(gpsLon);
+
                 if (mEvent == 2 && event == 1)
                     positionItem.setId(mPositionProvider.insert(positionItem));
                 if (event == 1) {
