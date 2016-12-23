@@ -27,6 +27,7 @@ import java.util.List;
  * Created by user on 2016/10/17.
  */
 public class ListDeleteAdapter extends BaseAdapter {
+    private Context mContext;
     private LayoutInflater myInflater;
     private List<CrimeItem> items;
     // 用来控制CheckBox的选中状况
@@ -34,6 +35,7 @@ public class ListDeleteAdapter extends BaseAdapter {
 
     public ListDeleteAdapter(Context context, List<CrimeItem> items,HashMap<Integer,Boolean> isSelected){
         myInflater = LayoutInflater.from(context);
+        this.mContext = context;
         this.items = items;
         this.isSelected = isSelected;
         for (int i = 0; i < items.size(); i++) {
@@ -76,6 +78,7 @@ public class ListDeleteAdapter extends BaseAdapter {
             holder.txtCasetype = (TextView) convertView.findViewById(R.id.casetype);
             holder.txtArea = (TextView) convertView.findViewById(R.id.area);
             holder.txtTime = (TextView) convertView.findViewById(R.id.time);
+            holder.txtComplete = (TextView) convertView.findViewById(R.id.complete);
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder) convertView.getTag();
@@ -114,6 +117,7 @@ public class ListDeleteAdapter extends BaseAdapter {
         holder.txtCasetype.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, ((CrimeItem) getItem(position)).getCasetype()));
         holder.txtArea.setText(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, ((CrimeItem) getItem(position)).getArea()));
         holder.txtTime.setText(DateTimePicker.getCurrentTime(((CrimeItem) getItem(position)).getOccurredStartTime()));
+        holder.txtComplete.setText(getCompleteText(((CrimeItem) getItem(position)).getComplete()));
 
         return convertView;
     }
@@ -125,5 +129,18 @@ public class ListDeleteAdapter extends BaseAdapter {
         TextView txtCasetype;
         TextView txtArea;
         TextView txtTime;
+        TextView txtComplete;
+    }
+
+    private String getCompleteText(String complete){
+        if(complete.equalsIgnoreCase("0")){
+            return mContext.getResources().getString(R.string.incomplete);
+        }else if(complete.equalsIgnoreCase("1")){
+            return mContext.getResources().getString(R.string.complete);
+        }else if(complete.equalsIgnoreCase("2")){
+            return mContext.getResources().getString(R.string.commit);
+        }else {
+            return "";
+        }
     }
 }

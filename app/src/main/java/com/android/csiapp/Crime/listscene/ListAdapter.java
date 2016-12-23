@@ -65,7 +65,8 @@ public class ListAdapter extends BaseAdapter {
                 (ImageView) convertView.findViewById(R.id.photo),
                 (TextView) convertView.findViewById(R.id.casetype),
                 (TextView) convertView.findViewById(R.id.area),
-                (TextView) convertView.findViewById(R.id.time)
+                (TextView) convertView.findViewById(R.id.time),
+                (TextView) convertView.findViewById(R.id.complete)
             );
             convertView.setTag(holder);
         }else{
@@ -87,6 +88,7 @@ public class ListAdapter extends BaseAdapter {
         holder.txtCasetype.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, ((CrimeItem) getItem(position)).getCasetype()));
         holder.txtArea.setText(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, ((CrimeItem) getItem(position)).getArea()));
         holder.txtTime.setText(DateTimePicker.getCurrentTime(((CrimeItem) getItem(position)).getOccurredStartTime()));
+        holder.txtComplete.setText(getCompleteText(((CrimeItem) getItem(position)).getComplete()));
         return convertView;
     }
 
@@ -95,11 +97,13 @@ public class ListAdapter extends BaseAdapter {
         TextView txtCasetype;
         TextView txtArea;
         TextView txtTime;
-        public ViewHolder(ImageView imgPhoto, TextView txtCasetype, TextView txtArea, TextView txtTime){
+        TextView txtComplete;
+        public ViewHolder(ImageView imgPhoto, TextView txtCasetype, TextView txtArea, TextView txtTime, TextView txtComplete){
             this.imgPhoto = imgPhoto;
             this.txtCasetype = txtCasetype;
             this.txtArea = txtArea;
             this.txtTime = txtTime;
+            this.txtComplete = txtComplete;
         }
     }
 
@@ -141,5 +145,17 @@ public class ListAdapter extends BaseAdapter {
 
     public void clearItem(){
         items.clear();
+    }
+
+    private String getCompleteText(String complete){
+        if(complete.equalsIgnoreCase("0")){
+            return mContext.getResources().getString(R.string.incomplete);
+        }else if(complete.equalsIgnoreCase("1")){
+            return mContext.getResources().getString(R.string.complete);
+        }else if(complete.equalsIgnoreCase("2")){
+            return mContext.getResources().getString(R.string.commit);
+        }else {
+            return "";
+        }
     }
 }

@@ -140,6 +140,10 @@
     <string name="casetype_item">类型 :</string>
     <string name="area_item">区域 :</string>
     <string name="time_item">时间 :</string>
+    <string name="complete_item">现场状态 :</string>
+    <string name="incomplete">不完整</string>
+    <string name="complete">完整</string>
+    <string name="commit">已上报</string>
     <string name="list_search">搜寻</string>
     <string name="list_delete">删除</string>
     <string name="list_selectall">全选</string>
