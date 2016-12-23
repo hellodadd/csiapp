@@ -209,8 +209,6 @@ public class DataInitial {
             File file = DirTraversal.getFilePath(Environment.getExternalStorageDirectory().getAbsolutePath(), backupFileName);
             ZipUtils.zipFiles(files, file);
             BackupRestore.deleteFiles(cacheDir);
-            crimeItem.setComplete("2");
-            mCrimeProvider.update(crimeItem);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -235,6 +233,7 @@ public class DataInitial {
         if(mCrimeItem == null || SceneNo.length() ==0) return false;
         if(mCrimeItem.getComplete().equalsIgnoreCase("0")) return false;
 
+        mCrimeItem.setComplete("2");
         mCrimeItem.setSceneNo(SceneNo);
         mCrime.update(mCrimeItem);
 
