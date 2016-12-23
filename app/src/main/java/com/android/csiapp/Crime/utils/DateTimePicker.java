@@ -101,6 +101,10 @@ public class DateTimePicker extends RelativeLayout implements View.OnClickListen
 		}
 	}
 
+	public void clickTime(){
+		onClick(findViewById(R.id.SwitchToTime));
+	}
+
 	// Convenience wrapper for internal Calendar instance
 	public int get(final int field) {
 		return mCalendar.get(field);

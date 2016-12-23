@@ -651,6 +651,8 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         // Grab widget instance
         final DateTimePicker mDateTimePicker = (DateTimePicker) mDateTimeDialogView.findViewById(R.id.DateTimePicker);
 
+        mDateTimePicker.clickTime();
+
         // Update demo TextViews when the "OK" button is clicked
         ((Button) mDateTimeDialogView.findViewById(R.id.SetDateTime)).setOnClickListener(new View.OnClickListener() {
 
