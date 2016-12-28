@@ -385,7 +385,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         });
 
         mTemperature = (ClearableEditText) view.findViewById(R.id.temperature);
-        mTemperature.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+        mTemperature.setKeyListener(DigitsKeyListener.getInstance("-0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
         mHumidity = (ClearableEditText) view.findViewById(R.id.humidity);
         mHumidity.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
         mAccessReason = (ClearableEditText) view.findViewById(R.id.accessReason);

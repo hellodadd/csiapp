@@ -183,6 +183,15 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
                 mBirthday.setText(DateTimePicker.getCurrentDate(witnessItem.getWitnessBirthday()));
                 mNumber.setText(witnessItem.getWitnessNumber());
                 mAddress.setText(witnessItem.getWitnessAddress());
+                if(!witnessItem.getPhotoPath().isEmpty()){
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 2;
+                    Bitmap bm = BitmapFactory.decodeFile(witnessItem.getPhotoPath(), options);
+                    mImage.setImageBitmap(bm);
+                    mImage.setVisibility(View.VISIBLE);
+                }
+                mWitnessItem.setPhotoPath(witnessItem.getPhotoPath());
+                mWitnessItem.setWitnessSex(witnessItem.getWitnessSex());
             }
         }
     }

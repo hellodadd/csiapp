@@ -132,7 +132,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
             String login_name = prefs1.getString("loginname", "");
             mItem.setLoginName(login_name);
             SharedPreferences prefs2 = context.getSharedPreferences("UnitCode", 0);
-            String unit_code = prefs2.getString("code", "");
+            String unit_code = prefs2.getString("unitcode", "");
             mItem.setUnitCode(unit_code);
         } else if(action.equals("com.android.csiapp.EDIT_SCENE")){
             title.setText(context.getResources().getString(R.string.title_activity_editscene));
