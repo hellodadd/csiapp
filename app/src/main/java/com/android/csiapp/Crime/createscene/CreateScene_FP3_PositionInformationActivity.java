@@ -3,6 +3,7 @@ package com.android.csiapp.Crime.createscene;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
@@ -452,7 +453,8 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         mIncidentTime.setText(DateTimePicker.getCurrentDate(time));
         mIncidentLocation.setText(mItem.getLocation());
         mCreateUnit.setText(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey,mItem.getArea()));
-        mCreatePeople.setText(mItem.getAccessPolicemen());
+        SharedPreferences prefs = context.getSharedPreferences("UserName", 0);
+        mCreatePeople.setText(prefs.getString("username", ""));
         mCreateTime.setText(DateTimePicker.getCurrentDate(Calendar.getInstance().getTimeInMillis()));
     }
 

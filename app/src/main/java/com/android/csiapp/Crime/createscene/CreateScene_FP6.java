@@ -125,7 +125,7 @@ public class CreateScene_FP6 extends Fragment {
             text4 = text4 + "事主身份信息：";
             for(int i=0;i<mItem.getReleatedPeople().size();i++){
                 text4 = text4 + "姓名为" + mItem.getReleatedPeople().get(i).getPeopleName()
-                        + "，性别为" + mItem.getReleatedPeople().get(i).getPeopleSex()
+                        + "，性别为" + DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, mItem.getReleatedPeople().get(i).getPeopleSex())
                         + "，身份证号为" + mItem.getReleatedPeople().get(i).getPeopleId()
                         + "，联系电话为" + mItem.getReleatedPeople().get(i).getPeopleNumber()
                         + "，现居住地为，" + mItem.getReleatedPeople().get(i).getPeopleAddress();
