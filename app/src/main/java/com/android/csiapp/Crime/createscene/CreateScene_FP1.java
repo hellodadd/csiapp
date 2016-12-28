@@ -496,8 +496,8 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             }
             mItem.setArea(UnitCode);
             mItem.setIlluminationCondition(DictionaryInfo.getDictKey(DictionaryInfo.mIlluminationConditionKey, (String) mIlluminationConditionText.getText()));
-            mItem.setSceneConductor(LoginName);
-            mItem.setAccessInspectors(LoginName);
+            mItem.setSceneConductor(UserInfo.getLoginName((String) mSceneConductorText.getText()));
+            mItem.setAccessInspectors(UserInfo.getLoginName((String) mAccessInspectorsText.getText()));
             saveData();
         }
     }
