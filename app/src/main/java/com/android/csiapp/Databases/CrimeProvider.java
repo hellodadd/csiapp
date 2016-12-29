@@ -242,22 +242,22 @@ public class CrimeProvider {
 
         if(cursor.moveToFirst()) {
             // 執行修改資料並回傳修改的資料數量是否成功
-            Cell_id = mCellProvider.updates(cursor.getString(9), item.getCellResultItem());
-            result = mSceneProvider.update(cursor.getLong(10),item);
-            result = mAnalysisProvider.update(cursor.getLong(11),item);
-            result = mOverviewProvider.update(cursor.getLong(12),item);
-            RelatedPeople_id = mRelatedPeopleProvider.updates(cursor.getString(13),item.getReleatedPeople());
-            Lost_id = mLostProvider.updates(cursor.getString(14),item.getLostItem());
-            CrimeTool_id = mCrimeToolProvider.updates(cursor.getString(15),item.getCrimeTool());
-            Position_id = mPositionProvider.updates(cursor.getString(16),item.getPosition());
-            Flat_id = mFlatProvider.updates(cursor.getString(17),item.getFlat());
-            PositionPhoto_id = mPositionPhotoProvider.updates(cursor.getString(18),item.getPositionPhoto());
-            OverviewPhoto_id = mOverviewPhotoProvider.updates(cursor.getString(19),item.getOverviewPhoto());
-            ImportantPhoto_id = mImportantPhotoProvider.updates(cursor.getString(20),item.getImportantPhoto());
-            Evidence_id = mEvidenceProvider.updates(cursor.getString(21),item.getEvidenceItem());
-            Monitoring_id = mMonitoringPhotoProvider.updates(cursor.getString(22),item.getMonitoringPhoto());
-            Camera_id = mCameraPhotoProvider.updates(cursor.getString(23),item.getCameraPhoto());
-            Witness_id = mWitnessProvider.updates(cursor.getString(24),item.getWitness());
+            Cell_id = mCellProvider.updates(cursor.getString(11), item.getCellResultItem());
+            result = mSceneProvider.update(cursor.getLong(12),item);
+            result = mAnalysisProvider.update(cursor.getLong(13),item);
+            result = mOverviewProvider.update(cursor.getLong(14),item);
+            RelatedPeople_id = mRelatedPeopleProvider.updates(cursor.getString(15),item.getReleatedPeople());
+            Lost_id = mLostProvider.updates(cursor.getString(16),item.getLostItem());
+            CrimeTool_id = mCrimeToolProvider.updates(cursor.getString(17),item.getCrimeTool());
+            Position_id = mPositionProvider.updates(cursor.getString(18),item.getPosition());
+            Flat_id = mFlatProvider.updates(cursor.getString(19),item.getFlat());
+            PositionPhoto_id = mPositionPhotoProvider.updates(cursor.getString(20),item.getPositionPhoto());
+            OverviewPhoto_id = mOverviewPhotoProvider.updates(cursor.getString(21),item.getOverviewPhoto());
+            ImportantPhoto_id = mImportantPhotoProvider.updates(cursor.getString(22),item.getImportantPhoto());
+            Evidence_id = mEvidenceProvider.updates(cursor.getString(23),item.getEvidenceItem());
+            Monitoring_id = mMonitoringPhotoProvider.updates(cursor.getString(24),item.getMonitoringPhoto());
+            Camera_id = mCameraPhotoProvider.updates(cursor.getString(25),item.getCameraPhoto());
+            Witness_id = mWitnessProvider.updates(cursor.getString(26),item.getWitness());
             //return db.update(TABLE_NAME, cv, where, null) > 0;
         }
         cursor.close();
@@ -302,22 +302,22 @@ public class CrimeProvider {
         if(cursor.moveToFirst()) {
             // 刪除指定編號資料並回傳刪除是否成功
             boolean result = false;
-            result = mCellProvider.deletes(cursor.getString(9));
-            result = mSceneProvider.delete(cursor.getLong(10));
-            result = mAnalysisProvider.delete(cursor.getLong(11));
-            result = mOverviewProvider.delete(cursor.getLong(12));
-            result = mRelatedPeopleProvider.deletes(cursor.getString(13));
-            result = mLostProvider.deletes(cursor.getString(14));
-            result = mCrimeToolProvider.deletes(cursor.getString(15));
-            result = mPositionProvider.deletes(cursor.getString(16));
-            result = mFlatProvider.deletes(cursor.getString(17));
-            result = mPositionPhotoProvider.deletes(cursor.getString(18));
-            result = mOverviewPhotoProvider.deletes(cursor.getString(19));
-            result = mImportantPhotoProvider.deletes(cursor.getString(20));
-            result = mEvidenceProvider.deletes(cursor.getString(21));
-            result = mMonitoringPhotoProvider.deletes(cursor.getString(22));
-            result = mCameraPhotoProvider.deletes(cursor.getString(23));
-            result = mWitnessProvider.deletes(cursor.getString(24));
+            result = mCellProvider.deletes(cursor.getString(11));
+            result = mSceneProvider.delete(cursor.getLong(12));
+            result = mAnalysisProvider.delete(cursor.getLong(13));
+            result = mOverviewProvider.delete(cursor.getLong(14));
+            result = mRelatedPeopleProvider.deletes(cursor.getString(15));
+            result = mLostProvider.deletes(cursor.getString(16));
+            result = mCrimeToolProvider.deletes(cursor.getString(17));
+            result = mPositionProvider.deletes(cursor.getString(18));
+            result = mFlatProvider.deletes(cursor.getString(19));
+            result = mPositionPhotoProvider.deletes(cursor.getString(20));
+            result = mOverviewPhotoProvider.deletes(cursor.getString(21));
+            result = mImportantPhotoProvider.deletes(cursor.getString(22));
+            result = mEvidenceProvider.deletes(cursor.getString(23));
+            result = mMonitoringPhotoProvider.deletes(cursor.getString(24));
+            result = mCameraPhotoProvider.deletes(cursor.getString(25));
+            result = mWitnessProvider.deletes(cursor.getString(26));
             //return db.delete(TABLE_NAME, where, null) > 0;
             cursor.close();
             result = db.delete(TABLE_NAME, where , null) > 0;
