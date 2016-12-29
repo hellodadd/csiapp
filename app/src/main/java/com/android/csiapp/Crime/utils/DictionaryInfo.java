@@ -2,13 +2,12 @@ package com.android.csiapp.Crime.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.android.csiapp.Databases.DictionaryProvider;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -48,33 +47,6 @@ public class DictionaryInfo {
     public final static String mSelectLocationKey = "XZCSFLDM";
     public final static String mCrimePurposeKey = "ZADJMDDM";
 
-    public static ArrayList<String> mCaseType = new ArrayList<String>();
-    public static ArrayList<String> mArea = new ArrayList<String>();
-    private static ArrayList<String> mSceneCondition = new ArrayList<String>();
-    private static ArrayList<String> mWeatherCondition = new ArrayList<String>();
-    private static ArrayList<String> mWindDirection = new ArrayList<String>();
-    private static ArrayList<String> mIlluminationCondition = new ArrayList<String>();
-    private static ArrayList<String> mSex = new ArrayList<String>();
-    private static ArrayList<String> mToolCategory = new ArrayList<String>();
-    private static ArrayList<String> mToolSource = new ArrayList<String>();
-    private static ArrayList<String> mEvidenceHand = new ArrayList<String>();
-    private static ArrayList<String> mMethodHand = new ArrayList<String>();
-    private static ArrayList<String> mEvidenceFoot = new ArrayList<String>();
-    private static ArrayList<String> mMethodFoot = new ArrayList<String>();
-    private static ArrayList<String> mEvidenceTool = new ArrayList<String>();
-    private static ArrayList<String> mToolInfer = new ArrayList<String>();
-    private static ArrayList<String> mMethodTool = new ArrayList<String>();
-    private static ArrayList<String> mPeopleNumber = new ArrayList<String>();
-    private static ArrayList<String> mCrimeEntranceExport = new ArrayList<String>();
-    private static ArrayList<String> mCrimeMeans = new ArrayList<String>();
-    private static ArrayList<String> mCrimeCharacter = new ArrayList<String>();
-    private static ArrayList<String> mCrimeTiming = new ArrayList<String>();
-    private static ArrayList<String> mSelectObject = new ArrayList<String>();
-    private static ArrayList<String> mCrimeFeature = new ArrayList<String>();
-    private static ArrayList<String> mIntrusiveMethod = new ArrayList<String>();
-    private static ArrayList<String> mSelectLocation = new ArrayList<String>();
-    private static ArrayList<String> mCrimePurpose = new ArrayList<String>();
-
     private static HashMap<String,String> mCaseTypeParentHashMap = new HashMap<String,String>();
     private static HashMap<String,String> mAreaParentHashMap = new HashMap<String,String>();
     private static HashMap<String,String> mSceneConditionParentHashMap  = new HashMap<String,String>();
@@ -102,8 +74,8 @@ public class DictionaryInfo {
     private static HashMap<String,String> mSelectLocationParentHashMap  = new HashMap<String,String>();
     private static HashMap<String,String> mCrimePurposeParentHashMap  = new HashMap<String,String>();
 
-    public static HashMap<String,String> mCaseTypeHashMap = new HashMap<String,String>();
-    public static HashMap<String,String> mAreaHashMap = new HashMap<String,String>();
+    private static HashMap<String,String> mCaseTypeHashMap = new HashMap<String,String>();
+    private static HashMap<String,String> mAreaHashMap = new HashMap<String,String>();
     private static HashMap<String,String> mSceneConditionHashMap  = new HashMap<String,String>();
     private static HashMap<String,String> mWeatherConditionHashMap  = new HashMap<String,String>();
     private static HashMap<String,String> mWindDirectionHashMap  = new HashMap<String,String>();
@@ -129,20 +101,20 @@ public class DictionaryInfo {
     private static HashMap<String,String> mSelectLocationHashMap  = new HashMap<String,String>();
     private static HashMap<String,String> mCrimePurposeHashMap  = new HashMap<String,String>();
 
-    public static ArrayList<String> mCasetypeDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mCasetypeNodes = new ArrayList<Integer>();
-    public static ArrayList<String> mAreaDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mAreaNodes = new ArrayList<Integer>();
-    public static ArrayList<String>  mSceneConditionDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mSceneConditionNodes = new ArrayList<Integer>();
-    public static ArrayList<String> mWeatherConditionDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mWeatherConditionNodes = new ArrayList<Integer>();
-    public static ArrayList<String> mWindDirectionDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mWindDirectionNodes = new ArrayList<Integer>();
-    public static ArrayList<String> mIlluminationConditionDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mIlluminationConditionNodes = new ArrayList<Integer>();
-    public static ArrayList<String> mSexDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mSexNodes = new ArrayList<Integer>();
+    private static ArrayList<String> mCasetypeDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mCasetypeNodes = new ArrayList<Integer>();
+    private static ArrayList<String> mAreaDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mAreaNodes = new ArrayList<Integer>();
+    private static ArrayList<String>  mSceneConditionDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mSceneConditionNodes = new ArrayList<Integer>();
+    private static ArrayList<String> mWeatherConditionDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mWeatherConditionNodes = new ArrayList<Integer>();
+    private static ArrayList<String> mWindDirectionDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mWindDirectionNodes = new ArrayList<Integer>();
+    private static ArrayList<String> mIlluminationConditionDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mIlluminationConditionNodes = new ArrayList<Integer>();
+    private static ArrayList<String> mSexDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mSexNodes = new ArrayList<Integer>();
     private static ArrayList<String> mToolCategoryDictKey = new ArrayList<String>();
     private static ArrayList<Integer> mToolCategoryNodes = new ArrayList<Integer>();
     private static ArrayList<String> mToolSourceDictKey = new ArrayList<String>();
@@ -161,29 +133,29 @@ public class DictionaryInfo {
     private static ArrayList<Integer> mToolInferNodes = new ArrayList<Integer>();
     private static ArrayList<String> mMethodToolDictKey = new ArrayList<String>();
     private static ArrayList<Integer> mMethodToolNodes = new ArrayList<Integer>();
-    public static ArrayList<String> mPeopleNumberDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mPeopleNumberNodes = new ArrayList<Integer>();
-    public static ArrayList<String> mCrimeMeansDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mCrimeMeansNodes = new ArrayList<Integer>();
-    public static ArrayList<String> mCrimeCharacterDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mCrimeCharacterNodes = new ArrayList<Integer>();
-    public static ArrayList<String> mCrimeEntranceExportDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mCrimeEntranceExportNodes = new ArrayList<Integer>();
-    public static ArrayList<String> mCrimeTimingDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mCrimeTimingNodes = new ArrayList<Integer>();
-    public static ArrayList<String> mSelectObjectDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mSelectObjectNodes = new ArrayList<Integer>();
-    public static ArrayList<String> mCrimeFeatureDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mCrimeFeatureNodes = new ArrayList<Integer>();
-    public static ArrayList<String> mIntrusiveMethodDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mIntrusiveMethodNodes = new ArrayList<Integer>();
-    public static ArrayList<String> mSelectLocationDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mSelectLocationNodes = new ArrayList<Integer>();
-    public static ArrayList<String> mCrimePurposeDictKey = new ArrayList<String>();
-    public static ArrayList<Integer> mCrimePurposeNodes = new ArrayList<Integer>();
+    private static ArrayList<String> mPeopleNumberDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mPeopleNumberNodes = new ArrayList<Integer>();
+    private static ArrayList<String> mCrimeMeansDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mCrimeMeansNodes = new ArrayList<Integer>();
+    private static ArrayList<String> mCrimeCharacterDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mCrimeCharacterNodes = new ArrayList<Integer>();
+    private static ArrayList<String> mCrimeEntranceExportDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mCrimeEntranceExportNodes = new ArrayList<Integer>();
+    private static ArrayList<String> mCrimeTimingDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mCrimeTimingNodes = new ArrayList<Integer>();
+    private static ArrayList<String> mSelectObjectDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mSelectObjectNodes = new ArrayList<Integer>();
+    private static ArrayList<String> mCrimeFeatureDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mCrimeFeatureNodes = new ArrayList<Integer>();
+    private static ArrayList<String> mIntrusiveMethodDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mIntrusiveMethodNodes = new ArrayList<Integer>();
+    private static ArrayList<String> mSelectLocationDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mSelectLocationNodes = new ArrayList<Integer>();
+    private static ArrayList<String> mCrimePurposeDictKey = new ArrayList<String>();
+    private static ArrayList<Integer> mCrimePurposeNodes = new ArrayList<Integer>();
 
     public final static String mChangeOptionKey = "BDYYDM";
-    public static ArrayList<String> mChangeOptionDictKey = new ArrayList<String>();
+    private static ArrayList<String> mChangeOptionDictKey = new ArrayList<String>();
     private static HashMap<String,String> mChangeOptionHashMap  = new HashMap<String,String>();
 
     public DictionaryInfo(Context context){
@@ -196,33 +168,6 @@ public class DictionaryInfo {
         DictionaryProvider dictionaryProvider = new DictionaryProvider(context);
 
         if(initstatus.equalsIgnoreCase("1")) {
-            mCaseType = (ArrayList<String>) dictionaryProvider.queryToGetList(mCaseTypeKey);
-            mArea = (ArrayList<String>) dictionaryProvider.queryToGetList(mAreaKey);
-            mSceneCondition = (ArrayList<String>) dictionaryProvider.queryToGetList(mSceneConditionKey);
-            mWeatherCondition = (ArrayList<String>) dictionaryProvider.queryToGetList(mWeatherConditionKey);
-            mWindDirection = (ArrayList<String>) dictionaryProvider.queryToGetList(mWindDirectionKey);
-            mIlluminationCondition = (ArrayList<String>) dictionaryProvider.queryToGetList(mIlluminationConditionKey);
-            mSex = (ArrayList<String>) dictionaryProvider.queryToGetList(mSexKey);
-            mToolCategory = (ArrayList<String>) dictionaryProvider.queryToGetList(mToolCategoryKey);
-            mToolSource = (ArrayList<String>) dictionaryProvider.queryToGetList(mToolSourceKey);
-            mEvidenceHand = (ArrayList<String>) dictionaryProvider.queryToGetList(mEvidenceHandKey);
-            mMethodHand = (ArrayList<String>) dictionaryProvider.queryToGetList(mMethodHandKey);
-            mEvidenceFoot = (ArrayList<String>) dictionaryProvider.queryToGetList(mEvidenceFootKey);
-            mMethodFoot = (ArrayList<String>) dictionaryProvider.queryToGetList(mMethodFootKey);
-            mEvidenceTool = (ArrayList<String>) dictionaryProvider.queryToGetList(mEvidenceToolKey);
-            mToolInfer = (ArrayList<String>) dictionaryProvider.queryToGetList(mToolInferKey);
-            mMethodTool = (ArrayList<String>) dictionaryProvider.queryToGetList(mMethodToolKey);
-            mPeopleNumber = (ArrayList<String>) dictionaryProvider.queryToGetList(mPeopleNumberKey);
-            mCrimeEntranceExport = (ArrayList<String>) dictionaryProvider.queryToGetList(mCrimeEntranceExportKey);
-            mCrimeMeans = (ArrayList<String>) dictionaryProvider.queryToGetList(mCrimeMeansKey);
-            mCrimeCharacter = (ArrayList<String>) dictionaryProvider.queryToGetList(mCrimeCharacterKey);
-            mCrimeTiming = (ArrayList<String>) dictionaryProvider.queryToGetList(mCrimeTimingKey);
-            mSelectObject = (ArrayList<String>) dictionaryProvider.queryToGetList(mSelectObjectKey);
-            mCrimeFeature = (ArrayList<String>) dictionaryProvider.queryToGetList(mCrimeFeatureKey);
-            mIntrusiveMethod = (ArrayList<String>) dictionaryProvider.queryToGetList(mIntrusiveMethodKey);
-            mSelectLocation = (ArrayList<String>) dictionaryProvider.queryToGetList(mSelectLocationKey);
-            mCrimePurpose = (ArrayList<String>) dictionaryProvider.queryToGetList(mCrimePurposeKey);
-
             mCaseTypeParentHashMap  = (HashMap<String,String>) dictionaryProvider.queryToGetParentHashMap(mCaseTypeKey);
             mAreaParentHashMap  = (HashMap<String,String>) dictionaryProvider.queryToGetParentHashMap(mAreaKey);
             mSceneConditionParentHashMap  = (HashMap<String,String>) dictionaryProvider.queryToGetParentHashMap(mSceneConditionKey);
@@ -277,60 +222,83 @@ public class DictionaryInfo {
             mSelectLocationHashMap  = (HashMap<String,String>) dictionaryProvider.queryToGetHashMap(mSelectLocationKey);
             mCrimePurposeHashMap  = (HashMap<String,String>) dictionaryProvider.queryToGetHashMap(mCrimePurposeKey);
 
-            Log.d("Anita","start to get nodes !");
             mCasetypeDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mCaseTypeKey);
+            mCasetypeDictKey = sortWithTree(mCaseTypeKey, mCasetypeDictKey, mCaseTypeParentHashMap);
             mCasetypeNodes = getTreeNodes(mCasetypeDictKey, mCaseTypeParentHashMap);
             mAreaDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mAreaKey);
+            mAreaDictKey = sortWithTree(mAreaKey, mAreaDictKey, mAreaParentHashMap);
             mAreaNodes = getTreeNodes(mAreaDictKey, mAreaParentHashMap);
             mSceneConditionDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mSceneConditionKey);
+            mSceneConditionDictKey = sortWithTree(mSceneConditionKey, mSceneConditionDictKey, mSceneConditionParentHashMap);
             mSceneConditionNodes = getTreeNodes(mSceneConditionDictKey, mSceneConditionParentHashMap);
             mWeatherConditionDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mWeatherConditionKey);
+            mWeatherConditionDictKey = sortWithTree(mWeatherConditionKey, mWeatherConditionDictKey, mWeatherConditionParentHashMap);
             mWeatherConditionNodes = getTreeNodes(mWeatherConditionDictKey, mWeatherConditionParentHashMap);
             mWindDirectionDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mWindDirectionKey);
+            mWindDirectionDictKey = sortWithTree(mWindDirectionKey, mWindDirectionDictKey, mWindDirectionParentHashMap);
             mWindDirectionNodes = getTreeNodes(mWindDirectionDictKey, mWindDirectionParentHashMap);
             mIlluminationConditionDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mIlluminationConditionKey);
+            mIlluminationConditionDictKey = sortWithTree(mIlluminationConditionKey, mIlluminationConditionDictKey, mIlluminationConditionParentHashMap);
             mIlluminationConditionNodes = getTreeNodes(mIlluminationConditionDictKey, mIlluminationConditionParentHashMap);
             mSexDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mSexKey);
+            mSexDictKey = sortWithTree(mSexKey, mSexDictKey, mSexParentHashMap);
             mSexNodes = getTreeNodes(mSexDictKey, mSexParentHashMap);
-
             mToolCategoryDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mToolCategoryKey);
+            mToolCategoryDictKey = sortWithTree(mToolCategoryKey, mToolCategoryDictKey, mToolCategoryParentHashMap);
             mToolCategoryNodes = getTreeNodes(mToolCategoryDictKey, mToolCategoryParentHashMap);
             mToolSourceDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mToolSourceKey);
+            mToolSourceDictKey = sortWithTree(mToolSourceKey, mToolSourceDictKey, mToolSourceParentHashMap);
             mToolSourceNodes = getTreeNodes(mToolSourceDictKey, mToolSourceParentHashMap);
             mEvidenceHandDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mEvidenceHandKey);
+            mEvidenceHandDictKey = sortWithTree(mEvidenceHandKey, mEvidenceHandDictKey, mEvidenceHandParentHashMap);
             mEvidenceHandNodes = getTreeNodes(mEvidenceHandDictKey, mEvidenceHandParentHashMap);
             mMethodHandDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mMethodHandKey);
+            mMethodHandDictKey = sortWithTree(mMethodHandKey, mMethodHandDictKey, mMethodHandParentHashMap);
             mMethodHandNodes = getTreeNodes(mMethodHandDictKey, mMethodHandParentHashMap);
             mEvidenceFootDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mEvidenceFootKey);
+            mEvidenceFootDictKey = sortWithTree(mEvidenceFootKey, mEvidenceFootDictKey, mEvidenceFootParentHashMap);
             mEvidenceFootNodes = getTreeNodes(mEvidenceFootDictKey, mEvidenceFootParentHashMap);
             mMethodFootDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mMethodFootKey);
+            mMethodFootDictKey = sortWithTree(mMethodFootKey, mMethodFootDictKey, mMethodFootParentHashMap);
             mMethodFootNodes = getTreeNodes(mMethodFootDictKey, mMethodFootParentHashMap);
             mEvidenceToolDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mEvidenceToolKey);
+            mEvidenceToolDictKey = sortWithTree(mEvidenceToolKey, mEvidenceToolDictKey, mEvidenceToolParentHashMap);
             mEvidenceToolNodes = getTreeNodes(mEvidenceToolDictKey, mEvidenceToolParentHashMap);
             mToolInferDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mToolInferKey);
+            mToolInferDictKey = sortWithTree(mToolInferKey, mToolInferDictKey, mToolInferParentHashMap);
             mToolInferNodes = getTreeNodes(mToolInferDictKey, mToolInferParentHashMap);
             mMethodToolDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mMethodToolKey);
+            mMethodToolDictKey = sortWithTree(mMethodToolKey, mMethodToolDictKey, mMethodToolParentHashMap);
             mMethodToolNodes = getTreeNodes(mMethodToolDictKey, mMethodToolParentHashMap);
-
             mPeopleNumberDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mPeopleNumberKey);
+            mPeopleNumberDictKey = sortWithTree(mPeopleNumberKey, mPeopleNumberDictKey, mPeopleNumberParentHashMap);
             mPeopleNumberNodes = getTreeNodes(mPeopleNumberDictKey, mPeopleNumberParentHashMap);
             mCrimeMeansDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mCrimeMeansKey);
+            mCrimeMeansDictKey = sortWithTree(mCrimeMeansKey, mCrimeMeansDictKey, mCrimeMeansParentHashMap);
             mCrimeMeansNodes = getTreeNodes(mCrimeMeansDictKey, mCrimeMeansParentHashMap);
             mCrimeCharacterDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mCrimeCharacterKey);
+            mCrimeCharacterDictKey = sortWithTree(mCrimeCharacterKey, mCrimeCharacterDictKey, mCrimeCharacterParentHashMap);
             mCrimeCharacterNodes = getTreeNodes(mCrimeCharacterDictKey, mCrimeCharacterParentHashMap);
             mCrimeEntranceExportDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mCrimeEntranceExportKey);
+            mCrimeEntranceExportDictKey = sortWithTree(mCrimeEntranceExportKey, mCrimeEntranceExportDictKey, mCrimeEntranceExportParentHashMap);
             mCrimeEntranceExportNodes = getTreeNodes(mCrimeEntranceExportDictKey, mCrimeEntranceExportParentHashMap);
             mCrimeTimingDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mCrimeTimingKey);
+            mCrimeTimingDictKey = sortWithTree(mCrimeTimingKey, mCrimeTimingDictKey, mCrimeTimingParentHashMap);
             mCrimeTimingNodes = getTreeNodes(mCrimeTimingDictKey, mCrimeTimingParentHashMap);
             mSelectObjectDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mSelectObjectKey);
+            mSelectObjectDictKey = sortWithTree(mSelectObjectKey, mSelectObjectDictKey, mSelectObjectParentHashMap);
             mSelectObjectNodes = getTreeNodes(mSelectObjectDictKey, mSelectObjectParentHashMap);
             mCrimeFeatureDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mCrimeFeatureKey);
+            mCrimeFeatureDictKey = sortWithTree(mCrimeFeatureKey, mCrimeFeatureDictKey, mCrimeFeatureParentHashMap);
             mCrimeFeatureNodes = getTreeNodes(mCrimeFeatureDictKey, mCrimeFeatureParentHashMap);
             mIntrusiveMethodDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mIntrusiveMethodKey);
+            mIntrusiveMethodDictKey = sortWithTree(mIntrusiveMethodKey, mIntrusiveMethodDictKey, mIntrusiveMethodParentHashMap);
             mIntrusiveMethodNodes = getTreeNodes(mIntrusiveMethodDictKey, mIntrusiveMethodParentHashMap);
             mSelectLocationDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mSelectLocationKey);
+            mSelectLocationDictKey = sortWithTree(mSelectLocationKey, mSelectLocationDictKey, mSelectLocationParentHashMap);
             mSelectLocationNodes = getTreeNodes(mSelectLocationDictKey, mSelectLocationParentHashMap);
             mCrimePurposeDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mCrimePurposeKey);
+            mCrimePurposeDictKey = sortWithTree(mCrimePurposeKey, mCrimePurposeDictKey, mCrimePurposeParentHashMap);
             mCrimePurposeNodes = getTreeNodes(mCrimePurposeDictKey, mCrimePurposeParentHashMap);
 
             mChangeOptionDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mChangeOptionKey);;
@@ -338,14 +306,30 @@ public class DictionaryInfo {
         }
     }
 
+    private static ArrayList<String> sortWithTree(final String mKey, ArrayList<String> mDicitonary, final HashMap<String, String> mParentHashMap){
+        ArrayList<String> sortList = new ArrayList<String>();
+        for(int i=0;i<mDicitonary.size();i++){
+            if(mParentHashMap.get(mDicitonary.get(i)).equalsIgnoreCase(mKey))
+                sortList.add(mDicitonary.get(i));
+        }
+        Collections.reverse(mDicitonary);
+        for(int j=0;j<mDicitonary.size();j++){
+            if(!mParentHashMap.get(mDicitonary.get(j)).equalsIgnoreCase(mKey))
+                for(int k = 0;k<sortList.size();k++){
+                    if(mParentHashMap.get(mDicitonary.get(j)).equalsIgnoreCase(sortList.get(k))) {
+                        sortList.add(k + 1, mDicitonary.get(j));
+                        break;
+                    }
+                }
+        }
+        return sortList;
+    }
+
     private static ArrayList<Integer> getTreeNodes(ArrayList<String> mDicitonary, HashMap<String, String> mParentHashMap){
-        //Anita test
-        ArrayList<Integer> DEMO_NODES = new ArrayList<Integer>();
+        ArrayList<Integer> mNodes = new ArrayList<Integer>();
         for(int z = 0; z<mDicitonary.size(); z++){
             int level=0;
             String Parent = mParentHashMap.get(mDicitonary.get(z));
-            Log.d("Anita","DictKey = "+mDicitonary.get(z));
-            Log.d("Anita","Parent = "+Parent);
             boolean next = false;
             if(Parent!=null) {
                 do {
@@ -354,110 +338,15 @@ public class DictionaryInfo {
                         if (Parent.equalsIgnoreCase(mDicitonary.get(j))) {
                             level++;
                             next = true;
-                            Log.d("Anita", "check =" + mDicitonary.get(j));
                             Parent = mParentHashMap.get(mDicitonary.get(j));
-                            Log.d("Anita", "after result =" + Parent);
                             break;
                         }
                     }
                 } while (next);
             }
-            Log.d("Anita", "level =" + level);
-            DEMO_NODES.add(level);
+            mNodes.add(level);
         }
-
-        for(int e = 0;e<DEMO_NODES.size();e++){
-            Log.d("Anita","DEMO_NODES count ="+e+", level = "+DEMO_NODES.get(e));
-        }
-        return DEMO_NODES;
-        //Anita test
-    }
-
-    public ArrayList<String> getArray(String rootkey){
-        ArrayList<String> result = new ArrayList<String>();
-        switch (rootkey){
-            case mCaseTypeKey:
-                result = (mCaseType.size()!=0)?mCaseType:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.casetype)));
-                break;
-            case mAreaKey:
-                result = (mArea.size()!=0)?mArea:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.area)));
-                break;
-            case mSceneConditionKey:
-                result = (mSceneCondition.size()!=0)?mSceneCondition:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.sceneCondition)));
-                break;
-            case mWeatherConditionKey:
-                result = (mWeatherCondition.size()!=0)?mWeatherCondition:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.weatherCondition)));
-                break;
-            case mWindDirectionKey:
-                result = (mWindDirection.size()!=0)?mWindDirection:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.windDirection)));
-                break;
-            case mIlluminationConditionKey:
-                result = (mIlluminationCondition.size()!=0)?mIlluminationCondition:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.illuminationCondition)));
-                break;
-            case mSexKey:
-                result = (mSex.size()!=0)?mSex:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.sex)));
-                break;
-            case mToolCategoryKey:
-                result = (mToolCategory.size()!=0)?mToolCategory:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.tool_category)));
-                break;
-            case mToolSourceKey:
-                result = (mToolSource.size()!=0)?mToolSource:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.tool_source)));
-                break;
-            case mEvidenceHandKey:
-                result = (mEvidenceHand.size()!=0)?mEvidenceHand:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.evidence_hand)));
-                break;
-            case mMethodHandKey:
-                result = (mMethodHand.size()!=0)?mMethodHand:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.method_hand)));
-                break;
-            case mEvidenceFootKey:
-                result = (mEvidenceFoot.size()!=0)?mEvidenceFoot:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.evidence_foot)));
-                break;
-            case mMethodFootKey:
-                result = (mMethodFoot.size()!=0)?mMethodFoot:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.method_foot)));
-                break;
-            case mEvidenceToolKey:
-                result = (mEvidenceTool.size()!=0)?mEvidenceTool:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.evidence_tool)));
-                break;
-            case mToolInferKey:
-                result = (mToolInfer.size()!=0)?mToolInfer:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.tool_infer)));
-                break;
-            case mMethodToolKey:
-                result = (mMethodTool.size()!=0)?mMethodTool:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.method_tool)));
-                break;
-            case mPeopleNumberKey:
-                result = (mPeopleNumber.size()!=0)?mPeopleNumber:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.people_number)));
-                break;
-            case mCrimeEntranceExportKey:
-                result = (mCrimeEntranceExport.size()!=0)?mCrimeEntranceExport:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.crime_entrance)));
-                break;
-            case mCrimeMeansKey:
-                result = (mCrimeMeans.size()!=0)?mCrimeMeans:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.crime_means)));
-                break;
-            case mCrimeCharacterKey:
-                result = (mCrimeCharacter.size()!=0)?mCrimeCharacter:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.crime_character)));
-                break;
-            case mCrimeTimingKey:
-                result = (mCrimeTiming.size()!=0)?mCrimeTiming:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.crime_timing)));
-                break;
-            case mSelectObjectKey:
-                result = (mSelectObject.size()!=0)?mSelectObject:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.select_object)));
-                break;
-            case mCrimeFeatureKey:
-                result = (mCrimeFeature.size()!=0)?mCrimeFeature:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.crime_feature)));
-                break;
-            case mIntrusiveMethodKey:
-                result = (mIntrusiveMethod.size()!=0)?mIntrusiveMethod:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.intrusive_method)));
-                break;
-            case mSelectLocationKey:
-                result = (mSelectLocation.size()!=0)?mSelectLocation:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.select_location)));
-                break;
-            case mCrimePurposeKey:
-                result = (mCrimePurpose.size()!=0)?mCrimePurpose:new ArrayList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.crime_purpose)));
-                break;
-            default:
-                break;
-        }
-        return result;
+        return mNodes;
     }
 
     public String getTitle(String rootkey){
@@ -801,7 +690,6 @@ public class DictionaryInfo {
                 if(mIntrusiveMethodHashMap.size()!=0) result = mIntrusiveMethodHashMap.get(DictKey);
                 break;
             case mSelectLocationKey:
-                Log.d("Anita","location size = "+mSelectLocationHashMap.size());
                 if(mSelectLocationHashMap.size()!=0) result = mSelectLocationHashMap.get(DictKey);
                 break;
             case mCrimePurposeKey:
