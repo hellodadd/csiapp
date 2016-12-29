@@ -74,6 +74,8 @@ public class ThreadReadWriterIOSocket implements Runnable {
                     if (currcmdinfo != null) {
                         Log.d(TAG, "Command = "+currcmdinfo[1]);
                         switch (currcmdinfo[1]) {
+                            case 0: //斷開Socket
+                                SocketService.ioThreadFlag=false;
                             case 1: //获取设备信息命令
                                 dataInitial.createDeviceMsgXml();
                                 File file = FileHelper.newFile("DeviceMsg.xml");
@@ -177,7 +179,8 @@ public class ThreadReadWriterIOSocket implements Runnable {
                                     concatCmdline(out, currcmdinfo, 0);
                                     //sendErrorString(out, errbyte);
                                 }
-                                SocketService.ioThreadFlag=false;
+                                //Wait command 0
+                                //SocketService.ioThreadFlag=false;
                                 break;
                             case 14: //删除现场信息命令
                                 File deletefile = new File(mDeleteSceneInfoPath);
