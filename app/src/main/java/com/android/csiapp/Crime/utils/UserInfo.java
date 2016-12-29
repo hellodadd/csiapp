@@ -2,14 +2,13 @@ package com.android.csiapp.Crime.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
-import com.android.csiapp.Databases.DictionaryProvider;
 import com.android.csiapp.Databases.IdentifyProvider;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -26,9 +25,10 @@ public class UserInfo {
     public static final String mExtractionPeople = "ExtractionPeople";
 
     private static ArrayList<String> mUser = new ArrayList<String>();
-    private static HashMap<String,String> mUserHashMap  = new HashMap<String,String>();
-    private static HashMap<String,String> mUserParentHashMap = new HashMap<String,String>();
-    public static ArrayList<String> mLogin = new ArrayList<String>();
+    private static ArrayList<String> mLogin = new ArrayList<String>();
+    private static HashMap<String,String> mUnitCode = new HashMap<String,String>();
+    private static HashMap<String,String> mUnitName = new HashMap<String,String>();
+    private static HashMap<String,String> mLoginUserHashMap  = new HashMap<String,String>();
     public static ArrayList<Integer> mUserNodes = new ArrayList<Integer>();
 
     public UserInfo(Context context){
@@ -42,21 +42,58 @@ public class UserInfo {
 
         if(initstatus.equalsIgnoreCase("1")) {
             mUser = (ArrayList<String>) identifyProvider.queryToGetUser();
-            mUserHashMap  = (HashMap<String,String>) identifyProvider.queryToGetHashMap();
             mLogin = (ArrayList<String>) identifyProvider.queryToGetLogin();
-            mUserNodes = getTreeNodes(mLogin);
+            mLoginUserHashMap  = (HashMap<String,String>) identifyProvider.queryToGetHashMap();
+
+            mUnitCode = (HashMap<String,String>) identifyProvider.queryToGetUnitCodeHashMap();
+            mUnitName = (HashMap<String,String>) identifyProvider.queryToGetUnitNameHashMap();
+            Object[] objects= sortWithTree(mUser, mLogin);
+            if(objects.length==3) {
+                mUser = (ArrayList<String>) objects[0];
+                mLogin = (ArrayList<String>) objects[1];
+                mUserNodes = (ArrayList<Integer>) objects[2];
+            }else {
+                mUserNodes = getTreeNodes(mLogin);
+            }
         }
     }
 
-    private static ArrayList<Integer> getTreeNodes(ArrayList<String> mDicitonary){
-        //Anita test
+    private static Object[] sortWithTree(ArrayList<String> mUser, ArrayList<String> mLogin){
+        ArrayList<String> sortUserList = new ArrayList<String>();
+        ArrayList<String> sortLoginList = new ArrayList<String>();
+        ArrayList<Integer> sortNodeList = new ArrayList<Integer>();
+        for(int i=0;i<mLogin.size();i++){
+            String unitCode = mUnitCode.get(mLogin.get(i));
+            String unitName = mUnitName.get(mLogin.get(i));
+            if(!sortLoginList.contains(unitCode)){
+                sortLoginList.add(unitCode);
+                sortUserList.add(unitName);
+                mLoginUserHashMap.put(unitCode, unitName);
+                sortNodeList.add(0);
+            }
+        }
+        Collections.reverse(mUser);
+        Collections.reverse(mLogin);
+        for(int j=0;j<mLogin.size();j++){
+            for(int k = 0;k<sortLoginList.size();k++) {
+                if (mUnitCode.get(mLogin.get(j)).equalsIgnoreCase(sortLoginList.get(k))) {
+                    sortLoginList.add(k + 1, mLogin.get(j));
+                    sortUserList.add(k + 1, mUser.get(j));
+                    sortNodeList.add(k + 1,1);
+                    break;
+                }
+            }
+        }
+        return new Object[]{sortUserList, sortLoginList, sortNodeList};
+    }
+
+    private static ArrayList<Integer> getTreeNodes(ArrayList<String> mLogin){
         ArrayList<Integer> DEMO_NODES = new ArrayList<Integer>();
-        for(int z = 0; z<mDicitonary.size(); z++){
+        for(int z = 0; z<mLogin.size(); z++){
             int level=0;
             DEMO_NODES.add(level);
         }
         return DEMO_NODES;
-        //Anita test
     }
 
     public String getTitle(String rootkey) {
@@ -122,7 +159,7 @@ public class UserInfo {
             }else {
                 result = result+",";
             }
-            if(mUserHashMap.size()!=0) result = result+valueGetKey(mUserHashMap, item[i].trim());
+            if(mLoginUserHashMap.size()!=0) result = result+valueGetKey(mLoginUserHashMap, item[i].trim());
         }
         return result;
     }
@@ -140,7 +177,7 @@ public class UserInfo {
             }else {
                 result = result+",";
             }
-            if(mUserHashMap.size()!=0) result = result+mUserHashMap.get(item[i].trim());
+            if(mLoginUserHashMap.size()!=0) result = result+mLoginUserHashMap.get(item[i].trim());
         }
         return result;
     }

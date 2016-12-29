@@ -244,6 +244,38 @@ public class IdentifyProvider {
         return list;
     }
 
+    public HashMap<String,String> queryToGetUnitCodeHashMap(){
+        HashMap<String,String> list = new HashMap<String,String>();
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
+        if(cursor==null) {
+            return null;
+        }
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.put(cursor.getString(1), cursor.getString(4));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
+    }
+
+    public HashMap<String,String> queryToGetUnitNameHashMap(){
+        HashMap<String,String> list = new HashMap<String,String>();
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
+        if(cursor==null) {
+            return null;
+        }
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.put(cursor.getString(1), cursor.getString(5));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
+    }
+
     public HashMap<String,String> queryToGetHashMap(){
         HashMap<String,String> list = new HashMap<String,String>();
         Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
