@@ -350,7 +350,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         int category = getCategory(mEvidenceItem.getEvidenceCategory());
         if(requestCode==PHOTO_TYPE_NEW_EVIDENCE) {
             String path = LocalFileUri.getPath();
-            if (path != null) {
+            File file = new File(path);
+            if (path != null && file.exists()) {
                 mEvidenceItem.setPhotoPath(path);
                 setPhoto(path);
             } else {
