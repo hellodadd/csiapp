@@ -667,7 +667,8 @@ public class CrimeItem implements Serializable {
                 &&!mSafeguard.isEmpty() &&!mSceneConductor.isEmpty() &&!mAccessInspectors.isEmpty()
                 &&!mCrimePeopleNumber.isEmpty() &&!mCrimePeopleFeature.isEmpty() && !mOverview.isEmpty()
                 && !mPositionItem.isEmpty() && !mWitnessItem.isEmpty()
-                && !mPositionPhotoItem.isEmpty() && !mOverviewPhotoItem.isEmpty() && !mImportantPhotoItem.isEmpty())
+                && !mPositionPhotoItem.isEmpty() && !mOverviewPhotoItem.isEmpty() && !mImportantPhotoItem.isEmpty()
+                && !mCellResultItem.isEmpty())
             result = true;
         return result;
     }
@@ -701,6 +702,7 @@ public class CrimeItem implements Serializable {
         if(mPositionPhotoItem.isEmpty()) message = message + "方位照片\n";
         if(mOverviewPhotoItem.isEmpty()) message = message + "概貌照片\n";
         if(mImportantPhotoItem.isEmpty()) message = message + "重点部位\n";
+        if(mCellResultItem.isEmpty()) message = message + "基站信息\n";
         return message;
     }
 }
