@@ -11,6 +11,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -120,6 +121,19 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
 
         initView();
         initData();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK )
+        {
+            //What to do on back clicked
+            BackAlertDialog dialog = new BackAlertDialog(CreateScene_FP2_NewPeopleActivity.this);
+            dialog.onCreateDialog(false,null);
+            dialog.setOwnerActivity(CreateScene_FP2_NewPeopleActivity.this);
+        }
+        return false;
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

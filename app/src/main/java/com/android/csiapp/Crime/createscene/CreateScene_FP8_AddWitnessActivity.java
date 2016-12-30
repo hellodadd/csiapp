@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.DigitsKeyListener;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -120,6 +121,19 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         initView();
         initData();
         getLastData();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK )
+        {
+            //What to do on back clicked
+            BackAlertDialog dialog = new BackAlertDialog(CreateScene_FP8_AddWitnessActivity.this);
+            dialog.onCreateDialog(false,null);
+            dialog.setOwnerActivity(CreateScene_FP8_AddWitnessActivity.this);
+        }
+        return false;
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -99,6 +100,19 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
 
         initView();
         initData();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK )
+        {
+            //What to do on back clicked
+            BackAlertDialog dialog = new BackAlertDialog(CreateScene_FP2_NewToolActivity.this);
+            dialog.onCreateDialog(false,null);
+            dialog.setOwnerActivity(CreateScene_FP2_NewToolActivity.this);
+        }
+        return false;
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

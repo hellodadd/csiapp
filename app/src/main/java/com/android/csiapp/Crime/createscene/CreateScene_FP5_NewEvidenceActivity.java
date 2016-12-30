@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -160,6 +161,19 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             LocalFileUri = Uri.fromFile(getOutputMediaFile(context, PHOTO_TYPE_NEW_EVIDENCE));
             takePhoto(LocalFileUri, PHOTO_TYPE_NEW_EVIDENCE);
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK )
+        {
+            //What to do on back clicked
+            BackAlertDialog dialog = new BackAlertDialog(CreateScene_FP5_NewEvidenceActivity.this);
+            dialog.onCreateDialog(false,null);
+            dialog.setOwnerActivity(CreateScene_FP5_NewEvidenceActivity.this);
+        }
+        return false;
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
