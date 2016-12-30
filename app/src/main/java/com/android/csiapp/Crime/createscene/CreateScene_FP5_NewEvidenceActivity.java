@@ -67,6 +67,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private TextView mEvidenceTextLabel;
     private ClearableEditText mOtherEvidence;
 
+    private Boolean isDoubleRefresh = false;
+
     private TextView mEvidenceText;
     private int EVENT_EVIDENCE_SELECT_ITEM = 1;
 
@@ -205,9 +207,10 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         mEvidence_category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                refreshEvidenceItem(position);
+                if(!isDoubleRefresh) refreshEvidenceItem(position);
+                else isDoubleRefresh = false;
                 mEvidenceItem.setEvidenceCategory(mEvidence_category.get(position));
-            }
+        }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
@@ -274,11 +277,13 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mEvidenceItem = new EvidenceItem();
             mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.Item");
             mEvidenceItem.setPeople(mItem.getAccessInspectors());
+            mEvidenceItem.setMethod(DictionaryInfo.getDictKey(DictionaryInfo.mMethodHandKey, "直接照相"));
         }else{
             mEvidenceItem = (EvidenceItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.EvidenceItem");
         }
         if(!mEvidenceItem.getPhotoPath().isEmpty()) setPhoto(mEvidenceItem.getPhotoPath());
 
+        isDoubleRefresh = true;
         mEvidence_category_spinner.setSelection(getCategory(mEvidenceItem.getEvidenceCategory()));
 
         int category = getCategory(mEvidenceItem.getEvidenceCategory());
@@ -286,8 +291,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mEvidenceText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceHandKey, mEvidenceItem.getEvidence()));
             mMethodText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mMethodHandKey, mEvidenceItem.getMethod()));
         }else if(category == 1 ){
-                mEvidenceText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceFootKey, mEvidenceItem.getEvidence()));
-                mMethodText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mMethodFootKey, mEvidenceItem.getMethod()));
+            mEvidenceText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceFootKey, mEvidenceItem.getEvidence()));
+            mMethodText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mMethodFootKey, mEvidenceItem.getMethod()));
         }else if(category == 2 ){
             mEvidenceText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceToolKey, mEvidenceItem.getEvidence()));
             mMethodText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mMethodToolKey, mEvidenceItem.getMethod()));
@@ -422,6 +427,9 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                     startActivityForResult(it, EVENT_METHOD_SELECT_ITEM);
                 }
             });
+
+            mEvidenceItem.setMethod(DictionaryInfo.getDictKey(DictionaryInfo.mMethodHandKey, "直接照相"));
+            mMethodText.setText("直接照相");
         }else if(category==1){
             //足跡
             mEvidenceTextLabel.setText(getResources().getString(R.string.evidence_foot));
@@ -454,6 +462,9 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                     startActivityForResult(it, EVENT_METHOD_SELECT_ITEM);
                 }
             });
+
+            mEvidenceItem.setMethod(DictionaryInfo.getDictKey(DictionaryInfo.mMethodFootKey, "直接照相"));
+            mMethodText.setText("直接照相");
         }else if(category==2){
             //工痕
             mEvidenceTextLabel.setText(getResources().getString(R.string.evidence_tool));
@@ -485,6 +496,9 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                     startActivityForResult(it, EVENT_METHOD_SELECT_ITEM);
                 }
             });
+
+            mEvidenceItem.setMethod(DictionaryInfo.getDictKey(DictionaryInfo.mMethodToolKey, "直接照相"));
+            mMethodText.setText("直接照相");
         }else if(category==3){
             //其他
             mEvidenceTextLabel.setText(getResources().getString(R.string.evidence_other));
@@ -498,6 +512,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mOtherMethod.setVisibility(View.VISIBLE);
 
             mEvidenceName.setText(getResources().getString(R.string.evidence_name_other));
+            mOtherMethod.setText("直接照相");
         }
     }
 
