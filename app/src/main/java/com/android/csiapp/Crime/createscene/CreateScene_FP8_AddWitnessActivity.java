@@ -33,6 +33,7 @@ import com.android.csiapp.Crime.utils.tree.TreeViewListDemo;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.WitnessItem;
+import com.android.csiapp.Databases.WitnessProvider;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
@@ -190,7 +191,8 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
 
     private void getLastData(){
         if(mEvent == 1){
-            WitnessItem witnessItem = getLastRecord();
+            WitnessProvider witnessProvider = new WitnessProvider(context);
+            WitnessItem witnessItem = witnessProvider.getLastRecord();
             if(witnessItem!=null) {
                 mName.setText(witnessItem.getWitnessName());
                 mSexText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, witnessItem.getWitnessSex()));
@@ -208,21 +210,6 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
                 mWitnessItem.setWitnessSex(witnessItem.getWitnessSex());
             }
         }
-    }
-
-    private WitnessItem getLastRecord(){
-        //Todo check : set last record if this new crime item has witness item
-        CrimeProvider crimeProvider = new CrimeProvider(context);
-        List<CrimeItem> items = crimeProvider.getAll();
-        CrimeItem item = null;
-        WitnessItem witnessItem = null;
-        if(items.size()>0) {
-            item = items.get(items.size()-1);
-            if(item.getWitness().size()>0) {
-                witnessItem = item.getWitness().get(item.getWitness().size() - 1);
-            }
-        }
-        return witnessItem;
     }
 
     private void saveData(){

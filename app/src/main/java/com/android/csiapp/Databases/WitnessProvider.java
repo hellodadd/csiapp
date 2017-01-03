@@ -160,6 +160,24 @@ public class WitnessProvider {
         return db.delete(TABLE_NAME, where , null) > 0;
     }
 
+    // 讀取所有記事資料
+    public WitnessItem getLastRecord() {
+        WitnessItem result = null;
+        Cursor cursor = db.query(
+                TABLE_NAME, null, null, null, null, null, null, null);
+
+        if(cursor==null || cursor.getCount()==0) {
+            cursor.close();
+            return null;
+        }
+
+        cursor.moveToLast();
+        result = query(cursor.getInt(0));
+
+        cursor.close();
+        return result;
+    }
+
     //搜尋指定編號的資料
     public List<WitnessItem> querys(String ids){
         List<WitnessItem> items = new ArrayList<WitnessItem>();
