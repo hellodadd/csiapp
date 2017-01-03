@@ -159,10 +159,28 @@ public class CreateScene_FP6 extends Fragment {
             if(type.equalsIgnoreCase(category[i])){
                 switch (i){
                     case 1:
+                        //盗窃牲畜
+                        text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
+                        text = text + "在" + mItem.getLocation() + "，";
+                        text = text + DateTimePicker.getCurrentTime(mItem.getOccurredEndTime());
+                        text = text + "发现牲畜被盗，随即报案。\n";
+                        mOverview.setText(text1 + text + text2 + text3 + text4 + text5 + text6);
+                        break;
                     case 5:
+                        //挡路抢劫
+                        text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
+                        text = text + "在" + mItem.getLocation() + "，";
+                        text = text + DateTimePicker.getCurrentTime(mItem.getOccurredEndTime());
+                        text = text + "遭遇抢劫，随即报案。\n";
+                        mOverview.setText(text1 + text + text2 + text3 + text4 + text5 + text6);
+                        break;
                     case 8:
-                        //盗窃牲畜,挡路抢劫,诈骗
-                        mOverview.setText("无可用模板!");
+                        //诈骗
+                        text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
+                        text = text + "在" + mItem.getLocation() + "，";
+                        text = text + DateTimePicker.getCurrentTime(mItem.getOccurredEndTime());
+                        text = text + "发现被骗，随即报案。\n";
+                        mOverview.setText(text1 + text + text2 + text3 + text4 + text5 + text6);
                         break;
                     case 0:
                         //竊盜電動自行車
