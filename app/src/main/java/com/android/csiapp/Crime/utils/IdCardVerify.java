@@ -41,6 +41,20 @@ public class IdCardVerify {
         return result;
     }
 
+    public static boolean validateIdCardWithoutAddress(String idcard) {
+        int idsize = idcard.length();
+        boolean result = false;
+        if (idsize == 15) {
+            result = validateFormate(idcard) && validateBirthday(idcard)
+                    && validateLastBit(idcard);
+        }
+        if (idsize == 18) {
+            result = validateFormate(idcard) && validateBirthday(idcard)
+                    && validateLastBit(idcard);
+        }
+        return result;
+    }
+
     /**
      * 根据1999年7月1日生效的GB11643-1999《公民身份号码》规定动态生成身份证号码
      *

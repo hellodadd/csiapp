@@ -67,7 +67,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
                     result.putExtra("Event", mEvent);
                     result.putExtra("Posiotion", mPosition);
 
-                    if(!mRelatedPeopleItem.getPeopleId().isEmpty() && !IdCardVerify.validateIdCard(mRelatedPeopleItem.getPeopleId())){
+                    if(!mRelatedPeopleItem.getPeopleId().isEmpty() && !IdCardVerify.validateIdCardWithoutAddress(mRelatedPeopleItem.getPeopleId())){
                         msg = "身份证号码错误";
                         Toast.makeText(CreateScene_FP2_NewPeopleActivity.this, msg, Toast.LENGTH_SHORT).show();
                         break;
