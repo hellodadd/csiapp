@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
+import com.android.csiapp.Crime.utils.CreateSceneUtils;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Crime.utils.tree.TreeViewListActivity;
@@ -31,8 +32,6 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
     private ClearableEditText mName;
 
     private TextView mToolCategoryText, mToolSourceText;
-    private int EVENT_TOOL_CATEGORY_SELECT_ITEM = 1;
-    private int EVENT_TOOL_SOURCE_SELECT_ITEM = 2;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -112,12 +111,12 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         String result = "";
         if (resultCode == Activity.RESULT_OK) {
-            if(requestCode == EVENT_TOOL_CATEGORY_SELECT_ITEM){
+            if(requestCode == CreateSceneUtils.EVENT_TOOL_CATEGORY_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mCrimeToolItem.setToolCategory(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mToolCategoryKey, result);
                 mToolCategoryText.setText(result);
-            }else if(requestCode == EVENT_TOOL_SOURCE_SELECT_ITEM){
+            }else if(requestCode == CreateSceneUtils.EVENT_TOOL_SOURCE_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mCrimeToolItem.setToolSource(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mToolSourceKey, result);
@@ -135,7 +134,7 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
                 Intent it = new Intent(CreateScene_FP2_NewToolActivity.this, TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mToolCategoryKey);
                 it.putExtra("Selected", mCrimeToolItem.getToolCategory());
-                startActivityForResult(it, EVENT_TOOL_CATEGORY_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_TOOL_CATEGORY_SELECT_ITEM);
             }
         });
 
@@ -145,7 +144,7 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
                 Intent it = new Intent(CreateScene_FP2_NewToolActivity.this, TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mToolSourceKey);
                 it.putExtra("Selected", mCrimeToolItem.getToolSource());
-                startActivityForResult(it, EVENT_TOOL_SOURCE_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_TOOL_SOURCE_SELECT_ITEM);
             }
         });
     }

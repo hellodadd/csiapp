@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.csiapp.Crime.utils.CreateSceneUtils;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.adapter.PhotoAdapter;
@@ -78,7 +79,7 @@ public class ListAdapter extends BaseAdapter {
         if(photoItem.size()>0) {
             String path = photoItem.get(0).getPhotoPath();
             if(!path.isEmpty()) {
-                Bitmap b = PhotoAdapter.loadBitmapFromFile(new File(path));
+                Bitmap b = CreateSceneUtils.loadBitmapFromFile(new File(path));
                 holder.imgPhoto.setImageBitmap(b);
                 holder.imgPhoto.setBackgroundColor(Color.parseColor("#FFFFFF"));
             }

@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
+import com.android.csiapp.Crime.utils.CreateSceneUtils;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.IdCardVerify;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
@@ -47,7 +48,6 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
     private ClearableEditText mName, mId, mNumber, mAddress;
 
     private TextView mSexText;
-    private int EVENT_SEX_SELECT_ITEM = 1;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -134,7 +134,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         String result = "";
         if (resultCode == Activity.RESULT_OK) {
-             if(requestCode == EVENT_SEX_SELECT_ITEM){
+             if(requestCode == CreateSceneUtils.EVENT_SEX_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mRelatedPeopleItem.setPeopleSex(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, result);
@@ -165,7 +165,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
                 Intent it = new Intent(CreateScene_FP2_NewPeopleActivity.this, TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mSexKey);
                 it.putExtra("Selected", mRelatedPeopleItem.getPeopleSex());
-                startActivityForResult(it, EVENT_SEX_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_SEX_SELECT_ITEM);
             }
         });
 

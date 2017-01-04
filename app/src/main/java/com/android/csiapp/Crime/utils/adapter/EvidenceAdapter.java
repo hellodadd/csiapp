@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.android.csiapp.Crime.utils.CreateSceneUtils;
 import com.android.csiapp.Databases.EvidenceItem;
 import com.android.csiapp.R;
 
@@ -60,7 +61,7 @@ public class EvidenceAdapter extends BaseAdapter {
         EvidenceItem item = (EvidenceItem)getItem(position);
         String path = item.getPhotoPath();
         if(!path.isEmpty()){
-            Bitmap bitmap = loadBitmapFromFile(new File(path));
+            Bitmap bitmap = CreateSceneUtils.loadBitmapFromFile(new File(path));
             if(bitmap!=null) holder.txtItemPhoto.setImageBitmap(bitmap);
         }
         return convertView;
@@ -70,27 +71,6 @@ public class EvidenceAdapter extends BaseAdapter {
         ImageView txtItemPhoto;
         public ViewHolder(ImageView txtItemPhoto){
             this.txtItemPhoto = txtItemPhoto;
-        }
-    }
-
-    private Bitmap loadBitmapFromFile(File f) {
-        Bitmap b = null;
-        BitmapFactory.Options option = new BitmapFactory.Options();
-        // Bitmap sampling factor, size = (Original Size)/(inSampleSize)
-        option.inSampleSize = 4;
-
-        try {
-            FileInputStream fis = new FileInputStream(f);
-            b = BitmapFactory.decodeStream(fis, null, option);
-            fis.close();
-
-            Matrix matrix = new Matrix();
-            matrix.setRotate(0, (float)b.getWidth()/2, (float)b.getHeight()/2);
-            Bitmap resultImage = Bitmap.createBitmap(b, 0, 0, b.getWidth(), b.getHeight(), matrix, true);
-
-            return resultImage;
-        } catch(Exception e) {
-            return null;
         }
     }
 }

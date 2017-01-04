@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.csiapp.Crime.utils.ClearableEditText;
+import com.android.csiapp.Crime.utils.CreateSceneUtils;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.tree.TreeViewListActivity;
 import com.android.csiapp.Databases.CrimeItem;
@@ -28,17 +29,6 @@ public class CreateScene_FP7 extends Fragment{
 
     private TextView mPeopleNumberText, mCrimeMeansText, mCrimeCharacterText, mCrimeEntranceText, mCrimeTimingText, mSelectObjectText;
     private TextView mCrimeExportText, mCrimeFeatureText, mIntrusiveMethodText, mSelectLocationText, mCrimePurposeText;
-    private final int EVENT_PEOPLE_NUMBER_SELECT_ITEM = 0;
-    private final int EVENT_CRIME_MEANS_SELECT_ITEM = 1;
-    private final int EVENT_CRIME_CHARACTER_SELECT_ITEM = 2;
-    private final int EVENT_CRIME_ENTRANCE_SELECT_ITEM = 3;
-    private final int EVENT_CRIME_TIMING_SELECT_ITEM = 4;
-    private final int EVENT_SELECT_OBJECT_SELECT_ITEM = 5;
-    private final int EVENT_CRIME_EXPORT_SELECT_ITEM = 6;
-    private final int EVENT_CRIME_FEATURE_SELECT_ITEM = 7;
-    private final int EVENT_INTRUSIVE_METHOD_SELECT_ITEM = 8;
-    private final int EVENT_SELECT_LOCATION_SELECT_ITEM = 9;
-    private final int EVENT_CRIME_PURPOSE_SELECT_ITEM = 10;
 
     private ClearableEditText mPeopleFeature;
 
@@ -85,57 +75,57 @@ public class CreateScene_FP7 extends Fragment{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         String result = "";
         if (resultCode == Activity.RESULT_OK) {
-            if(requestCode == EVENT_PEOPLE_NUMBER_SELECT_ITEM){
+            if(requestCode == CreateSceneUtils.EVENT_PEOPLE_NUMBER_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setCrimePeopleNumber(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mPeopleNumberKey, result);
                 mPeopleNumberText.setText(result);
-            }else if(requestCode == EVENT_CRIME_MEANS_SELECT_ITEM){
+            }else if(requestCode == CreateSceneUtils.EVENT_CRIME_MEANS_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setCrimeMeans(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeMeansKey, result);
                 mCrimeMeansText.setText(result);
-            }else if(requestCode == EVENT_CRIME_CHARACTER_SELECT_ITEM){
+            }else if(requestCode == CreateSceneUtils.EVENT_CRIME_CHARACTER_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setCrimeCharacter(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeCharacterKey, result);
                 mCrimeCharacterText.setText(result);
-            }else if(requestCode == EVENT_CRIME_ENTRANCE_SELECT_ITEM){
+            }else if(requestCode == CreateSceneUtils.EVENT_CRIME_ENTRANCE_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setCrimeEntrance(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeEntranceExportKey, result);
                 mCrimeEntranceText.setText(result);
-            }else if(requestCode == EVENT_CRIME_TIMING_SELECT_ITEM){
+            }else if(requestCode == CreateSceneUtils.EVENT_CRIME_TIMING_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setCrimeTiming(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeTimingKey, result);
                 mCrimeTimingText.setText(result);
-            }else if(requestCode == EVENT_SELECT_OBJECT_SELECT_ITEM){
+            }else if(requestCode == CreateSceneUtils.EVENT_SELECT_OBJECT_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setSelectObject(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mSelectObjectKey, result);
                 mSelectObjectText.setText(result);
-            }else if(requestCode == EVENT_CRIME_EXPORT_SELECT_ITEM){
+            }else if(requestCode == CreateSceneUtils.EVENT_CRIME_EXPORT_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setCrimeExport(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeEntranceExportKey, result);
                 mCrimeExportText.setText(result);
-            }else if(requestCode == EVENT_CRIME_FEATURE_SELECT_ITEM){
+            }else if(requestCode == CreateSceneUtils.EVENT_CRIME_FEATURE_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setCrimeFeature(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeFeatureKey, result);
                 mCrimeFeatureText.setText(result);
-            }else if(requestCode == EVENT_INTRUSIVE_METHOD_SELECT_ITEM){
+            }else if(requestCode == CreateSceneUtils.EVENT_INTRUSIVE_METHOD_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setIntrusiveMethod(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mIntrusiveMethodKey, result);
                 mIntrusiveMethodText.setText(result);
-            }else if(requestCode == EVENT_SELECT_LOCATION_SELECT_ITEM) {
+            }else if(requestCode == CreateSceneUtils.EVENT_SELECT_LOCATION_SELECT_ITEM) {
                 result = (String) data.getStringExtra("Select");
                 mItem.setSelectLocation(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mSelectLocationKey, result);
                 mSelectLocationText.setText(result);
-            }else if(requestCode == EVENT_CRIME_PURPOSE_SELECT_ITEM) {
+            }else if(requestCode == CreateSceneUtils.EVENT_CRIME_PURPOSE_SELECT_ITEM) {
                 result = (String) data.getStringExtra("Select");
                 mItem.setCrimePurpose(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimePurposeKey, result);
@@ -151,7 +141,7 @@ public class CreateScene_FP7 extends Fragment{
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mPeopleNumberKey);
                 it.putExtra("Selected", mItem.getCrimePeopleNumber());
-                startActivityForResult(it, EVENT_PEOPLE_NUMBER_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_PEOPLE_NUMBER_SELECT_ITEM);
             }
         });
 
@@ -161,7 +151,7 @@ public class CreateScene_FP7 extends Fragment{
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mCrimeMeansKey);
                 it.putExtra("Selected", mItem.getCrimeMeans());
-                startActivityForResult(it, EVENT_CRIME_MEANS_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_CRIME_MEANS_SELECT_ITEM);
             }
         });
 
@@ -171,7 +161,7 @@ public class CreateScene_FP7 extends Fragment{
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mCrimeCharacterKey);
                 it.putExtra("Selected", mItem.getCrimeCharacter());
-                startActivityForResult(it, EVENT_CRIME_CHARACTER_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_CRIME_CHARACTER_SELECT_ITEM);
             }
         });
 
@@ -181,7 +171,7 @@ public class CreateScene_FP7 extends Fragment{
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mCrimeEntranceExportKey);
                 it.putExtra("Selected", mItem.getCrimeEntrance());
-                startActivityForResult(it, EVENT_CRIME_ENTRANCE_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_CRIME_ENTRANCE_SELECT_ITEM);
             }
         });
 
@@ -191,7 +181,7 @@ public class CreateScene_FP7 extends Fragment{
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mCrimeTimingKey);
                 it.putExtra("Selected", mItem.getCrimeTiming());
-                startActivityForResult(it, EVENT_CRIME_TIMING_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_CRIME_TIMING_SELECT_ITEM);
             }
         });
 
@@ -201,7 +191,7 @@ public class CreateScene_FP7 extends Fragment{
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mSelectObjectKey);
                 it.putExtra("Selected", mItem.getSelectObject());
-                startActivityForResult(it, EVENT_SELECT_OBJECT_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_SELECT_OBJECT_SELECT_ITEM);
             }
         });
 
@@ -211,7 +201,7 @@ public class CreateScene_FP7 extends Fragment{
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mCrimeEntranceExportKey);
                 it.putExtra("Selected", mItem.getCrimeExport());
-                startActivityForResult(it, EVENT_CRIME_EXPORT_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_CRIME_EXPORT_SELECT_ITEM);
             }
         });
 
@@ -221,7 +211,7 @@ public class CreateScene_FP7 extends Fragment{
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mCrimeFeatureKey);
                 it.putExtra("Selected", mItem.getCrimeFeature());
-                startActivityForResult(it, EVENT_CRIME_FEATURE_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_CRIME_FEATURE_SELECT_ITEM);
             }
         });
 
@@ -231,7 +221,7 @@ public class CreateScene_FP7 extends Fragment{
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mIntrusiveMethodKey);
                 it.putExtra("Selected", mItem.getIntrusiveMethod());
-                startActivityForResult(it, EVENT_INTRUSIVE_METHOD_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_INTRUSIVE_METHOD_SELECT_ITEM);
             }
         });
 
@@ -241,7 +231,7 @@ public class CreateScene_FP7 extends Fragment{
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mSelectLocationKey);
                 it.putExtra("Selected", mItem.getSelectLocation());
-                startActivityForResult(it, EVENT_SELECT_LOCATION_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_SELECT_LOCATION_SELECT_ITEM);
             }
         });
 
@@ -251,7 +241,7 @@ public class CreateScene_FP7 extends Fragment{
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mCrimePurposeKey);
                 it.putExtra("Selected", mItem.getCrimePurpose());
-                startActivityForResult(it, EVENT_CRIME_PURPOSE_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_CRIME_PURPOSE_SELECT_ITEM);
             }
         });
 

@@ -70,10 +70,8 @@ public class CreateScene_FP3_NewPositionActivity_Baidumap extends AppCompatActiv
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
-            String msg = "";
             switch (menuItem.getItemId()) {
                 case R.id.action_camera:
-                    msg += "Camera";
                     mBaiduMap.snapshot(new BaiduMap.SnapshotReadyCallback() {
                         @Override
                         public void onSnapshotReady(Bitmap bitmap) {
@@ -123,10 +121,6 @@ public class CreateScene_FP3_NewPositionActivity_Baidumap extends AppCompatActiv
                             OfflineMapActivity.class);
                     startActivity(intent);
                     break;*/
-            }
-
-            if (!msg.equals("")) {
-                Toast.makeText(CreateScene_FP3_NewPositionActivity_Baidumap.this, msg, Toast.LENGTH_SHORT).show();
             }
             //finish();
             return true;

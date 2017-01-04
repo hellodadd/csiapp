@@ -13,9 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.android.csiapp.Crime.utils.CreateSceneUtils;
 import com.android.csiapp.Crime.utils.adapter.PhotoAdapter;
 import com.android.csiapp.Crime.utils.PriviewPhotoActivity;
 import com.android.csiapp.Databases.CrimeItem;
@@ -35,16 +35,10 @@ public class CreateScene_FP3 extends Fragment {
     private CrimeItem mItem;
     private int mEvent;
 
-    private final int EVENT_NEW_POSITION = 0;
-    private final int EVENT_NEW_FLAT = 1;
-
     private List<PhotoItem> mPositionList, mFlatList;
     private ListView mPosition_List, mFlat_List;
     private PhotoAdapter mPosition_Adapter, mFlat_Adapter;
     private ImageButton mAdd_Position, mAdd_Flat;
-
-    private final int EVENT_POSITION_DELETE = 100;
-    private final int EVENT_FLAT_DELETE = 101;
 
     private PositionProvider mPositionProvider;
     private FlatProvider mFlatProvider;
@@ -100,7 +94,7 @@ public class CreateScene_FP3 extends Fragment {
                 it.putExtra("com.android.csiapp.Databases.CrimeItem", mItem);
                 it.putExtra("Add","Position");
                 it.putExtra("Event",1);
-                startActivityForResult(it, EVENT_NEW_POSITION);
+                startActivityForResult(it, CreateSceneUtils.EVENT_NEW_POSITION);
             }
         });
 
@@ -117,7 +111,7 @@ public class CreateScene_FP3 extends Fragment {
                 startActivity(it);
             }
         });
-        setListViewHeightBasedOnChildren(mPosition_List);
+        CreateSceneUtils.setListViewHeightBasedOnChildren(mPosition_List);
 
         mAdd_Flat = (ImageButton) view.findViewById(R.id.add_flat);
         mAdd_Flat.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +121,7 @@ public class CreateScene_FP3 extends Fragment {
                 it.putExtra("com.android.csiapp.Databases.CrimeItem", mItem);
                 it.putExtra("Add","Flat");
                 it.putExtra("Event",1);
-                startActivityForResult(it, EVENT_NEW_FLAT);
+                startActivityForResult(it, CreateSceneUtils.EVENT_NEW_FLAT);
             }
         });
 
@@ -144,7 +138,7 @@ public class CreateScene_FP3 extends Fragment {
                 startActivity(it);
             }
         });
-        setListViewHeightBasedOnChildren(mFlat_List);
+        CreateSceneUtils.setListViewHeightBasedOnChildren(mFlat_List);
 
         registerForContextMenu(mPosition_List);
         registerForContextMenu(mFlat_List);
@@ -155,9 +149,9 @@ public class CreateScene_FP3 extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
         String delete = context.getResources().getString(R.string.list_delete);
         if (v.getId()==R.id.position_listview) {
-            menu.add(0, EVENT_POSITION_DELETE, 0, delete);
+            menu.add(0, CreateSceneUtils.EVENT_POSITION_DELETE, 0, delete);
         }else if(v.getId()==R.id.flat_listview){
-            menu.add(0, EVENT_FLAT_DELETE, 0, delete);
+            menu.add(0, CreateSceneUtils.EVENT_FLAT_DELETE, 0, delete);
         }
     }
 
@@ -165,16 +159,16 @@ public class CreateScene_FP3 extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
-            case EVENT_POSITION_DELETE:
+            case CreateSceneUtils.EVENT_POSITION_DELETE:
                 if(mEvent == 2) mPositionProvider.delete(mPositionList.get(info.position).getId());
                 mPositionList.remove(info.position);
-                setListViewHeightBasedOnChildren(mPosition_List);
+                CreateSceneUtils.setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
                 return true;
-            case EVENT_FLAT_DELETE:
+            case CreateSceneUtils.EVENT_FLAT_DELETE:
                 if(mEvent == 2) mFlatProvider.delete(mFlatList.get(info.position).getId());
                 mFlatList.remove(info.position);
-                setListViewHeightBasedOnChildren(mFlat_List);
+                CreateSceneUtils.setListViewHeightBasedOnChildren(mFlat_List);
                 mFlat_Adapter.notifyDataSetChanged();
                 return true;
             default:
@@ -209,7 +203,7 @@ public class CreateScene_FP3 extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            if(requestCode == EVENT_NEW_POSITION) {
+            if(requestCode == CreateSceneUtils.EVENT_NEW_POSITION) {
                 // 新增記事資料到資料庫
                 PhotoItem positionItem = (PhotoItem) data.getSerializableExtra("com.android.csiapp.Databases.PhotoItem");
                 int event = (int) data.getIntExtra("Event", 1);
@@ -228,9 +222,9 @@ public class CreateScene_FP3 extends Fragment {
                 } else {
                     mPositionList.set(position, positionItem);
                 }
-                setListViewHeightBasedOnChildren(mPosition_List);
+                CreateSceneUtils.setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
-            }else if(requestCode == EVENT_NEW_FLAT){
+            }else if(requestCode == CreateSceneUtils.EVENT_NEW_FLAT){
                 // 新增記事資料到資料庫
                 PhotoItem flatItem = (PhotoItem) data.getSerializableExtra("com.android.csiapp.Databases.PhotoItem");
                 int event = (int) data.getIntExtra("Event", 1);
@@ -242,33 +236,9 @@ public class CreateScene_FP3 extends Fragment {
                 } else {
                     mFlatList.set(position, flatItem);
                 }
-                setListViewHeightBasedOnChildren(mFlat_List);
+                CreateSceneUtils.setListViewHeightBasedOnChildren(mFlat_List);
                 mFlat_Adapter.notifyDataSetChanged();
             }
         }
-    }
-
-    private void setListViewHeightBasedOnChildren(ListView listView) {
-        // 获取ListView对应的Adapter
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
-
-        int totalHeight = 0;
-        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
-            // listAdapter.getCount()获取ListView对应的Adapter
-            View listItem = listAdapter.getView(i, null, listView);
-            // 计算子项View 的宽高
-            listItem.measure(0, 0);
-            // 统计所有子项的总高度
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        // listView.getDividerHeight()获取子项间分隔符占用的高度
-        // params.height最后得到整个ListView完整显示需要的高度
-        listView.setLayoutParams(params);
     }
 }

@@ -5,12 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -31,6 +28,7 @@ import android.widget.TextView;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
+import com.android.csiapp.Crime.utils.CreateSceneUtils;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.PriviewPhotoActivity;
@@ -44,11 +42,8 @@ import com.android.csiapp.R;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.Locale;
 
 public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity implements View.OnClickListener {
     private Context context = null;
@@ -57,7 +52,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private int mEvent;
     private int mPosition;
     private Uri LocalFileUri = null;
-    private static final int EVENT_PHOTO_TYPE_NEW_EVIDENCE = 0;
+
 
     private ImageView mNew_evidence;
     private Spinner mEvidence_category_spinner;
@@ -69,17 +64,15 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private Boolean isDoubleRefresh = false;
 
     private TextView mEvidenceText;
-    private int EVENT_EVIDENCE_SELECT_ITEM = 1;
 
     private ClearableEditText mEvidenceName, mLegacySite, mBasiceFeature;
 
     private ImageView mBasiceFeatureLabel;
     private LinearLayout mInferLL;
     private TextView mInferText;
-    private int EVENT_INFER_SELECT_ITEM = 2;
 
     private TextView mMethodText;
-    private int EVENT_METHOD_SELECT_ITEM = 3;
+
     private ImageView mMethodLabel;
     private ClearableEditText mOtherMethod;
 
@@ -87,15 +80,14 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private Button mTime_button;
 
     private TextView mGetPeopleText;
-    private int EVENT_GET_PEOPLE_SLELECT_ITEM = 4;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.action_camera:
-                    LocalFileUri = Uri.fromFile(getOutputMediaFile(context, EVENT_PHOTO_TYPE_NEW_EVIDENCE));
-                    takePhoto(LocalFileUri, EVENT_PHOTO_TYPE_NEW_EVIDENCE);
+                    LocalFileUri = Uri.fromFile(CreateSceneUtils.getOutputMediaFile(context, CreateSceneUtils.EVENT_PHOTO_TYPE_NEW_EVIDENCE));
+                    takePhoto(LocalFileUri, CreateSceneUtils.EVENT_PHOTO_TYPE_NEW_EVIDENCE);
                     break;
                 case R.id.action_click:
                     saveData();
@@ -150,8 +142,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         initData();
 
         if(mEvent == 1) {
-            LocalFileUri = Uri.fromFile(getOutputMediaFile(context, EVENT_PHOTO_TYPE_NEW_EVIDENCE));
-            takePhoto(LocalFileUri, EVENT_PHOTO_TYPE_NEW_EVIDENCE);
+            LocalFileUri = Uri.fromFile(CreateSceneUtils.getOutputMediaFile(context, CreateSceneUtils.EVENT_PHOTO_TYPE_NEW_EVIDENCE));
+            takePhoto(LocalFileUri, CreateSceneUtils.EVENT_PHOTO_TYPE_NEW_EVIDENCE);
         }
     }
 
@@ -209,7 +201,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                 Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mEvidenceHandKey);
                 it.putExtra("Selected", mEvidenceItem.getEvidence());
-                startActivityForResult(it, EVENT_EVIDENCE_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_EVIDENCE_SELECT_ITEM);
             }
         });
         mEvidenceTextLabel = (TextView) findViewById(R.id.evidenceTextLabel);
@@ -227,7 +219,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                 Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mToolInferKey);
                 it.putExtra("Selected", mEvidenceItem.getInfer());
-                startActivityForResult(it, EVENT_INFER_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_INFER_SELECT_ITEM);
             }
         });
 
@@ -237,7 +229,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                 Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mMethodHandKey);
                 it.putExtra("Selected", mEvidenceItem.getMethod());
-                startActivityForResult(it, EVENT_METHOD_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_METHOD_SELECT_ITEM);
             }
         });
         mMethodLabel = (ImageView) findViewById(R.id.methodLabel);
@@ -254,7 +246,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                 it.putExtra("Key",UserInfo.mExtractionPeople);
                 it.putExtra("Selected", mEvidenceItem.getPeople());
                 it.putExtra("DataInfo", "UserInfo");
-                startActivityForResult(it, EVENT_GET_PEOPLE_SLELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_GET_PEOPLE_SLELECT_ITEM);
             }
         });
     }
@@ -320,7 +312,6 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.time_button:
                 showDateTimeDialog(mTime);
@@ -335,7 +326,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         super.onActivityResult(requestCode, resultCode, data);
         String result = "";
         int category = getCategory(mEvidenceItem.getEvidenceCategory());
-        if(requestCode == EVENT_PHOTO_TYPE_NEW_EVIDENCE) {
+        if(requestCode == CreateSceneUtils.EVENT_PHOTO_TYPE_NEW_EVIDENCE) {
             String path = LocalFileUri.getPath();
             File file = new File(path);
             if (path != null && file.exists()) {
@@ -344,7 +335,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             } else {
                 finish();
             }
-        }else if(requestCode == EVENT_EVIDENCE_SELECT_ITEM){
+        }else if(requestCode == CreateSceneUtils.EVENT_EVIDENCE_SELECT_ITEM){
             if(data!=null) result = (String) data.getStringExtra("Select");
             else result = mEvidenceItem.getEvidence();
             mEvidenceItem.setEvidence(result);
@@ -353,13 +344,13 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             else if(category==2) result = DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceToolKey, result);
             mEvidenceText.setText(result);
             mEvidenceName.setText(result);
-        }else if(requestCode == EVENT_INFER_SELECT_ITEM){
+        }else if(requestCode == CreateSceneUtils.EVENT_INFER_SELECT_ITEM){
             if(data!=null) result = (String) data.getStringExtra("Select");
             else result = mEvidenceItem.getInfer();
             mEvidenceItem.setInfer(result);
             result = DictionaryInfo.getDictValue(DictionaryInfo.mToolInferKey, result);
             mInferText.setText(result);
-        }else if(requestCode == EVENT_METHOD_SELECT_ITEM){
+        }else if(requestCode == CreateSceneUtils.EVENT_METHOD_SELECT_ITEM){
             if(data!=null) result = (String) data.getStringExtra("Select");
             else result = mEvidenceItem.getMethod();
             mEvidenceItem.setMethod(result);
@@ -367,7 +358,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             else if(category==1) result = DictionaryInfo.getDictValue(DictionaryInfo.mMethodFootKey, result);
             else if(category==2) result = DictionaryInfo.getDictValue(DictionaryInfo.mMethodToolKey, result);
             mMethodText.setText(result);
-        }else if(requestCode == EVENT_GET_PEOPLE_SLELECT_ITEM){
+        }else if(requestCode == CreateSceneUtils.EVENT_GET_PEOPLE_SLELECT_ITEM){
             if(data!=null) result = (String) data.getStringExtra("Select");
             else result = mEvidenceItem.getPeople();
             mEvidenceItem.setPeople(result);
@@ -402,7 +393,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                     Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                     it.putExtra("Key",DictionaryInfo.mEvidenceHandKey);
                     it.putExtra("Selected", mEvidenceItem.getEvidence());
-                    startActivityForResult(it, EVENT_EVIDENCE_SELECT_ITEM);
+                    startActivityForResult(it, CreateSceneUtils.EVENT_EVIDENCE_SELECT_ITEM);
                 }
             });
 
@@ -412,7 +403,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                     Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                     it.putExtra("Key",DictionaryInfo.mMethodHandKey);
                     it.putExtra("Selected", mEvidenceItem.getMethod());
-                    startActivityForResult(it, EVENT_METHOD_SELECT_ITEM);
+                    startActivityForResult(it, CreateSceneUtils.EVENT_METHOD_SELECT_ITEM);
                 }
             });
 
@@ -437,7 +428,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                     Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                     it.putExtra("Key",DictionaryInfo.mEvidenceFootKey);
                     it.putExtra("Selected", mEvidenceItem.getEvidence());
-                    startActivityForResult(it, EVENT_EVIDENCE_SELECT_ITEM);
+                    startActivityForResult(it, CreateSceneUtils.EVENT_EVIDENCE_SELECT_ITEM);
                 }
             });
 
@@ -447,7 +438,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                     Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                     it.putExtra("Key",DictionaryInfo.mMethodFootKey);
                     it.putExtra("Selected", mEvidenceItem.getMethod());
-                    startActivityForResult(it, EVENT_METHOD_SELECT_ITEM);
+                    startActivityForResult(it, CreateSceneUtils.EVENT_METHOD_SELECT_ITEM);
                 }
             });
 
@@ -471,7 +462,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                     Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                     it.putExtra("Key",DictionaryInfo.mEvidenceToolKey);
                     it.putExtra("Selected", mEvidenceItem.getEvidence());
-                    startActivityForResult(it, EVENT_EVIDENCE_SELECT_ITEM);
+                    startActivityForResult(it, CreateSceneUtils.EVENT_EVIDENCE_SELECT_ITEM);
                 }
             });
 
@@ -481,7 +472,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                     Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                     it.putExtra("Key",DictionaryInfo.mMethodToolKey);
                     it.putExtra("Selected", mEvidenceItem.getMethod());
-                    startActivityForResult(it, EVENT_METHOD_SELECT_ITEM);
+                    startActivityForResult(it, CreateSceneUtils.EVENT_METHOD_SELECT_ITEM);
                 }
             });
 
@@ -511,58 +502,10 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     }
 
     private void setPhoto(String path){
-        Bitmap Bitmap = loadBitmapFromFile(new File(path));
+        Bitmap Bitmap = CreateSceneUtils.loadBitmapFromFile(new File(path));
         BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(), Bitmap);
         mNew_evidence.setBackground(bDrawable);
         mNew_evidence.setVisibility(View.VISIBLE);
-    }
-
-    private File getOutputMediaFile(Context context, int type){
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
-
-        File mediaStorageDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Report");
-        // This location works best if you want the created images to be shared
-        // between applications and persist after your app has been uninstalled.
-
-        // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists()){
-            if (!mediaStorageDir.mkdirs()){
-                return null;
-            }
-        }
-
-        // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        File mediaFile;
-        if (type == EVENT_PHOTO_TYPE_NEW_EVIDENCE){
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "NEW_EVIDENCE_"+ timeStamp + ".jpg");
-        } else {
-            return null;
-        }
-
-        return mediaFile;
-    }
-
-    private Bitmap loadBitmapFromFile(File f) {
-        Bitmap b = null;
-        BitmapFactory.Options option = new BitmapFactory.Options();
-        // Bitmap sampling factor, size = (Original Size)/(inSampleSize)
-        option.inSampleSize = 4;
-
-        try {
-            FileInputStream fis = new FileInputStream(f);
-            b = BitmapFactory.decodeStream(fis, null, option);
-            fis.close();
-
-            Matrix matrix = new Matrix();
-            matrix.setRotate(0, (float)b.getWidth()/2, (float)b.getHeight()/2);
-            Bitmap resultImage = Bitmap.createBitmap(b, 0, 0, b.getWidth(), b.getHeight(), matrix, true);
-
-            return resultImage;
-        } catch(Exception e) {
-            return null;
-        }
     }
 
     private void showDateTimeDialog(final TextView textView) {

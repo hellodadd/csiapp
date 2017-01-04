@@ -19,17 +19,15 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.android.csiapp.Crime.utils.CreateSceneUtils;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.PriviewPhotoActivity;
@@ -41,7 +39,6 @@ import com.android.csiapp.R;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -58,8 +55,6 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
     private ImageView mNew_Position;
     private TableLayout mTablePosition1, mTablePosition2, mTableFlat;
     private TextView mIncidentTime, mIncidentLocation, mCreateUnit, mCreatePeople, mCreateTime;
-    private static final int REQUEST_POSITION = 0;
-    private static final int REQUEST_FLAT = 1;
 
     private String gpsLat = "", gpsLon = "";
 
@@ -96,32 +91,161 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
-            String msg = "";
             switch (menuItem.getItemId()) {
                 case R.id.action_camera:
-                    msg += "Camera";
                     if(mAdd.equalsIgnoreCase("Position")) {
                         Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity_Amap.class);
-                        startActivityForResult(it, REQUEST_POSITION);
+                        startActivityForResult(it, CreateSceneUtils.REQUEST_POSITION);
                     }else if(mAdd.equalsIgnoreCase("Flat")){
                         Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewFlatActivity.class);
-                        startActivityForResult(it, REQUEST_FLAT);
+                        startActivityForResult(it, CreateSceneUtils.REQUEST_FLAT);
                     }
                     break;
                 case R.id.action_click:
-                    msg += "Save";
                     createVirtualEnvironment();
                     break;
                 default:
                     break;
             }
-
-            if(!msg.equals("")) {
-                //Toast.makeText(CreateScene_FP3_PositionInformationActivity.this, msg, Toast.LENGTH_SHORT).show();
-            }
             return true;
         }
     };
+
+    private void onSave(){
+        //String path = ScreenShot.shoot(CreateScene_FP3_PositionInformationActivity.this);
+        mPositionItem.setPhotoPath(path);
+        mPositionItem.setUuid(CrimeProvider.getUUID());
+        Intent result = getIntent();
+        result.putExtra("com.android.csiapp.Databases.PhotoItem", mPositionItem);
+        result.putExtra("Event",mEvent);
+        result.putExtra("gpsLat", gpsLat);
+        result.putExtra("gpsLon", gpsLon);
+        setResult(Activity.RESULT_OK, result);
+        finish();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.create_scene_fp3_position_information);
+
+        context = this.getApplicationContext();
+        mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.CrimeItem");
+        mEvent = (int) getIntent().getIntExtra("Event", 1);
+        mAdd = (String) getIntent().getStringExtra("Add");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        String title = (IsPositionInformation())
+                ?context.getResources().getString(R.string.title_activity_position_information)
+                :context.getResources().getString(R.string.title_activity_flat_information);
+        toolbar.setTitle(title);
+        toolbar.setTitleTextColor(context.getResources().getColor(R.color.titleBar));
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.btn_back_mini);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //What to do on back clicked
+                finish();
+            }
+        });
+        toolbar.setOnMenuItemClickListener(onMenuItemClick);
+
+        initView();
+
+        if(mEvent == 1) {
+            mPositionItem = new PhotoItem();
+            if(IsPositionInformation()) {
+                Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity_Amap.class);
+                startActivityForResult(it, CreateSceneUtils.REQUEST_POSITION);
+            }else if(!IsPositionInformation()){
+                Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewFlatActivity.class);
+                startActivityForResult(it, CreateSceneUtils.REQUEST_FLAT);
+            }
+        }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_create_fp3_position_information, menu);
+        return true;
+    }
+
+    private void initView(){
+        mNew_Position = (ImageView) findViewById(R.id.new_position);
+        mNew_Position.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, PriviewPhotoActivity.class);
+                it.putExtra("Path",mPositionItem.getPhotoPath());
+                startActivity(it);
+            }
+        });
+
+        mTablePosition1 = (TableLayout) findViewById(R.id.table_position1);
+        mTablePosition2 = (TableLayout) findViewById(R.id.table_position2);
+        mTableFlat = (TableLayout) findViewById(R.id.table_flat);
+
+        if(IsPositionInformation()) {
+            mTablePosition1.setVisibility(View.VISIBLE);
+            mTablePosition2.setVisibility(View.VISIBLE);
+        }else if(!IsPositionInformation()) {
+            mTableFlat.setVisibility(View.VISIBLE);
+        }
+
+        mIncidentTime = (TextView) findViewById(R.id.incident_time);
+        mIncidentLocation = (TextView) findViewById(R.id.incident_location);
+        mCreateUnit = (TextView) findViewById(R.id.create_unit);
+        mCreatePeople = (TextView) findViewById(R.id.create_people);
+        mCreateTime = (TextView) findViewById(R.id.create_time);
+        getInformation();
+    }
+
+    private void setPhoto(String path){
+        Bitmap Bitmap = BitmapFactory.decodeFile(path);
+        mNew_Position.setImageBitmap(Bitmap);
+        mNew_Position.setVisibility(View.VISIBLE);
+    }
+
+    private void getInformation(){
+        long time = mItem.getOccurredStartTime();
+        mIncidentTime.setText(DateTimePicker.getCurrentDate(time));
+        mIncidentLocation.setText(mItem.getLocation());
+        mCreateUnit.setText(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey,mItem.getArea()));
+        SharedPreferences prefs = context.getSharedPreferences("UserName", 0);
+        mCreatePeople.setText(prefs.getString("username", ""));
+        mCreateTime.setText(DateTimePicker.getCurrentDate(Calendar.getInstance().getTimeInMillis()));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Activity.RESULT_OK) {
+            if (requestCode == CreateSceneUtils.REQUEST_POSITION) {
+                //Add lat and lon
+                gpsLat = (String) data.getStringExtra("gpsLat");
+                gpsLon = (String) data.getStringExtra("gpsLon");
+
+                mPositionItem.setPhotoPath(data.getStringExtra("Map_ScreenShot"));
+                setPhoto(mPositionItem.getPhotoPath());
+            } else if(requestCode == CreateSceneUtils.REQUEST_FLAT) {
+                mPositionItem.setPhotoPath(data.getStringExtra("Map_ScreenShot"));
+                setPhoto(mPositionItem.getPhotoPath());
+            } else if (requestCode == REQUEST_MEDIA_PROJECTION) {
+                mResultCode = resultCode;
+                mResultData = data;
+
+                setUpMediaProjection();
+                setUpImageReader();
+                setImageReaderListener();
+                setUpVirtualDisplay();
+            }
+        }
+    }
+
+    private boolean IsPositionInformation(){
+        return mAdd.equalsIgnoreCase("Position");
+    }
 
     private void createVirtualEnvironment() {
         File mediaStorageDir = new File(this.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Report");
@@ -138,9 +262,9 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         Display display = getWindowManager().getDefaultDisplay();
 
         int toolsBarHeight = (int) getResources().getDimension(R.dimen.toolbar_size);
-        int statusBarHeight = getStatusHeight(context);
+        int statusBarHeight = CreateSceneUtils.getStatusHeight(context);
         mRemoveTopHeight = toolsBarHeight+statusBarHeight;
-        mRemoveBottomHeight = getBottomStatusHeight(context);
+        mRemoveBottomHeight = CreateSceneUtils.getBottomStatusHeight(context);
 
         //Todo : need to check Virtual height
         mRemoveBottomHeight = mRemoveBottomHeight==0?100:mRemoveBottomHeight;
@@ -153,58 +277,6 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         this.mHeight = point.y;
 
         startScreenCapture();
-    }
-
-    public static int getStatusHeight(Context context)
-    {
-        int statusHeight = -1;
-        try
-        {
-            Class<?> clazz = Class.forName("com.android.internal.R$dimen");
-            Object object = clazz.newInstance();
-            int height = Integer.parseInt(clazz.getField("status_bar_height")
-                    .get(object).toString());
-            statusHeight = context.getResources().getDimensionPixelSize(height);
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        return statusHeight;
-    }
-
-    public static  int getBottomStatusHeight(Context context){
-        int totalHeight = getDpi(context);
-
-        int contentHeight = getScreenHeight(context);
-
-        return totalHeight  - contentHeight;
-    }
-
-    public static int getScreenHeight(Context context)
-    {
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(outMetrics);
-        return outMetrics.heightPixels;
-    }
-
-    public static int getDpi(Context context){
-        int dpi = 0;
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = windowManager.getDefaultDisplay();
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        @SuppressWarnings("rawtypes")
-        Class c;
-        try {
-            c = Class.forName("android.view.Display");
-            @SuppressWarnings("unchecked")
-            Method method = c.getMethod("getRealMetrics",DisplayMetrics.class);
-            method.invoke(display, displayMetrics);
-            dpi=displayMetrics.heightPixels;
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return dpi;
     }
 
     private void startScreenCapture(){
@@ -384,143 +456,5 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
             mMediaProjection.stop();
             mMediaProjection = null;
         }
-    }
-
-    private void onSave(){
-        //String path = ScreenShot.shoot(CreateScene_FP3_PositionInformationActivity.this);
-        mPositionItem.setPhotoPath(path);
-        mPositionItem.setUuid(CrimeProvider.getUUID());
-        Intent result = getIntent();
-        result.putExtra("com.android.csiapp.Databases.PhotoItem", mPositionItem);
-        result.putExtra("Event",mEvent);
-        result.putExtra("gpsLat", gpsLat);
-        result.putExtra("gpsLon", gpsLon);
-        setResult(Activity.RESULT_OK, result);
-        finish();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_scene_fp3_position_information);
-
-        context = this.getApplicationContext();
-        mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.CrimeItem");
-        mEvent = (int) getIntent().getIntExtra("Event", 1);
-        mAdd = (String) getIntent().getStringExtra("Add");
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        String title = (IsPositionInformation())
-                ?context.getResources().getString(R.string.title_activity_position_information)
-                :context.getResources().getString(R.string.title_activity_flat_information);
-        toolbar.setTitle(title);
-        toolbar.setTitleTextColor(context.getResources().getColor(R.color.titleBar));
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.btn_back_mini);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //What to do on back clicked
-                finish();
-            }
-        });
-        toolbar.setOnMenuItemClickListener(onMenuItemClick);
-
-        initView();
-
-        if(mEvent == 1) {
-            mPositionItem = new PhotoItem();
-            if(IsPositionInformation()) {
-                Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity_Amap.class);
-                startActivityForResult(it, REQUEST_POSITION);
-            }else if(!IsPositionInformation()){
-                Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewFlatActivity.class);
-                startActivityForResult(it, REQUEST_FLAT);
-            }
-        }
-    }
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_create_fp3_position_information, menu);
-        return true;
-    }
-
-    private void initView(){
-        mNew_Position = (ImageView) findViewById(R.id.new_position);
-        mNew_Position.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, PriviewPhotoActivity.class);
-                it.putExtra("Path",mPositionItem.getPhotoPath());
-                startActivityForResult(it, 100);
-            }
-        });
-
-        mTablePosition1 = (TableLayout) findViewById(R.id.table_position1);
-        mTablePosition2 = (TableLayout) findViewById(R.id.table_position2);
-        mTableFlat = (TableLayout) findViewById(R.id.table_flat);
-
-        if(IsPositionInformation()) {
-            mTablePosition1.setVisibility(View.VISIBLE);
-            mTablePosition2.setVisibility(View.VISIBLE);
-        }else if(!IsPositionInformation()) {
-            mTableFlat.setVisibility(View.VISIBLE);
-        }
-
-        mIncidentTime = (TextView) findViewById(R.id.incident_time);
-        mIncidentLocation = (TextView) findViewById(R.id.incident_location);
-        mCreateUnit = (TextView) findViewById(R.id.create_unit);
-        mCreatePeople = (TextView) findViewById(R.id.create_people);
-        mCreateTime = (TextView) findViewById(R.id.create_time);
-        getInformation();
-    }
-
-    private void setPhoto(String path){
-        Bitmap Bitmap = BitmapFactory.decodeFile(path);
-        mNew_Position.setImageBitmap(Bitmap);
-        mNew_Position.setVisibility(View.VISIBLE);
-    }
-
-    private void getInformation(){
-        long time = mItem.getOccurredStartTime();
-        mIncidentTime.setText(DateTimePicker.getCurrentDate(time));
-        mIncidentLocation.setText(mItem.getLocation());
-        mCreateUnit.setText(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey,mItem.getArea()));
-        SharedPreferences prefs = context.getSharedPreferences("UserName", 0);
-        mCreatePeople.setText(prefs.getString("username", ""));
-        mCreateTime.setText(DateTimePicker.getCurrentDate(Calendar.getInstance().getTimeInMillis()));
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQUEST_POSITION) {
-                //Add lat and lon
-                gpsLat = (String) data.getStringExtra("gpsLat");
-                gpsLon = (String) data.getStringExtra("gpsLon");
-
-                mPositionItem.setPhotoPath(data.getStringExtra("Map_ScreenShot"));
-                setPhoto(mPositionItem.getPhotoPath());
-            } else if(requestCode == REQUEST_FLAT) {
-                mPositionItem.setPhotoPath(data.getStringExtra("Map_ScreenShot"));
-                setPhoto(mPositionItem.getPhotoPath());
-            } else if (requestCode == REQUEST_MEDIA_PROJECTION) {
-                //Log.i("Anita", "Starting screen capture");
-                mResultCode = resultCode;
-                mResultData = data;
-                //Log.d("Anita", " save path： " + path);
-
-                setUpMediaProjection();
-                setUpImageReader();
-                setImageReaderListener();
-                setUpVirtualDisplay();
-            }
-        }
-    }
-
-    private boolean IsPositionInformation(){
-        return mAdd.equalsIgnoreCase("Position");
     }
 }

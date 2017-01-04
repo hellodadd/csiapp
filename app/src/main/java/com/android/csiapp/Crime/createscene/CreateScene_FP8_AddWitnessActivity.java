@@ -20,10 +20,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
+import com.android.csiapp.Crime.utils.CreateSceneUtils;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.HandWriteActivity;
@@ -44,14 +44,12 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
     private ClearableEditText mName, mNumber, mAddress;
 
     private TextView mSexText;
-    private final int EVENT_SEX_SELECT_ITEM = 0;
 
     private TextView mBirthday;
     private Button mBirthday_button;
 
     private ImageView mImage;
     private Button mBtn;
-    private final int EVENT_PHOTO_SIGN = 1;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -140,7 +138,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
                 Intent it = new Intent(CreateScene_FP8_AddWitnessActivity.this, TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mSexKey);
                 it.putExtra("Selected", mWitnessItem.getWitnessSex());
-                startActivityForResult(it, EVENT_SEX_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_SEX_SELECT_ITEM);
             }
         });
 
@@ -153,7 +151,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         mBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(CreateScene_FP8_AddWitnessActivity.this, HandWriteActivity.class), EVENT_PHOTO_SIGN);
+                startActivityForResult(new Intent(CreateScene_FP8_AddWitnessActivity.this, HandWriteActivity.class), CreateSceneUtils.EVENT_PHOTO_TYPE_SIGN);
             }
         });
     }
@@ -205,7 +203,6 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.birthday_date_button:
                 showDateTimeDialog(mBirthday);
@@ -218,7 +215,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == EVENT_PHOTO_SIGN)
+            if (requestCode == CreateSceneUtils.EVENT_PHOTO_TYPE_SIGN)
             {
                 String path = data.getStringExtra("SIGN");
                 BitmapFactory.Options options = new BitmapFactory.Options();
@@ -227,7 +224,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
                 mImage.setImageBitmap(bm);
                 mImage.setVisibility(View.VISIBLE);
                 mWitnessItem.setPhotoPath(path);
-            }else if(requestCode == EVENT_SEX_SELECT_ITEM){
+            }else if(requestCode == CreateSceneUtils.EVENT_SEX_SELECT_ITEM){
                 String result = (String) data.getStringExtra("Select");
                 mWitnessItem.setWitnessSex(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, result);

@@ -13,9 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.android.csiapp.Crime.utils.CreateSceneUtils;
 import com.android.csiapp.Crime.utils.adapter.WitnessListAdapter;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.WitnessItem;
@@ -34,14 +34,10 @@ public class CreateScene_FP8 extends Fragment {
     private WitnessItem mWitnessItem;
     private int mEvent;
 
-    private final int EVENT_NEW_WITNESS = 0;
-
     private List<WitnessItem> mWitnessList;
     private ListView mWitness_list;
     private WitnessListAdapter mWitness_adapter;
     private ImageButton mAddWitness;
-
-    private final int EVENT_WITNESS_DELETE = 100;
 
     private WitnessProvider mWitnessProvider;
 
@@ -95,14 +91,14 @@ public class CreateScene_FP8 extends Fragment {
                 Intent it = new Intent(getActivity(), CreateScene_FP8_AddWitnessActivity.class);
                 it.putExtra("com.android.csiapp.Databases.WitnessItem", mWitnessItem);
                 it.putExtra("Event",1);
-                startActivityForResult(it,EVENT_NEW_WITNESS);
+                startActivityForResult(it, CreateSceneUtils.EVENT_NEW_WITNESS);
             }
         });
 
         mWitness_list=(ListView) view.findViewById(R.id.listView);
         mWitness_adapter = new WitnessListAdapter(context, mWitnessList);
         mWitness_list.setAdapter(mWitness_adapter);
-        setListViewHeightBasedOnChildren(mWitness_list);
+        CreateSceneUtils.setListViewHeightBasedOnChildren(mWitness_list);
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -111,7 +107,7 @@ public class CreateScene_FP8 extends Fragment {
                 Intent it = new Intent(getActivity(), CreateScene_FP8_AddWitnessActivity.class);
                 it.putExtra("com.android.csiapp.Databases.WitnessItem", witenssItem);
                 it.putExtra("Event",2);
-                startActivityForResult(it,EVENT_NEW_WITNESS);
+                startActivityForResult(it, CreateSceneUtils.EVENT_NEW_WITNESS);
             }
         };
         mWitness_list.setOnItemClickListener(itemListener);
@@ -124,7 +120,7 @@ public class CreateScene_FP8 extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
         String delete = context.getResources().getString(R.string.list_delete);
         if (v.getId()==R.id.listView) {
-            menu.add(0, EVENT_WITNESS_DELETE, 0, delete);
+            menu.add(0, CreateSceneUtils.EVENT_WITNESS_DELETE, 0, delete);
         }
     }
 
@@ -132,10 +128,10 @@ public class CreateScene_FP8 extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
-            case EVENT_WITNESS_DELETE:
+            case CreateSceneUtils.EVENT_WITNESS_DELETE:
                 if(mEvent == 2) mWitnessProvider.delete(mWitnessList.get(info.position).getId());
                 mWitnessList.remove(info.position);
-                setListViewHeightBasedOnChildren(mWitness_list);
+                CreateSceneUtils.setListViewHeightBasedOnChildren(mWitness_list);
                 mWitness_adapter.notifyDataSetChanged();
                 return true;
             default:
@@ -167,7 +163,7 @@ public class CreateScene_FP8 extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            if(requestCode == EVENT_NEW_WITNESS) {
+            if(requestCode == CreateSceneUtils.EVENT_NEW_WITNESS) {
                 WitnessItem witenssItem = (WitnessItem) data.getSerializableExtra("com.android.csiapp.Databases.WitnessItem");
                 int event = (int) data.getIntExtra("Event", 1);
                 if (mEvent == 2 && event == 1) witenssItem.setId(mWitnessProvider.insert(witenssItem));
@@ -178,33 +174,9 @@ public class CreateScene_FP8 extends Fragment {
                     int position = (int) data.getIntExtra("Position", 0);
                     mWitnessList.set(position, witenssItem);
                 }
-                setListViewHeightBasedOnChildren(mWitness_list);
+                CreateSceneUtils.setListViewHeightBasedOnChildren(mWitness_list);
                 mWitness_adapter.notifyDataSetChanged();
             }
         }
-    }
-
-    private void setListViewHeightBasedOnChildren(ListView listView) {
-        // 获取ListView对应的Adapter
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
-
-        int totalHeight = 0;
-        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
-            // listAdapter.getCount()获取ListView对应的Adapter
-            View listItem = listAdapter.getView(i, null, listView);
-            // 计算子项View 的宽高
-            listItem.measure(0, 0);
-            // 统计所有子项的总高度
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        // listView.getDividerHeight()获取子项间分隔符占用的高度
-        // params.height最后得到整个ListView完整显示需要的高度
-        listView.setLayoutParams(params);
     }
 }

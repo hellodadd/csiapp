@@ -80,10 +80,8 @@ public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
-            String msg = "";
             switch (menuItem.getItemId()) {
                 case R.id.action_camera:
-                    msg += "Camera";
                     aMap.getMapScreenShot(new AMap.OnMapScreenShotListener() {
                         @Override
                         public void onMapScreenShot(Bitmap bitmap) {
@@ -128,10 +126,6 @@ public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity 
                     break;
                 /*case R.id.action_download_map:
                     break;*/
-            }
-
-            if (!msg.equals("")) {
-                //Toast.makeText(CreateScene_FP3_NewPositionActivity_Amap.this, msg, Toast.LENGTH_SHORT).show();
             }
             //finish();
             return true;

@@ -48,10 +48,8 @@ public class CreateScene_FP3_NewFlatActivity extends AppCompatActivity {
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
-            String msg = "";
             switch (menuItem.getItemId()) {
                 case R.id.action_click:
-                    msg += "Save";
                     if (mPathView.getTouched()) {
                         try {
                             File mediaStorageDir = new File( context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Report");
@@ -79,10 +77,6 @@ public class CreateScene_FP3_NewFlatActivity extends AppCompatActivity {
                     break;
                 default:
                     break;
-            }
-
-            if(!msg.equals("")) {
-                //Toast.makeText(CreateScene_FP8_AddWitnessActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             return true;
         }

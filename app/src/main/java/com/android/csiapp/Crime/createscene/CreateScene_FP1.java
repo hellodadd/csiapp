@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -26,8 +25,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.csiapp.Crime.setting.BackupRestore;
 import com.android.csiapp.Crime.utils.ClearableEditText;
+import com.android.csiapp.Crime.utils.CreateSceneUtils;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.UserInfo;
@@ -49,17 +48,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private Context context = null;
     private CrimeItem mItem;
     private int mEvent;
-
-    private String ACTION_RECEIVE_RESULT = "com.kuaikan.send_result";
-    private final int EVENT_CELL_COLLECTION = 0;
-    private final int EVENT_CASETYPE_SELECT_ITEM = 1;
-    private final int EVENT_AREA_SELECT_ITEM = 2;
-    private final int EVENT_SCENE_CONDITION_SELECT_ITEM = 3;
-    private final int EVENT_WEATHER_SELECT_ITEM = 4;
-    private final int EVENT_WIND_SELECT_ITEM = 5;
-    private final int EVENT_ILLUMINATION_SELECT_ITEM = 6;
-    private final int EVENT_SCENE_CONDUCTOR_SLELECT_ITEM = 7;
-    private final int EVENT_ACCESS_INSPECTORS_SLELECT_ITEM = 8;
 
     private Button mCellCollection, mCellDetail;
     List<PhotoItem> mCellResultItems;
@@ -125,44 +113,44 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         String result = "";
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == EVENT_CELL_COLLECTION) {
-            }else if(requestCode == EVENT_CASETYPE_SELECT_ITEM){
+            if (requestCode == CreateSceneUtils.EVENT_CELL_COLLECTION) {
+            }else if(requestCode == CreateSceneUtils.EVENT_CASETYPE_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setCasetype(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, result);
                 mCasetypeText.setText(result);
-            }else if(requestCode == EVENT_AREA_SELECT_ITEM){
+            }else if(requestCode == CreateSceneUtils.EVENT_AREA_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setArea(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, result);
                 mAreaText.setText(result);
-            }else if(requestCode == EVENT_SCENE_CONDITION_SELECT_ITEM){
+            }else if(requestCode == CreateSceneUtils.EVENT_SCENE_CONDITION_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setSceneCondition(result);
                 enableChangeReason(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mSceneConditionKey, result);
                 mSceneConditionText.setText(result);
-            }else if(requestCode == EVENT_WEATHER_SELECT_ITEM){
+            }else if(requestCode == CreateSceneUtils.EVENT_WEATHER_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setWeatherCondition(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mWeatherConditionKey, result);
                 mWeatherConditionText.setText(result);
-            }else if(requestCode == EVENT_WIND_SELECT_ITEM){
+            }else if(requestCode == CreateSceneUtils.EVENT_WIND_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setWindDirection(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mWindDirectionKey, result);
                 mWindDirectionText.setText(result);
-            }else if(requestCode == EVENT_ILLUMINATION_SELECT_ITEM){
+            }else if(requestCode == CreateSceneUtils.EVENT_ILLUMINATION_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setIlluminationCondition(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mIlluminationConditionKey, result);
                 mIlluminationConditionText.setText(result);
-            }else if(requestCode == EVENT_SCENE_CONDUCTOR_SLELECT_ITEM){
+            }else if(requestCode == CreateSceneUtils.EVENT_SCENE_CONDUCTOR_SLELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setSceneConductor(result);
                 result = UserInfo.getUserName(result);
                 mSceneConductorText.setText(result);
-            }else if(requestCode == EVENT_ACCESS_INSPECTORS_SLELECT_ITEM) {
+            }else if(requestCode == CreateSceneUtils.EVENT_ACCESS_INSPECTORS_SLELECT_ITEM) {
                 result = (String) data.getStringExtra("Select");
                 mItem.setAccessInspectors(result);
                 result = UserInfo.getUserName(result);
@@ -207,7 +195,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mCaseTypeKey);
                 it.putExtra("Selected", mItem.getCasetype());
-                startActivityForResult(it, EVENT_CASETYPE_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_CASETYPE_SELECT_ITEM);
             }
         });
 
@@ -218,7 +206,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mAreaKey);
                 it.putExtra("Selected", mItem.getArea());
-                startActivityForResult(it, EVENT_AREA_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_AREA_SELECT_ITEM);
             }
         });
 
@@ -229,7 +217,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mSceneConditionKey);
                 it.putExtra("Selected", mItem.getSceneCondition());
-                startActivityForResult(it, EVENT_SCENE_CONDITION_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_SCENE_CONDITION_SELECT_ITEM);
             }
         });
 
@@ -240,7 +228,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mWeatherConditionKey);
                 it.putExtra("Selected", mItem.getWeatherCondition());
-                startActivityForResult(it, EVENT_WEATHER_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_WEATHER_SELECT_ITEM);
             }
         });
 
@@ -251,7 +239,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mWindDirectionKey);
                 it.putExtra("Selected", mItem.getWindDirection());
-                startActivityForResult(it, EVENT_WIND_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_WIND_SELECT_ITEM);
             }
         });
 
@@ -262,7 +250,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mIlluminationConditionKey);
                 it.putExtra("Selected", mItem.getIlluminationCondition());
-                startActivityForResult(it, EVENT_ILLUMINATION_SELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_ILLUMINATION_SELECT_ITEM);
             }
         });
 
@@ -274,7 +262,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 it.putExtra("Key",UserInfo.mSceneConductor);
                 it.putExtra("Selected", mItem.getSceneConductor());
                 it.putExtra("DataInfo", "UserInfo");
-                startActivityForResult(it, EVENT_SCENE_CONDUCTOR_SLELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_SCENE_CONDUCTOR_SLELECT_ITEM);
             }
         });
 
@@ -286,7 +274,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 it.putExtra("Key",UserInfo.mAccessInspectors);
                 it.putExtra("Selected", mItem.getAccessInspectors());
                 it.putExtra("DataInfo", "UserInfo");
-                startActivityForResult(it, EVENT_ACCESS_INSPECTORS_SLELECT_ITEM);
+                startActivityForResult(it, CreateSceneUtils.EVENT_ACCESS_INSPECTORS_SLELECT_ITEM);
             }
         });
 
@@ -718,7 +706,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if(ACTION_RECEIVE_RESULT.equals(action) && mItem.IsCollecting()){
+            if(CreateSceneUtils.ACTION_RECEIVE_RESULT.equals(action) && mItem.IsCollecting()){
                 Log.d("Anita", "Received cell result");
                 mCellCollection.setClickable(true);
                 mCellCollection.setText("开始采集");
@@ -727,10 +715,9 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 mCellDetail.setVisibility(View.VISIBLE);
                 ArrayList<String> result= (ArrayList<String>) intent.getStringArrayListExtra("result");
 
-                //Todo : check path and uuid
                 String file_path = (String) intent.getStringExtra("file_path");
                 String uuid = (String) intent.getStringExtra("uuid");
-                String path = getNewPath(file_path);
+                String path = CreateSceneUtils.copyToInternalPath(getActivity(), file_path);
                 PhotoItem CellResult = new PhotoItem();
                 CellResult.setPhotoPath(path);
                 CellResult.setUuid(uuid);
@@ -744,20 +731,4 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             }
         }
     };
-
-    private String getNewPath(String OldPath){
-        String NewPath = "";
-        File mediaStorageDir = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Report");
-        if (!mediaStorageDir.exists()){
-            if (!mediaStorageDir.mkdirs()){
-                return NewPath;
-            }
-        }
-        String[] filename = OldPath.split("/");
-        NewPath = new File(mediaStorageDir.getPath() + File.separator + filename[filename.length-1]).toString();
-        Log.d("Anita", "new path = "+NewPath);
-        BackupRestore.copyFile(OldPath, NewPath);
-        BackupRestore.deleteFiles(new File(OldPath));
-        return NewPath;
-    }
 }

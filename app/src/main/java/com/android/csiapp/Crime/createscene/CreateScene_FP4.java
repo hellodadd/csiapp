@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,9 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.android.csiapp.Crime.utils.CreateSceneUtils;
 import com.android.csiapp.Crime.utils.adapter.PhotoAdapter;
 import com.android.csiapp.Crime.utils.PriviewPhotoActivity;
 import com.android.csiapp.Databases.CrimeItem;
@@ -30,11 +29,7 @@ import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.Databases.PositionPhotoProvider;
 import com.android.csiapp.R;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,18 +41,10 @@ public class CreateScene_FP4 extends Fragment {
     private CrimeItem mItem;
     private int mEvent;
 
-    private final int EVENT_PHOTO_TYPE_POSITION = 0;
-    private final int EVENT_PHOTO_TYPE_LIKE = 1;
-    private final int EVENT_PHOTO_TYPE_IMPORTANT = 2;
-
     private List<PhotoItem> mPositionList, mLikeList, mImportantList;
     private ListView mPosition_List, mLike_List, mImportant_List;
     private PhotoAdapter mPosition_Adapter, mLike_Adapter, mImportant_Adapter;
     private ImageButton mAdd_Position, mAdd_Like, mAdd_Important;
-
-    private final int EVENT_POSITION_PHOTO_DELETE = 100;
-    private final int EVENT_LIKE_PHOTO_DELETE = 101;
-    private final int EVENT_IMPORTANT_PHOTO_DELETE = 102;
 
     private PositionPhotoProvider mPositionPhotoProvider;
     private OverviewPhotoProvider mOverviewPhotoProvider;
@@ -111,8 +98,8 @@ public class CreateScene_FP4 extends Fragment {
         mAdd_Position.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LocalFileUri = Uri.fromFile(getOutputMediaFile(context,EVENT_PHOTO_TYPE_POSITION));
-                takePhoto(LocalFileUri, EVENT_PHOTO_TYPE_POSITION);
+                LocalFileUri = Uri.fromFile(CreateSceneUtils.getOutputMediaFile(context, CreateSceneUtils.EVENT_PHOTO_TYPE_POSITION));
+                takePhoto(LocalFileUri, CreateSceneUtils.EVENT_PHOTO_TYPE_POSITION);
             }
         });
 
@@ -129,14 +116,14 @@ public class CreateScene_FP4 extends Fragment {
                 startActivity(it);
             }
         });
-        setListViewHeightBasedOnChildren(mPosition_List);
+        CreateSceneUtils.setListViewHeightBasedOnChildren(mPosition_List);
 
         mAdd_Like = (ImageButton) view.findViewById(R.id.add_like_photo_imageButton);
         mAdd_Like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LocalFileUri = Uri.fromFile(getOutputMediaFile(context,EVENT_PHOTO_TYPE_LIKE));
-                takePhoto(LocalFileUri, EVENT_PHOTO_TYPE_LIKE);
+                LocalFileUri = Uri.fromFile(CreateSceneUtils.getOutputMediaFile(context, CreateSceneUtils.EVENT_PHOTO_TYPE_LIKE));
+                takePhoto(LocalFileUri, CreateSceneUtils.EVENT_PHOTO_TYPE_LIKE);
             }
         });
 
@@ -153,14 +140,14 @@ public class CreateScene_FP4 extends Fragment {
                 startActivity(it);
             }
         });
-        setListViewHeightBasedOnChildren(mLike_List);
+        CreateSceneUtils.setListViewHeightBasedOnChildren(mLike_List);
 
         mAdd_Important = (ImageButton) view.findViewById(R.id.add_important_photo_imageButton);
         mAdd_Important.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LocalFileUri = Uri.fromFile(getOutputMediaFile(context, EVENT_PHOTO_TYPE_IMPORTANT));
-                takePhoto(LocalFileUri, EVENT_PHOTO_TYPE_IMPORTANT);
+                LocalFileUri = Uri.fromFile(CreateSceneUtils.getOutputMediaFile(context, CreateSceneUtils.EVENT_PHOTO_TYPE_IMPORTANT));
+                takePhoto(LocalFileUri, CreateSceneUtils.EVENT_PHOTO_TYPE_IMPORTANT);
             }
         });
 
@@ -177,7 +164,7 @@ public class CreateScene_FP4 extends Fragment {
                 startActivity(it);
             }
         });
-        setListViewHeightBasedOnChildren(mImportant_List);
+        CreateSceneUtils.setListViewHeightBasedOnChildren(mImportant_List);
 
         registerForContextMenu(mPosition_List);
         registerForContextMenu(mLike_List);
@@ -189,11 +176,11 @@ public class CreateScene_FP4 extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
         String delete = context.getResources().getString(R.string.list_delete);
         if (v.getId()==R.id.Position_photo_listview) {
-            menu.add(0, EVENT_POSITION_PHOTO_DELETE, 0, delete);
+            menu.add(0, CreateSceneUtils.EVENT_POSITION_PHOTO_DELETE, 0, delete);
         }else if(v.getId()==R.id.Like_photo_listview){
-            menu.add(0, EVENT_LIKE_PHOTO_DELETE, 0, delete);
+            menu.add(0, CreateSceneUtils.EVENT_LIKE_PHOTO_DELETE, 0, delete);
         }else if(v.getId()==R.id.Important_photo_listview){
-            menu.add(0, EVENT_IMPORTANT_PHOTO_DELETE, 0, delete);
+            menu.add(0, CreateSceneUtils.EVENT_IMPORTANT_PHOTO_DELETE, 0, delete);
         }
     }
 
@@ -201,22 +188,22 @@ public class CreateScene_FP4 extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
-            case EVENT_POSITION_PHOTO_DELETE:
+            case CreateSceneUtils.EVENT_POSITION_PHOTO_DELETE:
                 if(mEvent == 2) mPositionPhotoProvider.delete(mPositionList.get(info.position).getId());
                 mPositionList.remove(info.position);
-                setListViewHeightBasedOnChildren(mPosition_List);
+                CreateSceneUtils.setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
                 return true;
-            case EVENT_LIKE_PHOTO_DELETE:
+            case CreateSceneUtils.EVENT_LIKE_PHOTO_DELETE:
                 if(mEvent == 2) mOverviewPhotoProvider.delete(mLikeList.get(info.position).getId());
                 mLikeList.remove(info.position);
-                setListViewHeightBasedOnChildren(mLike_List);
+                CreateSceneUtils.setListViewHeightBasedOnChildren(mLike_List);
                 mLike_Adapter.notifyDataSetChanged();
                 return true;
-            case EVENT_IMPORTANT_PHOTO_DELETE:
+            case CreateSceneUtils.EVENT_IMPORTANT_PHOTO_DELETE:
                 if(mEvent == 2) mImportantPhotoProvider.delete(mImportantList.get(info.position).getId());
                 mImportantList.remove(info.position);
-                setListViewHeightBasedOnChildren(mImportant_List);
+                CreateSceneUtils.setListViewHeightBasedOnChildren(mImportant_List);
                 mImportant_Adapter.notifyDataSetChanged();
                 return true;
             default:
@@ -266,80 +253,26 @@ public class CreateScene_FP4 extends Fragment {
         photoItem.setPhotoPath(path);
         photoItem.setUuid(CrimeProvider.getUUID());
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == EVENT_PHOTO_TYPE_POSITION) {
+            if (requestCode == CreateSceneUtils.EVENT_PHOTO_TYPE_POSITION) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_POSITION");
                 if(mEvent == 2) photoItem.setId(mPositionPhotoProvider.insert(photoItem));
                 mPositionList.add(photoItem);
-                setListViewHeightBasedOnChildren(mPosition_List);
+                CreateSceneUtils.setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
-            } else if (requestCode == EVENT_PHOTO_TYPE_LIKE) {
+            } else if (requestCode == CreateSceneUtils.EVENT_PHOTO_TYPE_LIKE) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_LIKE");
                 if(mEvent == 2) photoItem.setId(mOverviewPhotoProvider.insert(photoItem));
                 mLikeList.add(photoItem);
-                setListViewHeightBasedOnChildren(mLike_List);
+                CreateSceneUtils.setListViewHeightBasedOnChildren(mLike_List);
                 mLike_Adapter.notifyDataSetChanged();
-            } else if (requestCode == EVENT_PHOTO_TYPE_IMPORTANT) {
+            } else if (requestCode == CreateSceneUtils.EVENT_PHOTO_TYPE_IMPORTANT) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_IMPORTANT");
                 if(mEvent == 2) photoItem.setId(mImportantPhotoProvider.insert(photoItem));
                 mImportantList.add(photoItem);
-                setListViewHeightBasedOnChildren(mImportant_List);
+                CreateSceneUtils.setListViewHeightBasedOnChildren(mImportant_List);
                 mImportant_Adapter.notifyDataSetChanged();
             }
         }
     }
 
-    private void setListViewHeightBasedOnChildren(ListView listView) {
-        // 获取ListView对应的Adapter
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
-
-        int totalHeight = 0;
-        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
-            // listAdapter.getCount()获取ListView对应的Adapter
-            View listItem = listAdapter.getView(i, null, listView);
-            // 计算子项View 的宽高
-            listItem.measure(0, 0);
-            // 统计所有子项的总高度
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        // listView.getDividerHeight()获取子项间分隔符占用的高度
-        // params.height最后得到整个ListView完整显示需要的高度
-        listView.setLayoutParams(params);
-    }
-
-    private File getOutputMediaFile(Context context, int type){
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
-
-        File mediaStorageDir = new File( context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Report");
-        // This location works best if you want the created images to be shared
-        // between applications and persist after your app has been uninstalled.
-
-        // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists()){
-            if (!mediaStorageDir.mkdirs()){
-                return null;
-            }
-        }
-
-        // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        File mediaFile;
-        if (type == EVENT_PHOTO_TYPE_POSITION){
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "POSITION_PHOTO_"+ timeStamp + ".jpg");
-        } else if(type == EVENT_PHOTO_TYPE_LIKE) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "OVERVIEW_PHOTO_"+ timeStamp + ".jpg");
-        } else if (type == EVENT_PHOTO_TYPE_IMPORTANT) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMPORTANT_PHOTO_"+ timeStamp + ".jpg");
-        } else {
-            return null;
-        }
-
-        return mediaFile;
-    }
 }

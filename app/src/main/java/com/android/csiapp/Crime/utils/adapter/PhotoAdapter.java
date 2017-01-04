@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.csiapp.Crime.utils.CreateSceneUtils;
 import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
 
@@ -62,7 +63,7 @@ public class PhotoAdapter extends BaseAdapter {
         PhotoItem item = (PhotoItem)getItem(position);
         String path = item.getPhotoPath();
         if(!path.isEmpty()){
-            bp = loadBitmapFromFile(new File(path));
+            bp = CreateSceneUtils.loadBitmapFromFile(new File(path));
             if(bp!=null) holder.txtItemPhoto.setImageBitmap(bp);
         }
 
@@ -76,24 +77,4 @@ public class PhotoAdapter extends BaseAdapter {
         }
     }
 
-    public static Bitmap loadBitmapFromFile(File f) {
-        Bitmap b = null;
-        BitmapFactory.Options option = new BitmapFactory.Options();
-        // Bitmap sampling factor, size = (Original Size)/(inSampleSize)
-        option.inSampleSize = 4;
-
-        try {
-            FileInputStream fis = new FileInputStream(f);
-            b = BitmapFactory.decodeStream(fis, null, option);
-            fis.close();
-
-            Matrix matrix = new Matrix();
-            matrix.setRotate(0, (float)b.getWidth()/2, (float)b.getHeight()/2);
-            Bitmap resultImage = Bitmap.createBitmap(b, 0, 0, b.getWidth(), b.getHeight(), matrix, true);
-
-            return resultImage;
-        } catch(Exception e) {
-            return null;
-        }
-    }
 }
