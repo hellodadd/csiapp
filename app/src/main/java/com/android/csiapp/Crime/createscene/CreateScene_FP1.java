@@ -31,7 +31,7 @@ import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.UserInfo;
-import com.android.csiapp.Crime.utils.tree.TreeViewListDemo;
+import com.android.csiapp.Crime.utils.tree.TreeViewListActivity;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.PhotoItem;
@@ -50,68 +50,32 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private CrimeItem mItem;
     private int mEvent;
 
+    private String ACTION_RECEIVE_RESULT = "com.kuaikan.send_result";
+    private final int EVENT_CELL_COLLECTION = 0;
+    private final int EVENT_CASETYPE_SELECT_ITEM = 1;
+    private final int EVENT_AREA_SELECT_ITEM = 2;
+    private final int EVENT_SCENE_CONDITION_SELECT_ITEM = 3;
+    private final int EVENT_WEATHER_SELECT_ITEM = 4;
+    private final int EVENT_WIND_SELECT_ITEM = 5;
+    private final int EVENT_ILLUMINATION_SELECT_ITEM = 6;
+    private final int EVENT_SCENE_CONDUCTOR_SLELECT_ITEM = 7;
+    private final int EVENT_ACCESS_INSPECTORS_SLELECT_ITEM = 8;
+
     private Button mCellCollection, mCellDetail;
     List<PhotoItem> mCellResultItems;
-    private String ACTION_RECEIVE_RESULT = "com.kuaikan.send_result";
-    private int EVENT_CELL_COLLECTION = 0;
 
-    private TextView mCasetypeText;
-    private int EVENT_CASETYPE_SELECT_ITEM = 1;
+    private TextView mCasetypeText, mAreaText, mSceneConditionText, mWeatherConditionText, mWindDirectionText;
+    private TextView mIlluminationConditionText, mSceneConductorText, mAccessInspectorsText;
 
-    private TextView mAreaText;
-    private int EVENT_AREA_SELECT_ITEM = 2;
-
-    private ClearableEditText mLocation;
-
-    private TextView mOccurred_start_time;
-    private TextView mOccurred_end_time;
-    private TextView mGet_access_time;
-    private Button mOccurred_start_button;
-    private Button mOccurred_end_button;
-    private Button mGet_access_button;
-
-    private ClearableEditText mUnitsAssigned;
-    private ClearableEditText mAccessPolicemen;
-
-    private TextView mAccess_start_time;
-    private TextView mAccess_end_time;
-    private Button mAccess_start_button;
-    private Button mAccess_end_button;
-
-    private ClearableEditText mAccessLocation;
-    private ClearableEditText mCaseOccurProcess;
-    private Button mCaseOccurProcessBtn;
-
-    private TextView mSceneConditionText;
-    private int EVENT_SCENE_CONDITION_SELECT_ITEM = 3;
+    private ClearableEditText mLocation, mUnitsAssigned, mAccessPolicemen, mAccessLocation, mCaseOccurProcess;
+    private ClearableEditText mChangeReason, mTemperature, mHumidity, mAccessReason;
+    private ClearableEditText mProductPeopleName, mProductPeopleUnit, mProductPeopleDuties, mSafeguard;
+    private Button mCaseOccurProcessBtn, mAccessReasonBtn;
     private LinearLayout mChangeReasonLinearLayout;
-    private ClearableEditText mChangeReason;
     private CheckBox mInformantCkBx, mVictimCkBx, mOtherCkBx;
 
-    private TextView mWeatherConditionText;
-    private int EVENT_WEATHER_SELECT_ITEM = 4;
-
-    private TextView mWindDirectionText;
-    private int EVENT_WIND_SELECT_ITEM = 5;
-
-    private ClearableEditText mTemperature;
-    private ClearableEditText mHumidity;
-    private ClearableEditText mAccessReason;
-    private Button mAccessReasonBtn;
-
-    private TextView mIlluminationConditionText;
-    private int EVENT_ILLUMINATION_SELECT_ITEM = 6;
-
-    private ClearableEditText mProductPeopleName;
-    private ClearableEditText mProductPeopleUnit;
-    private ClearableEditText mProductPeopleDuties;
-    private ClearableEditText mSafeguard;
-
-    private TextView mSceneConductorText;
-    private int EVENT_SCENE_CONDUCTOR_SLELECT_ITEM = 7;
-
-    private TextView mAccessInspectorsText;
-    private int EVENT_ACCESS_INSPECTORS_SLELECT_ITEM = 8;
+    private TextView mOccurred_start_time, mOccurred_end_time, mGet_access_time, mAccess_start_time, mAccess_end_time;
+    private Button mOccurred_start_button, mOccurred_end_button, mGet_access_button, mAccess_start_button, mAccess_end_button;
 
     public CreateScene_FP1() {
         // Required empty public constructor
@@ -205,10 +169,10 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 mAccessInspectorsText.setText(result);
             }
         }
-        Log.d("Anita","result = "+result);
     }
 
     private void initView(View view){
+        //基站採集
         mCellCollection = (Button) view.findViewById(R.id.cell_collection);
         if(mItem.IsCollecting()) mCellCollection.setText("采集中");
         mCellCollection.setOnClickListener(new View.OnClickListener() {
@@ -217,8 +181,11 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 startCollection();
             }
         });
+
+        //查看基站信息
         mCellDetail = (Button) view.findViewById(R.id.cell_detail);
-        if(!mItem.IsCollecting() && mItem.IsCollected()) mCellDetail.setVisibility(View.VISIBLE);
+        if((!mItem.IsCollecting() && mItem.IsCollected()) || !mItem.getCellResultItem().isEmpty())
+            mCellDetail.setVisibility(View.VISIBLE);
         mCellDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,84 +193,140 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 if(mItem.getCellResult().size()!=0){
                     Intent showRet = new Intent("android.intent.action.kuaikan.show_result");
                     showRet.putStringArrayListExtra("result", mItem.getCellResult());
+                    showRet.putExtra("xml", mItem.getCellResultItem().get(mItem.getCellResultItem().size()-1).getPhotoPath());
                     showRet.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(showRet);
                 }
             }
         });
 
+        //案件類別
         mCasetypeText = (TextView) view.findViewById(R.id.casetype);
         mCasetypeText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mCaseTypeKey);
                 it.putExtra("Selected", mItem.getCasetype());
                 startActivityForResult(it, EVENT_CASETYPE_SELECT_ITEM);
             }
         });
 
+        //發案區劃
         mAreaText = (TextView) view.findViewById(R.id.area);
         mAreaText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mAreaKey);
                 it.putExtra("Selected", mItem.getArea());
                 startActivityForResult(it, EVENT_AREA_SELECT_ITEM);
             }
         });
 
-        mLocation = (ClearableEditText) view.findViewById(R.id.location);
-
-        mOccurred_start_time = (TextView) view.findViewById(R.id.occurred_start_time);
-        mOccurred_end_time = (TextView) view.findViewById(R.id.occurred_end_time);
-        mGet_access_time = (TextView) view.findViewById(R.id.get_access_time);
-        mOccurred_start_button = (Button) view.findViewById(R.id.occurred_start_time_button);
-        mOccurred_end_button = (Button) view.findViewById(R.id.occurred_end_time_button);
-        mGet_access_button = (Button) view.findViewById(R.id.get_access_time_button);
-        mOccurred_start_button.setOnClickListener(this);
-        mOccurred_end_button.setOnClickListener(this);
-        mGet_access_button.setOnClickListener(this);
-
-        mUnitsAssigned = (ClearableEditText) view.findViewById(R.id.unitsAssigned);
-        mAccessPolicemen= (ClearableEditText) view.findViewById(R.id.accessPolicemen);
-
-        mAccess_start_time = (TextView) view.findViewById(R.id.access_start_time);
-        mAccess_end_time = (TextView) view.findViewById(R.id.access_end_time);
-        mAccess_start_button = (Button) view.findViewById(R.id.access_start_time_button);
-        mAccess_end_button= (Button) view.findViewById(R.id.access_end_time_button);
-        mAccess_start_button.setOnClickListener(this);
-        mAccess_end_button.setOnClickListener(this);
-
-        mAccessLocation = (ClearableEditText) view.findViewById(R.id.accessLocation);
-        mCaseOccurProcess = (ClearableEditText) view.findViewById(R.id.caseOccurProcess);
-        mCaseOccurProcessBtn = (Button) view.findViewById(R.id.caseOccurProcess_button);
-        mCaseOccurProcessBtn.setOnClickListener(this);
-
-        mChangeReasonLinearLayout = (LinearLayout) view.findViewById(R.id.change_reason_linear);
-
+        //現場條件
         mSceneConditionText = (TextView) view.findViewById(R.id.sceneCondition);
         mSceneConditionText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mSceneConditionKey);
                 it.putExtra("Selected", mItem.getSceneCondition());
                 startActivityForResult(it, EVENT_SCENE_CONDITION_SELECT_ITEM);
             }
         });
 
-        mChangeReason = (ClearableEditText) view.findViewById(R.id.change_reason);
+        //天氣狀況
+        mWeatherConditionText = (TextView) view.findViewById(R.id.weatherCondition);
+        mWeatherConditionText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
+                it.putExtra("Key",DictionaryInfo.mWeatherConditionKey);
+                it.putExtra("Selected", mItem.getWeatherCondition());
+                startActivityForResult(it, EVENT_WEATHER_SELECT_ITEM);
+            }
+        });
 
+        //風向
+        mWindDirectionText = (TextView) view.findViewById(R.id.windDirection);
+        mWindDirectionText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
+                it.putExtra("Key",DictionaryInfo.mWindDirectionKey);
+                it.putExtra("Selected", mItem.getWindDirection());
+                startActivityForResult(it, EVENT_WIND_SELECT_ITEM);
+            }
+        });
+
+        //光照條件
+        mIlluminationConditionText = (TextView) view.findViewById(R.id.illuminationCondition);
+        mIlluminationConditionText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
+                it.putExtra("Key",DictionaryInfo.mIlluminationConditionKey);
+                it.putExtra("Selected", mItem.getIlluminationCondition());
+                startActivityForResult(it, EVENT_ILLUMINATION_SELECT_ITEM);
+            }
+        });
+
+        //現場指揮人員
+        mSceneConductorText = (TextView) view.findViewById(R.id.sceneConductor);
+        mSceneConductorText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
+                it.putExtra("Key",UserInfo.mSceneConductor);
+                it.putExtra("Selected", mItem.getSceneConductor());
+                it.putExtra("DataInfo", "UserInfo");
+                startActivityForResult(it, EVENT_SCENE_CONDUCTOR_SLELECT_ITEM);
+            }
+        });
+
+        //勘驗檢查人員
+        mAccessInspectorsText = (TextView) view.findViewById(R.id.accessInspectors);
+        mAccessInspectorsText.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
+                it.putExtra("Key",UserInfo.mAccessInspectors);
+                it.putExtra("Selected", mItem.getAccessInspectors());
+                it.putExtra("DataInfo", "UserInfo");
+                startActivityForResult(it, EVENT_ACCESS_INSPECTORS_SLELECT_ITEM);
+            }
+        });
+
+        //案發區劃
+        mLocation = (ClearableEditText) view.findViewById(R.id.location);
+        mLocation.addTextChangedListener(new TextWatcher()
+        {
+            public void onTextChanged(CharSequence s, int start, int before, int count){
+                mAccessLocation.setText(mLocation.getText());
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+            public void afterTextChanged(Editable s){}
+        });
+
+        //指派單位
+        mUnitsAssigned = (ClearableEditText) view.findViewById(R.id.unitsAssigned);
+
+        //接警人
+        mAccessPolicemen= (ClearableEditText) view.findViewById(R.id.accessPolicemen);
+
+        //勘驗地點
+        mAccessLocation = (ClearableEditText) view.findViewById(R.id.accessLocation);
+
+        //案件發現過程
+        mCaseOccurProcess = (ClearableEditText) view.findViewById(R.id.caseOccurProcess);
+        mCaseOccurProcessBtn = (Button) view.findViewById(R.id.caseOccurProcess_button);
+        mCaseOccurProcessBtn.setOnClickListener(this);
+
+        //現場變動原因
+        mChangeReasonLinearLayout = (LinearLayout) view.findViewById(R.id.change_reason_linear);
+        mChangeReason = (ClearableEditText) view.findViewById(R.id.change_reason);
         mInformantCkBx = (CheckBox) view.findViewById(R.id.InformantCkBx);
         mVictimCkBx = (CheckBox) view.findViewById(R.id.VictimCkBx);
         mOtherCkBx = (CheckBox) view.findViewById(R.id.OtherCkBx);
-
         ArrayList<String> ChangeOption = DictionaryInfo.getDictKeyList(DictionaryInfo.mChangeOptionKey);
         if(ChangeOption.size()>=3) {
             mInformantCkBx.setText(DictionaryInfo.getDictValue(DictionaryInfo.mChangeOptionKey, ChangeOption.get(0)));
             mVictimCkBx.setText(DictionaryInfo.getDictValue(DictionaryInfo.mChangeOptionKey, ChangeOption.get(1)));
             mOtherCkBx.setText(DictionaryInfo.getDictValue(DictionaryInfo.mChangeOptionKey, ChangeOption.get(2)));
         }
-
         mInformantCkBx.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String changeOption = mItem.getChangeOption();
@@ -365,88 +388,88 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             }
         });
 
-        mWeatherConditionText = (TextView) view.findViewById(R.id.weatherCondition);
-        mWeatherConditionText.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
-                it.putExtra("Key",DictionaryInfo.mWeatherConditionKey);
-                it.putExtra("Selected", mItem.getWeatherCondition());
-                startActivityForResult(it, EVENT_WEATHER_SELECT_ITEM);
-            }
-        });
-        mWindDirectionText = (TextView) view.findViewById(R.id.windDirection);
-        mWindDirectionText.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
-                it.putExtra("Key",DictionaryInfo.mWindDirectionKey);
-                it.putExtra("Selected", mItem.getWindDirection());
-                startActivityForResult(it, EVENT_WIND_SELECT_ITEM);
-            }
-        });
-
+        //溫度
         mTemperature = (ClearableEditText) view.findViewById(R.id.temperature);
-        mTemperature.setKeyListener(DigitsKeyListener.getInstance("-0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+        mTemperature.setKeyListener(DigitsKeyListener.getInstance("-0123456789"));
+
+        //濕度
         mHumidity = (ClearableEditText) view.findViewById(R.id.humidity);
-        mHumidity.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+        mHumidity.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
+
+        //勘驗事由
         mAccessReason = (ClearableEditText) view.findViewById(R.id.accessReason);
         mAccessReasonBtn = (Button) view.findViewById(R.id.accessReason_button);
         mAccessReasonBtn.setOnClickListener(this);
 
-        mIlluminationConditionText = (TextView) view.findViewById(R.id.illuminationCondition);
-        mIlluminationConditionText.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
-                it.putExtra("Key",DictionaryInfo.mIlluminationConditionKey);
-                it.putExtra("Selected", mItem.getIlluminationCondition());
-                startActivityForResult(it, EVENT_ILLUMINATION_SELECT_ITEM);
-            }
-        });
-
+        //保護人姓名
         mProductPeopleName = (ClearableEditText) view.findViewById(R.id.productPeople_name);
+
+        //保護人單位
         mProductPeopleUnit = (ClearableEditText) view.findViewById(R.id.productPeople_unit);
+
+        //保護人職務
         mProductPeopleDuties = (ClearableEditText) view.findViewById(R.id.productPeople_duties);
+
+        //保護措施
         mSafeguard = (ClearableEditText) view.findViewById(R.id.safeguard);
 
-        mSceneConductorText = (TextView) view.findViewById(R.id.sceneConductor);
-        mSceneConductorText.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
-                it.putExtra("Key",UserInfo.mSceneConductor);
-                it.putExtra("Selected", mItem.getSceneConductor());
-                it.putExtra("DataInfo", "UserInfo");
-                startActivityForResult(it, EVENT_SCENE_CONDUCTOR_SLELECT_ITEM);
-            }
-        });
+        //時間
+        mOccurred_start_time = (TextView) view.findViewById(R.id.occurred_start_time);
+        mOccurred_end_time = (TextView) view.findViewById(R.id.occurred_end_time);
+        mGet_access_time = (TextView) view.findViewById(R.id.get_access_time);
+        mAccess_start_time = (TextView) view.findViewById(R.id.access_start_time);
+        mAccess_end_time = (TextView) view.findViewById(R.id.access_end_time);
+        mOccurred_start_button = (Button) view.findViewById(R.id.occurred_start_time_button);
+        mOccurred_end_button = (Button) view.findViewById(R.id.occurred_end_time_button);
+        mGet_access_button = (Button) view.findViewById(R.id.get_access_time_button);
+        mAccess_start_button = (Button) view.findViewById(R.id.access_start_time_button);
+        mAccess_end_button= (Button) view.findViewById(R.id.access_end_time_button);
+        mOccurred_start_button.setOnClickListener(this);
+        mOccurred_end_button.setOnClickListener(this);
+        mGet_access_button.setOnClickListener(this);
+        mAccess_start_button.setOnClickListener(this);
+        mAccess_end_button.setOnClickListener(this);
+    }
 
-        mAccessInspectorsText = (TextView) view.findViewById(R.id.accessInspectors);
-        mAccessInspectorsText.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
-                it.putExtra("Key",UserInfo.mAccessInspectors);
-                it.putExtra("Selected", mItem.getAccessInspectors());
-                it.putExtra("DataInfo", "UserInfo");
-                startActivityForResult(it, EVENT_ACCESS_INSPECTORS_SLELECT_ITEM);
-            }
-        });
+    private void initData(){
+        mCellResultItems = mItem.getCellResultItem();
+        mCasetypeText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, mItem.getCasetype()));
+        mAreaText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, mItem.getArea()));
+        mSceneConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSceneConditionKey, mItem.getSceneCondition()));
+        enableChangeReason(mItem.getSceneCondition());
+        mWeatherConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mWeatherConditionKey, mItem.getWeatherCondition()));
+        mWindDirectionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mWindDirectionKey, mItem.getWindDirection()));
+        mIlluminationConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mIlluminationConditionKey, mItem.getIlluminationCondition()));
 
-        mLocation.addTextChangedListener(new TextWatcher()
-        {
+        mLocation.setText(mItem.getLocation());
+        mUnitsAssigned.setText(mItem.getUnitsAssigned());
+        mAccessPolicemen.setText(mItem.getAccessPolicemen());
+        mAccessLocation.setText(mItem.getAccessLocation());
+        mCaseOccurProcess.setText(mItem.getCaseOccurProcess());
 
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
-                mAccessLocation.setText(mLocation.getText());
-            }
+        mInformantCkBx.setChecked(mItem.getChangeOption().contains(
+                DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mInformantCkBx.getText().toString())));
+        mVictimCkBx.setChecked(mItem.getChangeOption().contains(
+                DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mVictimCkBx.getText().toString())));
+        mOtherCkBx.setChecked(mItem.getChangeOption().contains(
+                DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mOtherCkBx.getText().toString())));
+        mChangeReason.setText(mItem.getChangeReason());
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after)
-            {
+        mTemperature.setText(mItem.getTemperature());
+        mHumidity.setText(mItem.getHumidity());
+        mAccessReason.setText(mItem.getAccessReason());
+        mProductPeopleName.setText(mItem.getProductPeopleName());
+        mProductPeopleUnit.setText(mItem.getProductPeopleUnit());
+        mProductPeopleDuties.setText(mItem.getProductPeopleDuties());
+        mSafeguard.setText(mItem.getSafeguard());
+        mSceneConductorText.setText(UserInfo.getUserName(mItem.getSceneConductor()));
+        mAccessInspectorsText.setText(UserInfo.getUserName(mItem.getAccessInspectors()));
 
-            }
-
-            public void afterTextChanged(Editable s)
-            {
-
-            }
-        });
+        mOccurred_start_time.setText(DateTimePicker.getCurrentTime(mItem.getOccurredStartTime()));
+        mOccurred_end_time.setText(DateTimePicker.getCurrentTime(mItem.getOccurredEndTime()));
+        mGet_access_time.setText(DateTimePicker.getCurrentTime(mItem.getGetAccessTime()));
+        mAccess_start_time.setText(DateTimePicker.getCurrentTime(mItem.getAccessStartTime()));
+        mAccess_end_time.setText(DateTimePicker.getCurrentTime(mItem.getAccessEndTime()));
     }
 
     private void getLastData(){
@@ -502,49 +525,9 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void initData(){
-        mCellResultItems = mItem.getCellResultItem();
-        mCasetypeText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, mItem.getCasetype()));
-        mAreaText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, mItem.getArea()));
-        mSceneConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSceneConditionKey, mItem.getSceneCondition()));
-        enableChangeReason(mItem.getSceneCondition());
-        mWeatherConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mWeatherConditionKey, mItem.getWeatherCondition()));
-        mWindDirectionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mWindDirectionKey, mItem.getWindDirection()));
-        mIlluminationConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mIlluminationConditionKey, mItem.getIlluminationCondition()));
-
-        mLocation.setText(mItem.getLocation());
-        mUnitsAssigned.setText(mItem.getUnitsAssigned());
-        mAccessPolicemen.setText(mItem.getAccessPolicemen());
-        mAccessLocation.setText(mItem.getAccessLocation());
-        mCaseOccurProcess.setText(mItem.getCaseOccurProcess());
-
-        mInformantCkBx.setChecked(mItem.getChangeOption().contains(
-                DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mInformantCkBx.getText().toString())));
-        mVictimCkBx.setChecked(mItem.getChangeOption().contains(
-                DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mVictimCkBx.getText().toString())));
-        mOtherCkBx.setChecked(mItem.getChangeOption().contains(
-                DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mOtherCkBx.getText().toString())));
-        mChangeReason.setText(mItem.getChangeReason());
-
-        mTemperature.setText(mItem.getTemperature());
-        mHumidity.setText(mItem.getHumidity());
-        mAccessReason.setText(mItem.getAccessReason());
-        mProductPeopleName.setText(mItem.getProductPeopleName());
-        mProductPeopleUnit.setText(mItem.getProductPeopleUnit());
-        mProductPeopleDuties.setText(mItem.getProductPeopleDuties());
-        mSafeguard.setText(mItem.getSafeguard());
-        mSceneConductorText.setText(UserInfo.getUserName(mItem.getSceneConductor()));
-        mAccessInspectorsText.setText(UserInfo.getUserName(mItem.getAccessInspectors()));
-
-        mOccurred_start_time.setText(DateTimePicker.getCurrentTime(mItem.getOccurredStartTime()));
-        mOccurred_end_time.setText(DateTimePicker.getCurrentTime(mItem.getOccurredEndTime()));
-        mGet_access_time.setText(DateTimePicker.getCurrentTime(mItem.getGetAccessTime()));
-        mAccess_start_time.setText(DateTimePicker.getCurrentTime(mItem.getAccessStartTime()));
-        mAccess_end_time.setText(DateTimePicker.getCurrentTime(mItem.getAccessEndTime()));
-    }
-
     public void saveData(){
         mItem.setCellResultItem(mCellResultItems);
+        //儲存文本內容
         mItem.setLocationa(mLocation.getText());
         mItem.setUnitsAssigned(mUnitsAssigned.getText());
         mItem.setAccessPolicemen(mAccessPolicemen.getText());
@@ -574,7 +557,6 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.occurred_start_time_button:
                 showDateTimeDialog(mOccurred_start_time,1);

@@ -28,7 +28,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
@@ -37,7 +36,7 @@ import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.PriviewPhotoActivity;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Crime.utils.UserInfo;
-import com.android.csiapp.Crime.utils.tree.TreeViewListDemo;
+import com.android.csiapp.Crime.utils.tree.TreeViewListActivity;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.EvidenceItem;
@@ -58,7 +57,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private int mEvent;
     private int mPosition;
     private Uri LocalFileUri = null;
-    public static final int PHOTO_TYPE_NEW_EVIDENCE = 0;
+    private static final int EVENT_PHOTO_TYPE_NEW_EVIDENCE = 0;
 
     private ImageView mNew_evidence;
     private Spinner mEvidence_category_spinner;
@@ -72,9 +71,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private TextView mEvidenceText;
     private int EVENT_EVIDENCE_SELECT_ITEM = 1;
 
-    private ClearableEditText mEvidenceName;
-    private ClearableEditText mLegacySite;
-    private ClearableEditText mBasiceFeature;
+    private ClearableEditText mEvidenceName, mLegacySite, mBasiceFeature;
 
     private ImageView mBasiceFeatureLabel;
     private LinearLayout mInferLL;
@@ -95,15 +92,12 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
-            String msg = "";
             switch (menuItem.getItemId()) {
                 case R.id.action_camera:
-                    msg += "Camera";
-                    LocalFileUri = Uri.fromFile(getOutputMediaFile(context, PHOTO_TYPE_NEW_EVIDENCE));
-                    takePhoto(LocalFileUri, PHOTO_TYPE_NEW_EVIDENCE);
+                    LocalFileUri = Uri.fromFile(getOutputMediaFile(context, EVENT_PHOTO_TYPE_NEW_EVIDENCE));
+                    takePhoto(LocalFileUri, EVENT_PHOTO_TYPE_NEW_EVIDENCE);
                     break;
                 case R.id.action_click:
-                    msg += "Save";
                     saveData();
                     Intent result = getIntent();
                     if(mEvidenceItem.getPhotoPath().isEmpty()) result.putExtra("photo_uri", mEvidenceItem.getPhotoPath());
@@ -122,10 +116,6 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
                     break;
                 default:
                     break;
-            }
-
-            if (!msg.equals("")) {
-                //Toast.makeText(CreateScene_FP5_NewEvidenceActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             return true;
         }
@@ -160,8 +150,8 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         initData();
 
         if(mEvent == 1) {
-            LocalFileUri = Uri.fromFile(getOutputMediaFile(context, PHOTO_TYPE_NEW_EVIDENCE));
-            takePhoto(LocalFileUri, PHOTO_TYPE_NEW_EVIDENCE);
+            LocalFileUri = Uri.fromFile(getOutputMediaFile(context, EVENT_PHOTO_TYPE_NEW_EVIDENCE));
+            takePhoto(LocalFileUri, EVENT_PHOTO_TYPE_NEW_EVIDENCE);
         }
     }
 
@@ -184,9 +174,6 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     }
 
     private void initView(){
-        DictionaryInfo info = new DictionaryInfo(context);
-        UserInfo user = new UserInfo(context);
-
         mNew_evidence = (ImageView) findViewById(R.id.new_evidence);
         mNew_evidence.setOnClickListener(new View.OnClickListener()
         {
@@ -195,7 +182,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             {
                 Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, PriviewPhotoActivity.class);
                 it.putExtra("Path",mEvidenceItem.getPhotoPath());
-                startActivityForResult(it, 100);
+                startActivity(it);
             }
         });
 
@@ -219,7 +206,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         mEvidenceText = (TextView) findViewById(R.id.evidence);
         mEvidenceText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mEvidenceHandKey);
                 it.putExtra("Selected", mEvidenceItem.getEvidence());
                 startActivityForResult(it, EVENT_EVIDENCE_SELECT_ITEM);
@@ -237,7 +224,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         mInferText = (TextView) findViewById(R.id.infer);
         mInferText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mToolInferKey);
                 it.putExtra("Selected", mEvidenceItem.getInfer());
                 startActivityForResult(it, EVENT_INFER_SELECT_ITEM);
@@ -247,7 +234,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         mMethodText = (TextView) findViewById(R.id.method);
         mMethodText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mMethodHandKey);
                 it.putExtra("Selected", mEvidenceItem.getMethod());
                 startActivityForResult(it, EVENT_METHOD_SELECT_ITEM);
@@ -263,7 +250,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         mGetPeopleText = (TextView) findViewById(R.id.getPeople);
         mGetPeopleText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                 it.putExtra("Key",UserInfo.mExtractionPeople);
                 it.putExtra("Selected", mEvidenceItem.getPeople());
                 it.putExtra("DataInfo", "UserInfo");
@@ -348,7 +335,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         super.onActivityResult(requestCode, resultCode, data);
         String result = "";
         int category = getCategory(mEvidenceItem.getEvidenceCategory());
-        if(requestCode==PHOTO_TYPE_NEW_EVIDENCE) {
+        if(requestCode == EVENT_PHOTO_TYPE_NEW_EVIDENCE) {
             String path = LocalFileUri.getPath();
             File file = new File(path);
             if (path != null && file.exists()) {
@@ -412,7 +399,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mEvidenceText = (TextView) findViewById(R.id.evidence);
             mEvidenceText.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {
-                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                     it.putExtra("Key",DictionaryInfo.mEvidenceHandKey);
                     it.putExtra("Selected", mEvidenceItem.getEvidence());
                     startActivityForResult(it, EVENT_EVIDENCE_SELECT_ITEM);
@@ -422,7 +409,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mMethodText = (TextView) findViewById(R.id.method);
             mMethodText.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {
-                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                     it.putExtra("Key",DictionaryInfo.mMethodHandKey);
                     it.putExtra("Selected", mEvidenceItem.getMethod());
                     startActivityForResult(it, EVENT_METHOD_SELECT_ITEM);
@@ -447,7 +434,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mEvidenceText = (TextView) findViewById(R.id.evidence);
             mEvidenceText.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {
-                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                     it.putExtra("Key",DictionaryInfo.mEvidenceFootKey);
                     it.putExtra("Selected", mEvidenceItem.getEvidence());
                     startActivityForResult(it, EVENT_EVIDENCE_SELECT_ITEM);
@@ -457,7 +444,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mMethodText = (TextView) findViewById(R.id.method);
             mMethodText.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {
-                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                     it.putExtra("Key",DictionaryInfo.mMethodFootKey);
                     it.putExtra("Selected", mEvidenceItem.getMethod());
                     startActivityForResult(it, EVENT_METHOD_SELECT_ITEM);
@@ -481,7 +468,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mEvidenceText = (TextView) findViewById(R.id.evidence);
             mEvidenceText.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {
-                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                     it.putExtra("Key",DictionaryInfo.mEvidenceToolKey);
                     it.putExtra("Selected", mEvidenceItem.getEvidence());
                     startActivityForResult(it, EVENT_EVIDENCE_SELECT_ITEM);
@@ -491,7 +478,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             mMethodText = (TextView) findViewById(R.id.method);
             mMethodText.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {
-                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListDemo.class);
+                    Intent it = new Intent(CreateScene_FP5_NewEvidenceActivity.this, TreeViewListActivity.class);
                     it.putExtra("Key",DictionaryInfo.mMethodToolKey);
                     it.putExtra("Selected", mEvidenceItem.getMethod());
                     startActivityForResult(it, EVENT_METHOD_SELECT_ITEM);
@@ -548,7 +535,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         File mediaFile;
-        if (type == PHOTO_TYPE_NEW_EVIDENCE){
+        if (type == EVENT_PHOTO_TYPE_NEW_EVIDENCE){
             mediaFile = new File(mediaStorageDir.getPath() + File.separator + "NEW_EVIDENCE_"+ timeStamp + ".jpg");
         } else {
             return null;
@@ -568,7 +555,6 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             b = BitmapFactory.decodeStream(fis, null, option);
             fis.close();
 
-            // Rotate Bitmap by 90 degree
             Matrix matrix = new Matrix();
             matrix.setRotate(0, (float)b.getWidth()/2, (float)b.getHeight()/2);
             Bitmap resultImage = Bitmap.createBitmap(b, 0, 0, b.getWidth(), b.getHeight(), matrix, true);

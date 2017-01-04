@@ -31,7 +31,6 @@ import com.android.csiapp.Databases.PositionPhotoProvider;
 import com.android.csiapp.R;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -41,32 +40,24 @@ import java.util.Locale;
  * A simple {@link Fragment} subclass.
  */
 public class CreateScene_FP4 extends Fragment {
+
     private Context context = null;
     private Uri LocalFileUri = null;
     private CrimeItem mItem;
-    private PhotoItem mPositionItem;
     private int mEvent;
 
-    List<PhotoItem> mPositionList;
-    private ListView mPosition_List;
-    private PhotoAdapter mPosition_Adapter;
-    List<PhotoItem> mLikeList;
-    private ListView mLike_List;
-    private PhotoAdapter mLike_Adapter;
-    List<PhotoItem> mImportantList;
-    private ListView mImportant_List;
-    private PhotoAdapter mImportant_Adapter;
-    private ImageButton mAdd_Position;
-    private ImageButton mAdd_Like;
-    private ImageButton mAdd_Important;
+    private final int EVENT_PHOTO_TYPE_POSITION = 0;
+    private final int EVENT_PHOTO_TYPE_LIKE = 1;
+    private final int EVENT_PHOTO_TYPE_IMPORTANT = 2;
 
-    public static final int PHOTO_TYPE_POSITION = 1;
-    public static final int PHOTO_TYPE_LIKE = 2;
-    public static final int PHOTO_TYPE_IMPORTANT = 3;
+    private List<PhotoItem> mPositionList, mLikeList, mImportantList;
+    private ListView mPosition_List, mLike_List, mImportant_List;
+    private PhotoAdapter mPosition_Adapter, mLike_Adapter, mImportant_Adapter;
+    private ImageButton mAdd_Position, mAdd_Like, mAdd_Important;
 
-    final int POSITION_PHOTO_DELETE = 5;
-    final int LIKE_PHOTO_DELETE = 6;
-    final int IMPORTANT_PHOTO_DELETE = 7;
+    private final int EVENT_POSITION_PHOTO_DELETE = 100;
+    private final int EVENT_LIKE_PHOTO_DELETE = 101;
+    private final int EVENT_IMPORTANT_PHOTO_DELETE = 102;
 
     private PositionPhotoProvider mPositionPhotoProvider;
     private OverviewPhotoProvider mOverviewPhotoProvider;
@@ -120,8 +111,8 @@ public class CreateScene_FP4 extends Fragment {
         mAdd_Position.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LocalFileUri = Uri.fromFile(getOutputMediaFile(context,PHOTO_TYPE_POSITION));
-                takePhoto(LocalFileUri, PHOTO_TYPE_POSITION);
+                LocalFileUri = Uri.fromFile(getOutputMediaFile(context,EVENT_PHOTO_TYPE_POSITION));
+                takePhoto(LocalFileUri, EVENT_PHOTO_TYPE_POSITION);
             }
         });
 
@@ -135,7 +126,7 @@ public class CreateScene_FP4 extends Fragment {
             {
                 Intent it = new Intent(getActivity(), PriviewPhotoActivity.class);
                 it.putExtra("Path",mPositionList.get(position).getPhotoPath());
-                startActivityForResult(it, 100);
+                startActivity(it);
             }
         });
         setListViewHeightBasedOnChildren(mPosition_List);
@@ -144,8 +135,8 @@ public class CreateScene_FP4 extends Fragment {
         mAdd_Like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LocalFileUri = Uri.fromFile(getOutputMediaFile(context,PHOTO_TYPE_LIKE));
-                takePhoto(LocalFileUri, PHOTO_TYPE_LIKE);
+                LocalFileUri = Uri.fromFile(getOutputMediaFile(context,EVENT_PHOTO_TYPE_LIKE));
+                takePhoto(LocalFileUri, EVENT_PHOTO_TYPE_LIKE);
             }
         });
 
@@ -159,7 +150,7 @@ public class CreateScene_FP4 extends Fragment {
             {
                 Intent it = new Intent(getActivity(), PriviewPhotoActivity.class);
                 it.putExtra("Path",mLikeList.get(position).getPhotoPath());
-                startActivityForResult(it, 100);
+                startActivity(it);
             }
         });
         setListViewHeightBasedOnChildren(mLike_List);
@@ -168,8 +159,8 @@ public class CreateScene_FP4 extends Fragment {
         mAdd_Important.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LocalFileUri = Uri.fromFile(getOutputMediaFile(context,PHOTO_TYPE_IMPORTANT));
-                takePhoto(LocalFileUri, PHOTO_TYPE_IMPORTANT);
+                LocalFileUri = Uri.fromFile(getOutputMediaFile(context, EVENT_PHOTO_TYPE_IMPORTANT));
+                takePhoto(LocalFileUri, EVENT_PHOTO_TYPE_IMPORTANT);
             }
         });
 
@@ -183,7 +174,7 @@ public class CreateScene_FP4 extends Fragment {
             {
                 Intent it = new Intent(getActivity(), PriviewPhotoActivity.class);
                 it.putExtra("Path",mImportantList.get(position).getPhotoPath());
-                startActivityForResult(it, 100);
+                startActivity(it);
             }
         });
         setListViewHeightBasedOnChildren(mImportant_List);
@@ -198,11 +189,11 @@ public class CreateScene_FP4 extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
         String delete = context.getResources().getString(R.string.list_delete);
         if (v.getId()==R.id.Position_photo_listview) {
-            menu.add(0, POSITION_PHOTO_DELETE, 0, delete);
+            menu.add(0, EVENT_POSITION_PHOTO_DELETE, 0, delete);
         }else if(v.getId()==R.id.Like_photo_listview){
-            menu.add(0, LIKE_PHOTO_DELETE, 0, delete);
+            menu.add(0, EVENT_LIKE_PHOTO_DELETE, 0, delete);
         }else if(v.getId()==R.id.Important_photo_listview){
-            menu.add(0, IMPORTANT_PHOTO_DELETE, 0, delete);
+            menu.add(0, EVENT_IMPORTANT_PHOTO_DELETE, 0, delete);
         }
     }
 
@@ -210,19 +201,19 @@ public class CreateScene_FP4 extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
-            case POSITION_PHOTO_DELETE:
+            case EVENT_POSITION_PHOTO_DELETE:
                 if(mEvent == 2) mPositionPhotoProvider.delete(mPositionList.get(info.position).getId());
                 mPositionList.remove(info.position);
                 setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
                 return true;
-            case LIKE_PHOTO_DELETE:
+            case EVENT_LIKE_PHOTO_DELETE:
                 if(mEvent == 2) mOverviewPhotoProvider.delete(mLikeList.get(info.position).getId());
                 mLikeList.remove(info.position);
                 setListViewHeightBasedOnChildren(mLike_List);
                 mLike_Adapter.notifyDataSetChanged();
                 return true;
-            case IMPORTANT_PHOTO_DELETE:
+            case EVENT_IMPORTANT_PHOTO_DELETE:
                 if(mEvent == 2) mImportantPhotoProvider.delete(mImportantList.get(info.position).getId());
                 mImportantList.remove(info.position);
                 setListViewHeightBasedOnChildren(mImportant_List);
@@ -275,19 +266,19 @@ public class CreateScene_FP4 extends Fragment {
         photoItem.setPhotoPath(path);
         photoItem.setUuid(CrimeProvider.getUUID());
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == PHOTO_TYPE_POSITION) {
+            if (requestCode == EVENT_PHOTO_TYPE_POSITION) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_POSITION");
                 if(mEvent == 2) photoItem.setId(mPositionPhotoProvider.insert(photoItem));
                 mPositionList.add(photoItem);
                 setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
-            } else if (requestCode == PHOTO_TYPE_LIKE) {
+            } else if (requestCode == EVENT_PHOTO_TYPE_LIKE) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_LIKE");
                 if(mEvent == 2) photoItem.setId(mOverviewPhotoProvider.insert(photoItem));
                 mLikeList.add(photoItem);
                 setListViewHeightBasedOnChildren(mLike_List);
                 mLike_Adapter.notifyDataSetChanged();
-            } else if (requestCode == PHOTO_TYPE_IMPORTANT) {
+            } else if (requestCode == EVENT_PHOTO_TYPE_IMPORTANT) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_IMPORTANT");
                 if(mEvent == 2) photoItem.setId(mImportantPhotoProvider.insert(photoItem));
                 mImportantList.add(photoItem);
@@ -339,11 +330,11 @@ public class CreateScene_FP4 extends Fragment {
         // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         File mediaFile;
-        if (type == PHOTO_TYPE_POSITION){
+        if (type == EVENT_PHOTO_TYPE_POSITION){
             mediaFile = new File(mediaStorageDir.getPath() + File.separator + "POSITION_PHOTO_"+ timeStamp + ".jpg");
-        } else if(type == PHOTO_TYPE_LIKE) {
+        } else if(type == EVENT_PHOTO_TYPE_LIKE) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator + "OVERVIEW_PHOTO_"+ timeStamp + ".jpg");
-        } else if (type == PHOTO_TYPE_IMPORTANT) {
+        } else if (type == EVENT_PHOTO_TYPE_IMPORTANT) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMPORTANT_PHOTO_"+ timeStamp + ".jpg");
         } else {
             return null;

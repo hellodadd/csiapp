@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import android.widget.TextView;
 
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
-import com.android.csiapp.Crime.utils.tree.TreeViewListDemo;
+import com.android.csiapp.Crime.utils.tree.TreeViewListActivity;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
 
@@ -27,31 +26,21 @@ public class CreateScene_FP7 extends Fragment{
     private CrimeItem mItem;
     private int mEvent;
 
-    private TextView mPeopleNumberText;
-    private int EVENT_PEOPLE_NUMBER_SELECT_ITEM = 1;
-    private TextView mCrimeMeansText;
-    private int EVENT_CRIME_MEANS_SELECT_ITEM = 2;
-    private TextView mCrimeCharacterText;
-    private int EVENT_CRIME_CHARACTER_SELECT_ITEM = 3;
-    private TextView mCrimeEntranceText;
-    private int EVENT_CRIME_ENTRANCE_SELECT_ITEM = 4;
-    private TextView mCrimeTimingText;
-    private int EVENT_CRIME_TIMING_SELECT_ITEM = 5;
-    private TextView mSelectObjectText;
-    private int EVENT_SELECT_OBJECT_SELECT_ITEM = 6;
-    private TextView mCrimeExportText;
-    private int EVENT_CRIME_EXPORT_SELECT_ITEM = 7;
+    private TextView mPeopleNumberText, mCrimeMeansText, mCrimeCharacterText, mCrimeEntranceText, mCrimeTimingText, mSelectObjectText;
+    private TextView mCrimeExportText, mCrimeFeatureText, mIntrusiveMethodText, mSelectLocationText, mCrimePurposeText;
+    private final int EVENT_PEOPLE_NUMBER_SELECT_ITEM = 0;
+    private final int EVENT_CRIME_MEANS_SELECT_ITEM = 1;
+    private final int EVENT_CRIME_CHARACTER_SELECT_ITEM = 2;
+    private final int EVENT_CRIME_ENTRANCE_SELECT_ITEM = 3;
+    private final int EVENT_CRIME_TIMING_SELECT_ITEM = 4;
+    private final int EVENT_SELECT_OBJECT_SELECT_ITEM = 5;
+    private final int EVENT_CRIME_EXPORT_SELECT_ITEM = 6;
+    private final int EVENT_CRIME_FEATURE_SELECT_ITEM = 7;
+    private final int EVENT_INTRUSIVE_METHOD_SELECT_ITEM = 8;
+    private final int EVENT_SELECT_LOCATION_SELECT_ITEM = 9;
+    private final int EVENT_CRIME_PURPOSE_SELECT_ITEM = 10;
 
     private ClearableEditText mPeopleFeature;
-
-    private TextView mCrimeFeatureText;
-    private int EVENT_CRIME_FEATURE_SELECT_ITEM = 8;
-    private TextView mIntrusiveMethodText;
-    private int EVENT_INTRUSIVE_METHOD_SELECT_ITEM = 9;
-    private TextView mSelectLocationText;
-    private int EVENT_SELECT_LOCATION_SELECT_ITEM = 10;
-    private TextView mCrimePurposeText;
-    private int EVENT_CRIME_PURPOSE_SELECT_ITEM = 11;
 
     public CreateScene_FP7() {
         // Required empty public constructor
@@ -153,14 +142,13 @@ public class CreateScene_FP7 extends Fragment{
                 mCrimePurposeText.setText(result);
             }
         }
-        Log.d("Anita","result = "+result);
     }
 
     private void initView(View view){
         mPeopleNumberText = (TextView) view.findViewById(R.id.peopleNumber);
         mPeopleNumberText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mPeopleNumberKey);
                 it.putExtra("Selected", mItem.getCrimePeopleNumber());
                 startActivityForResult(it, EVENT_PEOPLE_NUMBER_SELECT_ITEM);
@@ -170,7 +158,7 @@ public class CreateScene_FP7 extends Fragment{
         mCrimeMeansText = (TextView) view.findViewById(R.id.crimeMeans);
         mCrimeMeansText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mCrimeMeansKey);
                 it.putExtra("Selected", mItem.getCrimeMeans());
                 startActivityForResult(it, EVENT_CRIME_MEANS_SELECT_ITEM);
@@ -180,7 +168,7 @@ public class CreateScene_FP7 extends Fragment{
         mCrimeCharacterText = (TextView) view.findViewById(R.id.crimeCharacter);
         mCrimeCharacterText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mCrimeCharacterKey);
                 it.putExtra("Selected", mItem.getCrimeCharacter());
                 startActivityForResult(it, EVENT_CRIME_CHARACTER_SELECT_ITEM);
@@ -190,7 +178,7 @@ public class CreateScene_FP7 extends Fragment{
         mCrimeEntranceText = (TextView) view.findViewById(R.id.crimeEntrance);
         mCrimeEntranceText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mCrimeEntranceExportKey);
                 it.putExtra("Selected", mItem.getCrimeEntrance());
                 startActivityForResult(it, EVENT_CRIME_ENTRANCE_SELECT_ITEM);
@@ -200,7 +188,7 @@ public class CreateScene_FP7 extends Fragment{
         mCrimeTimingText = (TextView) view.findViewById(R.id.crimeTiming);
         mCrimeTimingText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mCrimeTimingKey);
                 it.putExtra("Selected", mItem.getCrimeTiming());
                 startActivityForResult(it, EVENT_CRIME_TIMING_SELECT_ITEM);
@@ -210,7 +198,7 @@ public class CreateScene_FP7 extends Fragment{
         mSelectObjectText = (TextView) view.findViewById(R.id.selectObject);
         mSelectObjectText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mSelectObjectKey);
                 it.putExtra("Selected", mItem.getSelectObject());
                 startActivityForResult(it, EVENT_SELECT_OBJECT_SELECT_ITEM);
@@ -220,19 +208,17 @@ public class CreateScene_FP7 extends Fragment{
         mCrimeExportText = (TextView) view.findViewById(R.id.crimeExport);
         mCrimeExportText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mCrimeEntranceExportKey);
                 it.putExtra("Selected", mItem.getCrimeExport());
                 startActivityForResult(it, EVENT_CRIME_EXPORT_SELECT_ITEM);
             }
         });
 
-        mPeopleFeature = (ClearableEditText) view.findViewById(R.id.peopleFeature);
-
         mCrimeFeatureText = (TextView) view.findViewById(R.id.crimeFeature);
         mCrimeFeatureText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mCrimeFeatureKey);
                 it.putExtra("Selected", mItem.getCrimeFeature());
                 startActivityForResult(it, EVENT_CRIME_FEATURE_SELECT_ITEM);
@@ -242,7 +228,7 @@ public class CreateScene_FP7 extends Fragment{
         mIntrusiveMethodText = (TextView) view.findViewById(R.id.intrusiveMethod);
         mIntrusiveMethodText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mIntrusiveMethodKey);
                 it.putExtra("Selected", mItem.getIntrusiveMethod());
                 startActivityForResult(it, EVENT_INTRUSIVE_METHOD_SELECT_ITEM);
@@ -252,7 +238,7 @@ public class CreateScene_FP7 extends Fragment{
         mSelectLocationText = (TextView) view.findViewById(R.id.selectLocation);
         mSelectLocationText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mSelectLocationKey);
                 it.putExtra("Selected", mItem.getSelectLocation());
                 startActivityForResult(it, EVENT_SELECT_LOCATION_SELECT_ITEM);
@@ -262,12 +248,14 @@ public class CreateScene_FP7 extends Fragment{
         mCrimePurposeText = (TextView) view.findViewById(R.id.crimePurpose);
         mCrimePurposeText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListDemo.class);
+                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mCrimePurposeKey);
                 it.putExtra("Selected", mItem.getCrimePurpose());
                 startActivityForResult(it, EVENT_CRIME_PURPOSE_SELECT_ITEM);
             }
         });
+
+        mPeopleFeature = (ClearableEditText) view.findViewById(R.id.peopleFeature);
     }
 
     private void initData(){
@@ -278,11 +266,12 @@ public class CreateScene_FP7 extends Fragment{
         mCrimeTimingText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeTimingKey, mItem.getCrimeTiming()));
         mSelectObjectText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSelectObjectKey, mItem.getSelectObject()));
         mCrimeExportText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeEntranceExportKey, mItem.getCrimeExport()));
-        mPeopleFeature.setText(mItem.getCrimePeopleFeature());
         mCrimeFeatureText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeFeatureKey, mItem.getCrimeFeature()));
         mIntrusiveMethodText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mIntrusiveMethodKey, mItem.getIntrusiveMethod()));
         mSelectLocationText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSelectLocationKey, mItem.getSelectLocation()));
         mCrimePurposeText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimePurposeKey, mItem.getCrimePurpose()));
+
+        mPeopleFeature.setText(mItem.getCrimePeopleFeature());
     }
 
     public void saveData(){

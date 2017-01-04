@@ -10,7 +10,6 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +25,7 @@ import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.IdCardVerify;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
-import com.android.csiapp.Crime.utils.tree.TreeViewListDemo;
+import com.android.csiapp.Crime.utils.tree.TreeViewListActivity;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.RelatedPeopleItem;
 import com.android.csiapp.R;
@@ -45,33 +44,27 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
     private ArrayList<String> mReleationPeople = new ArrayList<String>();
     private ArrayAdapter<String> mReleationPeople_adapter;
 
-    private ClearableEditText mName;
+    private ClearableEditText mName, mId, mNumber, mAddress;
 
     private TextView mSexText;
     private int EVENT_SEX_SELECT_ITEM = 1;
 
-    private ClearableEditText mId;
-    private ClearableEditText mNumber;
-    private ClearableEditText mAddress;
-
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
-            String msg = "";
             switch (menuItem.getItemId()) {
                 case R.id.action_click:
-                    //msg += "Save";
+                    if(!mRelatedPeopleItem.getPeopleId().isEmpty() && !IdCardVerify.validateIdCardWithoutAddress(mRelatedPeopleItem.getPeopleId())){
+                        String msg = "身份证号码错误";
+                        Toast.makeText(CreateScene_FP2_NewPeopleActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+
                     saveData();
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.Databases.RelatedPeopleItem", mRelatedPeopleItem);
                     result.putExtra("Event", mEvent);
                     result.putExtra("Posiotion", mPosition);
-
-                    if(!mRelatedPeopleItem.getPeopleId().isEmpty() && !IdCardVerify.validateIdCardWithoutAddress(mRelatedPeopleItem.getPeopleId())){
-                        msg = "身份证号码错误";
-                        Toast.makeText(CreateScene_FP2_NewPeopleActivity.this, msg, Toast.LENGTH_SHORT).show();
-                        break;
-                    }
 
                     if(mRelatedPeopleItem.checkInformation()){
                         setResult(Activity.RESULT_OK, result);
@@ -84,10 +77,6 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
                     break;
                 default:
                     break;
-            }
-
-            if(!msg.equals("")) {
-                //Toast.makeText(CreateScene_FP2_NewPeopleActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             return true;
         }
@@ -152,7 +141,6 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
                 mSexText.setText(result);
             }
         }
-        Log.d("Anita","result = "+result);
     }
 
     private void initView(){
@@ -171,18 +159,17 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
             }
         });
 
-        mName = (ClearableEditText) findViewById(R.id.name_editView);
-
         mSexText = (TextView) findViewById(R.id.sex);
         mSexText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(CreateScene_FP2_NewPeopleActivity.this, TreeViewListDemo.class);
+                Intent it = new Intent(CreateScene_FP2_NewPeopleActivity.this, TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mSexKey);
                 it.putExtra("Selected", mRelatedPeopleItem.getPeopleSex());
                 startActivityForResult(it, EVENT_SEX_SELECT_ITEM);
             }
         });
 
+        mName = (ClearableEditText) findViewById(R.id.name_editView);
         mId = (ClearableEditText) findViewById(R.id.identity_number_editView);
         mNumber = (ClearableEditText) findViewById(R.id.contact_number_editView);
         mAddress = (ClearableEditText) findViewById(R.id.address_editView);

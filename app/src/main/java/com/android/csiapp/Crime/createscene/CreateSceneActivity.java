@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.EditAlertDialog;
@@ -65,11 +64,8 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
-            String msg = "";
-
             switch (menuItem.getItemId()) {
                 case R.id.action_save:
-                    msg += "Save";
                     saveData();
                     Intent result = getIntent();
                     if(mItem.checkInformation()){
@@ -87,10 +83,6 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                     break;
                 default:
                     break;
-            }
-
-            if (!msg.equals("")) {
-                //Toast.makeText(CreateSceneActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             return true;
         }

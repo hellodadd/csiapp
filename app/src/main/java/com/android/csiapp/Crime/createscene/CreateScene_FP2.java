@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -42,22 +41,26 @@ public class CreateScene_FP2 extends Fragment {
     private LostItem mLostItem;
     private CrimeToolItem mCrimeToolItem;
     private int mEvent;
-    private ImageButton mNewPeople;
-    private ImageButton mNewItem;
-    private ImageButton mNewTool;
-    List<RelatedPeopleItem> mPeopleList;
-    private ListView mPeople_List;
+
+    private final int EVENT_NEW_PEOPLE = 0;
+    private final int EVENT_NEW_ITEM = 1;
+    private final int EVENT_NEW_TOOL = 2;
+
+    private ImageButton mNewPeople, mNewItem, mNewTool;
+    private ListView mPeople_List, mItem_List, mTool_List;
+
+    private List<RelatedPeopleItem> mPeopleList;
     private RelatedPeoeplAdapter mPeople_Adapter;
-    List<LostItem> mItemList;
-    private ListView mItem_List;
+
+    private List<LostItem> mItemList;
     private LostItemAdapter mItem_Adapter;
-    List<CrimeToolItem> mToolList;
-    private ListView mTool_List;
+
+    private List<CrimeToolItem> mToolList;
     private CrimeItemAdapter mTool_Adapter;
 
-    final int PEOPLE_DELETE = 0;
-    final int ITEM_DELETE = 1;
-    final int TOOL_DELETE = 2;
+    private final int EVENT_PEOPLE_DELETE = 100;
+    private final int EVENT_ITEM_DELETE = 101;
+    private final int EVENT_TOOL_DELETE = 102;
 
     private RelatedPeopleProvider mRelatedPeopelProvider;
     private LostProvider mLostProvider;
@@ -115,7 +118,7 @@ public class CreateScene_FP2 extends Fragment {
                 Intent it = new Intent(getActivity(), CreateScene_FP2_NewPeopleActivity.class);
                 it.putExtra("com.android.csiapp.Databases.RelatedPeopleItem", mRelatedPeopleItem);
                 it.putExtra("Event",1);
-                startActivityForResult(it,0);
+                startActivityForResult(it,EVENT_NEW_PEOPLE);
             }
         });
 
@@ -127,7 +130,7 @@ public class CreateScene_FP2 extends Fragment {
                 Intent it = new Intent(getActivity(), CreateScene_FP2_NewItemActivity.class);
                 it.putExtra("com.android.csiapp.Databases.LostItem", mLostItem);
                 it.putExtra("Event",1);
-                startActivityForResult(it,1);
+                startActivityForResult(it,EVENT_NEW_ITEM);
             }
         });
 
@@ -139,7 +142,7 @@ public class CreateScene_FP2 extends Fragment {
                 Intent it = new Intent(getActivity(), CreateScene_FP2_NewToolActivity.class);
                 it.putExtra("com.android.csiapp.Databases.CrimeToolItem", mCrimeToolItem);
                 it.putExtra("Event",1);
-                startActivityForResult(it,2);
+                startActivityForResult(it,EVENT_NEW_TOOL);
             }
         });
 
@@ -156,7 +159,7 @@ public class CreateScene_FP2 extends Fragment {
                 it.putExtra("com.android.csiapp.Databases.RelatedPeopleItem", relatedPeopleItem);
                 it.putExtra("Event",2);
                 it.putExtra("Position", position);
-                startActivityForResult(it,0);
+                startActivityForResult(it,EVENT_NEW_PEOPLE);
             }
         };
         mPeople_List.setOnItemClickListener(itemListener1);
@@ -174,7 +177,7 @@ public class CreateScene_FP2 extends Fragment {
                 it.putExtra("com.android.csiapp.Databases.LostItem", lostItem);
                 it.putExtra("Event",2);
                 it.putExtra("Position", position);
-                startActivityForResult(it,1);
+                startActivityForResult(it,EVENT_NEW_ITEM);
             }
         };
         mItem_List.setOnItemClickListener(itemListener2);
@@ -192,7 +195,7 @@ public class CreateScene_FP2 extends Fragment {
                 it.putExtra("com.android.csiapp.Databases.CrimeToolItem", crimeToolItem);
                 it.putExtra("Event",2);
                 it.putExtra("Position", position);
-                startActivityForResult(it,2);
+                startActivityForResult(it,EVENT_NEW_TOOL);
             }
         };
         mTool_List.setOnItemClickListener(itemListener3);
@@ -207,11 +210,11 @@ public class CreateScene_FP2 extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
         String delete = context.getResources().getString(R.string.list_delete);
         if (v.getId()==R.id.people_listView) {
-            menu.add(0, PEOPLE_DELETE, 0, delete);
+            menu.add(0, EVENT_PEOPLE_DELETE, 0, delete);
         }else if(v.getId()==R.id.item_listView){
-            menu.add(0, ITEM_DELETE, 0, delete);
+            menu.add(0, EVENT_ITEM_DELETE, 0, delete);
         }else if(v.getId()==R.id.tool_listView){
-            menu.add(0, TOOL_DELETE, 0, delete);
+            menu.add(0, EVENT_TOOL_DELETE, 0, delete);
         }
     }
 
@@ -219,19 +222,19 @@ public class CreateScene_FP2 extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
-            case PEOPLE_DELETE:
+            case EVENT_PEOPLE_DELETE:
                 if(mEvent == 2) mRelatedPeopelProvider.delete(mPeopleList.get(info.position).getId());
                 mPeopleList.remove(info.position);
                 setListViewHeightBasedOnChildren(mPeople_List);
                 mPeople_Adapter.notifyDataSetChanged();
                 return true;
-            case ITEM_DELETE:
+            case EVENT_ITEM_DELETE:
                 if(mEvent == 2) mLostProvider.delete(mItemList.get(info.position).getId());
                 mItemList.remove(info.position);
                 setListViewHeightBasedOnChildren(mItem_List);
                 mItem_Adapter.notifyDataSetChanged();
                 return true;
-            case TOOL_DELETE:
+            case EVENT_TOOL_DELETE:
                 if(mEvent == 2) mCrimeToolProvider.delete(mToolList.get(info.position).getId());
                 mToolList.remove(info.position);
                 setListViewHeightBasedOnChildren(mTool_List);
@@ -272,7 +275,7 @@ public class CreateScene_FP2 extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == 0) {
+            if (requestCode == EVENT_NEW_PEOPLE) {
                 // 新增記事資料到資料庫
                 RelatedPeopleItem relatedPeopleItem = (RelatedPeopleItem) data.getSerializableExtra("com.android.csiapp.Databases.RelatedPeopleItem");
                 int event = (int) data.getIntExtra("Event", 1);
@@ -285,7 +288,7 @@ public class CreateScene_FP2 extends Fragment {
                 }
                 setListViewHeightBasedOnChildren(mPeople_List);
                 mPeople_Adapter.notifyDataSetChanged();
-            }else if(requestCode == 1){
+            }else if(requestCode == EVENT_NEW_ITEM){
                 // 新增記事資料到資料庫
                 LostItem lostItem = (LostItem) data.getSerializableExtra("com.android.csiapp.Databases.LostItem");
                 int event = (int) data.getIntExtra("Event", 1);
@@ -298,7 +301,7 @@ public class CreateScene_FP2 extends Fragment {
                 }
                 setListViewHeightBasedOnChildren(mItem_List);
                 mItem_Adapter.notifyDataSetChanged();
-            }else{
+            }else if(requestCode == EVENT_NEW_TOOL){
                 // 新增記事資料到資料庫
                 CrimeToolItem crimeToolItem = (CrimeToolItem) data.getSerializableExtra("com.android.csiapp.Databases.CrimeToolItem");
                 int event = (int) data.getIntExtra("Event", 1);

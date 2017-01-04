@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.android.csiapp.R;
 
 final class FancyColouredVariousSizesAdapter extends SimpleStandardAdapter {
-    public FancyColouredVariousSizesAdapter(final TreeViewListDemo activity,
+    public FancyColouredVariousSizesAdapter(final TreeViewListActivity activity,
             final Set<String> selected,
             final TreeStateManager<String> treeStateManager,
             final int numberOfLevels) {

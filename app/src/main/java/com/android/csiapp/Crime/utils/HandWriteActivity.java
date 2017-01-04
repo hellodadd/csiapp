@@ -1,5 +1,6 @@
 package com.android.csiapp.Crime.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,10 +40,8 @@ public class HandWriteActivity extends AppCompatActivity {
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
-            String msg = "";
             switch (menuItem.getItemId()) {
                 case R.id.action_click:
-                    msg += "Save";
                     if (mPathView.getTouched()) {
                         try {
                             File mediaStorageDir = new File( context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Report");
@@ -59,7 +58,7 @@ public class HandWriteActivity extends AppCompatActivity {
                             mPathView.save(mediaStorageDir.getPath() + File.separator + "SIGN_"+ timeStamp + ".jpg", 10);
                             String path = mediaStorageDir.getPath() + File.separator + "SIGN_"+ timeStamp + ".jpg";
                             Intent result = getIntent().putExtra("SIGN", path);
-                            setResult(100, result);
+                            setResult(Activity.RESULT_OK, result);
                             finish();
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -70,10 +69,6 @@ public class HandWriteActivity extends AppCompatActivity {
                     break;
                 default:
                     break;
-            }
-
-            if(!msg.equals("")) {
-                //Toast.makeText(CreateScene_FP8_AddWitnessActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             return true;
         }
@@ -135,7 +130,6 @@ public class HandWriteActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-
         super.onDestroy();
     }
 }

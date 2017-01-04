@@ -34,6 +34,7 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.offlinemap.OfflineMapManager;
 import com.amap.api.maps.offlinemap.OfflineMapManager.OfflineMapDownloadListener;
 import com.amap.api.maps.offlinemap.OfflineMapStatus;
+import com.android.csiapp.Crime.utils.OfflineMapActivity;
 import com.android.csiapp.R;
 
 import java.io.File;
@@ -143,7 +144,7 @@ public class CreateScene_FP3_NewPositionActivity_Amap extends AppCompatActivity 
         setContentView(R.layout.create_scene_fp3_new_position_amap);
         context = this.getApplicationContext();
 
-        MapsInitializer.sdcardDir =OfflineMapActivity.getSdCacheDir(this);
+        MapsInitializer.sdcardDir = OfflineMapActivity.getSdCacheDir(this);
         mMapView = (MapView) findViewById(R.id.amap);
         mMapView.onCreate(savedInstanceState);
         init();

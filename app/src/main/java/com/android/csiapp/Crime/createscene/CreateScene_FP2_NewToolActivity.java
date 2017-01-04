@@ -6,24 +6,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
-import com.android.csiapp.Crime.utils.tree.TreeViewListDemo;
+import com.android.csiapp.Crime.utils.tree.TreeViewListActivity;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.CrimeToolItem;
 import com.android.csiapp.R;
-
-import java.util.ArrayList;
 
 public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
 
@@ -34,19 +30,15 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
 
     private ClearableEditText mName;
 
-    private TextView mToolCategoryText;
+    private TextView mToolCategoryText, mToolSourceText;
     private int EVENT_TOOL_CATEGORY_SELECT_ITEM = 1;
-
-    private TextView mToolSourceText;
     private int EVENT_TOOL_SOURCE_SELECT_ITEM = 2;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
-            String msg = "";
             switch (menuItem.getItemId()) {
                 case R.id.action_click:
-                    msg += "Save";
                     saveData();
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.Databases.CrimeToolItem", mCrimeToolItem);
@@ -63,10 +55,6 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
                     break;
                 default:
                     break;
-            }
-
-            if(!msg.equals("")) {
-                //Toast.makeText(CreateScene_FP2_NewToolActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             return true;
         }
@@ -136,7 +124,6 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
                 mToolSourceText.setText(result);
             }
         }
-        Log.d("Anita","result = "+result);
     }
 
     private void initView(){
@@ -145,7 +132,7 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
         mToolCategoryText = (TextView) findViewById(R.id.toolCategory);
         mToolCategoryText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(CreateScene_FP2_NewToolActivity.this, TreeViewListDemo.class);
+                Intent it = new Intent(CreateScene_FP2_NewToolActivity.this, TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mToolCategoryKey);
                 it.putExtra("Selected", mCrimeToolItem.getToolCategory());
                 startActivityForResult(it, EVENT_TOOL_CATEGORY_SELECT_ITEM);
@@ -155,7 +142,7 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
         mToolSourceText = (TextView) findViewById(R.id.toolSource);
         mToolSourceText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent it = new Intent(CreateScene_FP2_NewToolActivity.this, TreeViewListDemo.class);
+                Intent it = new Intent(CreateScene_FP2_NewToolActivity.this, TreeViewListActivity.class);
                 it.putExtra("Key",DictionaryInfo.mToolSourceKey);
                 it.putExtra("Selected", mCrimeToolItem.getToolSource());
                 startActivityForResult(it, EVENT_TOOL_SOURCE_SELECT_ITEM);

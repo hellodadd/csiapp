@@ -33,12 +33,15 @@ public class CreateScene_FP8 extends Fragment {
     private CrimeItem mItem;
     private WitnessItem mWitnessItem;
     private int mEvent;
-    ImageButton mAddWitness;
-    List<WitnessItem> mWitnessList;
+
+    private final int EVENT_NEW_WITNESS = 0;
+
+    private List<WitnessItem> mWitnessList;
     private ListView mWitness_list;
     private WitnessListAdapter mWitness_adapter;
+    private ImageButton mAddWitness;
 
-    final int WITNESS_DELETE = 8;
+    private final int EVENT_WITNESS_DELETE = 100;
 
     private WitnessProvider mWitnessProvider;
 
@@ -92,7 +95,7 @@ public class CreateScene_FP8 extends Fragment {
                 Intent it = new Intent(getActivity(), CreateScene_FP8_AddWitnessActivity.class);
                 it.putExtra("com.android.csiapp.Databases.WitnessItem", mWitnessItem);
                 it.putExtra("Event",1);
-                startActivityForResult(it,0);
+                startActivityForResult(it,EVENT_NEW_WITNESS);
             }
         });
 
@@ -108,7 +111,7 @@ public class CreateScene_FP8 extends Fragment {
                 Intent it = new Intent(getActivity(), CreateScene_FP8_AddWitnessActivity.class);
                 it.putExtra("com.android.csiapp.Databases.WitnessItem", witenssItem);
                 it.putExtra("Event",2);
-                startActivityForResult(it,0);
+                startActivityForResult(it,EVENT_NEW_WITNESS);
             }
         };
         mWitness_list.setOnItemClickListener(itemListener);
@@ -121,7 +124,7 @@ public class CreateScene_FP8 extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
         String delete = context.getResources().getString(R.string.list_delete);
         if (v.getId()==R.id.listView) {
-            menu.add(0, WITNESS_DELETE, 0, delete);
+            menu.add(0, EVENT_WITNESS_DELETE, 0, delete);
         }
     }
 
@@ -129,7 +132,7 @@ public class CreateScene_FP8 extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
-            case WITNESS_DELETE:
+            case EVENT_WITNESS_DELETE:
                 if(mEvent == 2) mWitnessProvider.delete(mWitnessList.get(info.position).getId());
                 mWitnessList.remove(info.position);
                 setListViewHeightBasedOnChildren(mWitness_list);
@@ -164,15 +167,15 @@ public class CreateScene_FP8 extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            WitnessItem witenssItem = (WitnessItem) data.getSerializableExtra("com.android.csiapp.Databases.WitnessItem");
-            int event = (int) data.getIntExtra("Event", 1);
-            if(mEvent == 2 && event ==1) witenssItem.setId(mWitnessProvider.insert(witenssItem));
-            if (requestCode == 0) {
+            if(requestCode == EVENT_NEW_WITNESS) {
+                WitnessItem witenssItem = (WitnessItem) data.getSerializableExtra("com.android.csiapp.Databases.WitnessItem");
+                int event = (int) data.getIntExtra("Event", 1);
+                if (mEvent == 2 && event == 1) witenssItem.setId(mWitnessProvider.insert(witenssItem));
                 // 新增記事資料到資料庫
-                if(event == 1) {
+                if (event == 1) {
                     mWitnessList.add(witenssItem);
-                }else{
-                    int position = (int) data.getIntExtra("Position",0);
+                } else {
+                    int position = (int) data.getIntExtra("Position", 0);
                     mWitnessList.set(position, witenssItem);
                 }
                 setListViewHeightBasedOnChildren(mWitness_list);

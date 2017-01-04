@@ -29,7 +29,7 @@ import com.android.csiapp.R;
  * Demo activity showing how the tree view can be used.
  * 
  */
-public class TreeViewListDemo extends AppCompatActivity {
+public class TreeViewListActivity extends AppCompatActivity {
     private enum TreeType implements Serializable {
         SIMPLE,
         FANCY,
@@ -42,7 +42,7 @@ public class TreeViewListDemo extends AppCompatActivity {
     ArrayList<Integer> DEMO_NODES;
     ArrayList<String> mDicitonary;
 
-    private static final String TAG = TreeViewListDemo.class.getSimpleName();
+    private static final String TAG = TreeViewListActivity.class.getSimpleName();
     private TreeViewList treeView;
     //private static final int[] DEMO_NODES = new int[] { 0, 0, 1, 1, 1, 2, 2, 1,
     //        1, 2, 1, 0, 0, 0, 1, 2, 3, 2, 0, 0, 1, 2, 0, 1, 2, 0, 1 };
@@ -80,7 +80,7 @@ public class TreeViewListDemo extends AppCompatActivity {
                     }
                     Log.d("Anita","selected = "+selected);
                     if(!selected.contains(",") && !Method.equalsIgnoreCase("Single")){
-                        Toast.makeText(TreeViewListDemo.this, "需要选择两个以上的人员", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TreeViewListActivity.this, "需要选择两个以上的人员", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     result.putExtra("Select",selected);
@@ -102,7 +102,7 @@ public class TreeViewListDemo extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_demo);
+        setContentView(R.layout.treeview_list_activity);
         TreeType newTreeType = null;
         boolean newCollapsible;
 

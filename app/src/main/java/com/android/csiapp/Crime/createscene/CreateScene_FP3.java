@@ -15,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.adapter.PhotoAdapter;
 import com.android.csiapp.Crime.utils.PriviewPhotoActivity;
@@ -25,7 +24,6 @@ import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.Databases.PositionProvider;
 import com.android.csiapp.R;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -35,21 +33,18 @@ public class CreateScene_FP3 extends Fragment {
 
     private Context context = null;
     private CrimeItem mItem;
-    private PhotoItem mPositionItem;
     private int mEvent;
 
-    List<PhotoItem> mPositionList;
-    private ListView mPosition_List;
-    private PhotoAdapter mPosition_Adapter;
-    private ImageButton mAdd_Position;
+    private final int EVENT_NEW_POSITION = 0;
+    private final int EVENT_NEW_FLAT = 1;
 
-    List<PhotoItem> mFlatList;
-    private ListView mFlat_List;
-    private PhotoAdapter mFlat_Adapter;
-    private ImageButton mAdd_Flat;
+    private List<PhotoItem> mPositionList, mFlatList;
+    private ListView mPosition_List, mFlat_List;
+    private PhotoAdapter mPosition_Adapter, mFlat_Adapter;
+    private ImageButton mAdd_Position, mAdd_Flat;
 
-    final int POSITION_DELETE = 3;
-    final int FLAT_DELETE = 4;
+    private final int EVENT_POSITION_DELETE = 100;
+    private final int EVENT_FLAT_DELETE = 101;
 
     private PositionProvider mPositionProvider;
     private FlatProvider mFlatProvider;
@@ -105,7 +100,7 @@ public class CreateScene_FP3 extends Fragment {
                 it.putExtra("com.android.csiapp.Databases.CrimeItem", mItem);
                 it.putExtra("Add","Position");
                 it.putExtra("Event",1);
-                startActivityForResult(it, 0);
+                startActivityForResult(it, EVENT_NEW_POSITION);
             }
         });
 
@@ -119,7 +114,7 @@ public class CreateScene_FP3 extends Fragment {
             {
                 Intent it = new Intent(getActivity(), PriviewPhotoActivity.class);
                 it.putExtra("Path",mPositionList.get(position).getPhotoPath());
-                startActivityForResult(it, 100);
+                startActivity(it);
             }
         });
         setListViewHeightBasedOnChildren(mPosition_List);
@@ -132,7 +127,7 @@ public class CreateScene_FP3 extends Fragment {
                 it.putExtra("com.android.csiapp.Databases.CrimeItem", mItem);
                 it.putExtra("Add","Flat");
                 it.putExtra("Event",1);
-                startActivityForResult(it, 1);
+                startActivityForResult(it, EVENT_NEW_FLAT);
             }
         });
 
@@ -146,7 +141,7 @@ public class CreateScene_FP3 extends Fragment {
             {
                 Intent it = new Intent(getActivity(), PriviewPhotoActivity.class);
                 it.putExtra("Path",mFlatList.get(position).getPhotoPath());
-                startActivityForResult(it, 100);
+                startActivity(it);
             }
         });
         setListViewHeightBasedOnChildren(mFlat_List);
@@ -160,9 +155,9 @@ public class CreateScene_FP3 extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
         String delete = context.getResources().getString(R.string.list_delete);
         if (v.getId()==R.id.position_listview) {
-            menu.add(0, POSITION_DELETE, 0, delete);
+            menu.add(0, EVENT_POSITION_DELETE, 0, delete);
         }else if(v.getId()==R.id.flat_listview){
-            menu.add(0, FLAT_DELETE, 0, delete);
+            menu.add(0, EVENT_FLAT_DELETE, 0, delete);
         }
     }
 
@@ -170,13 +165,13 @@ public class CreateScene_FP3 extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
-            case POSITION_DELETE:
+            case EVENT_POSITION_DELETE:
                 if(mEvent == 2) mPositionProvider.delete(mPositionList.get(info.position).getId());
                 mPositionList.remove(info.position);
                 setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
                 return true;
-            case FLAT_DELETE:
+            case EVENT_FLAT_DELETE:
                 if(mEvent == 2) mFlatProvider.delete(mFlatList.get(info.position).getId());
                 mFlatList.remove(info.position);
                 setListViewHeightBasedOnChildren(mFlat_List);
@@ -214,7 +209,7 @@ public class CreateScene_FP3 extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            if(requestCode == 0) {
+            if(requestCode == EVENT_NEW_POSITION) {
                 // 新增記事資料到資料庫
                 PhotoItem positionItem = (PhotoItem) data.getSerializableExtra("com.android.csiapp.Databases.PhotoItem");
                 int event = (int) data.getIntExtra("Event", 1);
@@ -235,7 +230,7 @@ public class CreateScene_FP3 extends Fragment {
                 }
                 setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
-            }else if(requestCode == 1){
+            }else if(requestCode == EVENT_NEW_FLAT){
                 // 新增記事資料到資料庫
                 PhotoItem flatItem = (PhotoItem) data.getSerializableExtra("com.android.csiapp.Databases.PhotoItem");
                 int event = (int) data.getIntExtra("Event", 1);

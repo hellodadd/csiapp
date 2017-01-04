@@ -11,7 +11,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.BackAlertDialog;
 import com.android.csiapp.Crime.utils.ClearableEditText;
@@ -27,19 +26,13 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
     private int mEvent;
     private int mPosition;
 
-    private ClearableEditText mName;
-    private ClearableEditText mBrand;
-    private ClearableEditText mAmount;
-    private ClearableEditText mValue;
-    private ClearableEditText mFeature;
+    private ClearableEditText mName, mBrand, mAmount, mValue, mFeature;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
-            String msg = "";
             switch (menuItem.getItemId()) {
                 case R.id.action_click:
-                    msg += "Save";
                     saveData();
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.Databases.LostItem", mLostItem);
@@ -56,10 +49,6 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
                     break;
                 default:
                     break;
-            }
-
-            if (!msg.equals("")) {
-                //Toast.makeText(CreateScene_FP2_NewItemActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             return true;
         }
@@ -119,8 +108,8 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
         mAmount = (ClearableEditText) findViewById(R.id.amount_editView);
         mValue = (ClearableEditText) findViewById(R.id.value_editView);
         mFeature = (ClearableEditText) findViewById(R.id.feature_description_editView);
-        mAmount.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
-        mValue.setKeyListener(DigitsKeyListener.getInstance("0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+        mAmount.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
+        mValue.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
     }
 
     private void initData(){

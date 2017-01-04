@@ -53,12 +53,12 @@ public class RestoreListDialog extends AlertDialog {
         }
 
         LayoutInflater layout = LayoutInflater.from(mContext);
-        View resoreListView = layout.inflate(R.layout.restore_list, null);
+        View resoreListView = layout.inflate(R.layout.restore_listview, null);
 
         mResoteItems = (ListView) resoreListView
                 .findViewById(R.id.lvRestoreItems);
         mAdapter = new SimpleAdapter(mContext,
-                listFile, R.layout.filelist, new String[] { "Name" }, new int[] { R.id.tvFileItem });
+                listFile, R.layout.restore_filelist, new String[] { "Name" }, new int[] { R.id.tvFileItem });
         mResoteItems.setAdapter(mAdapter);
         mResoteItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @SuppressWarnings("unchecked")

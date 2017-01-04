@@ -2,10 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.csiapp">
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <!-- For Baidu Map -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -91,10 +88,12 @@
         <activity android:name=".Crime.createscene.CreateScene_FP8_AddWitnessActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Crime.utils.HandWriteActivity"
+        <activity 
+            android:name=".Crime.utils.HandWriteActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Crime.createscene.OfflineMapActivity"
+        <activity 
+            android:name=".Crime.utils.OfflineMapActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:screenOrientation="portrait"/>
         <activity
@@ -102,7 +101,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".Crime.utils.tree.TreeViewListDemo"
+            android:name=".Crime.utils.tree.TreeViewListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 

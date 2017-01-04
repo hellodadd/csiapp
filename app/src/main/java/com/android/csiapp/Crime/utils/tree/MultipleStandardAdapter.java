@@ -40,18 +40,18 @@ public class MultipleStandardAdapter extends AbstractTreeViewAdapter<String> {
         Log.d("Anita","select size = "+selected.size());
     }
 
-    public MultipleStandardAdapter(final Activity treeViewListDemo,
+    public MultipleStandardAdapter(final Activity TreeViewListActivity,
                                  final Set<String> selected,
                                  final TreeStateManager<String> treeStateManager,
                                  final int numberOfLevels) {
-        super(treeViewListDemo, treeStateManager, numberOfLevels);
+        super(TreeViewListActivity, treeStateManager, numberOfLevels);
         this.selected = selected;
     }
 
     @Override
     public View getNewChildView(final TreeNodeInfo<String> treeNodeInfo) {
         final LinearLayout viewLayout = (LinearLayout) getActivity()
-                .getLayoutInflater().inflate(R.layout.multiple_demo_list_item, null);
+                .getLayoutInflater().inflate(R.layout.multiple_list_item, null);
         return updateView(viewLayout, treeNodeInfo);
     }
 

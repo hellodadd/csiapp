@@ -33,7 +33,6 @@ import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -49,26 +48,20 @@ public class CreateScene_FP5 extends Fragment {
     private EvidenceItem mEvidenceItem;
     private int mEvent;
 
-    List<EvidenceItem> mEvidenceList;
-    private ListView mEvidence_List;
+    private final int EVENT_TYPE_EVIDENCE = 0;
+    private final int EVENT_PHOTO_TYPE_MONITORING = 1;
+    private final int EVENT_PHOTO_TYPE_CAMERA= 2;
+
+    private List<EvidenceItem> mEvidenceList;
+    private List<PhotoItem> mMonitoringList, mCameraList;
+    private ListView mEvidence_List, mMonitoring_List, mCamera_List;
     private EvidenceAdapter mEvidence_Adapter;
-    private ImageButton mAdd_Scene_Evidence;
-    List<PhotoItem> mMonitoringList;
-    private ListView mMonitoring_List;
-    private PhotoAdapter mMonitoring_Adapter;
-    private ImageButton mAdd_Monitoring;
-    List<PhotoItem> mCameraList;
-    private ListView mCamera_List;
-    private PhotoAdapter mCamera_Adapter;
-    private ImageButton mAdd_Camera;
+    private PhotoAdapter mMonitoring_Adapter, mCamera_Adapter;
+    private ImageButton mAdd_Scene_Evidence, mAdd_Monitoring, mAdd_Camera;
 
-    public static final int TYPE_EVIDENCE = 0;
-    public static final int PHOTO_TYPE_MONITORING = 1;
-    public static final int PHOTO_TYPE_CAMERA= 2;
-
-    final int EVIDENCE_DELETE = 8;
-    final int MONITORING_DELETE = 9;
-    final int CAMERA_DELETE = 10;
+    private final int EVENT_EVIDENCE_DELETE = 100;
+    private final int EVENT_MONITORING_DELETE = 101;
+    private final int EVENT_CAMERA_DELETE = 102;
 
     private EvidenceProvider mEvidenceProvider;
     private MonitoringPhotoProvider mMonitoringPhotoProvider;
@@ -127,7 +120,7 @@ public class CreateScene_FP5 extends Fragment {
                 it.putExtra("com.android.csiapp.Databases.Item", mItem);
                 it.putExtra("com.android.csiapp.Databases.EvidenceItem", mEvidenceItem);
                 it.putExtra("Event",1);
-                startActivityForResult(it, TYPE_EVIDENCE);
+                startActivityForResult(it, EVENT_TYPE_EVIDENCE);
             }
         });
 
@@ -144,7 +137,7 @@ public class CreateScene_FP5 extends Fragment {
                 it.putExtra("com.android.csiapp.Databases.EvidenceItem", mEvidenceItem);
                 it.putExtra("Event",2);
                 it.putExtra("Position", position);
-                startActivityForResult(it, TYPE_EVIDENCE);
+                startActivityForResult(it, EVENT_TYPE_EVIDENCE);
             }
         };
         mEvidence_List.setOnItemClickListener(itemListener1);
@@ -153,8 +146,8 @@ public class CreateScene_FP5 extends Fragment {
         mAdd_Monitoring.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LocalFileUri = Uri.fromFile(getOutputMediaFile(context, PHOTO_TYPE_MONITORING));
-                takePhoto(LocalFileUri, PHOTO_TYPE_MONITORING);
+                LocalFileUri = Uri.fromFile(getOutputMediaFile(context, EVENT_PHOTO_TYPE_MONITORING));
+                takePhoto(LocalFileUri, EVENT_PHOTO_TYPE_MONITORING);
             }
         });
 
@@ -168,7 +161,7 @@ public class CreateScene_FP5 extends Fragment {
             {
                 Intent it = new Intent(getActivity(), PriviewPhotoActivity.class);
                 it.putExtra("Path",mMonitoringList.get(position).getPhotoPath());
-                startActivityForResult(it, 100);
+                startActivity(it);
             }
         });
         setListViewHeightBasedOnChildren(mMonitoring_List);
@@ -177,8 +170,8 @@ public class CreateScene_FP5 extends Fragment {
         mAdd_Camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LocalFileUri = Uri.fromFile(getOutputMediaFile(context, PHOTO_TYPE_CAMERA));
-                takePhoto(LocalFileUri, PHOTO_TYPE_CAMERA);
+                LocalFileUri = Uri.fromFile(getOutputMediaFile(context, EVENT_PHOTO_TYPE_CAMERA));
+                takePhoto(LocalFileUri, EVENT_PHOTO_TYPE_CAMERA);
             }
         });
 
@@ -192,7 +185,7 @@ public class CreateScene_FP5 extends Fragment {
             {
                 Intent it = new Intent(getActivity(), PriviewPhotoActivity.class);
                 it.putExtra("Path",mCameraList.get(position).getPhotoPath());
-                startActivityForResult(it, 100);
+                startActivity(it);
             }
         });
         setListViewHeightBasedOnChildren(mCamera_List);
@@ -207,11 +200,11 @@ public class CreateScene_FP5 extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
         String delete = context.getResources().getString(R.string.list_delete);
         if (v.getId()==R.id.evidence_listview) {
-            menu.add(0, EVIDENCE_DELETE, 0, delete);
+            menu.add(0, EVENT_EVIDENCE_DELETE, 0, delete);
         }else if(v.getId()==R.id.monitoring_photo_listview){
-            menu.add(0, MONITORING_DELETE, 0, delete);
+            menu.add(0, EVENT_MONITORING_DELETE, 0, delete);
         }else if(v.getId()==R.id.camera_photo_listview){
-            menu.add(0, CAMERA_DELETE, 0, delete);
+            menu.add(0, EVENT_CAMERA_DELETE, 0, delete);
         }
     }
 
@@ -219,19 +212,19 @@ public class CreateScene_FP5 extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
-            case EVIDENCE_DELETE:
+            case EVENT_EVIDENCE_DELETE:
                 if(mEvent == 2) mEvidenceProvider.delete(mEvidenceList.get(info.position).getId());
                 mEvidenceList.remove(info.position);
                 setListViewHeightBasedOnChildren(mEvidence_List);
                 mEvidence_Adapter.notifyDataSetChanged();
                 return true;
-            case MONITORING_DELETE:
+            case EVENT_MONITORING_DELETE:
                 if(mEvent == 2) mMonitoringPhotoProvider.delete(mMonitoringList.get(info.position).getId());
                 mMonitoringList.remove(info.position);
                 setListViewHeightBasedOnChildren(mMonitoring_List);
                 mMonitoring_Adapter.notifyDataSetChanged();
                 return true;
-            case CAMERA_DELETE:
+            case EVENT_CAMERA_DELETE:
                 if(mEvent == 2) mCameraPhotoProvider.delete(mCameraList.get(info.position).getId());
                 mCameraList.remove(info.position);
                 setListViewHeightBasedOnChildren(mCamera_List);
@@ -277,9 +270,8 @@ public class CreateScene_FP5 extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("Photo","onActivityResult");
         if (resultCode == Activity.RESULT_OK) {
-            if(requestCode == TYPE_EVIDENCE) {
+            if(requestCode == EVENT_TYPE_EVIDENCE) {
                 EvidenceItem evidenceItem = (EvidenceItem) data.getSerializableExtra("com.android.csiapp.Databases.EvidenceItem");
                 int event = (int) data.getIntExtra("Event", 1);
                 int position = (int) data.getIntExtra("Position", 0);
@@ -292,7 +284,7 @@ public class CreateScene_FP5 extends Fragment {
                 }
                 setListViewHeightBasedOnChildren(mEvidence_List);
                 mEvidence_Adapter.notifyDataSetChanged();
-            } else if (requestCode == PHOTO_TYPE_MONITORING) {
+            } else if (requestCode == EVENT_PHOTO_TYPE_MONITORING) {
                 String path = LocalFileUri.getPath();
                 PhotoItem photoItem = new PhotoItem();
                 photoItem.setPhotoPath(path);
@@ -302,7 +294,7 @@ public class CreateScene_FP5 extends Fragment {
                 mMonitoringList.add(photoItem);
                 setListViewHeightBasedOnChildren(mMonitoring_List);
                 mMonitoring_Adapter.notifyDataSetChanged();
-            } else if (requestCode == PHOTO_TYPE_CAMERA) {
+            } else if (requestCode == EVENT_PHOTO_TYPE_CAMERA) {
                 String path = LocalFileUri.getPath();
                 PhotoItem photoItem = new PhotoItem();
                 photoItem.setPhotoPath(path);
@@ -358,9 +350,9 @@ public class CreateScene_FP5 extends Fragment {
         // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         File mediaFile;
-        if (type == PHOTO_TYPE_MONITORING){
+        if (type == EVENT_PHOTO_TYPE_MONITORING){
             mediaFile = new File(mediaStorageDir.getPath() + File.separator + "MONITORING_PHOTO_"+ timeStamp + ".jpg");
-        } else if(type == PHOTO_TYPE_CAMERA) {
+        } else if(type == EVENT_PHOTO_TYPE_CAMERA) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator + "CAMERA_PHOTO_"+ timeStamp + ".jpg");
         } else {
             return null;

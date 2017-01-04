@@ -41,23 +41,23 @@ public class SimpleStandardAdapter extends AbstractTreeViewAdapter<String> {
         Log.d("Anita","select size = "+selected.size());
     }
 
-    public SimpleStandardAdapter(final Activity treeViewListDemo,
+    public SimpleStandardAdapter(final Activity TreeViewListActivity,
             final Set<String> selected,
             final TreeStateManager<String> treeStateManager,
             final int numberOfLevels) {
-        super(treeViewListDemo, treeStateManager, numberOfLevels);
+        super(TreeViewListActivity, treeStateManager, numberOfLevels);
         this.selected = selected;
     }
 
     /*public View updateLastClickView() {
         Log.d("Anita","node id = "+lastId);
-        final LinearLayout viewLayout = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.simple_demo_list_item, null);
+        final LinearLayout viewLayout = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.simple_list_item, null);
         return updateView(viewLayout, treeStateManager.getNodeInfo(lastId));
     }*/
 
     @Override
     public View getNewChildView(final TreeNodeInfo<String> treeNodeInfo) {
-        final LinearLayout viewLayout = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.simple_demo_list_item, null);
+        final LinearLayout viewLayout = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.simple_list_item, null);
         return updateView(viewLayout, treeNodeInfo);
     }
 
