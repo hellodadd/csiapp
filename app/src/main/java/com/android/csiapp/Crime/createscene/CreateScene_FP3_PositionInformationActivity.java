@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.hardware.display.VirtualDisplay;
 import android.media.Image;
 import android.media.ImageReader;
@@ -20,11 +19,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ import com.android.csiapp.R;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -74,6 +76,8 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
     private int mDensityDpi;
     private int mWidth;
     private int mHeight;
+    private int mRemoveTopHeight;
+    private int mRemoveBottomHeight;
     private MediaProjection mMediaProjection;
     private VirtualDisplay mVirtualDisplay;
     private ImageReader mImageReader;
@@ -133,20 +137,74 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         mDensityDpi = getResources().getDisplayMetrics().densityDpi;
         Display display = getWindowManager().getDefaultDisplay();
 
-        Rect frame = new Rect();
-        getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
         int toolsBarHeight = (int) getResources().getDimension(R.dimen.toolbar_size);
-        int statusBarHeight = frame.top;
-        int removeHeight = toolsBarHeight+statusBarHeight;
-        //Log.d("Anita","toolsBarHeight ="+toolsBarHeight+", statusBarHeight ="+statusBarHeight+", removeHeight = "+removeHeight);
+        int statusBarHeight = getStatusHeight(context);
+        mRemoveTopHeight = toolsBarHeight+statusBarHeight;
+        mRemoveBottomHeight = getBottomStatusHeight(context);
+
+        //Todo : need to check Virtual height
+        mRemoveBottomHeight = mRemoveBottomHeight==0?100:mRemoveBottomHeight;
+
+        //Log.d("Anita","toolsBarHeight ="+toolsBarHeight+", statusBarHeight ="+statusBarHeight+", mRemoveTopHeight = "+mRemoveTopHeight);
+        //Log.d("Anita","mRemoveBottomHeight ="+mRemoveBottomHeight);
         Point point = new Point();
         display.getSize(point);
-        //Log.d("Anita","point x ="+point.x+", y ="+point.y);
         this.mWidth = point.x;
         this.mHeight = point.y;
 
         startScreenCapture();
-        //Log.i("Anita", "prepared the virtual environment");
+    }
+
+    public static int getStatusHeight(Context context)
+    {
+        int statusHeight = -1;
+        try
+        {
+            Class<?> clazz = Class.forName("com.android.internal.R$dimen");
+            Object object = clazz.newInstance();
+            int height = Integer.parseInt(clazz.getField("status_bar_height")
+                    .get(object).toString());
+            statusHeight = context.getResources().getDimensionPixelSize(height);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return statusHeight;
+    }
+
+    public static  int getBottomStatusHeight(Context context){
+        int totalHeight = getDpi(context);
+
+        int contentHeight = getScreenHeight(context);
+
+        return totalHeight  - contentHeight;
+    }
+
+    public static int getScreenHeight(Context context)
+    {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics.heightPixels;
+    }
+
+    public static int getDpi(Context context){
+        int dpi = 0;
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        @SuppressWarnings("rawtypes")
+        Class c;
+        try {
+            c = Class.forName("android.view.Display");
+            @SuppressWarnings("unchecked")
+            Method method = c.getMethod("getRealMetrics",DisplayMetrics.class);
+            method.invoke(display, displayMetrics);
+            dpi=displayMetrics.heightPixels;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return dpi;
     }
 
     private void startScreenCapture(){
@@ -156,19 +214,16 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
             setUpMediaProjection();
             setUpVirtualDisplay();
         } else {
-            //Log.i("Anita", "Requesting confirmation");
             startActivityForResult(mMediaProjectionManager.createScreenCaptureIntent(), REQUEST_MEDIA_PROJECTION);
         }
     }
 
     private void setUpVirtualDisplay() {
-        //Log.i("Anita", "Setting up a VirtualDisplay");
         mVirtualDisplay = mMediaProjection.createVirtualDisplay("ScreenCapture",
                 mWidth, mHeight, mDensityDpi, 9, mImageReader.getSurface(), null, mHandler);
     }
 
     private void setUpMediaProjection() {
-        //Log.i("Anita", "Setting up MediaProjection");
         mMediaProjection = mMediaProjectionManager.getMediaProjection(mResultCode, mResultData);
     }
 
@@ -183,21 +238,17 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
             public void onImageAvailable(ImageReader reader) {
                 try {
                     if(mCount >= MAX_IMAGES - 1){
-                        //Log.w("Anita", "acquire image count(" + mCount + ") is more than MAX!");
                         return;
                     }
 
                     acquireImageCount();
-                    //Log.d("Anita", " index: " + mIndex + " count: " + mCount);
                     mImage = reader.acquireLatestImage();
                     if(null != mImage){
                         savePicture(mIndex);
                     }else{
-                        //Log.e("Anita", " acquire Latest image is null!" + " >>index: " + mIndex);
                         destoryImageCount();
                     }
                 } catch (Exception e) {
-                    //Log.e("Anita", "acquire error" + " >>index: " + mIndex, e);
                 }
 
                 // 結束整個界面，但是延遲一定時間停止截屏，以便截屏時去掉系統彈出框
@@ -235,7 +286,6 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
     }
 
     private void savePicture(int index){
-        //Log.d("Anita", " savePicture " + " >>index: " + index);
         new Thread(new SavePictureTask(index,mImage, path)).start();
     }
 
@@ -253,22 +303,18 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
 
         @Override
         public void run() {
-            long sTime = System.currentTimeMillis();
             if(image == null){
-                //Log.e("Anita", "image is null!!!" + " >>index: " + index);
                 return;
             }
             Bitmap bitmap = null;
             try {
                 Image.Plane[] planes = image.getPlanes();
                 if(planes == null || planes.length < 1){
-                    //Log.e("Anita", "planes is null!!!" + " >>index: " + index);
                     return;
                 }
 
                 Image.Plane plane = planes[0];
                 if(plane == null){
-                    //Log.e("Anita", " plane 0 is null" + " >>index: " + index);
                     return;
                 }
 
@@ -277,45 +323,38 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
                 int rowStride = plane.getRowStride();
                 int rowPadding = rowStride - pixelStride * mWidth;
 
-                bitmap = Bitmap.createBitmap(mWidth+rowPadding/pixelStride, mHeight, Bitmap.Config.ARGB_8888);
-                bitmap.copyPixelsFromBuffer(buffer);
+                //Log.d("Anita","width = "+mWidth+rowPadding/pixelStride+", height = "+mHeight);
+                //移除虛擬快捷鍵高度
+                Bitmap b = Bitmap.createBitmap(mWidth+rowPadding/pixelStride, mHeight-mRemoveBottomHeight, Bitmap.Config.ARGB_8888);
+                //Log.d("Anita","b width = "+b.getWidth()+", height = "+b.getHeight()+", mRemoveTopHeight = "+mRemoveTopHeight);
+                b.copyPixelsFromBuffer(buffer);
                 buffer.position(0);
                 if(image != null){
                     image.close();
                     image = null;
                     destoryImageCount();
                 }
-
-                long iTime = System.currentTimeMillis();
-                //Log.d("Anita", " CREATE BITMAP TIME： " + (iTime - sTime) + " >>index: " + index);
+                //移除狀態欄與title高度
+                bitmap = Bitmap.createBitmap(b, 0, mRemoveTopHeight, b.getWidth(), b.getHeight()-mRemoveTopHeight);
+                //Log.d("Anita","bitmap width = "+bitmap.getWidth()+", height = "+bitmap.getHeight());
             } catch (Exception e) {
-                //Log.e("Anita", " get bitmap error" + " >>index: " + index, e);
             } catch (OutOfMemoryError e){
-                //Log.e("Anita", " Out Of Memory error" + " >>index: " + index, e);
             }
 
             FileOutputStream out = null;
             try {
                 if(bitmap == null || bitmap.isRecycled()){
-                    //Log.w("Anita", " bitmap is null or Recycled" + " >>index: " + index);
                     return;
                 }
-                long iTime = System.currentTimeMillis();
                 File file = new File(path);
                 if(!file.exists() || file.delete()){
                     file.createNewFile();
                     out = new FileOutputStream(file);
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-                        out.flush();
-                        //Log.i("Anita", "save file success!!!" + " >>index: " + index);
-                } else {
-                    //Log.e("Anita", "create save file failed!!!" + " >>index: " + index+", path :"+path);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                    out.flush();
                 }
-                //Log.d("Anita", " Save file time： " + (System.currentTimeMillis() - iTime) + " >>index: " + index);
             } catch (Exception e) {
-                //Log.e("Anita", " save file error" + " >>index: " + index, e);
             } catch (OutOfMemoryError e){
-                //Log.e("Anita", " Out Of Memory error" + " >>index: " + index, e);
             } finally {
                 if(out != null){
                     try {
@@ -326,7 +365,6 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
                 if(bitmap != null && !bitmap.isRecycled()){
                     bitmap.recycle();
                 }
-                //Log.d("Anita","mSaveCount = "+mSaveCount);
                 mSaveCount--;
                 if(mSaveCount==0) onSave();
             }
@@ -337,14 +375,12 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         if(mVirtualDisplay == null){
             return ;
         }
-        //Log.i("Anita", " release Virtual Display ");
         mVirtualDisplay.release();
         mVirtualDisplay = null;
     }
 
     private void tearDownMediaProjection() {
         if (mMediaProjection != null) {
-            //Log.i("Anita", "stop MediaProjection");
             mMediaProjection.stop();
             mMediaProjection = null;
         }
@@ -360,7 +396,6 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         result.putExtra("gpsLat", gpsLat);
         result.putExtra("gpsLon", gpsLon);
         setResult(Activity.RESULT_OK, result);
-        //Log.d("Anita","onSave");
         finish();
     }
 
