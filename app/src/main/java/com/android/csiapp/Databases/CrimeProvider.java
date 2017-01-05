@@ -357,6 +357,36 @@ public class CrimeProvider {
         return result;
     }
 
+    public List<Integer> getAllWithCompleteOverDue() {
+        long time = Calendar.getInstance().getTimeInMillis()-1000*60*60*24*90;//超過三個月的時間
+        List<Integer> result = new ArrayList<Integer>();
+        String where = CrimeProvider.COMPLETE_COLUMN + "= '2' AND " + CrimeProvider.CREATE_TIME_COLUMN + "<= " +time;
+        Cursor cursor = db.query(
+                TABLE_NAME, null, where, null, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            result.add(cursor.getInt(0));
+        }
+
+        cursor.close();
+        return result;
+    }
+
+    public List<Integer> getAllWithDeleteOverDue() {
+        long time = Calendar.getInstance().getTimeInMillis()-1000*60*60*24*90;//超過三個月的時間
+        List<Integer> result = new ArrayList<Integer>();
+        String where = CrimeProvider.DELETE_COLUMN + "= '1' AND " + CrimeProvider.CREATE_TIME_COLUMN + "<= " +time;
+        Cursor cursor = db.query(
+                TABLE_NAME, null, where, null, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            result.add(cursor.getInt(0));
+        }
+
+        cursor.close();
+        return result;
+    }
+
     // 刪除所有記事資料
     public void deleteAll(){
         // 刪除原有的表格

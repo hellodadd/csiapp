@@ -4,10 +4,13 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +23,10 @@ import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.UserInfo;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.CrimeItem;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private Context context = null;
@@ -87,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
+
+        new Thread(new MainTask(mCrimeProvider)).start();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -102,6 +111,41 @@ public class MainActivity extends AppCompatActivity {
                 // 新增記事資料到資料庫
                 item = mCrimeProvider.insert(item);
             }
+        }
+    }
+
+    private class MainTask implements Runnable{
+
+        private CrimeProvider mCrimeProvider;
+        private Image image;
+        private String path;
+
+        public MainTask(CrimeProvider crimeProvider){
+            this.mCrimeProvider = crimeProvider;
+        }
+
+        @Override
+        public void run() {
+            Log.d("Anita","Over due task!");
+            List<Integer> complete_items = mCrimeProvider.getAllWithCompleteOverDue();
+            boolean complete_result = false;
+            Log.d("Anita","complete size = "+complete_items.size());
+            if(complete_items.size()!=0){
+                for(int i=0;i<complete_items.size();i++) {
+                    complete_result = mCrimeProvider.delete(complete_items.get(i));
+                }
+            }
+            Log.d("Anita","complete result = "+complete_result);
+
+            List<Integer> delete_items = mCrimeProvider.getAllWithDeleteOverDue();
+            boolean delete_result = false;
+            Log.d("Anita","delete size = "+delete_items.size());
+            if(delete_items.size()!=0){
+                for(int i=0;i<delete_items.size();i++) {
+                    delete_result = mCrimeProvider.delete(delete_items.get(i));
+                }
+            }
+            Log.d("Anita","delete result = "+delete_result);
         }
     }
 }

@@ -25,6 +25,7 @@ import com.amap.api.maps.MapsInitializer;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -234,6 +235,7 @@ public class DataInitial {
         if(mCrimeItem.getComplete().equalsIgnoreCase("0")) return false;
 
         mCrimeItem.setComplete("2");
+        mCrimeItem.setCreateTime(Calendar.getInstance().getTimeInMillis());
         mCrimeItem.setSceneNo(SceneNo);
         mCrime.update(mCrimeItem);
 
