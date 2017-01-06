@@ -31,6 +31,7 @@ import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.UserInfo;
 import com.android.csiapp.Crime.utils.tree.TreeViewListActivity;
+import com.android.csiapp.Databases.CellProvider;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.PhotoItem;
@@ -50,7 +51,8 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private int mEvent;
 
     private Button mCellCollection, mCellDetail;
-    List<PhotoItem> mCellResultItems;
+    private List<PhotoItem> mCellResultItems;
+    private CellProvider mCellProvider;
 
     private TextView mCasetypeText, mAreaText, mSceneConditionText, mWeatherConditionText, mWindDirectionText;
     private TextView mIlluminationConditionText, mSceneConductorText, mAccessInspectorsText;
@@ -83,8 +85,9 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         context = getActivity().getApplicationContext();
 
         IntentFilter filter = new IntentFilter();
-        filter.addAction("com.kuaikan.send_result");
+        filter.addAction(CreateSceneUtils.ACTION_RECEIVE_RESULT);
         context.registerReceiver(mReceiver,filter);
+        mCellProvider = new CellProvider(context);
 
         initView(view);
         initData();
@@ -177,10 +180,9 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mCellDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Anita","result size = "+mItem.getCellResult().size());
-                if(mItem.getCellResult().size()!=0){
+                Log.d("Anita","result size = "+mItem.getCellResultItem().size());
+                if(mItem.getCellResultItem().size()!=0){
                     Intent showRet = new Intent("android.intent.action.kuaikan.show_result");
-                    showRet.putStringArrayListExtra("result", mItem.getCellResult());
                     showRet.putExtra("xml", mItem.getCellResultItem().get(mItem.getCellResultItem().size()-1).getPhotoPath());
                     showRet.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(showRet);
@@ -723,7 +725,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 CellResult.setUuid(uuid);
                 Log.d("Anita","uuid = "+uuid);
                 Log.d("Anita","file_path = "+path);
-
+                CellResult.setId(mCellProvider.insert(CellResult));
                 mCellResultItems.add(CellResult);
                 Log.d("Anita","received result size = "+result.size());
                 mItem.setCellResult(result);
