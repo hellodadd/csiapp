@@ -4,8 +4,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,8 +22,6 @@ import com.android.csiapp.Crime.utils.UserInfo;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.CrimeItem;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -95,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        new Thread(new MainTask(mCrimeProvider)).start();
+        new Thread(new MainTask()).start();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -115,15 +111,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class MainTask implements Runnable{
-
-        private CrimeProvider mCrimeProvider;
-        private Image image;
-        private String path;
-
-        public MainTask(CrimeProvider crimeProvider){
-            this.mCrimeProvider = crimeProvider;
-        }
-
         @Override
         public void run() {
             Log.d("Anita","Over due task!");
