@@ -725,7 +725,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 CellResult.setUuid(uuid);
                 Log.d("Anita","uuid = "+uuid);
                 Log.d("Anita","file_path = "+path);
-                CellResult.setId(mCellProvider.insert(CellResult));
+                if(mEvent == 2) CellResult.setId(mCellProvider.insert(CellResult));
                 mCellResultItems.add(CellResult);
                 Log.d("Anita","received result size = "+result.size());
                 mItem.setCellResult(result);
