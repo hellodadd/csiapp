@@ -54,17 +54,17 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.action_click:
-                    if(!mRelatedPeopleItem.getPeopleId().isEmpty() && !IdCardVerify.validateIdCardWithoutAddress(mRelatedPeopleItem.getPeopleId())){
-                        String msg = "身份证号码错误";
-                        Toast.makeText(CreateScene_FP2_NewPeopleActivity.this, msg, Toast.LENGTH_SHORT).show();
-                        break;
-                    }
-
                     saveData();
                     Intent result = getIntent();
                     result.putExtra("com.android.csiapp.Databases.RelatedPeopleItem", mRelatedPeopleItem);
                     result.putExtra("Event", mEvent);
                     result.putExtra("Posiotion", mPosition);
+
+                    if(!mRelatedPeopleItem.getPeopleId().isEmpty() && !IdCardVerify.validateIdCardWithoutAddress(mRelatedPeopleItem.getPeopleId())){
+                        String msg = "身份证号码错误";
+                        Toast.makeText(CreateScene_FP2_NewPeopleActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        break;
+                    }
 
                     if(mRelatedPeopleItem.checkInformation()){
                         setResult(Activity.RESULT_OK, result);
