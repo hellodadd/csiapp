@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -27,6 +28,7 @@ import com.android.csiapp.Crime.utils.EditAlertDialog;
 import com.android.csiapp.Crime.utils.adapter.FragmentAdapter;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Databases.CrimeItem;
+import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
@@ -61,6 +63,9 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
     private List<Fragment> fragmentList;
     private FragmentAdapter fragmentAdapter;
 
+    private final int delayPeriod = 1000*60;
+    private boolean isFinish = false;
+
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
@@ -72,6 +77,8 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                         mItem.setComplete("1");
                         result.putExtra("com.android.csiapp.CrimeItem", mItem);
                         setResult(Activity.RESULT_OK, result);
+                        isFinish = true;
+                        handler.removeCallbacks(r);
                         finish();
                     }else{
                         mItem.setComplete("0");
@@ -79,6 +86,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                         SaveAlertDialog dialog = new SaveAlertDialog(CreateSceneActivity.this);
                         dialog.onCreateDialog(result,true,mItem);
                         dialog.setOwnerActivity(CreateSceneActivity.this);
+                        handler.removeCallbacks(r);
                     }
                     break;
                 default:
@@ -106,6 +114,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
             @Override
             public void onClick(View v) {
                 //What to do on back clicked
+                handler.removeCallbacks(r);
                 BackAlertDialog dialog = new BackAlertDialog(CreateSceneActivity.this);
                 dialog.onCreateDialog(true,mItem);
                 dialog.setOwnerActivity(CreateSceneActivity.this);
@@ -195,6 +204,8 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         mViewPager.setAdapter(fragmentAdapter);
         mViewPager.setCurrentItem(0);
         mViewPager.setOnPageChangeListener((ViewPager.OnPageChangeListener) this);
+
+        updateDatabases();
     }
 
     @Override
@@ -203,6 +214,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         if (keyCode == KeyEvent.KEYCODE_BACK )
         {
             //What to do on back clicked
+            handler.removeCallbacks(r);
             BackAlertDialog dialog = new BackAlertDialog(CreateSceneActivity.this);
             dialog.onCreateDialog(true,mItem);
             dialog.setOwnerActivity(CreateSceneActivity.this);
@@ -377,4 +389,29 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                 break;
         }
     }
+
+    private void updateDatabases(){
+        if(mItem.getId() == 0){
+            CrimeProvider crimeProvider = new CrimeProvider(context);
+            CrimeItem crimeItem = new CrimeItem();
+            mItem = crimeProvider.insert(mItem);
+        }
+        handler.postDelayed(r, delayPeriod);
+    }
+
+    private final Handler handler= new Handler();
+
+    final Runnable r = new Runnable() {
+        public void run () {
+            if(!isFinish) {
+                CrimeProvider mCrimeProvider = new CrimeProvider(context);
+                if (mItem.getId() == -1) {
+                    mItem = mCrimeProvider.insert(mItem);
+                } else {
+                    mCrimeProvider.update(mItem);
+                }
+                handler.postDelayed(r, delayPeriod);
+            }
+        }
+    };
 }

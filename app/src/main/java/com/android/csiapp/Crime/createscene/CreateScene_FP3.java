@@ -93,11 +93,11 @@ public class CreateScene_FP3 extends Fragment {
                 Intent it = new Intent(getActivity(), CreateScene_FP3_PositionInformationActivity.class);
                 it.putExtra("com.android.csiapp.Databases.CrimeItem", mItem);
                 it.putExtra("Add","Position");
-                it.putExtra("Event",1);
                 startActivityForResult(it, CreateSceneUtils.EVENT_NEW_POSITION);
             }
         });
 
+        mPositionList = mItem.getPosition();
         mPosition_List=(ListView) view.findViewById(R.id.position_listview);
         mPosition_Adapter = new PhotoAdapter(context, mPositionList);
         mPosition_List.setAdapter(mPosition_Adapter);
@@ -120,11 +120,11 @@ public class CreateScene_FP3 extends Fragment {
                 Intent it = new Intent(getActivity(), CreateScene_FP3_PositionInformationActivity.class);
                 it.putExtra("com.android.csiapp.Databases.CrimeItem", mItem);
                 it.putExtra("Add","Flat");
-                it.putExtra("Event",1);
                 startActivityForResult(it, CreateSceneUtils.EVENT_NEW_FLAT);
             }
         });
 
+        mFlatList = mItem.getFlat();
         mFlat_List=(ListView) view.findViewById(R.id.flat_listview);
         mFlat_Adapter = new PhotoAdapter(context, mFlatList);
         mFlat_List.setAdapter(mFlat_Adapter);
@@ -160,13 +160,13 @@ public class CreateScene_FP3 extends Fragment {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
             case CreateSceneUtils.EVENT_POSITION_DELETE:
-                if(mEvent == 2) mPositionProvider.delete(mPositionList.get(info.position).getId());
+                mPositionProvider.delete(mPositionList.get(info.position).getId());
                 mPositionList.remove(info.position);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
                 return true;
             case CreateSceneUtils.EVENT_FLAT_DELETE:
-                if(mEvent == 2) mFlatProvider.delete(mFlatList.get(info.position).getId());
+                mFlatProvider.delete(mFlatList.get(info.position).getId());
                 mFlatList.remove(info.position);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mFlat_List);
                 mFlat_Adapter.notifyDataSetChanged();
@@ -181,7 +181,7 @@ public class CreateScene_FP3 extends Fragment {
         mFlatList = mItem.getFlat();
     }
 
-    private void saveData(){
+    public void saveData(){
         mItem.setPosition(mPositionList);
         mItem.setFlat(mFlatList);
     }
@@ -206,8 +206,6 @@ public class CreateScene_FP3 extends Fragment {
             if(requestCode == CreateSceneUtils.EVENT_NEW_POSITION) {
                 // 新增記事資料到資料庫
                 PhotoItem positionItem = (PhotoItem) data.getSerializableExtra("com.android.csiapp.Databases.PhotoItem");
-                int event = (int) data.getIntExtra("Event", 1);
-                int position = (int) data.getIntExtra("Position", 0);
 
                 //Add lat on lon
                 String gpsLat = (String) data.getStringExtra("gpsLat");
@@ -215,27 +213,16 @@ public class CreateScene_FP3 extends Fragment {
                 if(!gpsLat.isEmpty()) mItem.setGpsLat(gpsLat);
                 if(!gpsLon.isEmpty()) mItem.setGpsLon(gpsLon);
 
-                if (mEvent == 2 && event == 1)
-                    positionItem.setId(mPositionProvider.insert(positionItem));
-                if (event == 1) {
-                    mPositionList.add(positionItem);
-                } else {
-                    mPositionList.set(position, positionItem);
-                }
+                positionItem.setId(mPositionProvider.insert(positionItem));
+                mPositionList.add(positionItem);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
             }else if(requestCode == CreateSceneUtils.EVENT_NEW_FLAT){
                 // 新增記事資料到資料庫
                 PhotoItem flatItem = (PhotoItem) data.getSerializableExtra("com.android.csiapp.Databases.PhotoItem");
-                int event = (int) data.getIntExtra("Event", 1);
-                int position = (int) data.getIntExtra("Position", 0);
-                if (mEvent == 2 && event == 1)
-                    flatItem.setId(mFlatProvider.insert(flatItem));
-                if (event == 1) {
-                    mFlatList.add(flatItem);
-                } else {
-                    mFlatList.set(position, flatItem);
-                }
+
+                flatItem.setId(mFlatProvider.insert(flatItem));
+                mFlatList.add(flatItem);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mFlat_List);
                 mFlat_Adapter.notifyDataSetChanged();
             }

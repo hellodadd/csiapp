@@ -103,6 +103,7 @@ public class CreateScene_FP4 extends Fragment {
             }
         });
 
+        mPositionList = mItem.getPositionPhoto();
         mPosition_List=(ListView) view.findViewById(R.id.Position_photo_listview);
         mPosition_Adapter = new PhotoAdapter(context, mPositionList);
         mPosition_List.setAdapter(mPosition_Adapter);
@@ -127,6 +128,7 @@ public class CreateScene_FP4 extends Fragment {
             }
         });
 
+        mLikeList = mItem.getOverviewPhoto();
         mLike_List=(ListView) view.findViewById(R.id.Like_photo_listview);
         mLike_Adapter = new PhotoAdapter(context, mLikeList);
         mLike_List.setAdapter(mLike_Adapter);
@@ -151,6 +153,7 @@ public class CreateScene_FP4 extends Fragment {
             }
         });
 
+        mImportantList = mItem.getImportantPhoto();
         mImportant_List=(ListView) view.findViewById(R.id.Important_photo_listview);
         mImportant_Adapter = new PhotoAdapter(context, mImportantList);
         mImportant_List.setAdapter(mImportant_Adapter);
@@ -189,19 +192,19 @@ public class CreateScene_FP4 extends Fragment {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
             case CreateSceneUtils.EVENT_POSITION_PHOTO_DELETE:
-                if(mEvent == 2) mPositionPhotoProvider.delete(mPositionList.get(info.position).getId());
+                mPositionPhotoProvider.delete(mPositionList.get(info.position).getId());
                 mPositionList.remove(info.position);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
                 return true;
             case CreateSceneUtils.EVENT_LIKE_PHOTO_DELETE:
-                if(mEvent == 2) mOverviewPhotoProvider.delete(mLikeList.get(info.position).getId());
+                mOverviewPhotoProvider.delete(mLikeList.get(info.position).getId());
                 mLikeList.remove(info.position);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mLike_List);
                 mLike_Adapter.notifyDataSetChanged();
                 return true;
             case CreateSceneUtils.EVENT_IMPORTANT_PHOTO_DELETE:
-                if(mEvent == 2) mImportantPhotoProvider.delete(mImportantList.get(info.position).getId());
+                mImportantPhotoProvider.delete(mImportantList.get(info.position).getId());
                 mImportantList.remove(info.position);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mImportant_List);
                 mImportant_Adapter.notifyDataSetChanged();
@@ -217,7 +220,7 @@ public class CreateScene_FP4 extends Fragment {
         mImportantList = mItem.getImportantPhoto();
     }
 
-    private void saveData(){
+    public void saveData(){
         mItem.setPositionPhoto(mPositionList);
         mItem.setOverviewPhoto(mLikeList);
         mItem.setImportantPhoto(mImportantList);
@@ -255,19 +258,19 @@ public class CreateScene_FP4 extends Fragment {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == CreateSceneUtils.EVENT_PHOTO_TYPE_POSITION) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_POSITION");
-                if(mEvent == 2) photoItem.setId(mPositionPhotoProvider.insert(photoItem));
+                photoItem.setId(mPositionPhotoProvider.insert(photoItem));
                 mPositionList.add(photoItem);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mPosition_List);
                 mPosition_Adapter.notifyDataSetChanged();
             } else if (requestCode == CreateSceneUtils.EVENT_PHOTO_TYPE_LIKE) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_LIKE");
-                if(mEvent == 2) photoItem.setId(mOverviewPhotoProvider.insert(photoItem));
+                photoItem.setId(mOverviewPhotoProvider.insert(photoItem));
                 mLikeList.add(photoItem);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mLike_List);
                 mLike_Adapter.notifyDataSetChanged();
             } else if (requestCode == CreateSceneUtils.EVENT_PHOTO_TYPE_IMPORTANT) {
                 Log.d("Camera", "Set image to PHOTO_TYPE_IMPORTANT");
-                if(mEvent == 2) photoItem.setId(mImportantPhotoProvider.insert(photoItem));
+                photoItem.setId(mImportantPhotoProvider.insert(photoItem));
                 mImportantList.add(photoItem);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mImportant_List);
                 mImportant_Adapter.notifyDataSetChanged();

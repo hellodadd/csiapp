@@ -111,6 +111,7 @@ public class CreateScene_FP5 extends Fragment {
             }
         });
 
+        mEvidenceList = mItem.getEvidenceItem();
         mEvidence_List=(ListView) view.findViewById(R.id.evidence_listview);
         mEvidence_Adapter = new EvidenceAdapter(context, mEvidenceList);
         mEvidence_List.setAdapter(mEvidence_Adapter);
@@ -138,6 +139,7 @@ public class CreateScene_FP5 extends Fragment {
             }
         });
 
+        mMonitoringList = mItem.getMonitoringPhoto();
         mMonitoring_List=(ListView) view.findViewById(R.id.monitoring_photo_listview);
         mMonitoring_Adapter = new PhotoAdapter(context, mMonitoringList);
         mMonitoring_List.setAdapter(mMonitoring_Adapter);
@@ -162,6 +164,7 @@ public class CreateScene_FP5 extends Fragment {
             }
         });
 
+        mCameraList = mItem.getCameraPhoto();
         mCamera_List=(ListView) view.findViewById(R.id.camera_photo_listview);
         mCamera_Adapter = new PhotoAdapter(context, mCameraList);
         mCamera_List.setAdapter(mCamera_Adapter);
@@ -200,19 +203,19 @@ public class CreateScene_FP5 extends Fragment {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
             case CreateSceneUtils.EVENT_EVIDENCE_DELETE:
-                if(mEvent == 2) mEvidenceProvider.delete(mEvidenceList.get(info.position).getId());
+                mEvidenceProvider.delete(mEvidenceList.get(info.position).getId());
                 mEvidenceList.remove(info.position);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mEvidence_List);
                 mEvidence_Adapter.notifyDataSetChanged();
                 return true;
             case CreateSceneUtils.EVENT_MONITORING_DELETE:
-                if(mEvent == 2) mMonitoringPhotoProvider.delete(mMonitoringList.get(info.position).getId());
+                mMonitoringPhotoProvider.delete(mMonitoringList.get(info.position).getId());
                 mMonitoringList.remove(info.position);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mMonitoring_List);
                 mMonitoring_Adapter.notifyDataSetChanged();
                 return true;
             case CreateSceneUtils.EVENT_CAMERA_DELETE:
-                if(mEvent == 2) mCameraPhotoProvider.delete(mCameraList.get(info.position).getId());
+                mCameraPhotoProvider.delete(mCameraList.get(info.position).getId());
                 mCameraList.remove(info.position);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mCamera_List);
                 mCamera_Adapter.notifyDataSetChanged();
@@ -228,7 +231,7 @@ public class CreateScene_FP5 extends Fragment {
         mCameraList = mItem.getCameraPhoto();
     }
 
-    private void saveData(){
+    public void saveData(){
         mItem.setEvidenceItem(mEvidenceList);
         mItem.setMonitoringPhoto(mMonitoringList);
         mItem.setCameraPhoto(mCameraList);
@@ -262,9 +265,8 @@ public class CreateScene_FP5 extends Fragment {
                 EvidenceItem evidenceItem = (EvidenceItem) data.getSerializableExtra("com.android.csiapp.Databases.EvidenceItem");
                 int event = (int) data.getIntExtra("Event", 1);
                 int position = (int) data.getIntExtra("Position", 0);
-                if (mEvent == 2 && event == 1)
-                    evidenceItem.setId(mEvidenceProvider.insert(evidenceItem));
                 if (event == 1) {
+                    evidenceItem.setId(mEvidenceProvider.insert(evidenceItem));
                     mEvidenceList.add(evidenceItem);
                 } else {
                     mEvidenceList.set(position, evidenceItem);
@@ -277,7 +279,7 @@ public class CreateScene_FP5 extends Fragment {
                 photoItem.setPhotoPath(path);
                 photoItem.setUuid(CrimeProvider.getUUID());
                 Log.d("Camera", "Set image to PHOTO_TYPE_MONITORING");
-                if(mEvent == 2) photoItem.setId(mMonitoringPhotoProvider.insert(photoItem));
+                photoItem.setId(mMonitoringPhotoProvider.insert(photoItem));
                 mMonitoringList.add(photoItem);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mMonitoring_List);
                 mMonitoring_Adapter.notifyDataSetChanged();
@@ -287,7 +289,7 @@ public class CreateScene_FP5 extends Fragment {
                 photoItem.setPhotoPath(path);
                 photoItem.setUuid(CrimeProvider.getUUID());
                 Log.d("Camera", "Set image to PHOTO_TYPE_CAMERA");
-                if(mEvent == 2) photoItem.setId(mCameraPhotoProvider.insert(photoItem));
+                photoItem.setId(mCameraPhotoProvider.insert(photoItem));
                 mCameraList.add(photoItem);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mCamera_List);
                 mCamera_Adapter.notifyDataSetChanged();

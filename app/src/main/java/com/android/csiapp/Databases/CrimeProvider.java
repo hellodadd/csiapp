@@ -137,7 +137,6 @@ public class CrimeProvider {
         db.close();
     }
 
-    //ToDo
     // 新增參數指定的物件
     public CrimeItem insert(CrimeItem item) {
         // 建立準備新增資料的ContentValues物件
@@ -281,14 +280,14 @@ public class CrimeProvider {
         cv.put(LOST_ITEM_NUMBER_COLUMN, Lost_id);
         cv.put(CRIMETOOL_ITEM_NUMBER_COLUMN, CrimeTool_id);
         cv.put(POSITION_ITEM_NUMBER_COLUMN, Position_id);
+        cv.put(FLAT_ITEM_COLUMN, Flat_id);
         cv.put(POSITIONPHOTO_ITEM_NUMBER_COLUMN, PositionPhoto_id);
         cv.put(OVERVIEWPHOTO_ITEM_NUMBER_COLUMN, OverviewPhoto_id);
         cv.put(IMPORTANTPHOTO_ITEM_NUMBER_COLUMN, ImportantPhoto_id);
         cv.put(EVIDENCE_ITEM_NUMBER_COLUMN, Evidence_id);
-        cv.put(WITNESS_ITEM_NUMBER_COLUMN, Witness_id);
         cv.put(MONITORINGPHOTO_ITEM_NUMBER_COLUMN, Monitoring_id);
         cv.put(CAMERAPHOTO_ITEM_COLUMN, Camera_id);
-        cv.put(FLAT_ITEM_COLUMN, Flat_id);
+        cv.put(WITNESS_ITEM_NUMBER_COLUMN, Witness_id);
 
         return db.update(TABLE_NAME, cv, where, null) > 0;
     }

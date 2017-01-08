@@ -215,19 +215,19 @@ public class CreateScene_FP2 extends Fragment {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
             case CreateSceneUtils.EVENT_PEOPLE_DELETE:
-                if(mEvent == 2) mRelatedPeopelProvider.delete(mPeopleList.get(info.position).getId());
+                mRelatedPeopelProvider.delete(mPeopleList.get(info.position).getId());
                 mPeopleList.remove(info.position);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mPeople_List);
                 mPeople_Adapter.notifyDataSetChanged();
                 return true;
             case CreateSceneUtils.EVENT_ITEM_DELETE:
-                if(mEvent == 2) mLostProvider.delete(mItemList.get(info.position).getId());
+                mLostProvider.delete(mItemList.get(info.position).getId());
                 mItemList.remove(info.position);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mItem_List);
                 mItem_Adapter.notifyDataSetChanged();
                 return true;
             case CreateSceneUtils.EVENT_TOOL_DELETE:
-                if(mEvent == 2) mCrimeToolProvider.delete(mToolList.get(info.position).getId());
+                mCrimeToolProvider.delete(mToolList.get(info.position).getId());
                 mToolList.remove(info.position);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mTool_List);
                 mTool_Adapter.notifyDataSetChanged();
@@ -271,8 +271,8 @@ public class CreateScene_FP2 extends Fragment {
                 // 新增記事資料到資料庫
                 RelatedPeopleItem relatedPeopleItem = (RelatedPeopleItem) data.getSerializableExtra("com.android.csiapp.Databases.RelatedPeopleItem");
                 int event = (int) data.getIntExtra("Event", 1);
-                if(mEvent == 2 && event ==1) relatedPeopleItem.setId(mRelatedPeopelProvider.insert(relatedPeopleItem));
                 if(event == 1) {
+                    relatedPeopleItem.setId(mRelatedPeopelProvider.insert(relatedPeopleItem));
                     mPeopleList.add(relatedPeopleItem);
                 }else{
                     int position = (int) data.getIntExtra("Position",0);
@@ -284,8 +284,8 @@ public class CreateScene_FP2 extends Fragment {
                 // 新增記事資料到資料庫
                 LostItem lostItem = (LostItem) data.getSerializableExtra("com.android.csiapp.Databases.LostItem");
                 int event = (int) data.getIntExtra("Event", 1);
-                if(mEvent == 2 && event ==1) lostItem.setId(mLostProvider.insert(lostItem));
                 if(event == 1) {
+                    lostItem.setId(mLostProvider.insert(lostItem));
                     mItemList.add(lostItem);
                 }else{
                     int position = (int) data.getIntExtra("Position",0);
@@ -297,8 +297,8 @@ public class CreateScene_FP2 extends Fragment {
                 // 新增記事資料到資料庫
                 CrimeToolItem crimeToolItem = (CrimeToolItem) data.getSerializableExtra("com.android.csiapp.Databases.CrimeToolItem");
                 int event = (int) data.getIntExtra("Event", 1);
-                if(mEvent == 2 && event ==1) crimeToolItem.setId(mCrimeToolProvider.insert(crimeToolItem));
                 if(event == 1) {
+                    crimeToolItem.setId(mCrimeToolProvider.insert(crimeToolItem));
                     mToolList.add(crimeToolItem);
                 }else{
                     int position = (int) data.getIntExtra("Position",0);

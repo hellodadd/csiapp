@@ -50,7 +50,6 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
     private Context context = null;
     private CrimeItem mItem;
     private PhotoItem mPositionItem;
-    private int mEvent;
     private String mAdd;
     private ImageView mNew_Position;
     private TableLayout mTablePosition1, mTablePosition2, mTableFlat;
@@ -117,7 +116,6 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
         mPositionItem.setUuid(CrimeProvider.getUUID());
         Intent result = getIntent();
         result.putExtra("com.android.csiapp.Databases.PhotoItem", mPositionItem);
-        result.putExtra("Event",mEvent);
         result.putExtra("gpsLat", gpsLat);
         result.putExtra("gpsLon", gpsLon);
         setResult(Activity.RESULT_OK, result);
@@ -131,7 +129,6 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
 
         context = this.getApplicationContext();
         mItem = (CrimeItem) getIntent().getSerializableExtra("com.android.csiapp.Databases.CrimeItem");
-        mEvent = (int) getIntent().getIntExtra("Event", 1);
         mAdd = (String) getIntent().getStringExtra("Add");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -153,15 +150,13 @@ public class CreateScene_FP3_PositionInformationActivity extends AppCompatActivi
 
         initView();
 
-        if(mEvent == 1) {
-            mPositionItem = new PhotoItem();
-            if(IsPositionInformation()) {
-                Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity_Amap.class);
-                startActivityForResult(it, CreateSceneUtils.REQUEST_POSITION);
-            }else if(!IsPositionInformation()){
-                Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewFlatActivity.class);
-                startActivityForResult(it, CreateSceneUtils.REQUEST_FLAT);
-            }
+        mPositionItem = new PhotoItem();
+        if(IsPositionInformation()) {
+            Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewPositionActivity_Amap.class);
+            startActivityForResult(it, CreateSceneUtils.REQUEST_POSITION);
+        }else if(!IsPositionInformation()){
+            Intent it = new Intent(CreateScene_FP3_PositionInformationActivity.this, CreateScene_FP3_NewFlatActivity.class);
+            startActivityForResult(it, CreateSceneUtils.REQUEST_FLAT);
         }
     }
 

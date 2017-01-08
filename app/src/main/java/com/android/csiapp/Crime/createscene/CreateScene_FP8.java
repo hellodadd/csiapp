@@ -95,6 +95,7 @@ public class CreateScene_FP8 extends Fragment {
             }
         });
 
+        mWitnessList = mItem.getWitness();
         mWitness_list=(ListView) view.findViewById(R.id.listView);
         mWitness_adapter = new WitnessListAdapter(context, mWitnessList);
         mWitness_list.setAdapter(mWitness_adapter);
@@ -129,7 +130,7 @@ public class CreateScene_FP8 extends Fragment {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch(item.getItemId()) {
             case CreateSceneUtils.EVENT_WITNESS_DELETE:
-                if(mEvent == 2) mWitnessProvider.delete(mWitnessList.get(info.position).getId());
+                mWitnessProvider.delete(mWitnessList.get(info.position).getId());
                 mWitnessList.remove(info.position);
                 CreateSceneUtils.setListViewHeightBasedOnChildren(mWitness_list);
                 mWitness_adapter.notifyDataSetChanged();
@@ -166,9 +167,9 @@ public class CreateScene_FP8 extends Fragment {
             if(requestCode == CreateSceneUtils.EVENT_NEW_WITNESS) {
                 WitnessItem witenssItem = (WitnessItem) data.getSerializableExtra("com.android.csiapp.Databases.WitnessItem");
                 int event = (int) data.getIntExtra("Event", 1);
-                if (mEvent == 2 && event == 1) witenssItem.setId(mWitnessProvider.insert(witenssItem));
                 // 新增記事資料到資料庫
                 if (event == 1) {
+                    witenssItem.setId(mWitnessProvider.insert(witenssItem));
                     mWitnessList.add(witenssItem);
                 } else {
                     int position = (int) data.getIntExtra("Position", 0);

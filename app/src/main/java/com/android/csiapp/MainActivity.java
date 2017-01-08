@@ -105,7 +105,8 @@ public class MainActivity extends AppCompatActivity {
             CrimeItem item = (CrimeItem) data.getExtras().getSerializable("com.android.csiapp.CrimeItem");
             if (requestCode == 0) {
                 // 新增記事資料到資料庫
-                item = mCrimeProvider.insert(item);
+                if(item.getId() == 0) item = mCrimeProvider.insert(item);
+                else mCrimeProvider.update(item);
             }
         }
     }
