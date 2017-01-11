@@ -99,8 +99,7 @@ public class CreateScene_FP6 extends Fragment {
     }
 
     private void auto_generated(){
-        String[] category = getResources().getStringArray(R.array.casetype);
-        String type = DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, mItem.getCasetype());
+        String type = mItem.getCasetype();
         if(type.isEmpty()){
             Toast.makeText(getActivity(), "请先选择案件类别", Toast.LENGTH_SHORT).show();
             return;
@@ -155,79 +154,75 @@ public class CreateScene_FP6 extends Fragment {
             text6 = text6 + "。对现场及现场周围进行搜索，未发现其他物证。\n";
         }
 
-        for(int i=0;i<category.length;i++){
-            if(type.equalsIgnoreCase(category[i])){
-                switch (i){
-                    case 1:
-                        //盗窃牲畜
-                        text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
-                        text = text + "在" + mItem.getLocation() + "，";
-                        text = text + DateTimePicker.getCurrentTime(mItem.getOccurredEndTime());
-                        text = text + "发现牲畜被盗，随即报案。\n";
-                        mOverview.setText(text1 + text + text2 + text3 + text4 + text5 + text6);
-                        break;
-                    case 5:
-                        //挡路抢劫
-                        text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
-                        text = text + "在" + mItem.getLocation() + "，";
-                        text = text + DateTimePicker.getCurrentTime(mItem.getOccurredEndTime());
-                        text = text + "遭遇抢劫，随即报案。\n";
-                        mOverview.setText(text1 + text + text2 + text3 + text4 + text5 + text6);
-                        break;
-                    case 8:
-                        //诈骗
-                        text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
-                        text = text + "在" + mItem.getLocation() + "，";
-                        text = text + DateTimePicker.getCurrentTime(mItem.getOccurredEndTime());
-                        text = text + "发现被骗，随即报案。\n";
-                        mOverview.setText(text1 + text + text2 + text3 + text4 + text5 + text6);
-                        break;
-                    case 0:
-                        //竊盜電動自行車
-                        text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
-                        text = text + "将电动车锁好后，停放在" + mItem.getLocation() + "，";
-                        text = text + DateTimePicker.getCurrentTime(mItem.getOccurredEndTime());
-                        text = text + "发现车辆被盗，随即报案。\n";
-                        mOverview.setText(text1 + text + text2 + text3 + text4 + text5 + text6);
-                        break;
-                    case 2:
-                        //扒窃
-                        text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
-                        text = text + "其在" + mItem.getLocation() + "发现被盗，随即报案。\n";
-                        mOverview.setText(text1 + text + text3 + text4 + text5 + text6);
-                        break;
-                    case 3:
-                        //盗窃摩托车
-                        text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
-                        text = text + "将摩托车锁好后，停放在" + mItem.getLocation() + "，";
-                        text = text + DateTimePicker.getCurrentTime(mItem.getOccurredEndTime());
-                        text = text + "发现车辆被盗，随即报案。\n";
-                        mOverview.setText(text1 + text + text2 + text3 + text4 + text5 + text6);
-                        break;
-                    case 4:
-                        //盗窃自行车
-                        text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
-                        text = text + "将自行车锁好后，停放在" + mItem.getLocation() + "，";
-                        text = text + DateTimePicker.getCurrentTime(mItem.getOccurredEndTime());
-                        text = text + "发现车辆被盗，随即报案。\n";
-                        mOverview.setText(text1 + text + text2 + text3 + text4 + text5 + text6);
-                        break;
-                    case 6:
-                        //故意伤害
-                        text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
-                        text = text + "其在" + mItem.getLocation() + "发生一起故意伤害案，随即报案。\n";
-                        mOverview.setText(text1 + text + text2 + text3 + text4 + text6);
-                        break;
-                    case 7:
-                        //抢夺
-                        text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
-                        text = text + "其在" + mItem.getLocation() + "行走时被抢，随即报案。\n";
-                        mOverview.setText(text1 + text + text3 + text4 + text5 + text6);
-                        break;
-                    default:
-                        break;
-                }
-            }
+        switch (type){
+            case "050237":
+                //盗窃牲畜
+                text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
+                text = text + "在" + mItem.getLocation() + "，";
+                text = text + DateTimePicker.getCurrentTime(mItem.getOccurredEndTime());
+                text = text + "发现牲畜被盗，随即报案。\n";
+                mOverview.setText(text1 + text + text2 + text3 + text4 + text5 + text6);
+                break;
+            case "050102":
+                //挡路抢劫
+                text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
+                text = text + "在" + mItem.getLocation() + "，";
+                text = text + DateTimePicker.getCurrentTime(mItem.getOccurredEndTime());
+                text = text + "遭遇抢劫，随即报案。\n";
+                mOverview.setText(text1 + text + text2 + text3 + text4 + text5 + text6);
+                break;
+            case "050300":
+                //诈骗
+                text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
+                text = text + "在" + mItem.getLocation() + "，";
+                text = text + DateTimePicker.getCurrentTime(mItem.getOccurredEndTime());
+                text = text + "发现被骗，随即报案。\n";
+                mOverview.setText(text1 + text + text2 + text3 + text4 + text5 + text6);
+                break;
+            case "050228":
+                //竊盜電動自行車
+                text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
+                text = text + "将电动车锁好后，停放在" + mItem.getLocation() + "，";
+                text = text + DateTimePicker.getCurrentTime(mItem.getOccurredEndTime());
+                text = text + "发现车辆被盗，随即报案。\n";
+                mOverview.setText(text1 + text + text2 + text3 + text4 + text5 + text6);
+                break;
+            case "050240":
+                //扒窃
+                text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
+                text = text + "其在" + mItem.getLocation() + "发现被盗，随即报案。\n";
+                mOverview.setText(text1 + text + text3 + text4 + text5 + text6);
+                break;
+            case "050224":
+                //盗窃摩托车
+                text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
+                text = text + "将摩托车锁好后，停放在" + mItem.getLocation() + "，";
+                text = text + DateTimePicker.getCurrentTime(mItem.getOccurredEndTime());
+                text = text + "发现车辆被盗，随即报案。\n";
+                mOverview.setText(text1 + text + text2 + text3 + text4 + text5 + text6);
+                break;
+            case "050227":
+                //盗窃自行车
+                text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
+                text = text + "将自行车锁好后，停放在" + mItem.getLocation() + "，";
+                text = text + DateTimePicker.getCurrentTime(mItem.getOccurredEndTime());
+                text = text + "发现车辆被盗，随即报案。\n";
+                mOverview.setText(text1 + text + text2 + text3 + text4 + text5 + text6);
+                break;
+            case "040103":
+                //故意伤害
+                text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
+                text = text + "其在" + mItem.getLocation() + "发生一起故意伤害案，随即报案。\n";
+                mOverview.setText(text1 + text + text2 + text3 + text4 + text6);
+                break;
+            case "050400":
+                //抢夺
+                text = text + "据报案人称，" + DateTimePicker.getCurrentTime(mItem.getOccurredStartTime());
+                text = text + "其在" + mItem.getLocation() + "行走时被抢，随即报案。\n";
+                mOverview.setText(text1 + text + text3 + text4 + text5 + text6);
+                break;
+            default:
+                break;
         }
         mItem.setOverview(mOverview.getText().toString());
     }
