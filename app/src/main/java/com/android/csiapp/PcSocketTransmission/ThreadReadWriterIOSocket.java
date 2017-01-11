@@ -235,7 +235,7 @@ public class ThreadReadWriterIOSocket implements Runnable {
                     client.close();
                 }
             } catch (IOException e) {
-                Log.e(TAG, Thread.currentThread().getName() + "---->" + "read write error333333");
+                Log.e(TAG, Thread.currentThread().getName() + "---->" + "read write error");
                 e.printStackTrace();
             }
             //restartApp();

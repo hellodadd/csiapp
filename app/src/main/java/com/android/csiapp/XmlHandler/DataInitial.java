@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.SystemProperties;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.csiapp.Crime.setting.BackupRestore;
 import com.android.csiapp.Crime.setting.DirTraversal;
@@ -18,10 +16,9 @@ import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.DictionaryProvider;
 import com.android.csiapp.Databases.IdentifyProvider;
 import com.android.csiapp.PcSocketTransmission.FileHelper;
-import com.android.csiapp.XmlHandler.Dictionary;
-import com.android.csiapp.XmlHandler.User;
-import com.android.csiapp.XmlHandler.XmlHandler;
 import com.amap.api.maps.MapsInitializer;
+
+import org.w3c.dom.Document;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -72,7 +69,37 @@ public class DataInitial {
         XmlHandler xmlhandler = new XmlHandler();
         Object[] object = xmlhandler.getInitialDeviceCmd();
 
-        if(object == null && object.length!=2) return false;
+        if(object == null || object.length!=2) return false;
+
+        List<Dictionary> dictionarys = (List<Dictionary>) object[0];
+        List<User> users = (List<User>) object[1];
+
+        //Prase Dictionary
+        DictionaryProvider mDictionary = new DictionaryProvider(mContext);
+        mDictionary.deleteAll();
+        for(int i=0;i<dictionarys.size();i++){
+            mDictionary.insert(dictionarys.get(i));
+        }
+
+        //Prase User
+        IdentifyProvider mIdentify = new IdentifyProvider(mContext);
+        mIdentify.deleteAll();
+        for(int j=0;j<users.size();j++){
+            mIdentify.insert(users.get(j));
+        }
+
+        SharedPreferences.Editor editor = mContext.getSharedPreferences("InitialDevice", 0).edit();
+        editor.putString("Initial", "1");
+        editor.commit();
+
+        return true;
+    }
+
+    public boolean InitialDevice(Document doc){
+        XmlHandler xmlhandler = new XmlHandler();
+        Object[] object = xmlhandler.getInitialDeviceCmd(doc);
+
+        if(object == null || object.length!=2) return false;
 
         List<Dictionary> dictionarys = (List<Dictionary>) object[0];
         List<User> users = (List<User>) object[1];
@@ -103,7 +130,7 @@ public class DataInitial {
         XmlHandler xmlhandler = new XmlHandler();
         String[] object = xmlhandler.getSceneListCmd();
 
-        if(object==null && object.length!=2) return false;
+        if(object==null || object.length!=2) return false;
 
         String name = object[0];
         String unit = object[1];
@@ -112,6 +139,11 @@ public class DataInitial {
         mCrimeProvider.createScenesInfoXml(name);
 
         return true;
+    }
+
+    public void CreateBaseMsg(String name){
+        CrimeProvider mCrimeProvider = new CrimeProvider(mContext);
+        mCrimeProvider.createScenesInfoXml(name);
     }
 
     //Command 12
@@ -222,7 +254,7 @@ public class DataInitial {
         XmlHandler xmlhandler = new XmlHandler();
         String[] object = xmlhandler.writeSceneIdCmd();
 
-        if(object == null && object.length==0) return false;
+        if(object == null || object.length==0) return false;
 
         String id = object[0];
         Log.d("Anita","Scene Id = "+id);
@@ -248,7 +280,7 @@ public class DataInitial {
         List<String> object = xmlhandler.deleteSceneInfoCmd();
         List result = new ArrayList<String>();
 
-        if(object == null && object.size()==0) return false;
+        if(object == null || object.size()==0) return false;
 
         CrimeProvider mCrime = new CrimeProvider(mContext);
         for(int i=0;i<object.size();i++){
@@ -269,7 +301,5 @@ public class DataInitial {
         }else{
             return false;
         }
-
-
     }
 }

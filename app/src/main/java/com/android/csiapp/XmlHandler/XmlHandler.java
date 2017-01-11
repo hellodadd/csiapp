@@ -7,6 +7,8 @@ import android.os.Environment;
 import android.util.Log;
 import android.util.Xml;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlSerializer;
 
@@ -242,6 +244,74 @@ public class XmlHandler {
             fileInputStream.close();
             return new Object[]{dictionarys, users};
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public  Object[] getInitialDeviceCmd(Document doc) {
+        try{
+            Dictionary dictionary = new Dictionary();
+            User user = new User();
+            List<Dictionary> dictionarys = new ArrayList<Dictionary>();
+            List<User> users = new ArrayList<User>();
+            NodeList dictionaryList = doc.getElementsByTagName("dictionary");
+            Log.d("Anita","dictionary length = "+dictionaryList.getLength());
+            for(int i=0 ; i<dictionaryList.getLength(); i++){
+                String dictkey = "";
+                if(doc.getElementsByTagName("dictkey").item(i).getFirstChild() == null) dictkey = "";
+                else dictkey = doc.getElementsByTagName("dictkey").item(i).getFirstChild().getNodeValue();
+                if(dictkey.isEmpty()) dictkey = "";
+                dictionary.setDictKey(dictkey);
+                Log.d("Anita","dictkey = "+dictkey);
+
+                String parentkey = "";
+                if(doc.getElementsByTagName("parentkey").item(i).getFirstChild() == null) parentkey = "";
+                else parentkey = doc.getElementsByTagName("parentkey").item(i).getFirstChild().getNodeValue();
+                if(parentkey.isEmpty()) parentkey = "";
+                dictionary.setParentKey(parentkey);
+
+                String rootkey = "";
+                if(doc.getElementsByTagName("rootkey").item(i).getFirstChild() == null) rootkey = "";
+                else rootkey = doc.getElementsByTagName("rootkey").item(i).getFirstChild().getNodeValue();
+                if(rootkey.isEmpty()) rootkey = "";
+                dictionary.setRootKey(rootkey);
+
+                String dictvalue = "";
+                if(doc.getElementsByTagName("dictvalue").item(i).getFirstChild() == null) dictvalue = "";
+                else dictvalue = doc.getElementsByTagName("dictvalue").item(i).getFirstChild().getNodeValue();
+                if(dictkey.isEmpty()) dictvalue = "";
+                dictionary.setDictValue(dictvalue);
+
+                String dictremark = "";
+                if(doc.getElementsByTagName("dictremark").item(i).getFirstChild() == null) dictremark = "";
+                else dictremark = doc.getElementsByTagName("dictremark").item(i).getFirstChild().getNodeValue();
+                if(dictremark.isEmpty()) dictremark = "";
+                dictionary.setDictRemark(dictremark);
+
+                String dictspell = "";
+                if(doc.getElementsByTagName("dictspell").item(i).getFirstChild() == null) dictspell = "";
+                else dictspell = doc.getElementsByTagName("dictspell").item(i).getFirstChild().getNodeValue();
+                if(dictspell.isEmpty()) dictspell = "";
+                dictionary.setDictSpell(dictspell);
+
+                dictionarys.add(dictionary);
+                dictionary = new Dictionary();
+            }
+            NodeList userList = doc.getElementsByTagName("user");
+            Log.d("Anita","user length = "+userList.getLength());
+            for(int j=0 ; j<userList.getLength(); j++){
+                user.setLoginName(doc.getElementsByTagName("loginname").item(j).getFirstChild().getNodeValue());
+                user.setPassword(doc.getElementsByTagName("password").item(j).getFirstChild().getNodeValue());
+                user.setUserName(doc.getElementsByTagName("username").item(j).getFirstChild().getNodeValue());
+                user.setUnitCode(doc.getElementsByTagName("unitcode").item(j).getFirstChild().getNodeValue());
+                user.setUserName(doc.getElementsByTagName("unitname").item(j).getFirstChild().getNodeValue());
+                user.setIdCardNo(doc.getElementsByTagName("idcardno").item(j).getFirstChild().getNodeValue());
+                users.add(user);
+                user = new User();
+            }
+            return new Object[]{dictionarys, users};
         } catch (Exception e) {
             e.printStackTrace();
             return null;
