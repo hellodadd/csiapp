@@ -1,6 +1,7 @@
 package com.android.csiapp.WebServiceTransmission;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -18,24 +19,9 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import org.dom4j.*;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.Iterator;
 import java.util.NoSuchElementException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 /**
  * Created by user on 2017/1/10.
@@ -143,10 +129,26 @@ public class WebService {
                 }
             }
 
+            //Anita test
+            isUpdate = true;
+            //Anita test
+
             //downlad and install app
             if(isUpdate){
                 WebService.GetServerAddress();
-                if(!mTCPAddress.isEmpty()){
+                String[] removeHttp = mTCPAddress.split("/");
+                String[] address_port = removeHttp[removeHttp.length-1].split(":");
+
+                if(address_port.length!=2) return;
+
+                String ip = address_port[0];
+                String port = address_port[1];
+                //Log.d(TAG, "mTCPAddress = "+mTCPAddress+", ip = "+ip+", port = "+port);
+                if(!ip.isEmpty() && !port.isEmpty()){
+                    Intent intent = new Intent(mContext, WebServiceSocket.class);
+                    intent.putExtra("ip", ip);
+                    intent.putExtra("port", port);
+                    mContext.startService(intent);
                     //Todo : Start download App socket
                 }
             }
@@ -185,7 +187,19 @@ public class WebService {
             String result = WebService.SubmitSceneInfo(sceneInfo);
             if(result.equalsIgnoreCase("1")){
                 WebService.GetServerAddress();
-                if(!mTCPAddress.isEmpty()){
+                String[] removeHttp = mTCPAddress.split("/");
+                String[] address_port = removeHttp[removeHttp.length-1].split(":");
+
+                if(address_port.length!=2) return;
+
+                String ip = address_port[0];
+                String port = address_port[1];
+                //Log.d(TAG, "mTCPAddress = "+mTCPAddress+", ip = "+ip+", port = "+port);
+                if(!ip.isEmpty() && !port.isEmpty()){
+                    Intent intent = new Intent(mContext, WebServiceSocket.class);
+                    intent.putExtra("ip", ip);
+                    intent.putExtra("port", port);
+                    mContext.startService(intent);
                     //Todo : Start upload scene socket
                     String SceneNo = WebService.GetSceneNo("");
                     //Todo : listen to sceneno and write sceneno
@@ -206,22 +220,21 @@ public class WebService {
         HttpTransportSE httpTransportSE = new HttpTransportSE(KKWebServiceUrl);
         try {
             httpTransportSE.call(GetServerAddressSoapAction, envelope);
-            Log.d(TAG,"调用WebService服务成功");
+            //Log.d(TAG,"调用WebService服务成功");
         } catch (Exception e) {
-            Log.d(TAG,"调用WebService服务失败");
+            //Log.d(TAG,"调用WebService服务失败");
             e.printStackTrace();
         }
 
         //获得服务返回的数据,并且开始解析
         try {
             SoapObject object = (SoapObject) envelope.bodyIn;
-            System.out.println("获得服务数据");
+            //System.out.println("获得服务数据");
             mTCPAddress = object.getProperty(0).toString();
             if (null == mTCPAddress ||mTCPAddress.equals("anyType{}") || mTCPAddress.equals("[]")) {
                 mTCPAddress="";
             }
             Log.d(TAG, "mTCPAddress : "+mTCPAddress);
-            //handler.sendEmptyMessage(0x001);
         }catch (ClassCastException e){
             SoapFault fault = (SoapFault) envelope.bodyIn;
             Log.d(TAG, "Error message : "+fault.toString());
@@ -241,22 +254,21 @@ public class WebService {
         HttpTransportSE httpTransportSE = new HttpTransportSE(KKWebServiceUrl);
         try {
             httpTransportSE.call(DevInitialiseSoapAction, envelope);
-            Log.d(TAG,"调用WebService服务成功");
+            //Log.d(TAG,"调用WebService服务成功");
         } catch (Exception e) {
-            Log.d(TAG,"调用WebService服务失败");
+            //Log.d(TAG,"调用WebService服务失败");
             e.printStackTrace();
         }
 
         //获得服务返回的数据,并且开始解析
         try {
             SoapObject object = (SoapObject) envelope.bodyIn;
-            System.out.println("获得服务数据");
+            //System.out.println("获得服务数据");
             result = object.getProperty(0).toString();
             if (null == result ||result.equals("anyType{}") || result.equals("[]")) {
                 result="";
             }
-            Log.d(TAG, "result : "+result);
-            //handler.sendEmptyMessage(0x001);
+            Log.d(TAG, "DevInitialise result : "+result);
         }catch (ClassCastException e){
             SoapFault fault = (SoapFault) envelope.bodyIn;
             Log.d(TAG, "Error message : "+fault.toString());
@@ -278,22 +290,21 @@ public class WebService {
         HttpTransportSE httpTransportSE = new HttpTransportSE(KKWebServiceUrl);
         try {
             httpTransportSE.call(AppUpdateVersionSoapAction, envelope);
-            Log.d(TAG,"调用WebService服务成功");
+            //Log.d(TAG,"调用WebService服务成功");
         } catch (Exception e) {
-            Log.d(TAG,"调用WebService服务失败");
+            //Log.d(TAG,"调用WebService服务失败");
             e.printStackTrace();
         }
 
         //获得服务返回的数据,并且开始解析
         try {
             SoapObject object = (SoapObject) envelope.bodyIn;
-            System.out.println("获得服务数据");
+            //System.out.println("获得服务数据");
             result = object.getProperty(0).toString();
             if (null == result ||result.equals("anyType{}") || result.equals("[]")) {
                 result="";
             }
-            Log.d(TAG, "result : "+result);
-            //handler.sendEmptyMessage(0x001);
+            Log.d(TAG, "AppUpdateVersion result : "+result);
         }catch (ClassCastException e){
             SoapFault fault = (SoapFault) envelope.bodyIn;
             Log.d(TAG, "Error message : "+fault.toString());
@@ -315,22 +326,21 @@ public class WebService {
         HttpTransportSE httpTransportSE = new HttpTransportSE(KKWebServiceUrl);
         try {
             httpTransportSE.call(SubmitSceneInfoSoapAction, envelope);
-            Log.d(TAG,"调用WebService服务成功");
+            //Log.d(TAG,"调用WebService服务成功");
         } catch (Exception e) {
-            Log.d(TAG,"调用WebService服务失败");
+            //Log.d(TAG,"调用WebService服务失败");
             e.printStackTrace();
         }
 
         //获得服务返回的数据,并且开始解析
         try {
             SoapObject object = (SoapObject) envelope.bodyIn;
-            System.out.println("获得服务数据");
+            //System.out.println("获得服务数据");
             result = object.getProperty(0).toString();
             if (null == result ||result.equals("anyType{}") || result.equals("[]")) {
                 result="";
             }
-            Log.d(TAG, "result : "+result);
-            //handler.sendEmptyMessage(0x001);
+            Log.d(TAG, "SubmitSceneInfo result : "+result);
         }catch (ClassCastException e){
             SoapFault fault = (SoapFault) envelope.bodyIn;
             Log.d(TAG, "Error message : "+fault.toString());
@@ -352,22 +362,21 @@ public class WebService {
         HttpTransportSE httpTransportSE = new HttpTransportSE(KKWebServiceUrl);
         try {
             httpTransportSE.call(GetSceneNoSoapAction, envelope);
-            Log.d(TAG,"调用WebService服务成功");
+            //Log.d(TAG,"调用WebService服务成功");
         } catch (Exception e) {
-            Log.d(TAG,"调用WebService服务失败");
+            //Log.d(TAG,"调用WebService服务失败");
             e.printStackTrace();
         }
 
         //获得服务返回的数据,并且开始解析
         try {
             SoapObject object = (SoapObject) envelope.bodyIn;
-            System.out.println("获得服务数据");
+            //System.out.println("获得服务数据");
             result = object.getProperty(0).toString();
             if (null == result ||result.equals("anyType{}") || result.equals("[]")) {
                 result="";
             }
-            Log.d(TAG, "result : "+result);
-            //handler.sendEmptyMessage(0x001);
+            Log.d(TAG, "GetSceneNo result : "+result);
         }catch (ClassCastException e){
             SoapFault fault = (SoapFault) envelope.bodyIn;
             Log.d(TAG, "Error message : "+fault.toString());
