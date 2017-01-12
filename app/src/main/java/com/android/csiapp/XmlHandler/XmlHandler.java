@@ -7,8 +7,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.util.Xml;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
+import org.dom4j.*;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlSerializer;
 
@@ -18,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -256,58 +256,34 @@ public class XmlHandler {
             User user = new User();
             List<Dictionary> dictionarys = new ArrayList<Dictionary>();
             List<User> users = new ArrayList<User>();
-            NodeList dictionaryList = doc.getElementsByTagName("dictionary");
-            Log.d("Anita","dictionary length = "+dictionaryList.getLength());
-            for(int i=0 ; i<dictionaryList.getLength(); i++){
-                String dictkey = "";
-                if(doc.getElementsByTagName("dictkey").item(i).getFirstChild() == null) dictkey = "";
-                else dictkey = doc.getElementsByTagName("dictkey").item(i).getFirstChild().getNodeValue();
-                if(dictkey.isEmpty()) dictkey = "";
-                dictionary.setDictKey(dictkey);
-                Log.d("Anita","dictkey = "+dictkey);
+            Element rootElt = doc.getRootElement();
 
-                String parentkey = "";
-                if(doc.getElementsByTagName("parentkey").item(i).getFirstChild() == null) parentkey = "";
-                else parentkey = doc.getElementsByTagName("parentkey").item(i).getFirstChild().getNodeValue();
-                if(parentkey.isEmpty()) parentkey = "";
-                dictionary.setParentKey(parentkey);
-
-                String rootkey = "";
-                if(doc.getElementsByTagName("rootkey").item(i).getFirstChild() == null) rootkey = "";
-                else rootkey = doc.getElementsByTagName("rootkey").item(i).getFirstChild().getNodeValue();
-                if(rootkey.isEmpty()) rootkey = "";
-                dictionary.setRootKey(rootkey);
-
-                String dictvalue = "";
-                if(doc.getElementsByTagName("dictvalue").item(i).getFirstChild() == null) dictvalue = "";
-                else dictvalue = doc.getElementsByTagName("dictvalue").item(i).getFirstChild().getNodeValue();
-                if(dictkey.isEmpty()) dictvalue = "";
-                dictionary.setDictValue(dictvalue);
-
-                String dictremark = "";
-                if(doc.getElementsByTagName("dictremark").item(i).getFirstChild() == null) dictremark = "";
-                else dictremark = doc.getElementsByTagName("dictremark").item(i).getFirstChild().getNodeValue();
-                if(dictremark.isEmpty()) dictremark = "";
-                dictionary.setDictRemark(dictremark);
-
-                String dictspell = "";
-                if(doc.getElementsByTagName("dictspell").item(i).getFirstChild() == null) dictspell = "";
-                else dictspell = doc.getElementsByTagName("dictspell").item(i).getFirstChild().getNodeValue();
-                if(dictspell.isEmpty()) dictspell = "";
-                dictionary.setDictSpell(dictspell);
-
+            Iterator dictionarys_iter = rootElt.elementIterator("dictionarys");
+            Element dictionarysEle = (Element) dictionarys_iter.next();
+            Iterator dictionary_iter = dictionarysEle.elementIterator("dictionary");
+            while (dictionary_iter.hasNext()){
+                Element dictionaryEle = (Element) dictionary_iter.next();
+                dictionary.setDictKey(dictionaryEle.elementTextTrim("dictkey"));
+                dictionary.setParentKey(dictionaryEle.elementTextTrim("parentkey"));
+                dictionary.setRootKey(dictionaryEle.elementTextTrim("rootkey"));
+                dictionary.setDictValue(dictionaryEle.elementTextTrim("dictvalue"));
+                dictionary.setDictRemark(dictionaryEle.elementTextTrim("dictremark"));
+                dictionary.setDictSpell(dictionaryEle.elementTextTrim("dictspell"));
                 dictionarys.add(dictionary);
                 dictionary = new Dictionary();
             }
-            NodeList userList = doc.getElementsByTagName("user");
-            Log.d("Anita","user length = "+userList.getLength());
-            for(int j=0 ; j<userList.getLength(); j++){
-                user.setLoginName(doc.getElementsByTagName("loginname").item(j).getFirstChild().getNodeValue());
-                user.setPassword(doc.getElementsByTagName("password").item(j).getFirstChild().getNodeValue());
-                user.setUserName(doc.getElementsByTagName("username").item(j).getFirstChild().getNodeValue());
-                user.setUnitCode(doc.getElementsByTagName("unitcode").item(j).getFirstChild().getNodeValue());
-                user.setUserName(doc.getElementsByTagName("unitname").item(j).getFirstChild().getNodeValue());
-                user.setIdCardNo(doc.getElementsByTagName("idcardno").item(j).getFirstChild().getNodeValue());
+
+            Iterator users_iter = rootElt.elementIterator("users");
+            Element usersEle = (Element) users_iter.next();
+            Iterator user_iter = usersEle.elementIterator("user");
+            while (user_iter.hasNext()){
+                Element userEle = (Element) user_iter.next();
+                user.setLoginName(userEle.elementTextTrim("loginname"));
+                user.setPassword(userEle.elementTextTrim("password"));
+                user.setUserName(userEle.elementTextTrim("username"));
+                user.setUnitCode(userEle.elementTextTrim("unitcode"));
+                user.setUserName(userEle.elementTextTrim("unitname"));
+                user.setIdCardNo(userEle.elementTextTrim("idcardno"));
                 users.add(user);
                 user = new User();
             }

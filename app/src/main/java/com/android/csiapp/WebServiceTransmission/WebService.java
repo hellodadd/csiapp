@@ -7,19 +7,17 @@ import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.os.SystemProperties;
 import android.util.Log;
-import android.widget.Switch;
 
-import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.XmlHandler.DataInitial;
-import com.android.csiapp.XmlHandler.XmlHandler;
 
+import org.dom4j.io.SAXReader;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
+
+import org.dom4j.*;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -27,6 +25,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -78,28 +78,15 @@ public class WebService {
 
             //Initial Device
             if(!result.isEmpty()){
-                StringReader sr = new StringReader(result);
-                InputSource is = new InputSource(sr);
                 try {
-                    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-                    DocumentBuilder builder=factory.newDocumentBuilder();
-                    Document doc = builder.parse(is);
-
+                    Document doc = DocumentHelper.parseText(result);
                     DataInitial dataInitial = new DataInitial(mContext);
                     Boolean InitResult = dataInitial.InitialDevice(doc);
                     Log.d(TAG,"InitResult = "+InitResult);
-                }catch (ParserConfigurationException e){
-                    Log.d(TAG,"ParserConfigurationException");
-                    e.printStackTrace();
-                }catch (SAXException e){
-                    Log.d(TAG,"SAXException");
-                    e.printStackTrace();
-                }catch (IOException e){
-                    Log.d(TAG,"IOException");
+                }catch (DocumentException e){
                     e.printStackTrace();
                 }
             }
-
         }
     }
 
@@ -126,21 +113,14 @@ public class WebService {
 
             //Check update status
             Boolean isUpdate = false;
+            String updatestatus = "", appversion = "";
             if(!result.isEmpty()){
-                StringReader sr = new StringReader(result);
-                InputSource is = new InputSource(sr);
                 try {
-                    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-                    DocumentBuilder builder=factory.newDocumentBuilder();
-                    Document doc = builder.parse(is);
-
-                    String updatestatus = "";
-                    if(doc.getElementsByTagName("updatestatus").item(0).getFirstChild() == null) updatestatus="";
-                    else updatestatus = doc.getElementsByTagName("updatestatus").item(0).getFirstChild().getNodeValue();
-                    String appversion = "";
-                    if(doc.getElementsByTagName("appversion").item(0).getFirstChild() == null) appversion="";
-                    else appversion = doc.getElementsByTagName("appversion").item(0).getFirstChild().getNodeValue();
-                    Log.d(TAG, "updatestatus = "+updatestatus+", appversion = "+appversion);
+                    Document doc = DocumentHelper.parseText(result);
+                    Element rootElt = doc.getRootElement();
+                    updatestatus = rootElt.elementTextTrim("updatestatus");
+                    appversion = rootElt.elementTextTrim("appversion");
+                    Log.d(TAG, "updatestatus = " + updatestatus + ", appversion = " + appversion);
 
                     switch(updatestatus){
                         case "0":
@@ -156,14 +136,9 @@ public class WebService {
                             isUpdate = false;
                             break;
                     }
-                }catch (ParserConfigurationException e){
-                    Log.d(TAG,"ParserConfigurationException");
+                }catch (DocumentException e){
                     e.printStackTrace();
-                }catch (SAXException e){
-                    Log.d(TAG,"SAXException");
-                    e.printStackTrace();
-                }catch (IOException e){
-                    Log.d(TAG,"IOException");
+                }catch (NoSuchElementException e){
                     e.printStackTrace();
                 }
             }
@@ -196,28 +171,17 @@ public class WebService {
             String sceneInfo = "";
             if(f.exists()){
                 try {
-                    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-                    DocumentBuilder builder = factory.newDocumentBuilder();
-                    Document doc = builder.parse(f);
-                    try {
-                        TransformerFactory tf  =  TransformerFactory.newInstance();
-                        Transformer t = tf.newTransformer();
-                        t.setOutputProperty("encoding","GB23121");
-                        ByteArrayOutputStream bos=  new ByteArrayOutputStream();
-                        t.transform(new DOMSource(doc), new StreamResult(bos));
-                        sceneInfo = bos.toString();
-                    }catch (TransformerException e){
-                        e.printStackTrace();
-                    }
-                }catch (ParserConfigurationException e){
+                    SAXReader reader = new SAXReader();
+                    Document doc = reader.read(new File(Environment.getExternalStorageDirectory(), "ScenesMsg.xml"));
+                    sceneInfo = doc.asXML();
+                    Log.d(TAG, "sceneInfo = "+sceneInfo);
+                }catch (DocumentException e){
                     e.printStackTrace();
-                }catch (SAXException e){
-                    e.printStackTrace();
-                }catch (IOException e){
+                }catch (NoSuchElementException e){
                     e.printStackTrace();
                 }
             }
-            Log.d(TAG, "sceneInfo = "+sceneInfo);
+
             String result = WebService.SubmitSceneInfo(sceneInfo);
             if(result.equalsIgnoreCase("1")){
                 WebService.GetServerAddress();
