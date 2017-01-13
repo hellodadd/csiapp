@@ -148,6 +148,8 @@ public class WebService {
                     Intent intent = new Intent(mContext, WebServiceSocket.class);
                     intent.putExtra("ip", ip);
                     intent.putExtra("port", port);
+                    intent.putExtra("method", "AppUpdate");
+                    intent.putExtra("id", SystemProperties.get("ro.serialno"));
                     mContext.startService(intent);
                     //Todo : Start download App socket
                 }
@@ -199,6 +201,8 @@ public class WebService {
                     Intent intent = new Intent(mContext, WebServiceSocket.class);
                     intent.putExtra("ip", ip);
                     intent.putExtra("port", port);
+                    intent.putExtra("method", "UploadScene");
+                    intent.putExtra("id", ""); //Todo get scene id
                     mContext.startService(intent);
                     //Todo : Start upload scene socket
                     String SceneNo = WebService.GetSceneNo("");

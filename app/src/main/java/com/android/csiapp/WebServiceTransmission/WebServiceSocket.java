@@ -19,6 +19,8 @@ public class WebServiceSocket extends Service {
     public static Boolean ioThreadFlag = true;
     public String mServerIp = "http://192.168.0.185";
     public int mServerPort = 80;
+    public String mMethod = "";
+    public String mId = "";
     Socket mSocket = null;
 
     @Override
@@ -48,8 +50,7 @@ public class WebServiceSocket extends Service {
 
         while (mainThreadFlag && mSocket!=null && mSocket.isConnected()) {
             Log.d(TAG, "Accept Successfully");
-            //new Thread(new ThreadReadWriterIOSocket(this, mSocket)).start();
-            mainThreadFlag = false;
+            new Thread(new ThreadReadWriterIOWebServiceSocket(this, mSocket, mMethod, mId)).start();
         }
     }
 
@@ -59,9 +60,13 @@ public class WebServiceSocket extends Service {
         if (intent != null) {
             String Ip = intent.getStringExtra("ip");
             String Port = intent.getStringExtra("port");
-            Log.d(TAG, "Socket Ip ="+ Ip +"Port=" + Port);
-            mServerIp = Ip;
-            mServerPort = Integer.valueOf(Port);
+            String method = intent.getStringExtra("method");
+            String id = intent.getStringExtra("id");
+            Log.d(TAG, "Socket Ip="+ Ip +", Port=" + Port+", Method="+method+", SceneId="+id);
+            if(!Ip.isEmpty()) mServerIp = Ip;
+            if(!Port.isEmpty()) mServerPort = Integer.valueOf(Port);
+            if(!method.isEmpty()) mMethod = method;
+            if(!id.isEmpty()) mId = id;
         }
         mainThreadFlag = true;
         new Thread() {
