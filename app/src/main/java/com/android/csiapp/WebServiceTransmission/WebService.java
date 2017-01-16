@@ -5,10 +5,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.SystemProperties;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
+import com.android.csiapp.R;
 import com.android.csiapp.XmlHandler.DataInitial;
 
 import org.dom4j.io.SAXReader;
@@ -21,6 +27,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import org.dom4j.*;
 
 import java.io.File;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -51,14 +58,28 @@ public class WebService {
         this.mContext = context;
     }
 
-    public void DeviceInitial(){
+    public void DeviceInitial(View processView, View mainView){
         Log.d(TAG,"DeviceInitial");
-        new Thread(new DeviceInitialTask()).start();
+
+        if(!isDeviceOnline()){
+            Log.d(TAG, "No network connection available.");
+            String msg = mContext.getResources().getString(R.string.unavailablenetwork);
+            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+            return;
+        }else{
+            new DeviceInitialTask(processView, mainView).execute();
+        }
     }
 
-    public class DeviceInitialTask implements Runnable{
+    public class DeviceInitialTask extends AsyncTask<Void, Void, Boolean> {
+        private View mProcessView = null, mMainView = null;
+        DeviceInitialTask(View processView, View mainView){
+            this.mProcessView = processView;
+            this.mMainView = mainView;
+        }
+
         @Override
-        public void run() {
+        protected Boolean doInBackground(Void... params) {
             //Web Service
             String result = WebService.DevInitialise();
 
@@ -71,19 +92,56 @@ public class WebService {
                     Log.d(TAG,"InitResult = "+InitResult);
                 }catch (DocumentException e){
                     e.printStackTrace();
+                    return false;
                 }
+                return true;
+            }else {
+                return false;
             }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            showProgress(false, mProcessView, mMainView);
+            if(success) {
+                String msg = mContext.getResources().getString(R.string.device_initial_success);
+                Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+            }else {
+                String msg = mContext.getResources().getString(R.string.device_initial_failed);
+                Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            showProgress(false, mProcessView, mMainView);
+            String msg = mContext.getResources().getString(R.string.device_initial_failed);
+            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void AppUpdate(){
+    public void AppUpdate(View processView, View mainView){
         Log.d(TAG,"AppUpdate");
-        new Thread(new AppUpdateTask()).start();
+
+        if(!isDeviceOnline()){
+            Log.d(TAG, "No network connection available.");
+            String msg = mContext.getResources().getString(R.string.unavailablenetwork);
+            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+            return;
+        }else{
+            new AppUpdateTask(processView, mainView).execute();
+        }
     }
 
-    public class AppUpdateTask implements Runnable{
+    public class AppUpdateTask extends AsyncTask<Void, Void, Boolean> {
+        private View mProcessView = null, mMainView = null;
+        AppUpdateTask(View processView, View mainView){
+            this.mProcessView = processView;
+            this.mMainView = mainView;
+        }
+
         @Override
-        public void run() {
+        protected Boolean doInBackground(Void... params) {
             //get swversion
             String swversion = "";
             try {
@@ -129,17 +187,13 @@ public class WebService {
                 }
             }
 
-            //Anita test
-            isUpdate = true;
-            //Anita test
-
             //downlad and install app
             if(isUpdate){
                 WebService.GetServerAddress();
                 String[] removeHttp = mTCPAddress.split("/");
                 String[] address_port = removeHttp[removeHttp.length-1].split(":");
 
-                if(address_port.length!=2) return;
+                if(address_port.length!=2) return false;
 
                 String ip = address_port[0];
                 String port = address_port[1];
@@ -153,18 +207,54 @@ public class WebService {
                     mContext.startService(intent);
                     //Todo : Start download App socket
                 }
+                return true;
+            }else {
+                return false;
             }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            showProgress(false, mProcessView, mMainView);
+            if(success){
+                String msg = mContext.getResources().getString(R.string.app_update_success);
+                Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+            }else {
+                String msg = mContext.getResources().getString(R.string.app_update_failed);
+                Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            showProgress(false, mProcessView, mMainView);
+            String msg = mContext.getResources().getString(R.string.app_update_failed);
+            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void UploadScene(){
+    public void UploadScene(View processView, View mainView){
         Log.d(TAG,"UploadScene");
-        new Thread(new UploadSceneTask()).start();
+
+        if(!isDeviceOnline()){
+            Log.d(TAG, "No network connection available.");
+            String msg = mContext.getResources().getString(R.string.unavailablenetwork);
+            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+            return;
+        }else{
+            new UploadSceneTask(processView, mainView).execute();
+        }
     }
 
-    public class UploadSceneTask implements Runnable{
+    public class UploadSceneTask extends AsyncTask<Void, Void, Boolean> {
+        private View mProcessView = null, mMainView = null;
+        UploadSceneTask(View processView, View mainView){
+            this.mProcessView = processView;
+            this.mMainView = mainView;
+        }
+
         @Override
-        public void run() {
+        protected Boolean doInBackground(Void... params) {
             SharedPreferences prefs1 = mContext.getSharedPreferences("LoginName", 0);
             String LoginName = prefs1.getString("loginname", "");
 
@@ -192,7 +282,7 @@ public class WebService {
                 String[] removeHttp = mTCPAddress.split("/");
                 String[] address_port = removeHttp[removeHttp.length-1].split(":");
 
-                if(address_port.length!=2) return;
+                if(address_port.length!=2) return false;
 
                 String ip = address_port[0];
                 String port = address_port[1];
@@ -208,7 +298,29 @@ public class WebService {
                     String SceneNo = WebService.GetSceneNo("");
                     //Todo : listen to sceneno and write sceneno
                 }
+                return true;
+            }else {
+                return false;
             }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            showProgress(false, mProcessView, mMainView);
+            if(success) {
+                String msg = mContext.getResources().getString(R.string.scene_upload_success);
+                Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+            }else {
+                String msg = mContext.getResources().getString(R.string.scene_upload_failed);
+                Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            showProgress(false, mProcessView, mMainView);
+            String msg = mContext.getResources().getString(R.string.scene_upload_failed);
+            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -386,5 +498,19 @@ public class WebService {
             Log.d(TAG, "Error message : "+fault.toString());
         }
         return result;
+    }
+
+    private boolean isDeviceOnline() {
+        ConnectivityManager connMgr =
+                (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        return (networkInfo != null && networkInfo.isConnected());
+    }
+
+    private void showProgress(final boolean show, View processView, View mainView) {
+        // The ViewPropertyAnimator APIs are not available, so simply show
+        // and hide the relevant UI components.
+        processView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mainView.setVisibility(show ? View.GONE : View.VISIBLE);
     }
 }

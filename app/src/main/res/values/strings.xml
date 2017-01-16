@@ -164,6 +164,18 @@
     <string name="cancel">取消</string>
     <string name="reset">清除</string>
 
+    <!-- WebService -->
+    <string name="device_initial">初始化字典</string>
+    <string name="app_update">更新软件</string>
+    <string name="scene_upload">上传现场</string>
+    <string name="device_initial_success">初始化成功</string>
+    <string name="device_initial_failed">初始化失败</string>
+    <string name="app_update_success">更新软件成功</string>
+    <string name="app_update_failed">更新软件失败</string>
+    <string name="scene_upload_success">上传现场成功</string>
+    <string name="scene_upload_failed">上传现场失败</string>
+    <string name="unavailablenetwork">没有可用的网络连接</string>
+
     <string name="simple_menu_name">Simple Adapter</string>
     <string name="simple_menu_condensed">Simple</string>
     <string name="fancy_menu_name">Fancy Menu</string>

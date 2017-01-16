@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import com.android.csiapp.Crime.utils.RestoreListDialog;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.R;
+import com.android.csiapp.WebServiceTransmission.WebService;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -21,9 +22,15 @@ public class SettingActivity extends AppCompatActivity {
     private ImageButton mBackupBtn;
     private ImageButton mRestoreBtn;
     private ImageButton mReactiveBtn;
+    private ImageButton mDeviceInitialBtn;
+    private ImageButton mAppUpdateBtn;
+    private ImageButton mUploadSceneBtn;
     private AlertDialog.Builder mBuilder;
     private AlertDialog mDialog;
     private final String TAG = "SettingActivity";
+
+    private View mProgressView;
+    private View mSettingFormView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +54,22 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        mSettingFormView = findViewById(R.id.setting_form);
+        mProgressView = findViewById(R.id.setting_progress);
+
         mBackupBtn = (ImageButton)findViewById(R.id.Setting_backup);
         mBackupBtn.setOnClickListener(btnBackupOnClick);
         mRestoreBtn = (ImageButton)findViewById(R.id.Setting_restore);
         mRestoreBtn.setOnClickListener(btnRestoreOnClick);
         mReactiveBtn = (ImageButton)findViewById(R.id.Setting_reactive);
         mReactiveBtn.setOnClickListener(btnReactiveOnClick);
+
+        mDeviceInitialBtn = (ImageButton)findViewById(R.id.Setting_DeviceInitial);
+        mDeviceInitialBtn.setOnClickListener(btnDeviceInitialOnClick);
+        mAppUpdateBtn = (ImageButton)findViewById(R.id.Setting_AppUpdate);
+        mAppUpdateBtn.setOnClickListener(btnAppUpdateOnClick);
+        mUploadSceneBtn = (ImageButton)findViewById(R.id.Setting_UploadScene);
+        mUploadSceneBtn.setOnClickListener(btnUploadSceneOnClick);
     }
 
     private View.OnClickListener btnBackupOnClick = new View.OnClickListener () {
@@ -114,6 +131,30 @@ public class SettingActivity extends AppCompatActivity {
             });
 
             mDialog = mBuilder.show();
+        }
+    };
+
+    private View.OnClickListener btnDeviceInitialOnClick = new View.OnClickListener () {
+        @Override
+        public void onClick(View view) {
+            WebService webService = new WebService(mContext);
+            webService.DeviceInitial(mProgressView, mSettingFormView);
+        }
+    };
+
+    private View.OnClickListener btnAppUpdateOnClick = new View.OnClickListener () {
+        @Override
+        public void onClick(View view) {
+            WebService webService = new WebService(mContext);
+            webService.AppUpdate(mProgressView, mSettingFormView);
+        }
+    };
+
+    private View.OnClickListener btnUploadSceneOnClick = new View.OnClickListener () {
+        @Override
+        public void onClick(View view) {
+            WebService webService = new WebService(mContext);
+            webService.UploadScene(mProgressView, mSettingFormView);
         }
     };
 

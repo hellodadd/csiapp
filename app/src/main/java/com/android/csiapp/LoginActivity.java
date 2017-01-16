@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.android.csiapp.Crime.utils.AppInfo;
 import com.android.csiapp.Crime.utils.RestoreListDialog;
 import com.android.csiapp.Databases.IdentifyProvider;
+import com.android.csiapp.WebServiceTransmission.WebService;
 
 import java.security.MessageDigest;
 
@@ -55,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private Button mDataRecorvy;
+    private Button mInitialDevice;
 
     //app version
     private TextView mAppVersionTv;
@@ -93,12 +96,20 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-        Button mDataRecorvy  = (Button) findViewById(R.id.data_recorvy_button);
+        mDataRecorvy  = (Button) findViewById(R.id.data_recorvy_button);
         mDataRecorvy.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 RestoreListDialog restoreListDialog = new RestoreListDialog(LoginActivity.this);
                 restoreListDialog.createRestoreListDialog();
+            }
+        });
+        mInitialDevice = (Button) findViewById(R.id.device_initial_button);
+        mInitialDevice.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WebService webService = new WebService(context);
+                webService.DeviceInitial(mProgressView, mLoginFormView);
             }
         });
 

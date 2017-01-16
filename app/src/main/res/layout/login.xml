@@ -104,8 +104,18 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"
                     android:text="@string/data_recorvy"
                     android:id="@+id/data_recorvy_button"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:background="@drawable/btn_recovery_data_hover"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="@string/device_initial"
+                    android:id="@+id/device_initial_button"
                     android:padding="5dp"
                     android:gravity="center"
                     android:background="@drawable/btn_recovery_data_hover"/>
