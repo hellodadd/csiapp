@@ -8,9 +8,9 @@ import android.os.Environment;
 import android.os.SystemProperties;
 import android.util.Log;
 
-import com.android.csiapp.Crime.setting.BackupRestore;
-import com.android.csiapp.Crime.setting.DirTraversal;
-import com.android.csiapp.Crime.setting.ZipUtils;
+import com.android.csiapp.Crime.utils.BackupRestore;
+import com.android.csiapp.Crime.utils.DirTraversal;
+import com.android.csiapp.Crime.utils.ZipUtils;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.DictionaryProvider;

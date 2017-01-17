@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
 
-import com.android.csiapp.Crime.setting.ZipUtils;
+import com.android.csiapp.Crime.utils.ZipUtils;
 import com.android.csiapp.RestartService;
 import com.android.csiapp.XmlHandler.DataInitial;
 
