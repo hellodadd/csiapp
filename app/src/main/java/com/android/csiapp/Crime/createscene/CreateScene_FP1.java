@@ -671,7 +671,11 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         CrimeProvider crimeProvider = new CrimeProvider(context);
         List<CrimeItem> items = crimeProvider.getAll();
         CrimeItem item = null;
-        if(items.size()>0) item = items.get(items.size()-1);
+        /* << AnitaLin */
+        //Bug [在采集过程中自动保存，避免程序崩溃数据丢失]
+        //The record already insert to databases, so the last record need to get the second item.
+        if(items.size()>=2) item = items.get(items.size()-2);
+        /* >> */
         return item;
     }
 
