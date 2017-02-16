@@ -159,4 +159,21 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
         mCrimeToolItem.setToolName(mName.getText());
         mCrimeToolItem.setUuid(CrimeProvider.getUUID());
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        initData();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        releaseFocusEditText();
+        saveData();
+    }
+
+    private void releaseFocusEditText(){
+        mName.clearFocus();
+    }
 }

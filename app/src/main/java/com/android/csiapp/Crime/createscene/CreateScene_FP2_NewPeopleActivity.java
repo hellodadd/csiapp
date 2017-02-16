@@ -221,6 +221,26 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
         mRelatedPeopleItem.setUuid(CrimeProvider.getUUID());
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        initData();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        releaseFocusEditText();
+        saveData();
+    }
+
+    private void releaseFocusEditText(){
+        mName.clearFocus();
+        mId.clearFocus();
+        mNumber.clearFocus();
+        mAddress.clearFocus();
+    }
+
     private int getPeople(String category){
         for(int i=0; i<mReleationPeople.size(); i++){
             if(category.equalsIgnoreCase(mReleationPeople.get(i))) return i;

@@ -41,7 +41,6 @@ import com.android.csiapp.Databases.EvidenceItem;
 import com.android.csiapp.R;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -303,6 +302,25 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         }
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        initData();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        releaseFocusEditText();
+        saveData();
+    }
+
+    private void releaseFocusEditText(){
+        mEvidenceName.clearFocus();
+        mLegacySite.clearFocus();
+        mBasiceFeature.clearFocus();
+    }
+
     private int getCategory(String category){
         for(int i=0; i<mEvidence_category.size(); i++){
             if(category.equalsIgnoreCase(mEvidence_category.get(i))) return i;
@@ -312,6 +330,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
 
     @Override
     public void onClick(View v) {
+        releaseFocusEditText();
         switch (v.getId()) {
             case R.id.time_button:
                 showDateTimeDialog(mTime);

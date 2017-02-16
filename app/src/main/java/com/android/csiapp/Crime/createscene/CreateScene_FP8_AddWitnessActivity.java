@@ -202,7 +202,27 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        initData();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        releaseFocusEditText();
+        saveData();
+    }
+
+    private void releaseFocusEditText(){
+        mName.clearFocus();
+        mNumber.clearFocus();
+        mAddress.clearFocus();
+    }
+
+    @Override
     public void onClick(View v) {
+        releaseFocusEditText();
         switch (v.getId()) {
             case R.id.birthday_date_button:
                 showDateTimeDialog(mBirthday);

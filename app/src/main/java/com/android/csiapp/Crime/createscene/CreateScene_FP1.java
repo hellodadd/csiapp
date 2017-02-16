@@ -37,7 +37,6 @@ import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.PhotoItem;
 import com.android.csiapp.R;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -542,11 +541,13 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     @Override
     public void onPause(){
         super.onPause();
+        releaseFocusEditText();
         saveData();
     }
 
     @Override
     public void onClick(View v) {
+        releaseFocusEditText();
         switch (v.getId()) {
             case R.id.occurred_start_time_button:
                 showDateTimeDialog(mOccurred_start_time,1);
@@ -572,6 +573,22 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    private void releaseFocusEditText(){
+        mLocation.clearFocus();
+        mUnitsAssigned.clearFocus();
+        mAccessPolicemen.clearFocus();
+        mAccessLocation.clearFocus();
+        mCaseOccurProcess.clearFocus();
+        mChangeReason.clearFocus();
+        mTemperature.clearFocus();
+        mHumidity.clearFocus();
+        mAccessReason.clearFocus();
+        mProductPeopleName.clearFocus();
+        mProductPeopleUnit.clearFocus();
+        mProductPeopleDuties.clearFocus();
+        mSafeguard.clearFocus();
     }
 
     private void enableChangeReason(String sceneCondition){

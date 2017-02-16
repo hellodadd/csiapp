@@ -277,6 +277,11 @@ public class CreateScene_FP7 extends Fragment{
     @Override
     public void onPause(){
         super.onPause();
+        releaseFocusEditText();
         saveData();
+    }
+
+    private void releaseFocusEditText(){
+        mPeopleFeature.clearFocus();
     }
 }

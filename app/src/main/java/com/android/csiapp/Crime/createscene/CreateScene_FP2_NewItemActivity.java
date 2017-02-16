@@ -128,4 +128,16 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
         mLostItem.setItemFeatue(mFeature.getText());
         mLostItem.setUuid(CrimeProvider.getUUID());
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        initData();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        saveData();
+    }
 }
