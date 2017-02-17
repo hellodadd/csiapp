@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -63,6 +64,13 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
                     if(!mRelatedPeopleItem.getPeopleId().isEmpty() && !IdCardVerify.validateIdCardWithoutAddress(mRelatedPeopleItem.getPeopleId())){
                         String msg = "身份证号码错误";
                         Toast.makeText(CreateScene_FP2_NewPeopleActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+                        /* << AnitaLin */
+                        //Bug [身份证号码校验有问题，一些正确的身份证号校验通不过]
+                        //Clear id if the number verify failed
+                        mRelatedPeopleItem.setPeopleId("");
+                        mId.setText("");
+                        /* >> */
                         break;
                     }
 
@@ -183,6 +191,7 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("Anita","s.length = "+s.length()+", s ="+s.toString());
                 if(s.length()==17) mId.setKeyListener(new DigitsKeyListener() {
                     @Override
                     public int getInputType() {
