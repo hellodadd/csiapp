@@ -735,12 +735,20 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 mCellCollection.setText("开始采集");
                 mItem.setCollecting(false);
                 mItem.setCollected(true);
-                mCellDetail.setVisibility(View.VISIBLE);
                 ArrayList<String> result= (ArrayList<String>) intent.getStringArrayListExtra("result");
+
+                /* << AnitaLin */
+                //Bug [基站信息在采集过程中退出，再次新增或从列表进入采集时，程序崩溃退出]
+                //Check if getActivity is null
+                Activity activity = getActivity();
+                if(activity == null) return;
+                /* >> */
 
                 String file_path = (String) intent.getStringExtra("file_path");
                 String uuid = (String) intent.getStringExtra("uuid");
-                String path = CreateSceneUtils.copyToInternalPath(getActivity(), file_path);
+                String path = CreateSceneUtils.copyToInternalPath(activity, file_path);
+                Log.d("Anita","uuid from another service = "+uuid);
+                Log.d("Anita","file_path from another service = "+file_path);
                 PhotoItem CellResult = new PhotoItem();
                 CellResult.setPhotoPath(path);
                 CellResult.setUuid(uuid);
@@ -751,6 +759,8 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 Log.d("Anita","received result size = "+result.size());
                 mItem.setCellResult(result);
                 //stopCollection();
+
+                mCellDetail.setVisibility(View.VISIBLE);
             }
         }
     };
