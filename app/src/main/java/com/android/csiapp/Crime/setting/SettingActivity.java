@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.BackupRestore;
 import com.android.csiapp.Crime.utils.RestoreListDialog;
@@ -138,24 +139,27 @@ public class SettingActivity extends AppCompatActivity {
     private View.OnClickListener btnDeviceInitialOnClick = new View.OnClickListener () {
         @Override
         public void onClick(View view) {
-            WebService webService = new WebService(mContext);
-            webService.DeviceInitial(mProgressView, mSettingFormView);
+            Toast.makeText(SettingActivity.this, "网路数据功能尚未完成", Toast.LENGTH_SHORT).show();
+            //WebService webService = new WebService(mContext);
+            //webService.DeviceInitial(mProgressView, mSettingFormView);
         }
     };
 
     private View.OnClickListener btnAppUpdateOnClick = new View.OnClickListener () {
         @Override
         public void onClick(View view) {
-            WebService webService = new WebService(mContext);
-            webService.AppUpdate(mProgressView, mSettingFormView);
+            Toast.makeText(SettingActivity.this, "网路数据功能尚未完成", Toast.LENGTH_SHORT).show();
+            //WebService webService = new WebService(mContext);
+            //webService.AppUpdate(mProgressView, mSettingFormView);
         }
     };
 
     private View.OnClickListener btnUploadSceneOnClick = new View.OnClickListener () {
         @Override
         public void onClick(View view) {
-            WebService webService = new WebService(mContext);
-            webService.UploadScene(mProgressView, mSettingFormView);
+            Toast.makeText(SettingActivity.this, "网路数据功能尚未完成", Toast.LENGTH_SHORT).show();
+            //WebService webService = new WebService(mContext);
+            //webService.UploadScene(mProgressView, mSettingFormView);
         }
     };
 
