@@ -233,14 +233,12 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        initData();
     }
 
     @Override
     public void onPause(){
         super.onPause();
         releaseFocusEditText();
-        saveData();
     }
 
     private void releaseFocusEditText(){

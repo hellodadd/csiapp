@@ -132,12 +132,10 @@ public class CreateScene_FP2_NewItemActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        initData();
     }
 
     @Override
     public void onPause(){
         super.onPause();
-        saveData();
     }
 }

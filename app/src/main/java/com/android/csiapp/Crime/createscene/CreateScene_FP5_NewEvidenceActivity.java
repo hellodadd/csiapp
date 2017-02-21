@@ -305,14 +305,12 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
     @Override
     public void onResume(){
         super.onResume();
-        initData();
     }
 
     @Override
     public void onPause(){
         super.onPause();
         releaseFocusEditText();
-        saveData();
     }
 
     private void releaseFocusEditText(){
