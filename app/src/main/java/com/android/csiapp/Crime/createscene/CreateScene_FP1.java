@@ -708,8 +708,8 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         Intent it=new Intent();
         it.setAction("com.kuaikan.one_key");
         it.setComponent(new ComponentName("com.kuaikan.app.scenecollection",
-                "com.kuaikan.app.scenecollection.NonSimOneKeyService"));
-        it.putExtra("request_type", 0);
+                "com.kuaikan.app.scenecollection.OneKeyService"));
+        it.putExtra("show", false);
 
         context.startService(it);
     }

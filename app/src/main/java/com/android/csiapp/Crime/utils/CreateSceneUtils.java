@@ -28,7 +28,7 @@ import java.util.Locale;
  * Created by user on 2017/1/4.
  */
 public class CreateSceneUtils {
-    public static final String ACTION_RECEIVE_RESULT = "com.kuaikan.send_result_to_xml";
+    public static final String ACTION_RECEIVE_RESULT = "com.kuaikan.send_result";
     public static final int EVENT_CELL_COLLECTION = 0;
 
     public static final int EVENT_CASETYPE_SELECT_ITEM = 1;
