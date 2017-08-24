@@ -142,10 +142,13 @@ public class CrimeProvider {
         // 建立準備新增資料的ContentValues物件
         ContentValues cv = new ContentValues();
 
+
         // 加入ContentValues物件包裝的新增資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
-        cv.put(SCENE_ID_COLUMN, CrimeProvider.getUUID());
-
+        String uuid=CrimeProvider.getUUID();
+        cv.put(SCENE_ID_COLUMN, uuid);
+        //liwei 2017.3.1 scene_id===================
+        item.setSceneId(uuid);
         cv.put(SCENE_NO_COLUMN, "");
 
         String case_id = item.getCaseId();
@@ -227,6 +230,10 @@ public class CrimeProvider {
 
     // 修改參數指定的物件
     public boolean update(CrimeItem item) {
+        //liwei 2017.3.1，如果item没有sceneID，增加一个，为山东用户修改，完成后去掉
+        if(item.getSceneId().equals("")){
+            item.setSceneId(CrimeProvider.getUUID());
+        }
         // 加入ContentValues物件包裝的修改資料
         // 第一個參數是欄位名稱， 第二個參數是欄位的資料
         // 設定修改資料的條件為編號
@@ -336,6 +343,20 @@ public class CrimeProvider {
             result.add(getRecord(cursor.getInt(0), null));
         }
 
+        cursor.close();
+        return result;
+    }
+
+    // 讀取指定人指定类型的数据
+    public List<CrimeItem> getAllCompleteItem(String name) {
+        List<CrimeItem> result = new ArrayList<>();
+        String where = DELETE_COLUMN + "= '0' and "+COMPLETE_COLUMN +"='1'";
+        Cursor cursor = db.query(
+                TABLE_NAME, null, where, null, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            result.add(getRecord(cursor.getInt(0), name));
+        }
         cursor.close();
         return result;
     }

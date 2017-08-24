@@ -39,4 +39,44 @@
         <attr name="indicator_background" format="reference|color" />
         <attr name="row_background" format="reference|color" />
 	</declare-styleable>
+
+	<declare-styleable name="LauncherPreference">
+		<attr name="preferenceBackground" format="reference" />
+		<attr name="preferenceIcon" format="reference" />
+		<attr name="PreferencetitleColor" format="color" />
+		<attr name="preferenceTitle" format="string" />
+		<attr name="PreferenceSummaryColor" format="color" />
+		<attr name="preferenceSummary" format="string" />
+		<attr name="showSwitch" format="boolean" />
+		<attr name="hideDivider" format="boolean" />
+		<attr name="rightImage" format="integer">
+			<enum name="redDot" value="0" />
+			<enum name="showSwitch" value="1" />
+			<enum name="rightArrow" value="2" />
+			<enum name="showSpinner" value="3" />
+		</attr>
+	</declare-styleable>
+
+    <declare-styleable name="EnhancedTextView">
+        <attr name="drawableLeftWidth" format="dimension" />
+        <attr name="drawableLeftHeight" format="dimension" />
+        <attr name="drawableRightWidth" format="dimension" />
+        <attr name="drawableRightHeight" format="dimension" />
+        <attr name="drawableTopWidth" format="dimension" />
+        <attr name="drawableTopHeight" format="dimension" />
+        <attr name="drawableBottomWidth" format="dimension" />
+        <attr name="drawableBottomHeight" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="Switch">
+        <attr name="lineCheckedColor" format="color"></attr>
+        <attr name="lineUnCheckedColor" format="color"></attr>
+        <attr name="lineHeight" format="dimension"></attr>
+        <attr name="innerCheckedBroderColor" format="color" />
+        <attr name="innerUnCheckedBroderColor" format="color" />
+        <attr name="innerBroderWidth" format="dimension" />
+        <attr name="btnCheckedColor" format="color" />
+        <attr name="btnUnCheckedColor" format="color" />
+        <attr name="innerPadding" format="dimension" />
+    </declare-styleable>
 </resources>

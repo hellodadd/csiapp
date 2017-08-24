@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.android.csiapp.Crime.utils.CreateSceneUtils;
@@ -38,7 +39,7 @@ public class CreateScene_FP3 extends Fragment {
     private List<PhotoItem> mPositionList, mFlatList;
     private ListView mPosition_List, mFlat_List;
     private PhotoAdapter mPosition_Adapter, mFlat_Adapter;
-    private ImageButton mAdd_Position, mAdd_Flat;
+    private LinearLayout mAdd_Position, mAdd_Flat;
 
     private PositionProvider mPositionProvider;
     private FlatProvider mFlatProvider;
@@ -86,7 +87,7 @@ public class CreateScene_FP3 extends Fragment {
     }
 
     private void initView(View view){
-        mAdd_Position = (ImageButton) view.findViewById(R.id.add_position);
+        mAdd_Position = (LinearLayout) view.findViewById(R.id.add_position);
         mAdd_Position.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,7 +114,7 @@ public class CreateScene_FP3 extends Fragment {
         });
         CreateSceneUtils.setListViewHeightBasedOnChildren(mPosition_List);
 
-        mAdd_Flat = (ImageButton) view.findViewById(R.id.add_flat);
+        mAdd_Flat = (LinearLayout) view.findViewById(R.id.add_flat);
         mAdd_Flat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

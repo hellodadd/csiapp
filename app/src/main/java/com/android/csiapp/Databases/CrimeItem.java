@@ -1,5 +1,7 @@
 package com.android.csiapp.Databases;
 
+import com.android.csiapp.R;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -143,10 +145,10 @@ public class CrimeItem implements Serializable {
         this.mSceneCondition = "";
         this.mChangeOption = "";
         this.mChangeReason = "";
-        this.mWeatherCondition = "";
-        this.mWindDirection = "";
-        this.mTemperature = "";
-        this.mHumidity = "";
+        this.mWeatherCondition = "2";
+        this.mWindDirection = "09";
+        this.mTemperature = "20";
+        this.mHumidity = "35";
         this.mAccessReason = "";
         this.mIlluminationCondition = "";
         this.mProductPeopleName = "";
@@ -667,8 +669,8 @@ public class CrimeItem implements Serializable {
                 &&!mSafeguard.isEmpty() &&!mSceneConductor.isEmpty() &&!mAccessInspectors.isEmpty()
                 &&!mCrimePeopleNumber.isEmpty() &&!mCrimePeopleFeature.isEmpty() && !mOverview.isEmpty()
                 && !mPositionItem.isEmpty() && !mWitnessItem.isEmpty()
-                && !mPositionPhotoItem.isEmpty() && !mOverviewPhotoItem.isEmpty() && !mImportantPhotoItem.isEmpty()
-                && !mCellResultItem.isEmpty())
+                && !mPositionPhotoItem.isEmpty() && !mOverviewPhotoItem.isEmpty() && !mImportantPhotoItem.isEmpty())
+                //&& !mCellResultItem.isEmpty())去掉基站信息检查，列为非必填项，liwei=========================
             result = true;
         return result;
     }
@@ -702,7 +704,12 @@ public class CrimeItem implements Serializable {
         if(mPositionPhotoItem.isEmpty()) message = message + "方位照片\n";
         if(mOverviewPhotoItem.isEmpty()) message = message + "概貌照片\n";
         if(mImportantPhotoItem.isEmpty()) message = message + "重点部位\n";
-        if(mCellResultItem.isEmpty()) message = message + "基站信息\n";
+        if(mOccurred_end_time<mOccurred_start_time) message=message+"发案开始时间必须在发案结束时间之前\n";
+        if(mGet_access_time<mOccurred_end_time) message=message+"接勘时间必须在发案结束时间之后\n";
+        if(mAccess_start_time<mGet_access_time) message=message+"勘验开始时间必须在接勘时间之后\n";
+        if(mAccess_end_time<mAccess_start_time) message=message+"勘验开始时间必须在勘验结束时间之前\n";
+
+        //if(mCellResultItem.isEmpty()) message = message + "基站信息\n";liwei=========================
         return message;
     }
 }

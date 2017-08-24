@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +35,6 @@ import com.android.csiapp.Databases.RelatedPeopleItem;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
 
@@ -42,13 +43,10 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
     private int mEvent;
     private int mPosition;
 
-    private Spinner mReleationPeople_spinner;
+    private RadioGroup mRadioGroupRelation;
     private ArrayList<String> mReleationPeople = new ArrayList<String>();
-    private ArrayAdapter<String> mReleationPeople_adapter;
-
+    private RadioGroup mRadioGroupSex;
     private ClearableEditText mName, mId, mNumber, mAddress;
-
-    private TextView mSexText;
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -146,34 +144,32 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
                 result = (String) data.getStringExtra("Select");
                 mRelatedPeopleItem.setPeopleSex(result);
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, result);
-                mSexText.setText(result);
+                //mSexText.setText(result);
             }
         }
     }
 
     private void initView(){
-        mReleationPeople = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.releation_people)));
-        mReleationPeople_spinner = (Spinner) findViewById(R.id.releationPeople_spinner);
-        mReleationPeople_adapter = new ArrayAdapter<String>(CreateScene_FP2_NewPeopleActivity.this, R.layout.spinnerview, mReleationPeople);
-        mReleationPeople_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mReleationPeople_spinner.setAdapter(mReleationPeople_adapter);
-        mReleationPeople_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        mRadioGroupRelation=(RadioGroup)findViewById(R.id.radioGroupPeopleRelation);
+        mRadioGroupRelation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                mRelatedPeopleItem.setPeopleRelation(mReleationPeople.get(position));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton radioButton=(RadioButton)findViewById(radioGroup.getCheckedRadioButtonId());
+                mRelatedPeopleItem.setPeopleRelation(radioButton.getText().toString());
             }
         });
 
-        mSexText = (TextView) findViewById(R.id.sex);
-        mSexText.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent it = new Intent(CreateScene_FP2_NewPeopleActivity.this, TreeViewListActivity.class);
-                it.putExtra("Key",DictionaryInfo.mSexKey);
-                it.putExtra("Selected", mRelatedPeopleItem.getPeopleSex());
-                startActivityForResult(it, CreateSceneUtils.EVENT_SEX_SELECT_ITEM);
+        mRadioGroupSex=(RadioGroup)findViewById(R.id.radioGroupPeopleSex);
+        mRadioGroupSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton radioButton=(RadioButton)findViewById(radioGroup.getCheckedRadioButtonId());
+                if(radioButton.getText().toString().equals("男")) {
+                    mRelatedPeopleItem.setPeopleSex("1");
+                }
+                else{
+                    mRelatedPeopleItem.setPeopleSex("2");
+                }
             }
         });
 
@@ -214,9 +210,33 @@ public class CreateScene_FP2_NewPeopleActivity extends AppCompatActivity {
     }
 
     private void initData(){
-        mReleationPeople_spinner.setSelection(getPeople(mRelatedPeopleItem.getPeopleRelation()));
+        //如果没有选择人员类型，默认报案人
+        if(mRelatedPeopleItem.getPeopleRelation().equals("")) mRelatedPeopleItem.setPeopleRelation("报案人");
+        RadioButton radioButton1=(RadioButton)findViewById(R.id.radioBaoanren);
+        RadioButton radioButton2=(RadioButton)findViewById(R.id.radioShouhairen);
+        if((mRelatedPeopleItem.getPeopleRelation().equals("报案人"))) {
+            radioButton1.setChecked(true);
+            radioButton2.setChecked(false);
+        }
+        else{
+            radioButton1.setChecked(false);
+            radioButton2.setChecked(true);
+        }
+
         mName.setText(mRelatedPeopleItem.getPeopleName());
-        mSexText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, mRelatedPeopleItem.getPeopleSex()));
+        //如果没有选择人员性别，默认男
+
+        if(mRelatedPeopleItem.getPeopleSex().equals("")) mRelatedPeopleItem.setPeopleSex("1");
+        radioButton1=(RadioButton)findViewById(R.id.radioSexMan);
+        radioButton2=(RadioButton)findViewById(R.id.radioSexWomen);
+        if((mRelatedPeopleItem.getPeopleSex().equals("1"))) {
+            radioButton1.setChecked(true);
+            radioButton2.setChecked(false);
+        }
+        else{
+            radioButton1.setChecked(false);
+            radioButton2.setChecked(true);
+        }
         mId.setText(mRelatedPeopleItem.getPeopleId());
         mNumber.setText(mRelatedPeopleItem.getPeopleNumber());
         mAddress.setText(mRelatedPeopleItem.getPeopleAddress());

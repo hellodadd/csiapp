@@ -13,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.csiapp.Crime.utils.CreateSceneUtils;
 import com.android.csiapp.Crime.utils.adapter.CrimeItemAdapter;
@@ -42,7 +44,7 @@ public class CreateScene_FP2 extends Fragment {
     private CrimeToolItem mCrimeToolItem;
     private int mEvent;
 
-    private ImageButton mNewPeople, mNewItem, mNewTool;
+    private LinearLayout mNewPeople, mNewItem, mNewTool;
     private ListView mPeople_List, mItem_List, mTool_List;
 
     private List<RelatedPeopleItem> mPeopleList;
@@ -103,7 +105,7 @@ public class CreateScene_FP2 extends Fragment {
 
     private void initView(View view){
         mRelatedPeopleItem = new RelatedPeopleItem();
-        mNewPeople = (ImageButton) view.findViewById(R.id.add_people);
+        mNewPeople = (LinearLayout) view.findViewById(R.id.add_people);
         mNewPeople.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,7 +117,7 @@ public class CreateScene_FP2 extends Fragment {
         });
 
         mLostItem = new LostItem();
-        mNewItem = (ImageButton) view.findViewById(R.id.add_item);
+        mNewItem = (LinearLayout) view.findViewById(R.id.add_item);
         mNewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,7 +129,7 @@ public class CreateScene_FP2 extends Fragment {
         });
 
         mCrimeToolItem = new CrimeToolItem();
-        mNewTool = (ImageButton) view.findViewById(R.id.add_tool);
+        mNewTool = (LinearLayout) view.findViewById(R.id.add_tool);
         mNewTool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

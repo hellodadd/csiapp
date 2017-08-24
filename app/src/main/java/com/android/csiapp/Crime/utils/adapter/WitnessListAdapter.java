@@ -55,7 +55,18 @@ public class WitnessListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         WitnessItem item = (WitnessItem)getItem(position);
-        holder.txtItemName.setText("见证人");
+        String sex=" 性别:";
+        if(item.getWitnessSex().equals("1")){
+            sex=sex+"男";
+        }
+        else{
+            sex=sex+"女";
+        }
+        String tel="";
+        if(!item.getWitnessNumber().equals("")) {
+            tel= " 电话:"+item.getWitnessNumber();
+        }
+        holder.txtItemName.setText("见证人:"+((WitnessItem) getItem(position)).getWitnessName()+sex+tel);
         holder.txtItemContent.setText(((WitnessItem) getItem(position)).getWitnessName());
         return convertView;
     }

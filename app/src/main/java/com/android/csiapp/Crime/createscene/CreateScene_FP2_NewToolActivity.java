@@ -127,7 +127,6 @@ public class CreateScene_FP2_NewToolActivity extends AppCompatActivity {
 
     private void initView(){
         mName = (ClearableEditText) findViewById(R.id.tool_name_editView);
-
         mToolCategoryText = (TextView) findViewById(R.id.toolCategory);
         mToolCategoryText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {

@@ -5,29 +5,28 @@
     android:layout_height="match_parent">
 
     <ScrollView
+        android:background="#F7F7F7"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="6dp">
+            android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/add_scene_evidence"
+                android:background="#FFFFFF"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="6dp"
+                android:layout_height="60dp"
                 android:weightSum="1">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
                     android:background="@drawable/trace" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -39,8 +38,8 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/add_scene_evidence"
                     android:layout_gravity="center"
+                    android:layout_marginRight="16dp"
                     android:background="@drawable/add" />
             </LinearLayout>
 
@@ -52,16 +51,19 @@
                 android:background="#FFFFFF"/>
 
             <LinearLayout
+                android:id="@+id/add_monitoring_screen"
+                android:background="#FFFFFF"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="6dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="2dp"
                 android:weightSum="1">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
                     android:background="@drawable/monitoring" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -73,8 +75,9 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/add_monitoring_screen"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:background="@drawable/add" />
             </LinearLayout>
 
@@ -83,19 +86,23 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/monitoring_photo_listview"
+                android:layout_marginTop="2dp"
                 android:background="#FFFFFF"/>
 
             <LinearLayout
+                android:id="@+id/add_camera_position"
+                android:background="#FFFFFF"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="6dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="2dp"
                 android:weightSum="1">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
                     android:background="@drawable/camera2" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -107,7 +114,8 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/add_camera_position"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:layout_gravity="center"
                     android:background="@drawable/add" />
             </LinearLayout>
@@ -118,6 +126,7 @@
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/camera_photo_listview"
                 android:background="#FFFFFF"/>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

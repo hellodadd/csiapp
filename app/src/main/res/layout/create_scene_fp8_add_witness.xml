@@ -90,20 +90,31 @@
                     android:textSize="@dimen/create_vp2_textsize"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <TextView
+                <RadioGroup
+                    android:id="@+id/radioGroupJzPeopleSex"
+                    android:contentDescription=""
+                    android:textSize="@dimen/create_vp2_textsize"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="left|center"
-                    android:id="@+id/sex"
-                    android:layout_weight="1"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp"
-                    android:layout_marginRight="@dimen/create_item_margin_right"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="8dp"
-                    android:clickable="true"
-                    android:drawableRight="@drawable/dropdown"
-                    android:background="@drawable/select_shape"/>
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="@dimen/create_vp2_textsize"
+                        android:id="@+id/radioJzSexMan"
+                        android:text="男"
+                        android:checked="true">
+                    </RadioButton>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="@dimen/create_vp2_textsize"
+                        android:id="@+id/radioJzSexWomen"
+                        android:text="女">
+                    </RadioButton>
+                </RadioGroup>
             </LinearLayout>
 
             <LinearLayout

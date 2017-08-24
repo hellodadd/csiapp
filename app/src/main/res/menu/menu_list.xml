@@ -10,4 +10,8 @@
         android:id="@+id/action_delete"
         android:title="@string/list_delete"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_reportscene"
+        android:title="@string/list_reportscene"
+        app:showAsAction="never" />
 </menu>

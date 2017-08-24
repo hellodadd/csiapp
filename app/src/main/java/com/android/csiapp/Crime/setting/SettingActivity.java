@@ -139,25 +139,25 @@ public class SettingActivity extends AppCompatActivity {
     private View.OnClickListener btnDeviceInitialOnClick = new View.OnClickListener () {
         @Override
         public void onClick(View view) {
-            Toast.makeText(SettingActivity.this, "网路数据功能尚未完成", Toast.LENGTH_SHORT).show();
-            //WebService webService = new WebService(mContext);
-            //webService.DeviceInitial(mProgressView, mSettingFormView);
+            //Toast.makeText(SettingActivity.this, "网路数据功能尚未完成", Toast.LENGTH_SHORT).show();
+            WebService webService = new WebService(mContext);
+            webService.DeviceInitial(mProgressView, mSettingFormView);
         }
     };
 
     private View.OnClickListener btnAppUpdateOnClick = new View.OnClickListener () {
         @Override
         public void onClick(View view) {
-            Toast.makeText(SettingActivity.this, "网路数据功能尚未完成", Toast.LENGTH_SHORT).show();
-            //WebService webService = new WebService(mContext);
-            //webService.AppUpdate(mProgressView, mSettingFormView);
+            //Toast.makeText(SettingActivity.this, "网路数据功能尚未完成", Toast.LENGTH_SHORT).show();
+            WebService webService = new WebService(mContext);
+            webService.AppUpdate(mProgressView, mSettingFormView);
         }
     };
 
     private View.OnClickListener btnUploadSceneOnClick = new View.OnClickListener () {
         @Override
         public void onClick(View view) {
-            Toast.makeText(SettingActivity.this, "网路数据功能尚未完成", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(SettingActivity.this, "网路数据功能尚未完成", Toast.LENGTH_SHORT).show();
             //WebService webService = new WebService(mContext);
             //webService.UploadScene(mProgressView, mSettingFormView);
         }

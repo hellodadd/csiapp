@@ -58,23 +58,48 @@
                     android:background="@drawable/red_60dp"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
-                <TextView
+                <RadioGroup
+                    android:id="@+id/radioGroupFfPeopleSex"
+                    android:contentDescription=""
+                    android:textSize="@dimen/create_vp2_textsize"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="@string/category"
-                    android:textSize="@dimen/create_vp5_textsize"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="@dimen/create_vp2_textsize"
+                        android:id="@+id/radioFfShouyin"
+                        android:text="手印"
+                        android:checked="true">
+                    </RadioButton>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="@dimen/create_vp2_textsize"
+                        android:id="@+id/radioFfFoot"
+                        android:text="足迹">
+                    </RadioButton>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="@dimen/create_vp2_textsize"
+                        android:id="@+id/radioFfGongHen"
+                        android:text="工痕">
+                    </RadioButton>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="@dimen/create_vp2_textsize"
+                        android:id="@+id/radioFfElse"
+                        android:text="其他">
+                    </RadioButton>
+                </RadioGroup>
 
-                <Spinner
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:id="@+id/evidence_category_spinner"
-                    android:background="#FFFFFF"
-                    android:popupBackground="#FFFFFF"
-                    android:layout_weight="1"
-                    android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
             <LinearLayout

@@ -16,11 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.android.csiapp.Crime.utils.CreateSceneUtils;
 import com.android.csiapp.Crime.utils.adapter.PhotoAdapter;
 import com.android.csiapp.Crime.utils.PriviewPhotoActivity;
+import com.android.csiapp.Crime.utils.ImageCompress;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.ImportantPhotoProvider;
@@ -44,7 +46,7 @@ public class CreateScene_FP4 extends Fragment {
     private List<PhotoItem> mPositionList, mLikeList, mImportantList;
     private ListView mPosition_List, mLike_List, mImportant_List;
     private PhotoAdapter mPosition_Adapter, mLike_Adapter, mImportant_Adapter;
-    private ImageButton mAdd_Position, mAdd_Like, mAdd_Important;
+    private LinearLayout mAdd_Position, mAdd_Like, mAdd_Important;
 
     private PositionPhotoProvider mPositionPhotoProvider;
     private OverviewPhotoProvider mOverviewPhotoProvider;
@@ -94,7 +96,7 @@ public class CreateScene_FP4 extends Fragment {
     }
 
     private void initView(View view){
-        mAdd_Position = (ImageButton) view.findViewById(R.id.add_position_photo_imageButton);
+        mAdd_Position = (LinearLayout) view.findViewById(R.id.add_position_photo_imageButton);
         mAdd_Position.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,7 +121,7 @@ public class CreateScene_FP4 extends Fragment {
         });
         CreateSceneUtils.setListViewHeightBasedOnChildren(mPosition_List);
 
-        mAdd_Like = (ImageButton) view.findViewById(R.id.add_like_photo_imageButton);
+        mAdd_Like = (LinearLayout) view.findViewById(R.id.add_like_photo_imageButton);
         mAdd_Like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,7 +146,7 @@ public class CreateScene_FP4 extends Fragment {
         });
         CreateSceneUtils.setListViewHeightBasedOnChildren(mLike_List);
 
-        mAdd_Important = (ImageButton) view.findViewById(R.id.add_important_photo_imageButton);
+        mAdd_Important = (LinearLayout) view.findViewById(R.id.add_important_photo_imageButton);
         mAdd_Important.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -253,6 +255,11 @@ public class CreateScene_FP4 extends Fragment {
 
         String path = LocalFileUri.getPath();
         PhotoItem photoItem = new PhotoItem();
+        //进行图片压缩，压缩比例为1600*1600
+        int width= Integer.parseInt(context.getResources().getString(R.string.image_reqWidth));
+        int height= Integer.parseInt(context.getResources().getString(R.string.image_reqHeight));
+        path=ImageCompress.getSmallBitmap(path,width,height);
+
         photoItem.setPhotoPath(path);
         photoItem.setUuid(CrimeProvider.getUUID());
         if (resultCode == Activity.RESULT_OK) {

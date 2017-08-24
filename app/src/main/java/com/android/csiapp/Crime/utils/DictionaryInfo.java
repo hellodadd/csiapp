@@ -46,6 +46,7 @@ public class DictionaryInfo {
     public final static String mIntrusiveMethodKey = "QRFSFLDM";
     public final static String mSelectLocationKey = "XZCSFLDM";
     public final static String mCrimePurposeKey = "ZADJMDDM";
+    public final static String mSystemKey="SYSTEM";
 
     private static HashMap<String,String> mCaseTypeParentHashMap = new HashMap<String,String>();
     private static HashMap<String,String> mAreaParentHashMap = new HashMap<String,String>();
@@ -100,6 +101,7 @@ public class DictionaryInfo {
     private static HashMap<String,String> mIntrusiveMethodHashMap  = new HashMap<String,String>();
     private static HashMap<String,String> mSelectLocationHashMap  = new HashMap<String,String>();
     private static HashMap<String,String> mCrimePurposeHashMap  = new HashMap<String,String>();
+    private static HashMap<String,String> mSystemKeyHashMap=new HashMap<String,String>();
 
     private static ArrayList<String> mCasetypeDictKey = new ArrayList<String>();
     private static ArrayList<Integer> mCasetypeNodes = new ArrayList<Integer>();
@@ -221,6 +223,7 @@ public class DictionaryInfo {
             mIntrusiveMethodHashMap  = (HashMap<String,String>) dictionaryProvider.queryToGetHashMap(mIntrusiveMethodKey);
             mSelectLocationHashMap  = (HashMap<String,String>) dictionaryProvider.queryToGetHashMap(mSelectLocationKey);
             mCrimePurposeHashMap  = (HashMap<String,String>) dictionaryProvider.queryToGetHashMap(mCrimePurposeKey);
+            mSystemKeyHashMap=(HashMap<String,String>) dictionaryProvider.queryToGetHashMap(mSystemKey);
 
             mCasetypeDictKey = (ArrayList<String>) dictionaryProvider.queryToGetDictKey(mCaseTypeKey);
             mCasetypeDictKey = sortWithTree(mCaseTypeKey, mCasetypeDictKey, mCaseTypeParentHashMap);
@@ -433,8 +436,39 @@ public class DictionaryInfo {
     }
 
     public String getMethod(String rootkey){
-        String method = "Single";
-        return method;
+        String title = "Single";
+        switch (rootkey) {
+            case mCrimeMeansKey://作案手段
+                title = "MULTIPLE";
+                break;
+            case mCrimeCharacterKey://案件性质
+                title = "MULTIPLE";
+                break;
+            case mCrimeEntranceExportKey://出入口
+                title = "MULTIPLE";
+                break;
+            case mCrimeTimingKey://作案时机
+                title = "MULTIPLE";
+                break;
+            case mSelectObjectKey://选择对象
+                title = "MULTIPLE";
+                break;
+            case mCrimeFeatureKey://作案特点
+                title = "MULTIPLE";
+                break;
+            case mIntrusiveMethodKey://侵入方式
+                title = "MULTIPLE";
+                break;
+            case mSelectLocationKey://选择处所
+                title = "MULTIPLE";
+                break;
+            case mCrimePurposeKey://作案动机目的
+                title = "MULTIPLE";
+                break;
+            default:
+                break;
+        }
+        return title;
     }
 
     public static ArrayList<Integer> getNodes(String rootkey){
@@ -697,6 +731,9 @@ public class DictionaryInfo {
                 break;
             case mChangeOptionKey:
                 if(mChangeOptionHashMap.size()!=0) result = mChangeOptionHashMap.get(DictKey);
+                break;
+            case mSystemKey:
+                if(mSystemKeyHashMap.size()!=0) result=mSystemKeyHashMap.get(DictKey);
                 break;
             default:
                 break;

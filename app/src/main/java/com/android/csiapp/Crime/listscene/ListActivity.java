@@ -3,6 +3,7 @@ package com.android.csiapp.Crime.listscene;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.csiapp.CsiApplication;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.R;
@@ -48,6 +50,19 @@ public class ListActivity extends AppCompatActivity {
                     msg += "Delete";
                     Intent it2 = new Intent(ListActivity.this, ListDeleteActivity.class);
                     startActivityForResult(it2, 2);
+                    break;
+                case R.id.action_reportscene:
+                    //通过网络上报现场数据
+                    CsiApplication csiApplication=(CsiApplication)getApplication();
+                    if(!csiApplication.getIsReporting()) {
+                        //设置已经开始上传
+                        msg += "Report";
+                        Intent it3 = new Intent(ListActivity.this, ListReportSceneActivity.class);
+                        startActivityForResult(it3, 3);
+                    }
+                    else {
+                        Toast.makeText(ListActivity.this, "后台数据上传未结束", Toast.LENGTH_SHORT).show();
+                    }
                     break;
             }
 
@@ -144,6 +159,14 @@ public class ListActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_list, menu);
+        //判断是网络版本还是插线数据上传
+        Menu mMenu=menu;
+        if(getResources().getString(R.string.config_app_network).equals("1")) {
+            mMenu.findItem(R.id.action_reportscene).setVisible(true);
+        }
+        else{
+            mMenu.findItem(R.id.action_reportscene).setVisible(false);
+        }
         return true;
     }
 

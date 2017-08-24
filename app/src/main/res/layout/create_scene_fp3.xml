@@ -4,26 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ScrollView
+        android:background="#F7F7F7"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp">
+            android:layout_height="match_parent">
             <LinearLayout
+                android:id="@+id/add_position"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
-                android:weightSum="1">
+                android:layout_height="60dp"
+                android:layout_marginTop="2dp"
+                android:weightSum="1"
+                android:background="#FFFFFF">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
+                    android:layout_gravity="center"
                     android:background="@drawable/position" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -35,9 +36,9 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/add_position"
                     android:layout_gravity="center"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:background="@drawable/add" />
             </LinearLayout>
 
@@ -45,20 +46,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
                 android:id="@+id/position_listview"
                 android:background="#FFFFFF"/>
 
             <LinearLayout
+                android:id="@+id/add_flat"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="#FFFFFF"
                 android:weightSum="1">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:background="@drawable/flat" />
                 <TextView
@@ -71,9 +76,9 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/add_flat"
                     android:layout_gravity="center"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:background="@drawable/add" />
             </LinearLayout>
 

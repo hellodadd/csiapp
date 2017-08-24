@@ -65,7 +65,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
 
     private final int delayPeriod = 1000*60;
     private boolean isFinish = false;
-
+    private boolean isAddScenc=false;//记录是新建还是修改
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
@@ -116,16 +116,23 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                 //What to do on back clicked
                 handler.removeCallbacks(r);
                 BackAlertDialog dialog = new BackAlertDialog(CreateSceneActivity.this);
+                // 取得Intent物件
+                Intent intent = getIntent();
+                // 讀取Action名稱
+                String action = intent.getAction();
+                if (action.equals("com.android.csiapp.ADD_SCENE")) {
+                    dialog.setIsAddSceneQuit(true);
+                }
                 dialog.onCreateDialog(true,mItem);
                 dialog.setOwnerActivity(CreateSceneActivity.this);
             }
         });
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
-
         // 取得Intent物件
         Intent intent = getIntent();
         // 讀取Action名稱
         String action = intent.getAction();
+
         if (action.equals("com.android.csiapp.ADD_SCENE")) {
             mItem = new CrimeItem();
             mEvent = 1;
@@ -135,8 +142,10 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
             SharedPreferences prefs2 = context.getSharedPreferences("UnitCode", 0);
             String unit_code = prefs2.getString("unitcode", "");
             mItem.setUnitCode(unit_code);
+            title.setText(context.getResources().getString(R.string.title_activity_createscene)+"-"+context.getResources().getString(R.string.title_activity_step0));
+            this.isAddScenc=true;
         } else if(action.equals("com.android.csiapp.EDIT_SCENE")){
-            title.setText(context.getResources().getString(R.string.title_activity_editscene));
+            title.setText(context.getResources().getString(R.string.title_activity_editscene)+"-"+context.getResources().getString(R.string.title_activity_step0));
             mItem = (CrimeItem) intent.getSerializableExtra("CrimeItem");
             mEvent = 2;
             if(mItem.getComplete().equalsIgnoreCase("0")) {
@@ -145,8 +154,10 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                 dialog.onCreateDialog(true, mItem);
                 dialog.setOwnerActivity(CreateSceneActivity.this);
             }
+            this.isAddScenc=false;
         }else{
             mItem = new CrimeItem();
+            this.isAddScenc=true;
         }
 
         mPageButton1 = (Button) this.findViewById(R.id.pagebutton1);
@@ -287,12 +298,19 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         mPageText7.setVisibility(View.GONE);
         mPageButton8.setBackground(mBackground);
         mPageText8.setVisibility(View.GONE);
+
+        TextView title = (TextView) findViewById(R.id.toolbar_title);
+        String titlestr=context.getResources().getString(R.string.title_activity_createscene)+"-";
+        if(!this.isAddScenc){
+            titlestr=context.getResources().getString(R.string.title_activity_editscene)+"-";
+        }
         switch (position){
             case 0:
                 mPageButton1.setBackground(mSelect_background);
                 mPageText1.setVisibility(View.VISIBLE);
                 mPageButton2.setBackground(mBackground);
                 mPageText2.setVisibility(View.GONE);
+                title.setText(titlestr+context.getResources().getString(R.string.title_activity_step0));
                 break;
             case 1:
                 mPageButton1.setBackground(mBackground);
@@ -301,6 +319,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                 mPageText2.setVisibility(View.VISIBLE);
                 mPageButton3.setBackground(mBackground);
                 mPageText3.setVisibility(View.GONE);
+                title.setText(titlestr+context.getResources().getString(R.string.title_activity_step1));
                 break;
             case 2:
                 mPageButton2.setBackground(mBackground);
@@ -309,6 +328,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                 mPageText3.setVisibility(View.VISIBLE);
                 mPageButton4.setBackground(mBackground);
                 mPageText4.setVisibility(View.GONE);
+                title.setText(titlestr+context.getResources().getString(R.string.title_activity_step2));
                 break;
             case 3:
                 mPageButton3.setBackground(mBackground);
@@ -316,6 +336,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                 mPageButton4.setBackground(mSelect_background);
                 mPageText4.setVisibility(View.VISIBLE);
                 mPageButton5.setBackground(mBackground);
+                title.setText(titlestr+context.getResources().getString(R.string.title_activity_step3));
                 mPageText5.setVisibility(View.GONE);
                 break;
             case 4:
@@ -325,6 +346,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                 mPageText5.setVisibility(View.VISIBLE);
                 mPageButton6.setBackground(mBackground);
                 mPageText6.setVisibility(View.GONE);
+                title.setText(titlestr+context.getResources().getString(R.string.title_activity_step4));
                 break;
             case 5:
                 mPageButton5.setBackground(mBackground);
@@ -332,6 +354,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                 mPageButton6.setBackground(mSelect_background);
                 mPageText6.setVisibility(View.VISIBLE);
                 mPageButton7.setBackground(mBackground);
+                title.setText(titlestr+context.getResources().getString(R.string.title_activity_step5));
                 mPageText7.setVisibility(View.GONE);
                 break;
             case 6:
@@ -341,12 +364,14 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
                 mPageText7.setVisibility(View.VISIBLE);
                 mPageButton8.setBackground(mBackground);
                 mPageText8.setVisibility(View.GONE);
+                title.setText(titlestr+context.getResources().getString(R.string.title_activity_step6));
                 break;
             case 7:
                 mPageButton7.setBackground(mBackground);
                 mPageText7.setVisibility(View.GONE);
                 mPageButton8.setBackground(mSelect_background);
                 mPageText8.setVisibility(View.VISIBLE);
+                title.setText(titlestr+context.getResources().getString(R.string.title_activity_step7));
                 break;
             case 8:
                 mPageButton8.setBackground(mBackground);

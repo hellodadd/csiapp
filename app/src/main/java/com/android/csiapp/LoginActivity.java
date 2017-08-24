@@ -3,6 +3,7 @@ package com.android.csiapp;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.os.AsyncTask;
 
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,12 +19,24 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.AppInfo;
 import com.android.csiapp.Crime.utils.RestoreListDialog;
 import com.android.csiapp.Databases.IdentifyProvider;
 import com.android.csiapp.WebServiceTransmission.WebService;
+import com.android.csiapp.XmlHandler.DataInitial;
 
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Document;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.security.MessageDigest;
 
 /**
@@ -237,6 +251,71 @@ public class LoginActivity extends AppCompatActivity {
         mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
         mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
     }
+
+    /*
+     *直接使用本地文件初始化
+     * add by liwei 2017.2.25
+     * ==========================================================
+     */
+    public void onBtnTestClick(View view) {
+        new DeviceInitialLocalTask(mProgressView,mLoginFormView).execute();
+    }
+
+    public class DeviceInitialLocalTask extends AsyncTask<Void, Void, Boolean> {
+        private View mProcessView1 = null, mMainView1 = null;
+        DeviceInitialLocalTask(View processView, View mainView){
+            this.mProcessView1 = processView;
+            this.mMainView1 = mainView;
+        }
+        private String getLocalBaseInfo(){
+            AssetManager am= getResources().getAssets();
+            String content = "";
+            try
+            {
+                InputStream instream=am.open("baseinfo.info");
+                if (instream != null)
+                {
+                    InputStreamReader inputreader = new InputStreamReader(instream);
+                    BufferedReader buffreader = new BufferedReader(inputreader);
+                    String line; //分行读取
+                    while (( line = buffreader.readLine()) != null)
+                    {
+                        content += line;
+                    }
+                    instream.close();
+                }
+            }
+            catch (java.io.FileNotFoundException e)
+            {
+                String s=e.getMessage();
+            } catch (IOException e)
+            {
+                String s=e.getMessage();
+            }
+            return content;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            //Web Service
+            String result = getLocalBaseInfo();
+            //Initial Device
+            if(!result.isEmpty()){
+                try {
+                    Document doc = DocumentHelper.parseText(result);
+                    DataInitial dataInitial = new DataInitial(context);
+                    Boolean InitResult = dataInitial.InitialDevice(doc);
+                }catch (DocumentException e){
+                    e.printStackTrace();
+                    return false;
+                }
+                return true;
+            }else {
+                return false;
+            }
+        }
+    }
+    //===============================================================
 
     /**
      * Represents an asynchronous login/registration task used to authenticate

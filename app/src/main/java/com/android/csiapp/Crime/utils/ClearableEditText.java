@@ -42,11 +42,25 @@ public class ClearableEditText extends RelativeLayout
         initViews();
     }
 
+    public void setMaxLines(int lines){
+        if(lines==1) {
+            edit_text.setSingleLine(true);
+        }else {
+            edit_text.setSingleLine(false);
+            edit_text.setMaxLines(lines);
+        }
+    }
+
+    public void setHint(String hint){
+        edit_text.setHint(hint);
+    }
+
     void initViews()
     {
         inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.clearable_edit_text, this, true);
         edit_text = (EditText) findViewById(R.id.clearable_edit);
+        edit_text.setSingleLine(true);//默认单行
         btn_clear = (Button) findViewById(R.id.clearable_button_clear);
         btn_clear.setVisibility(RelativeLayout.INVISIBLE);
         clearText();

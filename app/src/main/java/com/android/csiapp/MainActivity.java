@@ -17,6 +17,7 @@ import android.widget.Button;
 
 import com.android.csiapp.Crime.listscene.ListActivity;
 import com.android.csiapp.Crime.setting.SettingActivity;
+import com.android.csiapp.Crime.setting.SettingActivityNew;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Crime.utils.UserInfo;
 import com.android.csiapp.Databases.CrimeProvider;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             switch (menuItem.getItemId()) {
                 case R.id.action_setting:
                     msg += "Setting";
-                    Intent it = new Intent(MainActivity.this, SettingActivity.class);
+                    Intent it = new Intent(MainActivity.this, SettingActivityNew.class);
                     startActivity(it);
                     break;
             }

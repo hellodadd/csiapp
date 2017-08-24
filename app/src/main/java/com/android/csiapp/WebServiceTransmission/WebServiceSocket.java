@@ -38,8 +38,8 @@ public class WebServiceSocket extends Service {
 
     private void doListen() {
         try {
-            if (mSocket == null) {
-                mSocket = new Socket();
+            if (mSocket == null || !mSocket.isConnected()) {
+                if(mSocket==null) mSocket = new Socket();
                 Log.d(TAG, "mServerIp = "+mServerIp+", mServerPort = "+mServerPort);
                 InetSocketAddress inetSocketAddress = new InetSocketAddress(mServerIp, mServerPort);
                 mSocket.connect(inetSocketAddress);

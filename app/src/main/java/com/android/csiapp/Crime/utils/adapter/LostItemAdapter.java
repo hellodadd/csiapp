@@ -54,8 +54,8 @@ public class LostItemAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         LostItem item = (LostItem)getItem(position);
-        holder.txtItemName.setText("物品");
-        holder.txtItemContent.setText(((LostItem) getItem(position)).getItemName());
+        holder.txtItemName.setText("品名:"+((LostItem) getItem(position)).getItemName()+ " 数量:"+((LostItem) getItem(position)).getItemAmount()+" 价值:"+((LostItem) getItem(position)).getItemValue());
+        //holder.txtItemContent.setText(((LostItem) getItem(position)).getItemName());
         return convertView;
     }
 

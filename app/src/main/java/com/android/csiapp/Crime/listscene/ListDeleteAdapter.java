@@ -105,14 +105,16 @@ public class ListDeleteAdapter extends BaseAdapter {
         holder.checkBox.setChecked(getIsSelected().get(position));
 
         //setPhotoPath
-        if(photoItem.size()>0) {
-            String path = photoItem.get(0).getPhotoPath();
-            if(!path.isEmpty()) {
-                Bitmap b = CreateSceneUtils.loadBitmapFromFile(new File(path));
-                holder.imgPhoto.setImageBitmap(b);
-                holder.imgPhoto.setBackgroundColor(Color.parseColor("#FFFFFF"));
-            }
-        }
+        //===================
+        //注释掉图片显示
+        //if(photoItem.size()>0) {
+        //    String path = photoItem.get(0).getPhotoPath();
+        //    if(!path.isEmpty()) {
+        //        Bitmap b = CreateSceneUtils.loadBitmapFromFile(new File(path));
+        //        holder.imgPhoto.setImageBitmap(b);
+        //        holder.imgPhoto.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        //    }
+        //}
 
         //setText
         holder.txtCasetype.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, ((CrimeItem) getItem(position)).getCasetype()));

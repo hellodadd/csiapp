@@ -76,6 +76,7 @@ public class CreateScene_FP6 extends Fragment {
             }
         });
         mOverview = (ClearableEditText) view.findViewById(R.id.overview);
+        mOverview.setMaxLines(30);
     }
 
     private void initData(){

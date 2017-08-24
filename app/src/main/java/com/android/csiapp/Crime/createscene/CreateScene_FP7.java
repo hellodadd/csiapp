@@ -83,52 +83,52 @@ public class CreateScene_FP7 extends Fragment{
             }else if(requestCode == CreateSceneUtils.EVENT_CRIME_MEANS_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setCrimeMeans(result);
-                result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeMeansKey, result);
+                result = getMultiSelectDic(DictionaryInfo.mCrimeMeansKey, result);
                 mCrimeMeansText.setText(result);
             }else if(requestCode == CreateSceneUtils.EVENT_CRIME_CHARACTER_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setCrimeCharacter(result);
-                result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeCharacterKey, result);
+                result = getMultiSelectDic(DictionaryInfo.mCrimeCharacterKey, result);
                 mCrimeCharacterText.setText(result);
             }else if(requestCode == CreateSceneUtils.EVENT_CRIME_ENTRANCE_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setCrimeEntrance(result);
-                result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeEntranceExportKey, result);
+                result = getMultiSelectDic(DictionaryInfo.mCrimeEntranceExportKey, result);
                 mCrimeEntranceText.setText(result);
             }else if(requestCode == CreateSceneUtils.EVENT_CRIME_TIMING_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setCrimeTiming(result);
-                result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeTimingKey, result);
+                result = getMultiSelectDic(DictionaryInfo.mCrimeTimingKey, result);
                 mCrimeTimingText.setText(result);
             }else if(requestCode == CreateSceneUtils.EVENT_SELECT_OBJECT_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setSelectObject(result);
-                result = DictionaryInfo.getDictValue(DictionaryInfo.mSelectObjectKey, result);
+                result = getMultiSelectDic(DictionaryInfo.mSelectObjectKey, result);
                 mSelectObjectText.setText(result);
             }else if(requestCode == CreateSceneUtils.EVENT_CRIME_EXPORT_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setCrimeExport(result);
-                result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeEntranceExportKey, result);
+                result = getMultiSelectDic(DictionaryInfo.mCrimeEntranceExportKey, result);
                 mCrimeExportText.setText(result);
             }else if(requestCode == CreateSceneUtils.EVENT_CRIME_FEATURE_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setCrimeFeature(result);
-                result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimeFeatureKey, result);
+                result = getMultiSelectDic(DictionaryInfo.mCrimeFeatureKey, result);
                 mCrimeFeatureText.setText(result);
             }else if(requestCode == CreateSceneUtils.EVENT_INTRUSIVE_METHOD_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setIntrusiveMethod(result);
-                result = DictionaryInfo.getDictValue(DictionaryInfo.mIntrusiveMethodKey, result);
+                result = getMultiSelectDic(DictionaryInfo.mIntrusiveMethodKey, result);
                 mIntrusiveMethodText.setText(result);
             }else if(requestCode == CreateSceneUtils.EVENT_SELECT_LOCATION_SELECT_ITEM) {
                 result = (String) data.getStringExtra("Select");
                 mItem.setSelectLocation(result);
-                result = DictionaryInfo.getDictValue(DictionaryInfo.mSelectLocationKey, result);
+                result = getMultiSelectDic(DictionaryInfo.mSelectLocationKey, result);
                 mSelectLocationText.setText(result);
             }else if(requestCode == CreateSceneUtils.EVENT_CRIME_PURPOSE_SELECT_ITEM) {
                 result = (String) data.getStringExtra("Select");
                 mItem.setCrimePurpose(result);
-                result = DictionaryInfo.getDictValue(DictionaryInfo.mCrimePurposeKey, result);
+                result = getMultiSelectDic(DictionaryInfo.mCrimePurposeKey, result);
                 mCrimePurposeText.setText(result);
             }
         }
@@ -250,18 +250,40 @@ public class CreateScene_FP7 extends Fragment{
 
     private void initData(){
         mPeopleNumberText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mPeopleNumberKey, mItem.getCrimePeopleNumber()));
-        mCrimeMeansText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeMeansKey, mItem.getCrimeMeans()));
-        mCrimeCharacterText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeCharacterKey, mItem.getCrimeCharacter()));
-        mCrimeEntranceText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeEntranceExportKey, mItem.getCrimeEntrance()));
-        mCrimeTimingText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeTimingKey, mItem.getCrimeTiming()));
-        mSelectObjectText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSelectObjectKey, mItem.getSelectObject()));
-        mCrimeExportText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeEntranceExportKey, mItem.getCrimeExport()));
-        mCrimeFeatureText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimeFeatureKey, mItem.getCrimeFeature()));
-        mIntrusiveMethodText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mIntrusiveMethodKey, mItem.getIntrusiveMethod()));
-        mSelectLocationText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSelectLocationKey, mItem.getSelectLocation()));
-        mCrimePurposeText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCrimePurposeKey, mItem.getCrimePurpose()));
+        String result="";
+        result=this.getMultiSelectDic(DictionaryInfo.mCrimeMeansKey, mItem.getCrimeMeans());
+        mCrimeMeansText.setText(result);
 
-        mPeopleFeature.setText(mItem.getCrimePeopleFeature());
+        result=this.getMultiSelectDic(DictionaryInfo.mCrimeCharacterKey, mItem.getCrimeCharacter());
+        mCrimeCharacterText.setText(result);
+
+        result=this.getMultiSelectDic(DictionaryInfo.mCrimeEntranceExportKey, mItem.getCrimeEntrance());
+        mCrimeEntranceText.setText(result);
+
+        result=this.getMultiSelectDic(DictionaryInfo.mCrimeTimingKey, mItem.getCrimeTiming());
+        mCrimeTimingText.setText(result);
+
+        result=this.getMultiSelectDic(DictionaryInfo.mSelectObjectKey, mItem.getSelectObject());
+        mSelectObjectText.setText(result);
+
+        result=this.getMultiSelectDic(DictionaryInfo.mCrimeEntranceExportKey, mItem.getCrimeExport());
+        mCrimeExportText.setText(result);
+
+        result=this.getMultiSelectDic(DictionaryInfo.mCrimeFeatureKey, mItem.getCrimeFeature());
+        mCrimeFeatureText.setText(result);
+
+        result=this.getMultiSelectDic(DictionaryInfo.mIntrusiveMethodKey, mItem.getIntrusiveMethod());
+        mIntrusiveMethodText.setText(result);
+
+        result=this.getMultiSelectDic(DictionaryInfo.mSelectLocationKey, mItem.getSelectLocation());
+        mSelectLocationText.setText(result);
+
+        result=this.getMultiSelectDic(DictionaryInfo.mCrimePurposeKey, mItem.getCrimePurpose());
+        mCrimePurposeText.setText(result);
+        //默认不详
+        String pF=mItem.getCrimePeopleFeature();
+        if(pF.equals("")) pF="不详";
+        mPeopleFeature.setText(pF);
     }
 
     public void saveData(){
@@ -283,5 +305,18 @@ public class CreateScene_FP7 extends Fragment{
 
     private void releaseFocusEditText(){
         mPeopleFeature.clearFocus();
+    }
+
+    private String getMultiSelectDic(String rootKey,String str){
+        String ret="";
+        String[] array=str.split(",");
+        for(String s:array){
+            ret=ret+DictionaryInfo.getDictValue(rootKey, s)+",";
+        }
+        if(!ret.equals("")){
+            //去掉最后一个逗号
+            ret=ret.substring(0,ret.length()-1);
+        }
+        return ret;
     }
 }

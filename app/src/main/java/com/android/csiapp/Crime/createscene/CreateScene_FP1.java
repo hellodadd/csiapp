@@ -22,6 +22,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -53,7 +55,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private List<PhotoItem> mCellResultItems;
     private CellProvider mCellProvider;
 
-    private TextView mCasetypeText, mAreaText, mSceneConditionText, mWeatherConditionText, mWindDirectionText;
+    private TextView mCasetypeText, mAreaText, mWeatherConditionText, mWindDirectionText;
     private TextView mIlluminationConditionText, mSceneConductorText, mAccessInspectorsText;
 
     private ClearableEditText mLocation, mUnitsAssigned, mAccessPolicemen, mAccessLocation, mCaseOccurProcess;
@@ -64,7 +66,11 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private CheckBox mInformantCkBx, mVictimCkBx, mOtherCkBx;
 
     private TextView mOccurred_start_time, mOccurred_end_time, mGet_access_time, mAccess_start_time, mAccess_end_time;
-    private Button mOccurred_start_button, mOccurred_end_button, mGet_access_button, mAccess_start_button, mAccess_end_button;
+    private Button mOccurred_start_button, mOccurred_end_button, mGet_access_button, mAccess_start_button, mAccess_end_button,mClose_layout_botton;
+    private LinearLayout mClose_layout;
+
+    private RadioGroup mRadioGroupSceneCondition;
+    private RadioButton mRadioSceneCondition1,mRadioSceneCondition2;
 
     public CreateScene_FP1() {
         // Required empty public constructor
@@ -127,11 +133,12 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 result = DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, result);
                 mAreaText.setText(result);
             }else if(requestCode == CreateSceneUtils.EVENT_SCENE_CONDITION_SELECT_ITEM){
-                result = (String) data.getStringExtra("Select");
-                mItem.setSceneCondition(result);
-                enableChangeReason(result);
-                result = DictionaryInfo.getDictValue(DictionaryInfo.mSceneConditionKey, result);
-                mSceneConditionText.setText(result);
+                //变动原因改为radio button
+                //result = (String) data.getStringExtra("Select");
+                //mItem.setSceneCondition(result);
+                //enableChangeReason(result);
+                //result = DictionaryInfo.getDictValue(DictionaryInfo.mSceneConditionKey, result);
+                //mSceneConditionText.setText(result);
             }else if(requestCode == CreateSceneUtils.EVENT_WEATHER_SELECT_ITEM){
                 result = (String) data.getStringExtra("Select");
                 mItem.setWeatherCondition(result);
@@ -189,6 +196,11 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             }
         });
 
+        //收起或打开
+        this.mClose_layout=(LinearLayout)view.findViewById(R.id.colose_layout);
+        this.mClose_layout_botton=(Button)view.findViewById(R.id.close_button);
+        this.mClose_layout_botton.setOnClickListener(this);
+
         //案件類別
         mCasetypeText = (TextView) view.findViewById(R.id.casetype);
         mCasetypeText.setOnClickListener(new View.OnClickListener(){
@@ -212,16 +224,25 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         });
 
         //現場條件
-        mSceneConditionText = (TextView) view.findViewById(R.id.sceneCondition);
-        mSceneConditionText.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent it = new Intent(getActivity(), TreeViewListActivity.class);
-                it.putExtra("Key",DictionaryInfo.mSceneConditionKey);
-                it.putExtra("Selected", mItem.getSceneCondition());
-                startActivityForResult(it, CreateSceneUtils.EVENT_SCENE_CONDITION_SELECT_ITEM);
+        mRadioGroupSceneCondition=(RadioGroup)view.findViewById(R.id.radioGroupSceneCondition);
+        mRadioSceneCondition1=(RadioButton)view.findViewById(R.id.radioSceneCondition1);
+        mRadioSceneCondition2=(RadioButton)view.findViewById(R.id.radioSceneCondition2);
+        mRadioGroupSceneCondition.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                //打开或者收起变动原因
+                if(mRadioSceneCondition1.isChecked()){
+                    //原始现场
+                    mItem.setSceneCondition("1");
+                    enableChangeReason("1");
+                }
+                else{
+                    //变动现场
+                    mItem.setSceneCondition("2");
+                    enableChangeReason("2");
+                }
             }
         });
-
         //天氣狀況
         mWeatherConditionText = (TextView) view.findViewById(R.id.weatherCondition);
         mWeatherConditionText.setOnClickListener(new View.OnClickListener(){
@@ -260,6 +281,10 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mSceneConductorText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
+                SharedPreferences prefs4 = context.getSharedPreferences("UnitCode", 0);
+                String UnitCode= prefs4.getString("unitcode", "");
+                it.putExtra("unitcode",UnitCode);//登录用户单位代码UnitCode
+                it.putExtra("user","uc");//显示上级单位及本单位用户
                 it.putExtra("Key",UserInfo.mSceneConductor);
                 it.putExtra("Selected", mItem.getSceneConductor());
                 it.putExtra("DataInfo", "UserInfo");
@@ -272,6 +297,10 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mAccessInspectorsText.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 Intent it = new Intent(getActivity(), TreeViewListActivity.class);
+                SharedPreferences prefs4 = context.getSharedPreferences("UnitCode", 0);
+                String UnitCode= prefs4.getString("unitcode", "");
+                it.putExtra("unitcode",UnitCode);//登录用户单位代码
+                it.putExtra("user","c");//显示本单位用户
                 it.putExtra("Key",UserInfo.mAccessInspectors);
                 it.putExtra("Selected", mItem.getAccessInspectors());
                 it.putExtra("DataInfo", "UserInfo");
@@ -301,12 +330,14 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
         //案件發現過程
         mCaseOccurProcess = (ClearableEditText) view.findViewById(R.id.caseOccurProcess);
+        mCaseOccurProcess.setMaxLines(10);
         mCaseOccurProcessBtn = (Button) view.findViewById(R.id.caseOccurProcess_button);
         mCaseOccurProcessBtn.setOnClickListener(this);
 
         //現場變動原因
         mChangeReasonLinearLayout = (LinearLayout) view.findViewById(R.id.change_reason_linear);
         mChangeReason = (ClearableEditText) view.findViewById(R.id.change_reason);
+        mChangeReason.setHint("输入其它变动原因");
         mInformantCkBx = (CheckBox) view.findViewById(R.id.InformantCkBx);
         mVictimCkBx = (CheckBox) view.findViewById(R.id.VictimCkBx);
         mOtherCkBx = (CheckBox) view.findViewById(R.id.OtherCkBx);
@@ -387,6 +418,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
         //勘驗事由
         mAccessReason = (ClearableEditText) view.findViewById(R.id.accessReason);
+        mAccessReason.setMaxLines(10);
         mAccessReasonBtn = (Button) view.findViewById(R.id.accessReason_button);
         mAccessReasonBtn.setOnClickListener(this);
 
@@ -424,8 +456,9 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mCellResultItems = mItem.getCellResultItem();
         mCasetypeText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, mItem.getCasetype()));
         mAreaText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, mItem.getArea()));
-        mSceneConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSceneConditionKey, mItem.getSceneCondition()));
+        //设置原始还是变动现场
         enableChangeReason(mItem.getSceneCondition());
+
         mWeatherConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mWeatherConditionKey, mItem.getWeatherCondition()));
         mWindDirectionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mWindDirectionKey, mItem.getWindDirection()));
         mIlluminationConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mIlluminationConditionKey, mItem.getIlluminationCondition()));
@@ -489,7 +522,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 mWindDirectionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mWindDirectionKey, lastItem.getWindDirection()));
                 mTemperature.setText(lastItem.getTemperature());
                 mHumidity.setText(lastItem.getHumidity());
-                mSceneConditionText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSceneConditionKey, lastItem.getSceneCondition()));
+                enableChangeReason(lastItem.getSceneCondition());
                 mInformantCkBx.setChecked(lastItem.getChangeOption().contains(
                         DictionaryInfo.getDictKey(DictionaryInfo.mChangeOptionKey, mInformantCkBx.getText().toString())));
                 mVictimCkBx.setChecked(lastItem.getChangeOption().contains(
@@ -570,6 +603,9 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             case R.id.accessReason_button:
                 mAccessReason.setText(getAccessReason());
                 break;
+            case R.id.close_button:
+                this.onCloseLayoutBtnClick(v);
+                break;
             default:
                 break;
         }
@@ -592,11 +628,17 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     }
 
     private void enableChangeReason(String sceneCondition){
+        if(sceneCondition.equals("")) {
+            sceneCondition="1";
+            mItem.setSceneCondition("1");
+        }
         if(sceneCondition.equalsIgnoreCase("1")){
+            mRadioSceneCondition1.setChecked(true);
             mChangeReasonLinearLayout.setVisibility(View.GONE);
             mItem.setChangeOption("");
             mItem.setChangeReason("");
         }else if(sceneCondition.equalsIgnoreCase("2")){
+            mRadioSceneCondition2.setChecked(true);
             mChangeReasonLinearLayout.setVisibility(View.VISIBLE);
         }
     }
@@ -710,7 +752,15 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         it.setComponent(new ComponentName("com.kuaikan.app.scenecollection",
                 "com.kuaikan.app.scenecollection.OneKeyService"));
         it.putExtra("show", false);
-
+        //强制完整采集
+        //it.putExtra("is_quick_serch",true);
+        //it.putExtra("is_all_search", true);
+        //强制快速采集
+        //it.putExtra("is_quick_serch",true);
+        //it.putExtra("is_all_search", false);
+        //跟随系统设置
+        it.putExtra("is_quick_serch",false);
+        it.putExtra("is_all_search", false);
         context.startService(it);
     }
 
@@ -764,4 +814,16 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
             }
         }
     };
+
+    //add by liwei 2017.2.25收起或打开更多选项
+    public void onCloseLayoutBtnClick(View view) {
+        if(this.mClose_layout_botton.getText().toString().equals("更多")){
+            mClose_layout.setVisibility(View.VISIBLE);
+            this.mClose_layout_botton.setText("收起");
+        }
+        else{
+            mClose_layout.setVisibility(View.GONE);
+            this.mClose_layout_botton.setText("更多");
+        }
+    }
 }

@@ -22,7 +22,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="93dp"
+        android:layout_height="68dp"
         android:layout_below="@+id/toolbar"
         android:background="#F7F7F7">
         <LinearLayout
@@ -137,6 +137,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:gravity="center">
             <TextView
                 android:layout_width="wrap_content"

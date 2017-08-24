@@ -9,6 +9,7 @@ import java.util.Set;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -71,16 +72,22 @@ public class TreeViewListActivity extends AppCompatActivity {
                     String selected = "";
                     boolean isFirst = true;
                     for(Iterator it = selectedItem.iterator();it.hasNext();){
-                        if(isFirst){
-                            isFirst = false;
-                        }else {
-                            selected = selected + "," ;
+                        String s=(String)it.next();
+                        if(!s.equals(""))
+                        {
+                            if(isFirst){
+                                isFirst = false;
+                            }else {
+                                selected = selected + "," ;
+                            }
+                            selected = selected + s;
                         }
-                        selected = selected + it.next();
                     }
+                    if(selected.endsWith(",")) selected=selected.substring(0,selected.length()-1);//去掉最后的逗号
                     Log.d("Anita","selected = "+selected);
-                    if(!selected.contains(",") && !Method.equalsIgnoreCase("Single")){
-                        Toast.makeText(TreeViewListActivity.this, "需要选择两个以上的人员", Toast.LENGTH_SHORT).show();
+                    String Key = getIntent().getStringExtra("Key");
+                    if(Key.equals("AccessInspectors") && !selected.contains(",")){
+                        Toast.makeText(TreeViewListActivity.this, "勘验现场人员需选择两人以上", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     result.putExtra("Select",selected);
@@ -105,16 +112,22 @@ public class TreeViewListActivity extends AppCompatActivity {
         setContentView(R.layout.treeview_list_activity);
         TreeType newTreeType = null;
         boolean newCollapsible;
-
         DictionaryInfo info = new DictionaryInfo(getApplicationContext());
         UserInfo userinfo = new UserInfo(getApplication());
-
         String Key = getIntent().getStringExtra("Key");
         if(Key==null) Key = DictionaryInfo.mCaseTypeKey;
         String Selected = getIntent().getStringExtra("Selected");
         if(Selected==null) Selected = "";
         String Datainfo = getIntent().getStringExtra("DataInfo");
         if(Datainfo==null) Datainfo = "DictionaryInfo";
+        String unitCode = getIntent().getStringExtra("unitcode");
+        if(unitCode==null) unitCode = "";
+        String upUnitCode="000000";
+        String user = getIntent().getStringExtra("user");
+        if(user==null) user = "";
+
+
+        HashMap<String,String> mUnitCode = new HashMap<String,String>();
 
         if(Datainfo.equalsIgnoreCase("DictionaryInfo")){
             Title = info.getTitle(Key);
@@ -126,6 +139,7 @@ public class TreeViewListActivity extends AppCompatActivity {
             Method = userinfo.getMethod(Key);
             DEMO_NODES = UserInfo.getNodes(Key);
             mDicitonary = UserInfo.getLoginNameList(Key);
+            mUnitCode= UserInfo.getUnitCodeMap();
         }
 
         if(Method.equalsIgnoreCase("Single")){
@@ -161,7 +175,41 @@ public class TreeViewListActivity extends AppCompatActivity {
                 if(Datainfo.equalsIgnoreCase("DictionaryInfo")){
                     treeBuilder.sequentiallyAddNextNode(mDicitonary.get(i), DEMO_NODES.get(i), DictionaryInfo.getDictValue(Key, mDicitonary.get(i)));
                 }else{
-                    treeBuilder.sequentiallyAddNextNode(mDicitonary.get(i), DEMO_NODES.get(i), UserInfo.getUserName(mDicitonary.get(i)));
+                    String loginCode=mDicitonary.get(i);
+                    String loginUnitCode=mUnitCode.get(loginCode);
+                    int nodeType=DEMO_NODES.get(i);
+                    if(loginUnitCode==null) loginUnitCode="";
+                    if(user.equalsIgnoreCase("uc")){
+                        //本单位及上级单位用户，无法区分上下级单位
+                        treeBuilder.sequentiallyAddNextNode(mDicitonary.get(i), DEMO_NODES.get(i), UserInfo.getUserName(mDicitonary.get(i)));
+//                        if(nodeType==0 && (loginCode.equalsIgnoreCase(unitCode) ||loginCode.equalsIgnoreCase(upUnitCode) )){
+//                            //本单位或者上级单位根节点，直接加入
+//                            treeBuilder.sequentiallyAddNextNode(mDicitonary.get(i), DEMO_NODES.get(i), UserInfo.getUserName(mDicitonary.get(i)));
+//                        }
+//                        else {
+//                            //正常检查,本单位或者上级单位的加入
+//                            if (loginUnitCode.equalsIgnoreCase(unitCode) || loginUnitCode.equalsIgnoreCase(upUnitCode)) {
+//                                treeBuilder.sequentiallyAddNextNode(mDicitonary.get(i), DEMO_NODES.get(i), UserInfo.getUserName(mDicitonary.get(i)));
+//                            }
+//                        }
+                    }
+                    else if(user.equalsIgnoreCase("c")){
+                        //本单位用户
+                        if(nodeType==0 && loginCode.equalsIgnoreCase(unitCode)){
+                            //本单位根节点，直接加入
+                            treeBuilder.sequentiallyAddNextNode(mDicitonary.get(i), DEMO_NODES.get(i), UserInfo.getUserName(mDicitonary.get(i)));
+                        }
+                        else {
+                            //正常检查
+                            if (loginUnitCode.equalsIgnoreCase(unitCode)) {
+                                treeBuilder.sequentiallyAddNextNode(mDicitonary.get(i), DEMO_NODES.get(i), UserInfo.getUserName(mDicitonary.get(i)));
+                            }
+                        }
+                    }
+                    else {
+                        //所有用户
+                        treeBuilder.sequentiallyAddNextNode(mDicitonary.get(i), DEMO_NODES.get(i), UserInfo.getUserName(mDicitonary.get(i)));
+                    }
                 }
             }
             Log.d(TAG, manager.toString());

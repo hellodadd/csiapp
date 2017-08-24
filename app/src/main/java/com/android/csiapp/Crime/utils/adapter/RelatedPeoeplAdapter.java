@@ -54,8 +54,8 @@ public class RelatedPeoeplAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         RelatedPeopleItem item = (RelatedPeopleItem)getItem(position);
-        holder.txtItemName.setText(((RelatedPeopleItem) getItem(position)).getPeopleRelation());
-        holder.txtItemContent.setText(((RelatedPeopleItem) getItem(position)).getPeopleName());
+        holder.txtItemName.setText(((RelatedPeopleItem) getItem(position)).getPeopleRelation()+":"+((RelatedPeopleItem) getItem(position)).getPeopleName()+" 电话:"+((RelatedPeopleItem) getItem(position)).getPeopleNumber());
+        //holder.txtItemContent.setText(((RelatedPeopleItem) getItem(position)).getPeopleName());
         return convertView;
     }
 

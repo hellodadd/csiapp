@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.android.csiapp.Crime.utils.DictionaryInfo;
 import com.android.csiapp.Databases.CrimeToolItem;
 import com.android.csiapp.R;
 
@@ -54,8 +55,8 @@ public class CrimeItemAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         CrimeToolItem item = (CrimeToolItem)getItem(position);
-        holder.txtItemName.setText("工具");
-        holder.txtItemContent.setText(((CrimeToolItem) getItem(position)).getToolName());
+        holder.txtItemName.setText("名称:"+((CrimeToolItem) getItem(position)).getToolName()+" 类目:"+DictionaryInfo.getDictValue(DictionaryInfo.mToolCategoryKey,((CrimeToolItem) getItem(position)).getToolCategory())+ " 来源:"+DictionaryInfo.getDictValue(DictionaryInfo.mToolSourceKey,((CrimeToolItem) getItem(position)).getToolSource()));
+        //holder.txtItemContent.setText(((CrimeToolItem) getItem(position)).getToolName());
         return convertView;
     }
 

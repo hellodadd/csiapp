@@ -22,6 +22,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -31,6 +33,7 @@ import com.android.csiapp.Crime.utils.ClearableEditText;
 import com.android.csiapp.Crime.utils.CreateSceneUtils;
 import com.android.csiapp.Crime.utils.DateTimePicker;
 import com.android.csiapp.Crime.utils.DictionaryInfo;
+import com.android.csiapp.Crime.utils.ImageCompress;
 import com.android.csiapp.Crime.utils.PriviewPhotoActivity;
 import com.android.csiapp.Crime.utils.SaveAlertDialog;
 import com.android.csiapp.Crime.utils.UserInfo;
@@ -54,7 +57,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
 
 
     private ImageView mNew_evidence;
-    private Spinner mEvidence_category_spinner;
+    private RadioGroup mRadioFfGroup;
     private ArrayList<String> mEvidence_category = new ArrayList<String>();
     private ArrayAdapter<String> mEvidence_category_adapter;
     private TextView mEvidenceTextLabel;
@@ -178,19 +181,29 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         });
 
         mEvidence_category = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.evidence_category)));
-        mEvidence_category_spinner = (Spinner) findViewById(R.id.evidence_category_spinner);
-        mEvidence_category_adapter = new ArrayAdapter<String>(CreateScene_FP5_NewEvidenceActivity.this, R.layout.spinnerview, mEvidence_category);
-        mEvidence_category_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mEvidence_category_spinner.setAdapter(mEvidence_category_adapter);
-        mEvidence_category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+        mRadioFfGroup=(RadioGroup)findViewById(R.id.radioGroupFfPeopleSex);
+        mRadioFfGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                if(!isDoubleRefresh) refreshEvidenceItem(position);
-                else isDoubleRefresh = false;
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if(isDoubleRefresh) return;
+                RadioButton radioButton=(RadioButton)findViewById(radioGroup.getCheckedRadioButtonId());
+                int position =0;
+                if(radioButton.getText().toString().equals("手印")) {
+                    position=0;
+                }
+                else if(radioButton.getText().toString().equals("足迹")){
+                    position=1;
+                }
+                else if(radioButton.getText().toString().equals("工痕")){
+                    position=2;
+                }
+                else{
+                    position=3;
+                }
+                refreshEvidenceItem(position);
                 mEvidenceItem.setEvidenceCategory(mEvidence_category.get(position));
-        }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+
             }
         });
 
@@ -261,10 +274,27 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         }
         if(!mEvidenceItem.getPhotoPath().isEmpty()) setPhoto(mEvidenceItem.getPhotoPath());
 
-        isDoubleRefresh = true;
-        mEvidence_category_spinner.setSelection(getCategory(mEvidenceItem.getEvidenceCategory()));
-
+        isDoubleRefresh = true;//不要刷新数据
         int category = getCategory(mEvidenceItem.getEvidenceCategory());
+        RadioButton r0=(RadioButton)findViewById(R.id.radioFfShouyin);
+        RadioButton r1=(RadioButton)findViewById(R.id.radioFfFoot);
+        RadioButton r2=(RadioButton)findViewById(R.id.radioFfGongHen);
+        RadioButton r3=(RadioButton)findViewById(R.id.radioFfElse);
+        if(category==0) {
+            r0.setChecked(true);r1.setChecked(false);r2.setChecked(false);r3.setChecked(false);
+        }
+        else if(category==1){
+            r0.setChecked(false);r1.setChecked(true);r2.setChecked(false);r3.setChecked(false);
+        }
+        else if(category==2){
+            r0.setChecked(false);r1.setChecked(false);r2.setChecked(true);r3.setChecked(false);
+        }
+        else{
+            r0.setChecked(false);r1.setChecked(false);r2.setChecked(false);r3.setChecked(true);
+        }
+//        mEvidenceItem.setEvidenceCategory(mEvidence_category.get(position));
+        isDoubleRefresh=false;
+
         if(category == 0 ) {
             mEvidenceText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mEvidenceHandKey, mEvidenceItem.getEvidence()));
             mMethodText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mMethodHandKey, mEvidenceItem.getMethod()));
@@ -347,6 +377,11 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
             String path = LocalFileUri.getPath();
             File file = new File(path);
             if (path != null && file.exists()) {
+                //进行图片压缩，压缩比例为1600*1600
+                int width= Integer.parseInt(context.getResources().getString(R.string.image_reqWidth));
+                int height= Integer.parseInt(context.getResources().getString(R.string.image_reqHeight));
+                path= ImageCompress.getSmallBitmap(path,width,height);
+
                 mEvidenceItem.setPhotoPath(path);
                 setPhoto(path);
             } else {

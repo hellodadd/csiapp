@@ -6,7 +6,7 @@
     <string name="prompt_password"><font size="15">密码</font></string>
     <string name="action_sign_in_short">登录</string>
     <string name="data_recorvy">恢复数据</string>
-    <string name="error_field_required">需要輸入使用者帳號</string>
+    <string name="error_field_required">需要輸入使用者账号</string>
     <string name="error_invalid_user">使用者帐号无效</string>
     <string name="error_invalid_password">密码无效</string>
     <string name="error_incorrect_password">密码不正確</string>
@@ -23,6 +23,15 @@
     <!-- Strings related to Create Scene -->
     <string name="title_activity_createscene">新建现场</string>
     <string name="title_activity_editscene">修改现场</string>
+
+    <string name="title_activity_step0">接勘</string>
+    <string name="title_activity_step1">现场访问</string>
+    <string name="title_activity_step2">现场图</string>
+    <string name="title_activity_step3">现场照片</string>
+    <string name="title_activity_step4">痕迹物证</string>
+    <string name="title_activity_step5">勘验情况</string>
+    <string name="title_activity_step6">分析意见</string>
+    <string name="title_activity_step7">见证人</string>
 
     <string name="step_1">接勘</string>
     <string name="red_title">*红色为必填</string>
@@ -137,6 +146,7 @@
     <string name="title_activity_list">现场列表</string>
     <string name="title_activity_list_search">搜尋</string>
     <string name="title_activity_list_delete">刪除</string>
+    <string name="titile_activity_list_reportscence">现场上传</string>
     <string name="casetype_item">类型 :</string>
     <string name="area_item">区域 :</string>
     <string name="time_item">时间 :</string>
@@ -146,6 +156,7 @@
     <string name="commit">已上报</string>
     <string name="list_search">搜寻</string>
     <string name="list_delete">删除</string>
+    <string name="list_reportscene">现场上传</string>
     <string name="list_selectall">全选</string>
     <!-- Strings related to Settings -->
     <string name="title_activity_setting">设置</string>
@@ -153,7 +164,7 @@
     <string name="backup">备份数据</string>
     <string name="recovery">恢复数据</string>
     <string name="reactive">重新激活</string>
-    <string name="about">关于\n\n\n深圳联赢信息技术有限公司\n域名:Liany.com\n</string>
+    <string name="about">关于\n\n\n深圳联赢信息技术有限公司\n网址:LianY.com\n</string>
     <string name="bcakup_prompt_title">提示</string>
     <string name="backup_prompt_msg">备份数据会覆盖上一次数据文件, 是否确认备份?</string>
     <string name="reactive_promp_title">重新激活</string>
@@ -173,7 +184,7 @@
     <string name="app_update_success">更新软件成功</string>
     <string name="app_update_failed">更新软件失败</string>
     <string name="scene_upload_success">上传现场成功</string>
-    <string name="scene_upload_failed">上传现场失败</string>
+    <string name="scene_upload_failed">上传现场失败，请在网络条件好的情况下重新上传</string>
     <string name="unavailablenetwork">没有可用的网络连接</string>
 
     <string name="simple_menu_name">Simple Adapter</string>
@@ -192,4 +203,9 @@
     <string name="expand_menu_condensed">Expand</string>
     <string name="delete_menu">Delete</string>
     <string name="delete_menu_condensed">Delete</string>
+
+    <string name="image_reqWidth">1600</string>
+    <string name="image_reqHeight">1600</string>
+    <!-- config_app_network 1:采用网络上传数据，0:连接数据线上传数据 -->
+    <string name="config_app_network">0</string>
 </resources>

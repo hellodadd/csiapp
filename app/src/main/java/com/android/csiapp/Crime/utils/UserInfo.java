@@ -133,11 +133,16 @@ public class UserInfo {
     }
 
     public static ArrayList<Integer> getNodes(String rootkey) {
+
         return mUserNodes;
     }
 
     public static ArrayList<String> getLoginNameList(String rootkey) {
         return mLogin;
+    }
+
+    public static  HashMap<String,String> getUnitCodeMap(){
+        return mUnitCode;
     }
 
     public ArrayList<String> getArray() {

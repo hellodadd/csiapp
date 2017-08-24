@@ -75,17 +75,20 @@ public class ListAdapter extends BaseAdapter {
         }
 
         CrimeItem item = (CrimeItem)getItem(position);
-        List<PhotoItem> photoItem = item.getImportantPhoto();
-        if(photoItem.size()>0) {
-            String path = photoItem.get(0).getPhotoPath();
-            if(!path.isEmpty()) {
-                Bitmap b = CreateSceneUtils.loadBitmapFromFile(new File(path));
-                holder.imgPhoto.setImageBitmap(b);
-                holder.imgPhoto.setBackgroundColor(Color.parseColor("#FFFFFF"));
-            }
-        }else{
-            holder.imgPhoto.setImageDrawable(mContext.getResources().getDrawable(R.drawable.no_completed));
-        }
+        //注释掉图片显示，列表中不在显示图片liwei 2017.2.27
+        //===========================================
+        //List<PhotoItem> photoItem = item.getImportantPhoto();
+        //if(photoItem.size()>0) {
+        //    String path = photoItem.get(0).getPhotoPath();
+        //    if(!path.isEmpty()) {
+        //        Bitmap b = CreateSceneUtils.loadBitmapFromFile(new File(path));
+        //        holder.imgPhoto.setImageBitmap(b);
+        //        holder.imgPhoto.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        //    }
+        //}else{
+        //    holder.imgPhoto.setImageDrawable(mContext.getResources().getDrawable(R.drawable.no_completed));
+        //}
+        //===========================================
         holder.txtCasetype.setText(DictionaryInfo.getDictValue(DictionaryInfo.mCaseTypeKey, ((CrimeItem) getItem(position)).getCasetype()));
         holder.txtArea.setText(DictionaryInfo.getDictValue(DictionaryInfo.mAreaKey, ((CrimeItem) getItem(position)).getArea()));
         holder.txtTime.setText(DateTimePicker.getCurrentTime(((CrimeItem) getItem(position)).getOccurredStartTime()));

@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -43,13 +45,13 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
 
     private ClearableEditText mName, mNumber, mAddress;
 
-    private TextView mSexText;
-
     private TextView mBirthday;
     private Button mBirthday_button;
 
     private ImageView mImage;
     private Button mBtn;
+    private RadioGroup mRadioJzGroupSex;
+
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
@@ -132,13 +134,17 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         mNumber.setKeyListener(DigitsKeyListener.getInstance("()-0123456789"));
         mAddress = (ClearableEditText) findViewById(R.id.address_editView);
 
-        mSexText = (TextView) findViewById(R.id.sex);
-        mSexText.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent it = new Intent(CreateScene_FP8_AddWitnessActivity.this, TreeViewListActivity.class);
-                it.putExtra("Key",DictionaryInfo.mSexKey);
-                it.putExtra("Selected", mWitnessItem.getWitnessSex());
-                startActivityForResult(it, CreateSceneUtils.EVENT_SEX_SELECT_ITEM);
+        mRadioJzGroupSex=(RadioGroup)findViewById(R.id.radioGroupJzPeopleSex);
+        mRadioJzGroupSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton radioButton=(RadioButton)findViewById(radioGroup.getCheckedRadioButtonId());
+                if(radioButton.getText().toString().equals("男")) {
+                    mWitnessItem.setWitnessSex("1");
+                }
+                else{
+                    mWitnessItem.setWitnessSex("2");
+                }
             }
         });
 
@@ -158,7 +164,19 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
 
     private void initData(){
         mName.setText(mWitnessItem.getWitnessName());
-        mSexText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, mWitnessItem.getWitnessSex()));
+
+        if(mWitnessItem.getWitnessSex().equals("")) mWitnessItem.setWitnessSex("1");
+        RadioButton radioButton1=(RadioButton)findViewById(R.id.radioJzSexMan);
+        RadioButton radioButton2=(RadioButton)findViewById(R.id.radioJzSexWomen);
+        if((mWitnessItem.getWitnessSex().equals("1"))) {
+            radioButton1.setChecked(true);
+            radioButton2.setChecked(false);
+        }
+        else{
+            radioButton1.setChecked(false);
+            radioButton2.setChecked(true);
+        }
+
         mBirthday.setText(DateTimePicker.getCurrentDate(mWitnessItem.getWitnessBirthday()));
         mNumber.setText(mWitnessItem.getWitnessNumber());
         mAddress.setText(mWitnessItem.getWitnessAddress());
@@ -177,7 +195,19 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
             WitnessItem witnessItem = witnessProvider.getLastRecord();
             if(witnessItem!=null) {
                 mName.setText(witnessItem.getWitnessName());
-                mSexText.setText(DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, witnessItem.getWitnessSex()));
+
+                if(witnessItem.getWitnessSex().equals("")) witnessItem.setWitnessSex("1");
+                RadioButton radioButton1=(RadioButton)findViewById(R.id.radioJzSexMan);
+                RadioButton radioButton2=(RadioButton)findViewById(R.id.radioJzSexWomen);
+                if((witnessItem.getWitnessSex().equals("1"))) {
+                    radioButton1.setChecked(true);
+                    radioButton2.setChecked(false);
+                }
+                else{
+                    radioButton1.setChecked(false);
+                    radioButton2.setChecked(true);
+                }
+
                 mBirthday.setText(DateTimePicker.getCurrentDate(witnessItem.getWitnessBirthday()));
                 mNumber.setText(witnessItem.getWitnessNumber());
                 mAddress.setText(witnessItem.getWitnessAddress());
@@ -242,11 +272,6 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
                 mImage.setImageBitmap(bm);
                 mImage.setVisibility(View.VISIBLE);
                 mWitnessItem.setPhotoPath(path);
-            }else if(requestCode == CreateSceneUtils.EVENT_SEX_SELECT_ITEM){
-                String result = (String) data.getStringExtra("Select");
-                mWitnessItem.setWitnessSex(result);
-                result = DictionaryInfo.getDictValue(DictionaryInfo.mSexKey, result);
-                mSexText.setText(result);
             }
         }
     }

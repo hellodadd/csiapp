@@ -16,9 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.android.csiapp.Crime.utils.CreateSceneUtils;
+import com.android.csiapp.Crime.utils.ImageCompress;
 import com.android.csiapp.Crime.utils.adapter.EvidenceAdapter;
 import com.android.csiapp.Crime.utils.adapter.PhotoAdapter;
 import com.android.csiapp.Crime.utils.PriviewPhotoActivity;
@@ -48,7 +50,7 @@ public class CreateScene_FP5 extends Fragment {
     private ListView mEvidence_List, mMonitoring_List, mCamera_List;
     private EvidenceAdapter mEvidence_Adapter;
     private PhotoAdapter mMonitoring_Adapter, mCamera_Adapter;
-    private ImageButton mAdd_Scene_Evidence, mAdd_Monitoring, mAdd_Camera;
+    private LinearLayout mAdd_Scene_Evidence, mAdd_Monitoring, mAdd_Camera;
 
     private EvidenceProvider mEvidenceProvider;
     private MonitoringPhotoProvider mMonitoringPhotoProvider;
@@ -99,7 +101,7 @@ public class CreateScene_FP5 extends Fragment {
 
     private void initView(View view){
         mEvidenceItem = new EvidenceItem();
-        mAdd_Scene_Evidence = (ImageButton) view.findViewById(R.id.add_scene_evidence);
+        mAdd_Scene_Evidence = (LinearLayout) view.findViewById(R.id.add_scene_evidence);
         mAdd_Scene_Evidence.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,7 +132,7 @@ public class CreateScene_FP5 extends Fragment {
         };
         mEvidence_List.setOnItemClickListener(itemListener1);
 
-        mAdd_Monitoring = (ImageButton) view.findViewById(R.id.add_monitoring_screen);
+        mAdd_Monitoring = (LinearLayout) view.findViewById(R.id.add_monitoring_screen);
         mAdd_Monitoring.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,7 +157,7 @@ public class CreateScene_FP5 extends Fragment {
         });
         CreateSceneUtils.setListViewHeightBasedOnChildren(mMonitoring_List);
 
-        mAdd_Camera = (ImageButton) view.findViewById(R.id.add_camera_position);
+        mAdd_Camera = (LinearLayout) view.findViewById(R.id.add_camera_position);
         mAdd_Camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -275,6 +277,12 @@ public class CreateScene_FP5 extends Fragment {
                 mEvidence_Adapter.notifyDataSetChanged();
             } else if (requestCode == CreateSceneUtils.EVENT_PHOTO_TYPE_MONITORING) {
                 String path = LocalFileUri.getPath();
+
+                //进行图片压缩，压缩比例为1600*1600
+                int width= Integer.parseInt(context.getResources().getString(R.string.image_reqWidth));
+                int height= Integer.parseInt(context.getResources().getString(R.string.image_reqHeight));
+                path= ImageCompress.getSmallBitmap(path,width,height);
+
                 PhotoItem photoItem = new PhotoItem();
                 photoItem.setPhotoPath(path);
                 photoItem.setUuid(CrimeProvider.getUUID());
@@ -285,6 +293,11 @@ public class CreateScene_FP5 extends Fragment {
                 mMonitoring_Adapter.notifyDataSetChanged();
             } else if (requestCode == CreateSceneUtils.EVENT_PHOTO_TYPE_CAMERA) {
                 String path = LocalFileUri.getPath();
+                //进行图片压缩，压缩比例为1600*1600
+                int width= Integer.parseInt(context.getResources().getString(R.string.image_reqWidth));
+                int height= Integer.parseInt(context.getResources().getString(R.string.image_reqHeight));
+                path=ImageCompress.getSmallBitmap(path,width,height);
+
                 PhotoItem photoItem = new PhotoItem();
                 photoItem.setPhotoPath(path);
                 photoItem.setUuid(CrimeProvider.getUUID());
