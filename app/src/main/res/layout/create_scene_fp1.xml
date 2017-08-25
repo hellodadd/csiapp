@@ -46,6 +46,7 @@
                         android:gravity="center"
                         android:text="基站采集"
                         android:textSize="@dimen/create_vp1_textsize"
+                        android:textColor="#ff999999"
                         android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                     <Button
@@ -58,7 +59,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
-                        android:background="@drawable/button_bg"
+                        android:background="@drawable/button_bg2"
                         android:textColor="@color/white"
                         android:layout_weight="1"
                         android:layout_marginRight="21dp"/>
@@ -106,7 +107,7 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:gravity="center_vertical"
                         android:id="@+id/casetype"
                         android:layout_weight="1"
@@ -169,7 +170,7 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:gravity="left|center"
                         android:id="@+id/accessInspectors"
                         android:layout_weight="1"
@@ -305,7 +306,7 @@
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="50dp"
                             android:gravity="left|center"
                             android:id="@+id/weatherCondition"
                             android:layout_weight="1"
@@ -340,7 +341,7 @@
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="50dp"
                             android:gravity="left|center"
                             android:id="@+id/windDirection"
                             android:layout_weight="1"
@@ -433,7 +434,7 @@
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="50dp"
                             android:gravity="left|center"
                             android:id="@+id/area"
                             android:layout_weight="1"
@@ -482,7 +483,7 @@
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginRight="24dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/dropdown"/>
+                                android:background="@drawable/dropdown2"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -518,7 +519,7 @@
                             android:layout_marginLeft="8dp"
                             android:layout_marginRight="24dp"
                             android:layout_gravity="center"
-                            android:background="@drawable/dropdown"/>
+                            android:background="@drawable/dropdown2"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -556,7 +557,7 @@
                             android:layout_marginLeft="8dp"
                             android:layout_marginRight="24dp"
                             android:layout_gravity="center"
-                            android:background="@drawable/dropdown" />
+                            android:background="@drawable/dropdown2" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -649,7 +650,7 @@
                             android:layout_marginLeft="8dp"
                             android:layout_marginRight="24dp"
                             android:layout_gravity="center"
-                            android:background="@drawable/dropdown" />
+                            android:background="@drawable/dropdown2" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -687,7 +688,7 @@
                             android:layout_marginLeft="8dp"
                             android:layout_marginRight="24dp"
                             android:layout_gravity="center"
-                            android:background="@drawable/dropdown" />
+                            android:background="@drawable/dropdown2" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -838,7 +839,7 @@
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="50dp"
                             android:gravity="left|center"
                             android:id="@+id/illuminationCondition"
                             android:layout_weight="1"
@@ -987,7 +988,7 @@
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="50dp"
                             android:gravity="left|center"
                             android:id="@+id/sceneConductor"
                             android:layout_weight="1"

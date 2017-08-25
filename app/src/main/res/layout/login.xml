@@ -33,7 +33,7 @@
             <ImageView
                 android:id="@+id/logo"
                 android:background="@drawable/icon"
-                android:layout_marginTop="135px"
+                android:layout_marginTop="235px"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -104,6 +104,7 @@
                 />
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -132,6 +133,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

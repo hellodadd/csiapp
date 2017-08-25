@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.android.csiapp.Crime.utils.CreateSceneUtils;
@@ -37,7 +38,7 @@ public class CreateScene_FP8 extends Fragment {
     private List<WitnessItem> mWitnessList;
     private ListView mWitness_list;
     private WitnessListAdapter mWitness_adapter;
-    private ImageButton mAddWitness;
+    private LinearLayout mAddWitness;
 
     private WitnessProvider mWitnessProvider;
 
@@ -84,7 +85,7 @@ public class CreateScene_FP8 extends Fragment {
 
     private void initView(View view){
         mWitnessItem = new WitnessItem();
-        mAddWitness = (ImageButton) view.findViewById(R.id.add_witness_button);
+        mAddWitness = (LinearLayout) view.findViewById(R.id.add_witness_button);
         mAddWitness.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
