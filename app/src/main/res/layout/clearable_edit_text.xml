@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:background="@drawable/select_shape"
+        android:background="@drawable/input_bg"
         android:gravity="left"
         android:imeOptions="actionDone"
         android:inputType="textMultiLine"
@@ -23,8 +23,8 @@
 
     <Button
         android:id="@+id/clearable_button_clear"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="@drawable/clear" />

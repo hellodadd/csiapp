@@ -1,7 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true">
     <!--android:background="@drawable/locked_background">-->
 
     <!-- Login progress -->
@@ -10,6 +12,7 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
@@ -21,8 +24,6 @@
         android:isScrollContainer="false"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
-
-
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -76,7 +77,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="54px"
                 android:orientation="horizontal"
-                android:background="@drawable/form_text_nor" >
+                android:background="@drawable/form_text_nor_2" >
                 <EditText
                     android:id="@+id/password"
                     android:background="#00000000"

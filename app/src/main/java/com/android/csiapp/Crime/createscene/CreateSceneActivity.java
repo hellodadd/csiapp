@@ -190,6 +190,7 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
         mSelect_background = context.getResources().getDrawable(R.drawable.img_step_selected);
         mBackground = context.getResources().getDrawable(R.drawable.img_step_nor);
         mPageButton1.setBackground(mSelect_background);
+        mPageButton1.setTextColor(0xffffffff);
         mPageText1.setVisibility(View.VISIBLE);
 
         mMyFragmentPage1 = new CreateScene_FP1();
@@ -308,73 +309,96 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
             case 0:
                 mPageButton1.setBackground(mSelect_background);
                 mPageText1.setVisibility(View.VISIBLE);
+                mPageButton1.setTextColor(0xffffffff);
                 mPageButton2.setBackground(mBackground);
+                mPageButton2.setTextColor(0xff29175b);
                 mPageText2.setVisibility(View.GONE);
                 title.setText(titlestr+context.getResources().getString(R.string.title_activity_step0));
                 break;
             case 1:
                 mPageButton1.setBackground(mBackground);
+                mPageButton1.setTextColor(0xff29175b);
                 mPageText1.setVisibility(View.GONE);
                 mPageButton2.setBackground(mSelect_background);
+                mPageButton2.setTextColor(0xffffffff);
                 mPageText2.setVisibility(View.VISIBLE);
                 mPageButton3.setBackground(mBackground);
+                mPageButton3.setTextColor(0xff29175b);
                 mPageText3.setVisibility(View.GONE);
                 title.setText(titlestr+context.getResources().getString(R.string.title_activity_step1));
                 break;
             case 2:
                 mPageButton2.setBackground(mBackground);
+                mPageButton2.setTextColor(0xff29175b);
                 mPageText2.setVisibility(View.GONE);
                 mPageButton3.setBackground(mSelect_background);
+                mPageButton3.setTextColor(0xffffffff);
                 mPageText3.setVisibility(View.VISIBLE);
                 mPageButton4.setBackground(mBackground);
+                mPageButton4.setTextColor(0xff29175b);
                 mPageText4.setVisibility(View.GONE);
                 title.setText(titlestr+context.getResources().getString(R.string.title_activity_step2));
                 break;
             case 3:
                 mPageButton3.setBackground(mBackground);
+                mPageButton3.setTextColor(0xff29175b);
                 mPageText3.setVisibility(View.GONE);
                 mPageButton4.setBackground(mSelect_background);
+                mPageButton4.setTextColor(0xffffffff);
                 mPageText4.setVisibility(View.VISIBLE);
                 mPageButton5.setBackground(mBackground);
+                mPageButton5.setTextColor(0xff29175b);
                 title.setText(titlestr+context.getResources().getString(R.string.title_activity_step3));
                 mPageText5.setVisibility(View.GONE);
                 break;
             case 4:
                 mPageButton4.setBackground(mBackground);
+                mPageButton4.setTextColor(0xff29175b);
                 mPageText4.setVisibility(View.GONE);
                 mPageButton5.setBackground(mSelect_background);
+                mPageButton5.setTextColor(0xffffffff);
                 mPageText5.setVisibility(View.VISIBLE);
                 mPageButton6.setBackground(mBackground);
+                mPageButton6.setTextColor(0xff29175b);
                 mPageText6.setVisibility(View.GONE);
                 title.setText(titlestr+context.getResources().getString(R.string.title_activity_step4));
                 break;
             case 5:
                 mPageButton5.setBackground(mBackground);
+                mPageButton5.setTextColor(0xff29175b);
                 mPageText5.setVisibility(View.GONE);
                 mPageButton6.setBackground(mSelect_background);
+                mPageButton6.setTextColor(0xffffffff);
                 mPageText6.setVisibility(View.VISIBLE);
                 mPageButton7.setBackground(mBackground);
+                mPageButton7.setTextColor(0xff29175b);
                 title.setText(titlestr+context.getResources().getString(R.string.title_activity_step5));
                 mPageText7.setVisibility(View.GONE);
                 break;
             case 6:
                 mPageButton6.setBackground(mBackground);
+                mPageButton6.setTextColor(0xff29175b);
                 mPageText6.setVisibility(View.GONE);
                 mPageButton7.setBackground(mSelect_background);
+                mPageButton7.setTextColor(0xffffffff);
                 mPageText7.setVisibility(View.VISIBLE);
                 mPageButton8.setBackground(mBackground);
+                mPageButton8.setTextColor(0xff29175b);
                 mPageText8.setVisibility(View.GONE);
                 title.setText(titlestr+context.getResources().getString(R.string.title_activity_step6));
                 break;
             case 7:
                 mPageButton7.setBackground(mBackground);
+                mPageButton7.setTextColor(0xff29175b);
                 mPageText7.setVisibility(View.GONE);
                 mPageButton8.setBackground(mSelect_background);
+                mPageButton8.setTextColor(0xffffffff);
                 mPageText8.setVisibility(View.VISIBLE);
                 title.setText(titlestr+context.getResources().getString(R.string.title_activity_step7));
                 break;
             case 8:
                 mPageButton8.setBackground(mBackground);
+                mPageButton8.setTextColor(0xff29175b);
                 mPageText8.setVisibility(View.GONE);
                 break;
         }

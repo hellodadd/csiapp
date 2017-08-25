@@ -37,8 +37,8 @@
                 android:layout_height="25dp"
                 android:id="@+id/pagebutton1"
                 android:text="1"
-                android:textColor="#4192FF"
-                android:textSize="10sp"
+                android:textColor="#29175b"
+                android:textSize="18px"
                 android:background="@drawable/img_step_nor"/>
             <ImageView
                 android:layout_width="14dp"
@@ -51,8 +51,8 @@
                 android:layout_height="25dp"
                 android:id="@+id/pagebutton2"
                 android:text="2"
-                android:textColor="#4192FF"
-                android:textSize="10sp"
+                android:textColor="#29175b"
+                android:textSize="18px"
                 android:background="@drawable/img_step_nor"/>
             <ImageView
                 android:layout_width="14dp"
@@ -65,8 +65,8 @@
                 android:layout_height="25dp"
                 android:id="@+id/pagebutton3"
                 android:text="3"
-                android:textColor="#4192FF"
-                android:textSize="10sp"
+                android:textColor="#29175b"
+                android:textSize="18px"
                 android:background="@drawable/img_step_nor"/>
             <ImageView
                 android:layout_width="14dp"
@@ -79,8 +79,8 @@
                 android:layout_height="25dp"
                 android:id="@+id/pagebutton4"
                 android:text="4"
-                android:textColor="#4192FF"
-                android:textSize="10sp"
+                android:textColor="#29175b"
+                android:textSize="18px"
                 android:background="@drawable/img_step_nor"/>
             <ImageView
                 android:layout_width="14dp"
@@ -93,8 +93,8 @@
                 android:layout_height="25dp"
                 android:id="@+id/pagebutton5"
                 android:text="5"
-                android:textColor="#4192FF"
-                android:textSize="10sp"
+                android:textColor="#29175b"
+                android:textSize="18px"
                 android:background="@drawable/img_step_nor"/>
             <ImageView
                 android:layout_width="14dp"
@@ -107,8 +107,8 @@
                 android:layout_height="25dp"
                 android:id="@+id/pagebutton6"
                 android:text="6"
-                android:textColor="#4192FF"
-                android:textSize="10sp"
+                android:textColor="#29175b"
+                android:textSize="18px"
                 android:background="@drawable/img_step_nor"/>
             <ImageView
                 android:layout_width="14dp"
@@ -121,8 +121,8 @@
                 android:layout_height="25dp"
                 android:id="@+id/pagebutton7"
                 android:text="7"
-                android:textColor="#4192FF"
-                android:textSize="10sp"
+                android:textColor="#29175b"
+                android:textSize="18px"
                 android:background="@drawable/img_step_nor"/>
             <ImageView
                 android:layout_width="14dp"
@@ -135,8 +135,8 @@
                 android:layout_height="25dp"
                 android:id="@+id/pagebutton8"
                 android:text="8"
-                android:textColor="#4192FF"
-                android:textSize="10sp"
+                android:textColor="#29175b"
+                android:textSize="18px"
                 android:background="@drawable/img_step_nor"/>
         </LinearLayout>
 

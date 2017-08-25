@@ -5,7 +5,7 @@
     <dimen name="create_item_h_buttom">60dp</dimen>
     <dimen name="create_item_buttom">100dp</dimen>
     <dimen name="createscene_textsize">20sp</dimen>
-    <dimen name="create_vp1_textsize">20sp</dimen>
+    <dimen name="create_vp1_textsize">28px</dimen>
     <dimen name="create_vp2_textsize">20sp</dimen>
     <dimen name="create_vp3_textsize">20sp</dimen>
     <dimen name="create_vp4_textsize">20sp</dimen>
@@ -13,7 +13,7 @@
     <dimen name="create_vp6_textsize">20sp</dimen>
     <dimen name="create_vp7_textsize">18sp</dimen>
     <dimen name="create_vp8_textsize">20sp</dimen>
-    <dimen name="create_item_textsize">14sp</dimen>
+    <dimen name="create_item_textsize">24px</dimen>
     <dimen name="list_textsize">20sp</dimen>
     <dimen name="list_margin">16dp</dimen>
     <dimen name="create_item2_w_buttom">200dp</dimen>
@@ -21,4 +21,5 @@
     <dimen name="create_item_margin_bottom">6dp</dimen>
     <dimen name="create_item_margin_right">16dp</dimen>
     <dimen name="toolbar_size">48dp</dimen>
+    <dimen name="input_text_size">24px</dimen>
 </resources>

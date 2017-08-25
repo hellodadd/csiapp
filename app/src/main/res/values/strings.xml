@@ -164,7 +164,7 @@
     <string name="backup">备份数据</string>
     <string name="recovery">恢复数据</string>
     <string name="reactive">重新激活</string>
-    <string name="about">关于\n\n\n深圳联赢信息技术有限公司\n网址:LianY.com\n</string>
+    <string name="about">关于\n\n深圳联赢信息技术有限公司\n网址:LianY.com\n</string>
     <string name="bcakup_prompt_title">提示</string>
     <string name="backup_prompt_msg">备份数据会覆盖上一次数据文件, 是否确认备份?</string>
     <string name="reactive_promp_title">重新激活</string>

@@ -10,7 +10,7 @@
     <color name="white">#FFFFFF</color>
 
     <color name="preference_item_pressed">#19ffffff</color>
-    <color name="preference_item_divider">#19000000</color>
+    <color name="preference_item_divider">#e5e5e5</color>
     <color name="launcher_white">#FFFFFFFF</color>
 
     <color name="preference_bg">#fff4f4f4</color>
