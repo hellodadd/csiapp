@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="#F7F7F7"
     android:paddingTop="6dp">
 
     <LinearLayout
+        android:id="@+id/automatic_generated_button"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -19,6 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/auto" />
         <TextView
@@ -31,8 +32,8 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/automatic_generated_button"
             android:layout_gravity="center"
+            android:visibility="gone"
             android:background="@drawable/add" />
     </LinearLayout>
     <com.android.csiapp.Crime.utils.ClearableEditText
@@ -40,5 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="6dp"/>
 </LinearLayout>

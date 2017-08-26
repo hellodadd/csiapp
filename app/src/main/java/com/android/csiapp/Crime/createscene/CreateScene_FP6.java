@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.csiapp.Crime.utils.ClearableEditText;
@@ -25,7 +26,7 @@ public class CreateScene_FP6 extends Fragment {
     private CrimeItem mItem;
     private int mEvent;
 
-    private ImageButton mAutoBtn;
+    private LinearLayout mAutoBtn;
     private ClearableEditText mOverview;
 
     public CreateScene_FP6() {
@@ -68,7 +69,7 @@ public class CreateScene_FP6 extends Fragment {
     }
 
     private void initView(View view){
-        mAutoBtn = (ImageButton) view.findViewById(R.id.automatic_generated_button);
+        mAutoBtn = (LinearLayout) view.findViewById(R.id.automatic_generated_button);
         mAutoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
