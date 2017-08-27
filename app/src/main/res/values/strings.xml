@@ -208,4 +208,5 @@
     <string name="image_reqHeight">1600</string>
     <!-- config_app_network 1:采用网络上传数据，0:连接数据线上传数据 -->
     <string name="config_app_network">0</string>
+    <string name="default_loading">Loading…</string>
 </resources>

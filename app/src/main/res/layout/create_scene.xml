@@ -33,12 +33,12 @@
             android:layout_marginTop="21dp"
             android:layout_marginBottom="16dp">
             <Button
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/pagebutton1"
                 android:text="1"
                 android:textColor="#29175b"
-                android:textSize="18px"
+                android:textSize="28px"
                 android:background="@drawable/img_step_nor"/>
             <ImageView
                 android:layout_width="14dp"
@@ -47,12 +47,12 @@
                 android:visibility="invisible"
                 android:background="@drawable/dot"/>
             <Button
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/pagebutton2"
                 android:text="2"
                 android:textColor="#29175b"
-                android:textSize="18px"
+                android:textSize="28px"
                 android:background="@drawable/img_step_nor"/>
             <ImageView
                 android:layout_width="14dp"
@@ -61,12 +61,12 @@
                 android:visibility="invisible"
                 android:background="@drawable/dot"/>
             <Button
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/pagebutton3"
                 android:text="3"
                 android:textColor="#29175b"
-                android:textSize="18px"
+                android:textSize="28px"
                 android:background="@drawable/img_step_nor"/>
             <ImageView
                 android:layout_width="14dp"
@@ -75,12 +75,12 @@
                 android:visibility="invisible"
                 android:background="@drawable/dot"/>
             <Button
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/pagebutton4"
                 android:text="4"
                 android:textColor="#29175b"
-                android:textSize="18px"
+                android:textSize="28px"
                 android:background="@drawable/img_step_nor"/>
             <ImageView
                 android:layout_width="14dp"
@@ -89,12 +89,12 @@
                 android:visibility="invisible"
                 android:background="@drawable/dot"/>
             <Button
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/pagebutton5"
                 android:text="5"
                 android:textColor="#29175b"
-                android:textSize="18px"
+                android:textSize="28px"
                 android:background="@drawable/img_step_nor"/>
             <ImageView
                 android:layout_width="14dp"
@@ -103,12 +103,12 @@
                 android:visibility="invisible"
                 android:background="@drawable/dot"/>
             <Button
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/pagebutton6"
                 android:text="6"
                 android:textColor="#29175b"
-                android:textSize="18px"
+                android:textSize="28px"
                 android:background="@drawable/img_step_nor"/>
             <ImageView
                 android:layout_width="14dp"
@@ -117,12 +117,12 @@
                 android:visibility="invisible"
                 android:background="@drawable/dot"/>
             <Button
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/pagebutton7"
                 android:text="7"
                 android:textColor="#29175b"
-                android:textSize="18px"
+                android:textSize="28px"
                 android:background="@drawable/img_step_nor"/>
             <ImageView
                 android:layout_width="14dp"
@@ -131,12 +131,12 @@
                 android:visibility="invisible"
                 android:background="@drawable/dot"/>
             <Button
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/pagebutton8"
                 android:text="8"
                 android:textColor="#29175b"
-                android:textSize="18px"
+                android:textSize="28px"
                 android:background="@drawable/img_step_nor"/>
         </LinearLayout>
 

@@ -284,20 +284,28 @@ public class CreateSceneActivity extends AppCompatActivity implements OnPageChan
     @Override
     public void onPageSelected(int position) {
         mPageButton1.setBackground(mBackground);
+        mPageButton1.setTextColor(0xff29175b);
         mPageText1.setVisibility(View.GONE);
         mPageButton2.setBackground(mBackground);
+        mPageButton2.setTextColor(0xff29175b);
         mPageText2.setVisibility(View.GONE);
         mPageButton3.setBackground(mBackground);
+        mPageButton3.setTextColor(0xff29175b);
         mPageText3.setVisibility(View.GONE);
         mPageButton4.setBackground(mBackground);
+        mPageButton4.setTextColor(0xff29175b);
         mPageText4.setVisibility(View.GONE);
         mPageButton5.setBackground(mBackground);
+        mPageButton5.setTextColor(0xff29175b);
         mPageText5.setVisibility(View.GONE);
         mPageButton6.setBackground(mBackground);
+        mPageButton6.setTextColor(0xff29175b);
         mPageText6.setVisibility(View.GONE);
         mPageButton7.setBackground(mBackground);
+        mPageButton7.setTextColor(0xff29175b);
         mPageText7.setVisibility(View.GONE);
         mPageButton8.setBackground(mBackground);
+        mPageButton8.setTextColor(0xff29175b);
         mPageText8.setVisibility(View.GONE);
 
         TextView title = (TextView) findViewById(R.id.toolbar_title);

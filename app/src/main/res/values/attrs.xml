@@ -79,4 +79,12 @@
         <attr name="btnUnCheckedColor" format="color" />
         <attr name="innerPadding" format="dimension" />
     </declare-styleable>
+
+	<declare-styleable name="LoadingButton">
+		<attr name="pbText" format="string"/>
+		<attr name="pbLoadingText" format="string"/>
+		<attr name="pbTextSize" format="dimension"/>
+		<attr name="pbTextColor" format="color|reference"/>
+		<attr name="pbProgressColor" format="color|reference"/>
+	</declare-styleable>
 </resources>

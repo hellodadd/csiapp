@@ -37,6 +37,7 @@ import com.android.csiapp.Databases.CellProvider;
 import com.android.csiapp.Databases.CrimeItem;
 import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.Databases.PhotoItem;
+import com.android.csiapp.LoadingButton;
 import com.android.csiapp.R;
 
 import java.util.ArrayList;
@@ -51,7 +52,8 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private CrimeItem mItem;
     private int mEvent;
 
-    private Button mCellCollection, mCellDetail;
+    private LoadingButton mCellCollection;
+    private Button mCellDetail;
     private List<PhotoItem> mCellResultItems;
     private CellProvider mCellProvider;
 
@@ -170,12 +172,13 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
 
     private void initView(View view){
         //基站採集
-        mCellCollection = (Button) view.findViewById(R.id.cell_collection);
+        mCellCollection = (LoadingButton) view.findViewById(R.id.cell_collection);
         if(mItem.IsCollecting()) mCellCollection.setText("采集中");
         mCellCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startCollection();
+                ((LoadingButton)v).showLoading();
             }
         });
 
