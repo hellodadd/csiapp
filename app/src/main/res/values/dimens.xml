@@ -11,10 +11,10 @@
     <dimen name="create_vp4_textsize">16dp</dimen>
     <dimen name="create_vp5_textsize">16dp</dimen>
     <dimen name="create_vp6_textsize">16dp</dimen>
-    <dimen name="create_vp7_textsize">18sp</dimen>
+    <dimen name="create_vp7_textsize">16dp</dimen>
     <dimen name="create_vp8_textsize">16dp</dimen>
     <dimen name="create_item_textsize">24px</dimen>
-    <dimen name="list_textsize">20sp</dimen>
+    <dimen name="list_textsize">24px</dimen>
     <dimen name="list_margin">16dp</dimen>
     <dimen name="create_item2_w_buttom">200dp</dimen>
     <dimen name="create_item2_h_buttom">40dp</dimen>

@@ -173,7 +173,10 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
     private void initView(View view){
         //基站採集
         mCellCollection = (LoadingButton) view.findViewById(R.id.cell_collection);
-        if(mItem.IsCollecting()) mCellCollection.setText("采集中");
+        if(mItem.IsCollecting()) {
+            mCellCollection.setText("采集中");
+            mCellCollection.showLoading();
+        }
         mCellCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -786,6 +789,7 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
                 Log.d("Anita", "Received cell result");
                 mCellCollection.setClickable(true);
                 mCellCollection.setText("开始采集");
+                mCellCollection.showButtonText();
                 mItem.setCollecting(false);
                 mItem.setCollected(true);
                 ArrayList<String> result= (ArrayList<String>) intent.getStringArrayListExtra("result");

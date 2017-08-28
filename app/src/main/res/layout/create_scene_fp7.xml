@@ -22,8 +22,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/red_title"
+                    android:textColor="#F9574B"
+                    android:textSize="16sp"
+                    android:paddingTop="16sp"
+                    android:paddingLeft="16sp"
+                    android:paddingBottom="16sp"
+                    android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                    />
 
                 <ImageView
                     android:visibility="gone"
@@ -73,8 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:orientation="vertical">
 
                 <ImageView
                     android:visibility="gone"
@@ -113,8 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:orientation="vertical">
 
                 <ImageView
                     android:visibility="gone"
@@ -153,8 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:orientation="vertical">
 
                 <ImageView
                     android:visibility="gone"
@@ -193,8 +201,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:orientation="vertical">
 
                 <ImageView
                     android:visibility="gone"
@@ -233,8 +240,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:orientation="vertical">
 
                 <ImageView
                     android:visibility="gone"
@@ -273,8 +279,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:orientation="vertical">
 
                 <ImageView
                     android:visibility="gone"
@@ -313,8 +318,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:orientation="vertical">
 
                 <ImageView
                     android:visibility="gone"
@@ -348,8 +352,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:orientation="vertical">
 
                 <ImageView
                     android:visibility="gone"
@@ -388,8 +391,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:orientation="vertical">
 
                 <ImageView
                     android:visibility="gone"
@@ -428,8 +430,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:orientation="vertical">
 
                 <ImageView
                     android:visibility="gone"
@@ -468,8 +469,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
-                android:background="#FFFFFF">
+                android:orientation="vertical">
 
                 <ImageView
                     android:visibility="gone"
