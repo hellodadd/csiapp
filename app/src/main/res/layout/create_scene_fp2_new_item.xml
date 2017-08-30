@@ -17,16 +17,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:background="#F7F7F7"
         android:layout_below="@+id/toolbar"
         android:isScrollContainer="false">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#F7F7F7">
+            android:layout_height="match_parent">
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/red_title"
@@ -40,10 +41,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 >
 
                 <ImageView
@@ -54,8 +55,9 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -76,8 +78,8 @@
 
                 <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/item_name_editView"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginLeft="6dp"
                     android:maxLines="1"
@@ -87,10 +89,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 >
 
                 <ImageView
@@ -101,8 +103,9 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -123,8 +126,8 @@
 
                 <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/brand_model_editView"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginLeft="6dp"
                     android:maxLines="1"
@@ -134,10 +137,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 >
 
                 <ImageView
@@ -148,8 +151,9 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -170,8 +174,8 @@
 
             <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/amount_editView"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginLeft="6dp"
                     android:maxLines="1"
@@ -181,10 +185,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:visibility="gone"
@@ -194,8 +198,9 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -216,8 +221,8 @@
 
             <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/value_editView"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginLeft="6dp"
                     android:maxLines="1"
@@ -227,10 +232,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:visibility="gone"
@@ -240,8 +245,9 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -262,8 +268,8 @@
 
                 <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/feature_description_editView"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginLeft="6dp"
                     android:singleLine="false"

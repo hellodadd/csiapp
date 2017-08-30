@@ -18,16 +18,17 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_below="@+id/toolbar"
+        android:background="#F7F7F7"
         android:isScrollContainer="false">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar"
-            android:background="#F7F7F7">
+            android:layout_below="@+id/toolbar">
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/red_title"
@@ -40,10 +41,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:visibility="gone"
@@ -53,8 +54,9 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -75,8 +77,8 @@
 
                 <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/tool_name_editView"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginLeft="6dp"
                     android:maxLines="1"
@@ -86,10 +88,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:visibility="gone"
@@ -99,6 +101,7 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 <TextView
@@ -121,8 +124,8 @@
 
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:id="@+id/toolCategory"
                     android:layout_weight="1"
@@ -138,10 +141,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:visibility="gone"
@@ -151,8 +154,9 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -171,8 +175,8 @@
                 </LinearLayout>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:id="@+id/toolSource"
                     android:layout_weight="1"

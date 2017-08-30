@@ -27,18 +27,6 @@
                 android:background="#F7F7F7"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/red_title"
-                    android:textColor="#F9574B"
-                    android:textSize="16sp"
-                    android:paddingTop="16dp"
-                    android:paddingLeft="16dp"
-                    android:paddingBottom="16dp"
-                    android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                    android:background="#FFFFFF"/>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/create_item_h_buttom"
@@ -105,11 +93,11 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/create_item_h_buttom"
                     android:layout_marginBottom="@dimen/create_item_margin_bottom"
                     android:layout_marginTop="12dp"
                     android:layout_marginLeft="15dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:visibility="gone"
@@ -119,8 +107,9 @@
                         android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                     <LinearLayout
+                        android:gravity="center"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -140,8 +129,8 @@
                     </LinearLayout>
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:id="@+id/casetype"
                         android:layout_weight="1"
@@ -159,15 +148,16 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/create_item_h_buttom"
                     android:layout_marginTop="12dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="@dimen/create_item_margin_bottom"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:gravity="center"
+                        android:layout_height="match_parent">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -189,26 +179,26 @@
                     <com.android.csiapp.Crime.utils.ClearableEditText
                         android:id="@+id/location"
                         android:textColor="#ff3e3e3e"
-                        android:layout_width="wrap_content"
-                        android:layout_height="60dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="6dp"
-                        android:maxLines="1"
+                        android:singleLine="true"
                         android:layout_marginRight="@dimen/create_item_margin_right"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/create_item_h_buttom"
                     android:layout_marginBottom="@dimen/create_item_margin_bottom"
                     android:layout_marginTop="12dp"
                     android:layout_marginLeft="15dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
 
                     <LinearLayout
+                        android:gravity="center"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -228,8 +218,8 @@
                     </LinearLayout>
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:gravity="left|center"
                         android:id="@+id/accessInspectors"
                         android:layout_weight="1"
@@ -373,17 +363,20 @@
                     android:layout_marginBottom="@dimen/create_item_margin_bottom"
                     android:visibility="gone"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/create_item_h_buttom"
                         android:layout_marginBottom="@dimen/create_item_margin_bottom"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="15dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <LinearLayout
+                            android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -403,8 +396,8 @@
                         </LinearLayout>
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:gravity="left|center"
                             android:id="@+id/weatherCondition"
                             android:layout_weight="1"
@@ -422,16 +415,17 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/create_item_h_buttom"
                         android:layout_marginBottom="@dimen/create_item_margin_bottom"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="15dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
 
                         <LinearLayout
+                            android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -450,8 +444,8 @@
                         </LinearLayout>
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:gravity="left|center"
                             android:id="@+id/windDirection"
                             android:layout_weight="1"
@@ -469,16 +463,17 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/create_item_h_buttom"
                         android:layout_marginBottom="@dimen/create_item_margin_bottom"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="15dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
 
                         <LinearLayout
+                            android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -500,8 +495,8 @@
 
                         <com.android.csiapp.Crime.utils.ClearableEditText
                             android:id="@+id/temperature"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_marginLeft="6dp"
                             android:maxLines="1"
@@ -511,15 +506,16 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/create_item_h_buttom"
                         android:layout_marginBottom="@dimen/create_item_margin_bottom"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="15dp"
                         android:orientation="vertical">
 
                         <LinearLayout
+                            android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -540,8 +536,8 @@
 
                         <com.android.csiapp.Crime.utils.ClearableEditText
                             android:id="@+id/humidity"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_marginLeft="6dp"
                             android:maxLines="1"
@@ -552,16 +548,17 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/create_item_h_buttom"
                         android:layout_marginBottom="@dimen/create_item_margin_bottom"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="15dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
 
                         <LinearLayout
+                            android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -580,8 +577,8 @@
                         </LinearLayout>
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:gravity="left|center"
                             android:id="@+id/area"
                             android:layout_weight="1"
@@ -728,15 +725,16 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/create_item_h_buttom"
                         android:layout_marginBottom="@dimen/create_item_margin_bottom"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="15dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <LinearLayout
+                            android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -756,8 +754,8 @@
 
                         <com.android.csiapp.Crime.utils.ClearableEditText
                             android:id="@+id/unitsAssigned"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_marginLeft="6dp"
                             android:maxLines="1"
@@ -767,15 +765,16 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/create_item_h_buttom"
                         android:layout_marginBottom="@dimen/create_item_margin_bottom"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="15dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <LinearLayout
+                            android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -796,8 +795,8 @@
 
                         <com.android.csiapp.Crime.utils.ClearableEditText
                             android:id="@+id/accessPolicemen"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_marginLeft="6dp"
                             android:maxLines="1"
@@ -894,15 +893,16 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/create_item_h_buttom"
                         android:layout_marginBottom="@dimen/create_item_margin_bottom"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="15dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <LinearLayout
+                            android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -922,8 +922,8 @@
 
                         <com.android.csiapp.Crime.utils.ClearableEditText
                             android:id="@+id/accessLocation"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_marginLeft="6dp"
                             android:maxLines="1"
@@ -1040,16 +1040,17 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/create_item_h_buttom"
                         android:layout_marginBottom="@dimen/create_item_margin_bottom"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="15dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
 
                         <LinearLayout
+                            android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -1067,8 +1068,8 @@
                         </LinearLayout>
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:gravity="left|center"
                             android:id="@+id/illuminationCondition"
                             android:layout_weight="1"
@@ -1086,16 +1087,17 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/create_item_h_buttom"
                         android:layout_marginBottom="@dimen/create_item_margin_bottom"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="15dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
 
                         <LinearLayout
+                            android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -1115,8 +1117,8 @@
 
                         <com.android.csiapp.Crime.utils.ClearableEditText
                             android:id="@+id/productPeople_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_marginLeft="6dp"
                             android:maxLines="1"
@@ -1126,15 +1128,15 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/create_item_h_buttom"
                         android:layout_marginBottom="@dimen/create_item_margin_bottom"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="15dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -1154,8 +1156,8 @@
 
                         <com.android.csiapp.Crime.utils.ClearableEditText
                             android:id="@+id/productPeople_unit"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_marginLeft="6dp"
                             android:maxLines="1"
@@ -1165,15 +1167,16 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/create_item_h_buttom"
                         android:layout_marginBottom="@dimen/create_item_margin_bottom"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="15dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <LinearLayout
+                            android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -1193,8 +1196,8 @@
 
                         <com.android.csiapp.Crime.utils.ClearableEditText
                             android:id="@+id/productPeople_duties"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_marginLeft="6dp"
                             android:maxLines="1"
@@ -1204,15 +1207,17 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/create_item_h_buttom"
                         android:layout_marginBottom="@dimen/create_item_margin_bottom"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="15dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <LinearLayout
+                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -1232,8 +1237,8 @@
 
                         <com.android.csiapp.Crime.utils.ClearableEditText
                             android:id="@+id/safeguard"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_marginLeft="6dp"
                             android:maxLines="1"
@@ -1243,15 +1248,16 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/create_item_h_buttom"
                         android:layout_marginBottom="@dimen/create_item_margin_bottom"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="15dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <LinearLayout
+                            android:gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -1271,8 +1277,8 @@
                         </LinearLayout>
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:gravity="left|center"
                             android:id="@+id/sceneConductor"
                             android:layout_weight="1"

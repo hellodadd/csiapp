@@ -19,10 +19,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -34,6 +34,7 @@
                     android:paddingLeft="16sp"
                     android:paddingBottom="16sp"
                     android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                    android:visibility="gone"
                     />
 
                 <ImageView
@@ -44,8 +45,9 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -64,8 +66,8 @@
                 </LinearLayout>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/create_item_h_buttom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:id="@+id/peopleNumber"
                     android:layout_weight="1"
@@ -81,10 +83,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:visibility="gone"
@@ -103,8 +105,8 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/create_item_h_buttom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:id="@+id/crimeMeans"
                     android:layout_weight="1"
@@ -120,10 +122,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:visibility="gone"
@@ -142,8 +144,8 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/create_item_h_buttom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:id="@+id/crimeCharacter"
                     android:layout_weight="1"
@@ -159,10 +161,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:visibility="gone"
@@ -181,8 +183,8 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/create_item_h_buttom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:id="@+id/crimeEntrance"
                     android:layout_weight="1"
@@ -198,10 +200,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:visibility="gone"
@@ -220,8 +222,8 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/create_item_h_buttom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:id="@+id/crimeTiming"
                     android:layout_weight="1"
@@ -237,10 +239,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:visibility="gone"
@@ -259,8 +261,8 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/create_item_h_buttom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:id="@+id/selectObject"
                     android:layout_weight="1"
@@ -276,10 +278,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:visibility="gone"
@@ -298,8 +300,8 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/create_item_h_buttom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:id="@+id/crimeExport"
                     android:layout_weight="1"
@@ -315,10 +317,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:visibility="gone"
@@ -338,8 +340,8 @@
 
                 <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/peopleFeature"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginLeft="6dp"
                     android:textColor="#ff3e3e3e"
@@ -349,10 +351,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:visibility="gone"
@@ -371,8 +373,8 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/create_item_h_buttom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:id="@+id/crimeFeature"
                     android:layout_weight="1"
@@ -388,10 +390,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:visibility="gone"
@@ -410,8 +412,8 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/create_item_h_buttom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:id="@+id/intrusiveMethod"
                     android:layout_weight="1"
@@ -427,10 +429,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:visibility="gone"
@@ -449,8 +451,8 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/create_item_h_buttom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:id="@+id/selectLocation"
                     android:layout_weight="1"
@@ -466,10 +468,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:visibility="gone"
@@ -488,8 +490,8 @@
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/create_item_h_buttom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:id="@+id/crimePurpose"
                     android:layout_weight="1"

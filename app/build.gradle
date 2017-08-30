@@ -15,8 +15,8 @@ android {
         applicationId "com.android.csiapp"
         minSdkVersion 21
         targetSdkVersion 21
-        versionCode 1702211298
-        versionName "1.2.0"
+        versionCode 1702211299
+        versionName "1.2.1"
     }
     buildTypes {
         release {
