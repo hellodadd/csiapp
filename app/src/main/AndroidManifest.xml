@@ -20,6 +20,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name="CsiApplication"
@@ -168,6 +169,11 @@
             android:value="5d1714e4a82d5b185fd043188b0459e1" />
 
         <activity android:name=".Crime.listscene.ListReportSceneActivity"></activity>
+
+        <!-- Application ID 有sand和prod之分，在开发时使用sand，正式上线时切换为prod，另外需要在Web控制台进行部署到上次环境操作 -->
+        <meta-data android:name="com.droi.sdk.application_id" android:value="anltmbzheqKjkrDAw6fB-9hTijOWIyYFlQAAfB4Q" />
+        <!-- ChannelName 为开发者自定义的渠道名称 -->
+        <meta-data android:name="com.droi.sdk.channel_name" android:value="csi" />
     </application>
 
 </manifest>

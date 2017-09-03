@@ -15,8 +15,8 @@ android {
         applicationId "com.android.csiapp"
         minSdkVersion 21
         targetSdkVersion 21
-        versionCode 1702211299
-        versionName "1.2.1"
+        versionCode 1702211300
+        versionName "1.2.2"
     }
     buildTypes {
         release {
@@ -52,6 +52,17 @@ dependencies {
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/AMap3DMap_4.1.1_AMapLocation_3.0.0_20161019.jar')
     provided files(getLayoutLibPath())
+
+    // 使用APT工具产生辅助程序代码，需要使用Annotation Process Tool功能时添加，非必要
+    //apt 'com.droi.sdk:annotationprocessor:1.0.3428'
+    // DroiCore SDK使用的3rd http函数库
+    // Core SDK从1.1.3893开始要求OkHttp3版本为3.8.0(含)以上
+    //compile 'com.squareup.okhttp3:okhttp:3.8.0'
+    //support-v4 做6.0权限判断
+    //compile 'com.android.support:support-v4:25.3.1'
+    // DroiCore SDK
+    compile 'com.droi.sdk:Core:+'
+    compile 'com.droi.sdk:selfupdate:+'
 }
 
 def getLayoutLibPath() {

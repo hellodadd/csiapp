@@ -15,6 +15,8 @@ import com.android.csiapp.Databases.CrimeProvider;
 import com.android.csiapp.LauncherPreference;
 import com.android.csiapp.R;
 import com.android.csiapp.WebServiceTransmission.WebService;
+import com.droi.sdk.selfupdate.DroiUpdate;
+import com.droi.sdk.selfupdate.UpdateUIStyle;
 
 /**
  * Created by server on 17-8-23.
@@ -154,8 +156,15 @@ public class SettingActivityNew extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             //Toast.makeText(SettingActivity.this, "网路数据功能尚未完成", Toast.LENGTH_SHORT).show();
-            WebService webService = new WebService(mContext);
-            webService.AppUpdate(mProgressView, mSettingFormView);
+            //WebService webService = new WebService(mContext);
+            //webService.AppUpdate(mProgressView, mSettingFormView);
+            DroiUpdate.setApiKey("eXbZCAY0RbZUMuCx_YAvlXNwPPn-Fm83x_bxtxp5Jj7NKz9Wjr9z37iDEaYzU8CE");
+            DroiUpdate.manualUpdate(mContext);
+            DroiUpdate.setUpdateOnlyWifi(false);
+            DroiUpdate.setUpdateAutoPopup(true);
+            DroiUpdate.setUpdateUIStyle(UpdateUIStyle.STYLE_BOTH);
+            DroiUpdate.setUpdateListener(null);
+
         }
     };
 

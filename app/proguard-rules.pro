@@ -15,3 +15,14 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+
+-dontwarn com.droi.sdk.**
+-dontwarn okio.**
+-dontwarn okhttp3.**
+-keep class com.droi.sdk.** { *; }
+-keep interface com.droi.sdk.** { *; }
+-keep class com.tyd.aidlservice.internal.** { *; }
+-keep interface com.tyd.aidlservice.internal.** { *; }
+-keep class * extends com.droi.sdk.core.DroiObject { @com.droi.sdk.core.DroiExpose *; @com.droi.sdk.core.DroiReference *;}
+-keep class * extends com.droi.sdk.core.DroiUser { @com.droi.sdk.core.DroiExpose *; @com.droi.sdk.core.DroiReference *;}

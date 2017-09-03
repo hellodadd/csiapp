@@ -9,12 +9,20 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
+        // 需要使用Annotation Process Tool功能时添加
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+
+        // DroiCore SDK来源地址
+        maven {
+            url "https://github.com/DroiBaaS/DroiBaaS-SDK-Android/raw/master/"
+        }
     }
 }
 
