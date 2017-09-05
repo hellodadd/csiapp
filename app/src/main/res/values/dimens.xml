@@ -14,7 +14,7 @@
     <dimen name="create_vp7_textsize">16dp</dimen>
     <dimen name="create_vp8_textsize">16dp</dimen>
     <dimen name="create_item_textsize">24px</dimen>
-    <dimen name="list_textsize">24px</dimen>
+    <dimen name="list_textsize">16dp</dimen>
     <dimen name="list_margin">16dp</dimen>
     <dimen name="create_item2_w_buttom">200dp</dimen>
     <dimen name="create_item2_h_buttom">40dp</dimen>

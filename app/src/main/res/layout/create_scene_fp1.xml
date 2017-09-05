@@ -629,12 +629,12 @@
 
                             <Button
                                 android:id="@+id/occurred_start_time_button"
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
+                                android:layout_width="24px"
+                                android:layout_height="14px"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginRight="24dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/dropdown2"/>
+                                android:background="@drawable/dropdown"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -671,12 +671,12 @@
 
                         <Button
                             android:id="@+id/occurred_end_time_button"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="24px"
+                            android:layout_height="14px"
                             android:layout_marginLeft="8dp"
                             android:layout_marginRight="24dp"
                             android:layout_gravity="center"
-                            android:background="@drawable/dropdown2"/>
+                            android:background="@drawable/dropdown"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -715,12 +715,12 @@
 
                         <Button
                             android:id="@+id/get_access_time_button"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="24px"
+                            android:layout_height="14px"
                             android:layout_marginLeft="8dp"
                             android:layout_marginRight="24dp"
                             android:layout_gravity="center"
-                            android:background="@drawable/dropdown2" />
+                            android:background="@drawable/dropdown" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -839,12 +839,12 @@
 
                         <Button
                             android:id="@+id/access_start_time_button"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="24px"
+                            android:layout_height="14px"
                             android:layout_marginLeft="8dp"
                             android:layout_marginRight="24dp"
                             android:layout_gravity="center"
-                            android:background="@drawable/dropdown2" />
+                            android:background="@drawable/dropdown" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -883,12 +883,12 @@
 
                         <Button
                             android:id="@+id/access_end_time_button"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="24px"
+                            android:layout_height="14px"
                             android:layout_marginLeft="8dp"
                             android:layout_marginRight="24dp"
                             android:layout_gravity="center"
-                            android:background="@drawable/dropdown2" />
+                            android:background="@drawable/dropdown" />
                     </LinearLayout>
 
                     <LinearLayout

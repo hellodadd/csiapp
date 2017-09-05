@@ -456,6 +456,12 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         mGet_access_button.setOnClickListener(this);
         mAccess_start_button.setOnClickListener(this);
         mAccess_end_button.setOnClickListener(this);
+
+        mOccurred_start_time.setOnClickListener(this);
+        mOccurred_end_time.setOnClickListener(this);
+        mGet_access_time.setOnClickListener(this);
+        mAccess_start_time.setOnClickListener(this);
+        mAccess_end_time.setOnClickListener(this);
     }
 
     private void initData(){
@@ -589,18 +595,23 @@ public class CreateScene_FP1 extends Fragment implements View.OnClickListener {
         releaseFocusEditText();
         switch (v.getId()) {
             case R.id.occurred_start_time_button:
+            case R.id.occurred_start_time:
                 showDateTimeDialog(mOccurred_start_time,1);
                 break;
             case R.id.occurred_end_time_button:
+            case R.id.occurred_end_time:
                 showDateTimeDialog(mOccurred_end_time,2);
                 break;
             case R.id.get_access_time_button:
+            case R.id.get_access_time:
                 showDateTimeDialog(mGet_access_time,3);
                 break;
             case R.id.access_start_time_button:
+            case R.id.access_start_time:
                 showDateTimeDialog(mAccess_start_time,4);
                 break;
             case R.id.access_end_time_button:
+            case R.id.access_end_time:
                 showDateTimeDialog(mAccess_end_time,5);
                 break;
             case R.id.caseOccurProcess_button:

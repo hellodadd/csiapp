@@ -151,6 +151,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         mBirthday = (TextView) findViewById(R.id.birthday_date);
         mBirthday_button = (Button) findViewById(R.id.birthday_date_button);
         mBirthday_button.setOnClickListener(this);
+        mBirthday.setOnClickListener(this);
 
         mImage = (ImageView) findViewById(R.id.image);
         mBtn = (Button) findViewById(R.id.btn);
@@ -253,6 +254,7 @@ public class CreateScene_FP8_AddWitnessActivity extends AppCompatActivity implem
         releaseFocusEditText();
         switch (v.getId()) {
             case R.id.birthday_date_button:
+            case R.id.birthday_date:
                 showDateTimeDialog(mBirthday);
                 break;
             default:

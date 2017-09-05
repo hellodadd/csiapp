@@ -250,6 +250,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         mTime = (TextView) findViewById(R.id.time);
         mTime_button = (Button) findViewById(R.id.time_button);
         mTime_button.setOnClickListener(this);
+        mTime.setOnClickListener(this);
 
         mGetPeopleText = (TextView) findViewById(R.id.getPeople);
         mGetPeopleText.setOnClickListener(new View.OnClickListener(){
@@ -361,6 +362,7 @@ public class CreateScene_FP5_NewEvidenceActivity extends AppCompatActivity imple
         releaseFocusEditText();
         switch (v.getId()) {
             case R.id.time_button:
+            case R.id.time:
                 showDateTimeDialog(mTime);
                 break;
             default:

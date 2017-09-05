@@ -17,12 +17,12 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/toolbar"
+        android:background="#F7F7F7"
         android:isScrollContainer="false">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#F7F7F7">
+            android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="match_parent"
@@ -34,6 +34,7 @@
                 android:paddingLeft="16dp"
                 android:paddingBottom="16dp"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:visibility="gone"
                 android:background="#FFFFFF"/>
 
             <ImageView
@@ -49,13 +50,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:layout_marginLeft="15dp"
                 android:orientation="horizontal"
                 android:background="#FFFFFF">
 
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/red_60dp"
+                    android:layout_marginRight="@dimen/create_item_margin_right"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/evidence_type"
+                    android:textSize="@dimen/create_vp2_textsize"
+                    android:textColor="#FF999999" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#FFFF0000"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <RadioGroup
@@ -72,6 +90,7 @@
                         android:textSize="@dimen/create_vp2_textsize"
                         android:id="@+id/radioFfShouyin"
                         android:text="手印"
+                        android:textColor="#ff3e3e3e"
                         android:checked="true">
                     </RadioButton>
                     <RadioButton
@@ -80,6 +99,7 @@
                         android:gravity="center"
                         android:textSize="@dimen/create_vp2_textsize"
                         android:id="@+id/radioFfFoot"
+                        android:textColor="#ff3e3e3e"
                         android:text="足迹">
                     </RadioButton>
                     <RadioButton
@@ -88,6 +108,7 @@
                         android:gravity="center"
                         android:textSize="@dimen/create_vp2_textsize"
                         android:id="@+id/radioFfGongHen"
+                        android:textColor="#ff3e3e3e"
                         android:text="工痕">
                     </RadioButton>
                     <RadioButton
@@ -96,6 +117,7 @@
                         android:gravity="center"
                         android:textSize="@dimen/create_vp2_textsize"
                         android:id="@+id/radioFfElse"
+                        android:textColor="#ff3e3e3e"
                         android:text="其他">
                     </RadioButton>
                 </RadioGroup>
@@ -106,10 +128,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:layout_marginLeft="15dp"
                 android:orientation="horizontal"
                 android:background="#FFFFFF">
 
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/red_60dp"
@@ -122,6 +146,13 @@
                     android:gravity="center"
                     android:text="@string/evidence_hand"
                     android:textSize="@dimen/create_vp5_textsize"
+                    android:textColor="#FF999999" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#FFFF0000"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
@@ -136,8 +167,9 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="8dp"
                     android:clickable="true"
+                    android:textColor="#ff3e3e3e"
                     android:drawableRight="@drawable/dropdown"
-                    android:background="@drawable/select_shape"/>
+                    android:background="@drawable/input_bg"/>
 
                 <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/other_evidence"
@@ -154,10 +186,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:layout_marginLeft="15dp"
                 android:orientation="horizontal"
                 android:background="#FFFFFF">
 
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/red_60dp"
@@ -169,6 +203,13 @@
                     android:gravity="center"
                     android:text="@string/evidence_name"
                     android:textSize="@dimen/create_vp5_textsize"
+                    android:textColor="#FF999999" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#FFFF0000"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <com.android.csiapp.Crime.utils.ClearableEditText
@@ -178,6 +219,7 @@
                     android:layout_gravity="center"
                     android:hint="@string/name"
                     android:singleLine="true"
+                    android:textColor="#ff3e3e3e"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
@@ -185,10 +227,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:layout_marginLeft="15dp"
                 android:orientation="horizontal"
                 android:background="#FFFFFF">
 
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/red_60dp"
@@ -200,6 +244,13 @@
                     android:gravity="center"
                     android:text="@string/legacy_site"
                     android:textSize="@dimen/create_vp5_textsize"
+                    android:textColor="#FF999999" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#FFFF0000"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <com.android.csiapp.Crime.utils.ClearableEditText
@@ -208,6 +259,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:singleLine="true"
+                    android:textColor="#ff3e3e3e"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
@@ -215,10 +267,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:layout_marginLeft="15dp"
                 android:orientation="horizontal"
                 android:background="#FFFFFF">
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/basicFeatureLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -231,6 +285,7 @@
                     android:gravity="center"
                     android:text="@string/basic_feature"
                     android:textSize="@dimen/create_vp5_textsize"
+                    android:textColor="#FF999999"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <com.android.csiapp.Crime.utils.ClearableEditText
@@ -239,6 +294,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:singleLine="true"
+                    android:textColor="#ff3e3e3e"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
             </LinearLayout>
 
@@ -285,10 +341,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:layout_marginLeft="15dp"
                 android:orientation="horizontal"
                 android:background="#FFFFFF">
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/methodLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -301,6 +359,7 @@
                     android:gravity="center"
                     android:text="@string/extraction_method"
                     android:textSize="@dimen/create_vp5_textsize"
+                    android:textColor="#FF999999"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
@@ -315,8 +374,9 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="8dp"
                     android:clickable="true"
+                    android:textColor="#ff3e3e3e"
                     android:drawableRight="@drawable/dropdown"
-                    android:background="@drawable/select_shape"/>
+                    android:background="@drawable/input_bg"/>
 
                 <com.android.csiapp.Crime.utils.ClearableEditText
                     android:id="@+id/other_method"
@@ -333,10 +393,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:layout_marginLeft="15dp"
                 android:orientation="horizontal"
                 android:background="#FFFFFF">
 
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/red_60dp"
@@ -347,7 +409,14 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/extraction_time"
-                    android:textSize="@dimen/create_vp5_textsize"
+                    android:textColor="#FF999999"
+                    android:textSize="@dimen/create_vp5_textsize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#FFFF0000"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
@@ -356,12 +425,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="@dimen/create_item_textsize"
+                    android:textColor="#ff3e3e3e"
                     android:layout_weight="1"/>
 
                 <Button
                     android:id="@+id/time_button"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="24px"
+                    android:layout_height="14px"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="24dp"
                     android:layout_gravity="center"
@@ -372,10 +442,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:layout_marginLeft="15dp"
                 android:orientation="horizontal"
                 android:background="#FFFFFF">
 
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/red_60dp"
@@ -387,6 +459,13 @@
                     android:gravity="center"
                     android:text="@string/extraction_people"
                     android:textSize="@dimen/create_vp5_textsize"
+                    android:textColor="#FF999999" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#FFFF0000"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
@@ -401,8 +480,9 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="8dp"
                     android:clickable="true"
+                    android:textColor="#ff3e3e3e"
                     android:drawableRight="@drawable/dropdown"
-                    android:background="@drawable/select_shape"/>
+                    android:background="@drawable/input_bg"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

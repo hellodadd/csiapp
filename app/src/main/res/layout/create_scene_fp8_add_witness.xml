@@ -175,12 +175,12 @@
 
                 <Button
                     android:id="@+id/birthday_date_button"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="24px"
+                    android:layout_height="14px"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="24dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/dropdown2"/>
+                    android:background="@drawable/dropdown"/>
             </LinearLayout>
 
             <LinearLayout
