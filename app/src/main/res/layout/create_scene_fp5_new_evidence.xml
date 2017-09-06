@@ -303,11 +303,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/create_item_h_buttom"
                 android:layout_marginBottom="@dimen/create_item_margin_bottom"
+                android:layout_marginLeft="15dp"
                 android:orientation="horizontal"
                 android:background="#FFFFFF"
                 android:visibility="gone">
 
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/red_60dp"
@@ -319,6 +321,13 @@
                     android:gravity="center"
                     android:text="@string/infer"
                     android:textSize="@dimen/create_vp5_textsize"
+                    android:textColor="#FF999999" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#FFFF0000"
                     android:layout_marginRight="@dimen/create_item_margin_right"/>
 
                 <TextView
@@ -333,8 +342,9 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="8dp"
                     android:clickable="true"
+                    android:textColor="#ff3e3e3e"
                     android:drawableRight="@drawable/dropdown"
-                    android:background="@drawable/select_shape"/>
+                    android:background="@drawable/input_bg"/>
             </LinearLayout>
 
             <LinearLayout
